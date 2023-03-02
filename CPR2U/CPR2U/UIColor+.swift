@@ -14,7 +14,7 @@ extension UIColor {
             green: CGFloat((rgb >> 8) & 0xFF),
             blue: CGFloat(rgb & 0xFF), alpha: 1
            )
-       }
+    }
     
     static let white = UIColor(rgb: 0xFFF6F6)
     
