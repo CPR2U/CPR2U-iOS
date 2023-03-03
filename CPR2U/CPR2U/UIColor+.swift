@@ -17,11 +17,11 @@ extension UIColor {
            )
     }
     
-    static let white = UIColor(rgb: 0xFFF6F6)
+    static let mainWhite = UIColor(rgb: 0xFFF6F6)
     
-    static let black = UIColor(rgb: 0x19191B)
-    static let darkGray = UIColor(rgb: 0x595959)
-    static let lightGray = UIColor(rgb: 0xD9D9D9)
+    static let mainBlack = UIColor(rgb: 0x19191B)
+    static let mainDarkGray = UIColor(rgb: 0x595959)
+    static let mainLightGray = UIColor(rgb: 0xD9D9D9)
     
     static let mainDarkRed = UIColor(rgb: 0xB50000)
     static let mainRed = UIColor(rgb: 0xF74346)
