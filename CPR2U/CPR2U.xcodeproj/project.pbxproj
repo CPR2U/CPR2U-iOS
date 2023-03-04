@@ -20,6 +20,7 @@
 		3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */; };
 		3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */; };
 		3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */; };
+		3AA636DD29B37A11006BB5EF /* UIView+showToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeVertificationViewController.swift; sourceTree = "<group>"; };
 		3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeInputView.swift; sourceTree = "<group>"; };
 		3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameVertificationViewController.swift; sourceTree = "<group>"; };
+		3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+showToastMessage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
 				3AA636C129B07C5F006BB5EF /* UIColor+.swift */,
 				3AA636D229B24D72006BB5EF /* UIFont+.swift */,
+				3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */,
 			);
 			path = CPR2U;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			files = (
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
+				3AA636DD29B37A11006BB5EF /* UIView+showToastMessage.swift in Sources */,
 				3AA636B229AE5055006BB5EF /* ViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
