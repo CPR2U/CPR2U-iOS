@@ -17,6 +17,7 @@
 		3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636C729B08402006BB5EF /* NotoSans-Regular.ttf */; };
 		3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636CC29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift */; };
 		3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D229B24D72006BB5EF /* UIFont+.swift */; };
+		3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		3AA636C729B08402006BB5EF /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.ttf"; sourceTree = "<group>"; };
 		3AA636CC29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberVertificationViewController.swift; sourceTree = "<group>"; };
 		3AA636D229B24D72006BB5EF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */,
 				3AA636B129AE5055006BB5EF /* ViewController.swift */,
 				3AA636CC29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift */,
+				3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */,
 				3AA636B629AE5057006BB5EF /* Assets.xcassets */,
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA636B229AE5055006BB5EF /* ViewController.swift in Sources */,
+				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
