@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIColor {
+    
     convenience init(rgb: Int) {
            self.init(
             red: CGFloat((rgb >> 16) & 0xFF) / 255.0,
@@ -29,4 +30,5 @@ extension UIColor {
     
     static let subOrange = UIColor(rgb: 0xFC7037)
     static let subPink = UIColor(rgb: 0xFF0050)
+    
 }

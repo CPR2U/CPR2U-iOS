@@ -9,25 +9,35 @@
 /* Begin PBXBuildFile section */
 		3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AD29AE5055006BB5EF /* AppDelegate.swift */; };
 		3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */; };
-		3AA636B229AE5055006BB5EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636B129AE5055006BB5EF /* ViewController.swift */; };
 		3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636B629AE5057006BB5EF /* Assets.xcassets */; };
 		3AA636BA29AE5057006BB5EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */; };
 		3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636C129B07C5F006BB5EF /* UIColor+.swift */; };
 		3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636C629B08402006BB5EF /* NotoSans-Bold.ttf */; };
 		3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636C729B08402006BB5EF /* NotoSans-Regular.ttf */; };
+		3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636CC29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift */; };
+		3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D229B24D72006BB5EF /* UIFont+.swift */; };
+		3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */; };
+		3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */; };
+		3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */; };
+		3AA636DD29B37A11006BB5EF /* UIView+showToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3AA636AA29AE5055006BB5EF /* CPR2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPR2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA636AD29AE5055006BB5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3AA636B129AE5055006BB5EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3AA636B629AE5057006BB5EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AA636B929AE5057006BB5EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AA636BB29AE5057006BB5EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AA636C129B07C5F006BB5EF /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		3AA636C629B08402006BB5EF /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
 		3AA636C729B08402006BB5EF /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.ttf"; sourceTree = "<group>"; };
+		3AA636CC29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberVertificationViewController.swift; sourceTree = "<group>"; };
+		3AA636D229B24D72006BB5EF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeVertificationViewController.swift; sourceTree = "<group>"; };
+		3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeInputView.swift; sourceTree = "<group>"; };
+		3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameVertificationViewController.swift; sourceTree = "<group>"; };
+		3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+showToastMessage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,14 +70,16 @@
 		3AA636AC29AE5055006BB5EF /* CPR2U */ = {
 			isa = PBXGroup;
 			children = (
+				3AA636DE29B37E04006BB5EF /* Login */,
 				3AA636C329B0835D006BB5EF /* Fonts */,
 				3AA636AD29AE5055006BB5EF /* AppDelegate.swift */,
 				3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */,
-				3AA636B129AE5055006BB5EF /* ViewController.swift */,
 				3AA636B629AE5057006BB5EF /* Assets.xcassets */,
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
 				3AA636C129B07C5F006BB5EF /* UIColor+.swift */,
+				3AA636D229B24D72006BB5EF /* UIFont+.swift */,
+				3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */,
 			);
 			path = CPR2U;
 			sourceTree = "<group>";
@@ -79,6 +91,25 @@
 				3AA636C729B08402006BB5EF /* NotoSans-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3AA636DE29B37E04006BB5EF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3AA636DF29B37E21006BB5EF /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		3AA636DF29B37E21006BB5EF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3AA636CC29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift */,
+				3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */,
+				3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */,
+				3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,9 +184,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AA636B229AE5055006BB5EF /* ViewController.swift in Sources */,
+				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
+				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
+				3AA636DD29B37A11006BB5EF /* UIView+showToastMessage.swift in Sources */,
+				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
+				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
+				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
