@@ -30,7 +30,6 @@ class SMSCodeVertificationViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpText()
-        
     }
     
     private func setUpConstraints() {
@@ -113,6 +112,7 @@ class SMSCodeVertificationViewController: UIViewController {
             codeResendLabel.heightAnchor.constraint(equalToConstant: 24),
             
         ])
+        
         NSLayoutConstraint.activate([
             confirmButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
             confirmButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),

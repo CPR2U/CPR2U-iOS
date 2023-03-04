@@ -57,4 +57,5 @@ final class SMSCodeInputView: UIView {
         smsCodeTextField.textColor = UIColor(rgb: 0xAC6767)
         smsCodeTextField.textAlignment = .center
     }
+    
 }

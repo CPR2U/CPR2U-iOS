@@ -12,6 +12,7 @@ enum FontWeight {
 }
 
 extension UIFont {
+    
     convenience init?(weight: FontWeight, size: CGFloat) {
         switch weight {
         case .bold:
@@ -20,4 +21,5 @@ extension UIFont {
             self.init(name: "NotoSans-Regular", size: size)
         }
     }
+    
 }
