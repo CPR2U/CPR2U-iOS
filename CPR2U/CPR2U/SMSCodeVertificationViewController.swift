@@ -131,7 +131,7 @@ class SMSCodeVertificationViewController: UIViewController {
         phoneNumberLabel.textAlignment = .left
         phoneNumberLabel.textColor = .mainBlack
         
-        codeResendLabel.font = UIFont(weight: .regular, size: 17)
+        codeResendLabel.font = UIFont(weight: .regular, size: 14)
         codeResendLabel.textAlignment = .right
         codeResendLabel.textColor = .mainRed
         
