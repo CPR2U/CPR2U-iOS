@@ -38,6 +38,12 @@ final class NicknameVertificationViewController: UIViewController {
         setUpStyle()
         setUpText()
         
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.view.showToastMessage(nickname: "HeartBeatingS2")
+        }
+        
+        
     }
     
     private func setUpConstraints() {
