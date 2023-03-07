@@ -27,6 +27,22 @@ final class SMSCodeVertificationViewController: UIViewController {
     
     private var confirmButtonBottomConstraints = NSLayoutConstraint()
     
+    private var smsCodeCheckArr = Array(repeating: false, count: 4) {
+        willSet(newValue) {
+            newValue.map({
+                if $0 == true {
+                    print("hii?")
+                    confirmButton.setTitleColor(.mainWhite, for: .normal)
+                    confirmButton.backgroundColor = .mainRed
+                    confirmButton.isUserInteractionEnabled = true
+                } else {
+                    confirmButton.setTitleColor(.mainBlack, for: .normal)
+                    confirmButton.backgroundColor = .mainLightGray
+                    confirmButton.isUserInteractionEnabled = false
+                }
+            })
+        }
+    }
     private var cancellables = Set<AnyCancellable>()
     
     init(phoneNumberString: String) {
@@ -47,7 +63,7 @@ final class SMSCodeVertificationViewController: UIViewController {
         setUpDelegate()
         setUpAction()
         setUpKeyboard()
-        sink()
+        bind()
     }
     
     private func setUpConstraints() {
@@ -158,9 +174,10 @@ final class SMSCodeVertificationViewController: UIViewController {
         codeResendLabel.textColor = .mainRed
         
         confirmButton.titleLabel?.font = UIFont(weight: .bold, size: 16)
-        confirmButton.setTitleColor(.mainWhite, for: .normal)
-        confirmButton.backgroundColor = .mainRed
+        confirmButton.setTitleColor(.mainBlack, for: .normal)
+        confirmButton.backgroundColor = .mainLightGray
         confirmButton.layer.cornerRadius = 27.5
+        confirmButton.isUserInteractionEnabled = false
     }
     
     private func setUpText() {
@@ -168,7 +185,6 @@ final class SMSCodeVertificationViewController: UIViewController {
         descriptionLabel.text = "An SMS code was sent to"
         
         phoneNumberLabel.text = phoneNumberString
-        print(phoneNumberString)
         codeResendLabel.text = "Not receiveing the code?"
         confirmButton.setTitle("CONFIRM", for: .normal)
     }
@@ -190,7 +206,7 @@ final class SMSCodeVertificationViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    private func sink() {
+    private func bind() {
         let smsCodeViews = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
         
         for index in 0...3 {
@@ -200,6 +216,7 @@ final class SMSCodeVertificationViewController: UIViewController {
                         smsCodeViews[(index+1)].smsCodeTextField.becomeFirstResponder()
                         smsCodeViews[(index+1)].smsCodeTextField.text = ""
                     }
+                    self.smsCodeCheckArr[index] = true
                 } else if $0.count > 1 && index == 3 {
                     smsCodeViews[(index)].smsCodeTextField.text?.removeFirst()
                 }
