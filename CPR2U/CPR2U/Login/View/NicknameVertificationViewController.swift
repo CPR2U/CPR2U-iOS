@@ -204,6 +204,8 @@ final class NicknameVertificationViewController: UIViewController {
                 }
             }
             nicknameStatus = .none
+        } else {
+            nicknameStatus = .none
         }
        
     }
