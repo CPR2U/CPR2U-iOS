@@ -21,6 +21,7 @@
 		3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */; };
 		3AA636DD29B37A11006BB5EF /* UIView+showToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */; };
 		3AA636EB29B5B30D006BB5EF /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636EA29B5B30D006BB5EF /* TestViewController.swift */; };
+		3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F429B61D67006BB5EF /* UIViewController+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameVertificationViewController.swift; sourceTree = "<group>"; };
 		3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+showToastMessage.swift"; sourceTree = "<group>"; };
 		3AA636EA29B5B30D006BB5EF /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		3AA636F429B61D67006BB5EF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
 				3AA636C129B07C5F006BB5EF /* UIColor+.swift */,
 				3AA636D229B24D72006BB5EF /* UIFont+.swift */,
+				3AA636F429B61D67006BB5EF /* UIViewController+.swift */,
 				3AA636DC29B37A11006BB5EF /* UIView+showToastMessage.swift */,
 			);
 			path = CPR2U;
@@ -187,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3AA636EB29B5B30D006BB5EF /* TestViewController.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
