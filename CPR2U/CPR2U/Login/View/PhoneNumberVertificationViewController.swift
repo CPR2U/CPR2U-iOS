@@ -5,6 +5,7 @@
 //  Created by 황정현 on 2023/03/02.
 //
 
+import Combine
 import UIKit
 
 final class PhoneNumberVertificationViewController: UIViewController {
@@ -19,13 +20,20 @@ final class PhoneNumberVertificationViewController: UIViewController {
     
     private let sendButton = UIButton()
     
+    private var sendButtonBottomConstraints = NSLayoutConstraint()
+    
+    private var cancellables = Set<AnyCancellable>()
+    private let viewModel = VertificationViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpConstraints()
         setUpStyle()
         setUpText()
-        
+        setUpAction()
+        setUpKeyboard()
+        bind(to: viewModel)
     }
     
     private func setUpConstraints() {
@@ -98,15 +106,19 @@ final class PhoneNumberVertificationViewController: UIViewController {
             phoneNumberTextField.heightAnchor.constraint(equalTo: phoneNumberView.heightAnchor)
         ])
 
+        sendButtonBottomConstraints = sendButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16)
         NSLayoutConstraint.activate([
             sendButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
             sendButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
-            sendButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16),
+            sendButtonBottomConstraints,
             sendButton.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
     private func setUpStyle() {
+        
+        view.backgroundColor = .white
+        
         instructionLabel.font = UIFont(weight: .bold, size: 24)
         instructionLabel.textColor = .mainBlack
         descriptionLabel.font = UIFont(weight: .regular, size: 14)
@@ -130,8 +142,8 @@ final class PhoneNumberVertificationViewController: UIViewController {
         phoneNumberTextField.font = UIFont(weight: .regular, size: 16)
         
         sendButton.titleLabel?.font = UIFont(weight: .bold, size: 16)
-        sendButton.setTitleColor(.mainWhite, for: .normal)
-        sendButton.backgroundColor = .mainRed
+        sendButton.setTitleColor(.mainBlack, for: .normal)
+        sendButton.backgroundColor = .mainLightGray
         sendButton.layer.cornerRadius = 27.5
     }
     
@@ -145,4 +157,52 @@ final class PhoneNumberVertificationViewController: UIViewController {
         sendButton.setTitle("SEND", for: .normal)
     }
 
+    private func setUpAction() {
+        sendButton.addTarget(self, action: #selector(navigateToSMSCodeVertificationPage), for: .touchUpInside)
+    }
+    
+    private func setUpKeyboard() {
+        phoneNumberTextField.becomeFirstResponder()
+        phoneNumberTextField.keyboardType = .numberPad
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        hideKeyboardWhenTappedAround()
+    }
+    
+    @objc func navigateToSMSCodeVertificationPage() {
+        guard let phoneNumberString = phoneNumberTextField.text else { return }
+        navigationController?.pushViewController(SMSCodeVertificationViewController(phoneNumberString: "+82\(phoneNumberString)"), animated: true)
+    }
+    
+    private func bind(to viewModel: VertificationViewModel) {
+        let input = VertificationViewModel.Input(
+            vertifier: phoneNumberTextField.textPublisher.eraseToAnyPublisher()
+        )
+
+        let output = viewModel.transform(loginPhase: LoginPhase.PhoneNumber, input: input)
+
+        output
+            .buttonIsValid
+            .sink(receiveValue: { [weak self] state in
+                print(state)
+                self?.sendButton.isEnabled = state
+                self?.sendButton.setTitleColor(state ? .mainWhite : .mainBlack, for: .normal)
+                self?.sendButton.backgroundColor = state ? .mainRed : .mainLightGray
+            })
+            .store(in: &cancellables)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+
+            sendButtonBottomConstraints.constant = -keyboardHeight
+            view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        sendButtonBottomConstraints.constant = -16
+        view.layoutIfNeeded()
+    }
 }
