@@ -169,6 +169,7 @@ final class NicknameVertificationViewController: UIViewController {
     private func setUpText() {
         instructionLabel.text = "Enter your Nickname"
         descriptionLabel.text = "People can recognize you by your nickname"
+        continueButton.setTitle("CONTINUE", for: .normal)
         
         nicknameTextField.placeholder = "Nickname*"
     }
