@@ -117,7 +117,7 @@ final class PhoneNumberVertificationViewController: UIViewController {
     
     private func setUpStyle() {
         
-        view.backgroundColor = .mainWhite
+        view.backgroundColor = .white
         
         instructionLabel.font = UIFont(weight: .bold, size: 24)
         instructionLabel.textColor = .mainBlack
