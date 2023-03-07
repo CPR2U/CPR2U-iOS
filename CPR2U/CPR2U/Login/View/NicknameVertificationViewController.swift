@@ -7,19 +7,42 @@
 
 import UIKit
 
-final class NicknameVertificationViewController: UIViewController {
-
-    private var isRegular = true {
-        willSet(newValue) {
-            if newValue == true {
-                nicknameView.layer.borderColor = UIColor(rgb:0xF2F2F2).cgColor
-                irregularNoticeLabel.isHidden = true
-            } else {
-                nicknameView.layer.borderColor = UIColor.mainRed.cgColor
-                irregularNoticeLabel.isHidden = false
-            }
+enum NicknameStatus {
+    case specialCharacters
+    case unavailable
+    case available
+    case none
+    
+    func changeNoticeLabel(noticeLabel: UILabel, nickname: String?) {
+        
+        let name = nickname ?? ""
+        var str: String
+        switch self {
+        case .specialCharacters:
+            str = "Nickname cannot contain special characters"
+        case .unavailable:
+            str = "\'\(name)' is Unavailable"
+        case .available:
+            str = "\'\(name)' is available"
+        case .none:
+            str = ""
+        }
+        
+        noticeLabel.text = str
+        
+    }
+    
+    func changeNoticeViewLayerBorderColor(view: UIView) {
+        if self == .unavailable {
+            view.layer.borderColor = UIColor.mainRed.cgColor
+        } else {
+            view.layer.borderColor = UIColor(rgb:0xF2F2F2).cgColor
         }
     }
+}
+
+final class NicknameVertificationViewController: UIViewController {
+
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
     
@@ -27,9 +50,18 @@ final class NicknameVertificationViewController: UIViewController {
     private let nicknameTextField = UITextField()
     
     private let irregularNoticeLabel = UILabel()
-    private let availabilityCheckLabel = UILabel()
     
     private let continueButton = UIButton()
+    
+    private var continueButtonBottomConstraints = NSLayoutConstraint()
+    
+    private var availableNickname = ""
+    private var nicknameStatus: NicknameStatus = NicknameStatus.none {
+        willSet(newValue) {
+            newValue.changeNoticeLabel(noticeLabel: irregularNoticeLabel, nickname: nicknameTextField.text)
+            newValue.changeNoticeViewLayerBorderColor(view: nicknameView)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +69,13 @@ final class NicknameVertificationViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpText()
+        setUpAction()
+        setUpKeyboard()
         
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.view.showToastMessage(nickname: "HeartBeatingS2")
-        }
-        
-        
+        // MARK: TESTCODE
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            self.view.showToastMessage(nickname: "HeartBeatingS2")
+//        }
     }
     
     private func setUpConstraints() {
@@ -59,7 +91,6 @@ final class NicknameVertificationViewController: UIViewController {
             descriptionLabel,
             nicknameView,
             irregularNoticeLabel,
-            availabilityCheckLabel,
             continueButton
         ].forEach({
             view.addSubview($0)
@@ -104,23 +135,19 @@ final class NicknameVertificationViewController: UIViewController {
             irregularNoticeLabel.heightAnchor.constraint(equalToConstant: 16),
         ])
         
-        NSLayoutConstraint.activate([
-            availabilityCheckLabel.topAnchor.constraint(equalTo: irregularNoticeLabel.bottomAnchor, constant: space4),
-            availabilityCheckLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
-            availabilityCheckLabel.widthAnchor.constraint(equalToConstant: 300),
-            availabilityCheckLabel.heightAnchor.constraint(equalToConstant: 20),
-            
-        ])
-        
+        continueButtonBottomConstraints = continueButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16)
         NSLayoutConstraint.activate([
             continueButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
             continueButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
-            continueButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16),
+            continueButtonBottomConstraints,
             continueButton.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
     private func setUpStyle() {
+        
+        view.backgroundColor = .mainWhite
+        
         instructionLabel.font = UIFont(weight: .bold, size: 24)
         instructionLabel.textColor = .mainBlack
         descriptionLabel.font = UIFont(weight: .regular, size: 14)
@@ -137,11 +164,6 @@ final class NicknameVertificationViewController: UIViewController {
         irregularNoticeLabel.font = UIFont(weight: .regular, size: 14)
         irregularNoticeLabel.textAlignment = .left
         irregularNoticeLabel.textColor = .mainRed
-        irregularNoticeLabel.isHidden = true
-        
-        availabilityCheckLabel.font = UIFont(weight: .regular, size: 14)
-        availabilityCheckLabel.textAlignment = .right
-        availabilityCheckLabel.textColor = .mainRed
         
         continueButton.titleLabel?.font = UIFont(weight: .bold, size: 16)
         continueButton.setTitleColor(.mainWhite, for: .normal)
@@ -154,12 +176,64 @@ final class NicknameVertificationViewController: UIViewController {
         descriptionLabel.text = "People can recognize you by your nickname"
         
         nicknameTextField.placeholder = "Nickname*"
+    }
+    
+    private func setUpAction() {
+        nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        continueButton.addTarget(self, action: #selector(continueButtonDidTap), for: .touchUpInside)
+    }
+    
+    private func setUpKeyboard() {
+        nicknameTextField.becomeFirstResponder()
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        hideKeyboardWhenTappedAround()
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let str = textField.text else {
+            print("HIIII")
+            return }
+        let strArr = Array(str)
+        let pattern = "^[a-zA-Z0-9]$"
         
-        irregularNoticeLabel.text = "Nickname cannot contain special characters"
-        let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue]
-        let underlineAttributedString = NSAttributedString(string: "Check Availability", attributes: underlineAttribute)
-        availabilityCheckLabel.attributedText = underlineAttributedString
-        continueButton.setTitle("CONTINUE", for: .normal)
+        if strArr.count > 0 {
+            if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
+                for index in 0..<strArr.count {
+                    let checkString = regex.matches(in: String(strArr[index]), options: [], range: NSRange(location: 0, length: 1))
+                    if checkString.count == 0 {
+                        nicknameStatus = .specialCharacters
+                        return
+                    }
+                }
+            }
+            nicknameStatus = .none
+        }
+       
+    }
+    
+    @objc func continueButtonDidTap() {
+        // TODO: [SERVER API] 닉네임 사용 가능 여부 판별
+        // nickNamseStatus = 서버 API
+        
+        if nicknameStatus == .available {
+            if availableNickname == nicknameTextField.text {
+                dismiss(animated: true)
+            }
+        }
     }
 
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+
+            continueButtonBottomConstraints.constant = -keyboardHeight
+            view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        continueButtonBottomConstraints.constant = -16
+        view.layoutIfNeeded()
+    }
 }
