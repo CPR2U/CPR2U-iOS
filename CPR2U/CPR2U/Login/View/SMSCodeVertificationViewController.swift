@@ -5,14 +5,15 @@
 //  Created by 황정현 on 2023/03/04.
 //
 
+import Combine
 import UIKit
 
-class SMSCodeVertificationViewController: UIViewController {
+final class SMSCodeVertificationViewController: UIViewController {
 
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
     
-    private var phoneNumberString: String?
+    var phoneNumberString: String?
     private let phoneNumberLabel = UILabel()
     
     private let smsCodeInputView1 = SMSCodeInputView()
@@ -24,12 +25,29 @@ class SMSCodeVertificationViewController: UIViewController {
     
     private let confirmButton = UIButton()
     
+    private var confirmButtonBottomConstraints = NSLayoutConstraint()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(phoneNumberString: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.phoneNumberString = phoneNumberString
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpConstraints()
         setUpStyle()
         setUpText()
+        setUpDelegate()
+        setUpAction()
+        setUpKeyboard()
+        sink()
     }
     
     private func setUpConstraints() {
@@ -113,15 +131,19 @@ class SMSCodeVertificationViewController: UIViewController {
             
         ])
         
+        confirmButtonBottomConstraints = confirmButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16)
         NSLayoutConstraint.activate([
             confirmButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
             confirmButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
-            confirmButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16),
+            confirmButtonBottomConstraints,
             confirmButton.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
     private func setUpStyle() {
+        
+        view.backgroundColor = .mainWhite
+        
         instructionLabel.font = UIFont(weight: .bold, size: 24)
         instructionLabel.textColor = .mainBlack
         descriptionLabel.font = UIFont(weight: .regular, size: 14)
@@ -145,10 +167,68 @@ class SMSCodeVertificationViewController: UIViewController {
         instructionLabel.text = "Enter Code"
         descriptionLabel.text = "An SMS code was sent to"
         
-        phoneNumberLabel.text = "+82 01012345678" //phoneNumberString
-        
+        phoneNumberLabel.text = phoneNumberString
+        print(phoneNumberString)
         codeResendLabel.text = "Not receiveing the code?"
         confirmButton.setTitle("CONFIRM", for: .normal)
     }
+    
+    private func setUpDelegate() {
+        [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4].forEach({
+            $0.smsCodeTextField.delegate = self
+        })
+    }
+    
+    private func setUpAction() {
+        confirmButton.addTarget(self, action: #selector(navigateToNicknameVertificationPage), for: .touchUpInside)
+    }
+    
+    private func setUpKeyboard() {
+        smsCodeInputView1.smsCodeTextField.becomeFirstResponder()
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        hideKeyboardWhenTappedAround()
+    }
+    
+    private func sink() {
+        let smsCodeViews = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
+        
+        for index in 0...3 {
+            smsCodeViews[index].smsCodeTextField.textPublisher.sink {
+                if $0.count == 1 {
+                    if index != 3 {
+                        smsCodeViews[(index+1)].smsCodeTextField.becomeFirstResponder()
+                        smsCodeViews[(index+1)].smsCodeTextField.text = ""
+                    }
+                } else if $0.count > 1 && index == 3 {
+                    smsCodeViews[(index)].smsCodeTextField.text?.removeFirst()
+                }
+            }
+            .store(in: &cancellables)
+        }
+    }
+    
+    @objc func navigateToNicknameVertificationPage() {
+        navigationController?.pushViewController(NicknameVertificationViewController(), animated: true)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
 
+            confirmButtonBottomConstraints.constant = -keyboardHeight
+            view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        confirmButtonBottomConstraints.constant = -16
+        view.layoutIfNeeded()
+    }
+}
+
+extension SMSCodeVertificationViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
 }
