@@ -29,15 +29,10 @@ final class SMSCodeVertificationViewController: UIViewController {
     
     private var smsCodeCheckArr = Array(repeating: false, count: 4) {
         willSet(newValue) {
-            if newValue.allSatisfy({$0}) {
-                confirmButton.setTitleColor(.mainWhite, for: .normal)
-                confirmButton.backgroundColor = .mainRed
-                confirmButton.isUserInteractionEnabled = true
-            } else {
-                confirmButton.setTitleColor(.mainBlack, for: .normal)
-                confirmButton.backgroundColor = .mainLightGray
-                confirmButton.isUserInteractionEnabled = false
-            }
+            let status = newValue.allSatisfy({$0})
+            confirmButton.setTitleColor(status ? .mainWhite : .mainBlack, for: .normal)
+            confirmButton.backgroundColor = status ? .mainRed : .mainLightGray
+            confirmButton.isUserInteractionEnabled = status
         }
     }
     
