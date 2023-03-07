@@ -71,11 +71,6 @@ final class NicknameVertificationViewController: UIViewController {
         setUpText()
         setUpAction()
         setUpKeyboard()
-        
-        // MARK: TESTCODE
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            self.view.showToastMessage(nickname: "HeartBeatingS2")
-//        }
     }
     
     private func setUpConstraints() {
