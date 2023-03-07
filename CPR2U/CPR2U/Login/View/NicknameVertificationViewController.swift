@@ -23,7 +23,7 @@ enum NicknameStatus {
         case .unavailable:
             str = "\'\(name)' is Unavailable"
         case .available:
-            str = "\'\(name)' is available"
+            str = ""
         case .none:
             str = ""
         }
@@ -213,8 +213,10 @@ final class NicknameVertificationViewController: UIViewController {
     @objc func continueButtonDidTap() {
         // TODO: [SERVER API] 닉네임 사용 가능 여부 판별
         // nickNamseStatus = 서버 API
-        
+
+        nicknameStatus = .available
         if nicknameStatus == .available {
+            dismiss(animated: true)
             if availableNickname == nicknameTextField.text {
                 dismiss(animated: true)
             }
