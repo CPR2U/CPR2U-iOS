@@ -35,9 +35,6 @@ class VertificationViewModel: ViewModelType {
         let buttonStatePublisher = input.vertifier.map { vertifier in
             vertifier.count > 0
         }.eraseToAnyPublisher()
-            
-            
-
         return Output(buttonIsValid: buttonStatePublisher)
     }
 }

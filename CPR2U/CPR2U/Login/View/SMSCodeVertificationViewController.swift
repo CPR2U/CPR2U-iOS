@@ -40,6 +40,7 @@ final class SMSCodeVertificationViewController: UIViewController {
             }
         }
     }
+    
     private var cancellables = Set<AnyCancellable>()
     
     init(phoneNumberString: String) {
