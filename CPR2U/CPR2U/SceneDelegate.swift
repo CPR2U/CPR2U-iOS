@@ -17,7 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         self.window = window
-        window.rootViewController = PhoneNumberVertificationViewController()
+        
+        let vc = TestViewController()
+        window.rootViewController =  TestViewController()
         window.backgroundColor = .white
         window.makeKeyAndVisible()
     }
