@@ -31,7 +31,6 @@ final class SMSCodeVertificationViewController: UIViewController {
         willSet(newValue) {
             newValue.map({
                 if $0 == true {
-                    print("hii?")
                     confirmButton.setTitleColor(.mainWhite, for: .normal)
                     confirmButton.backgroundColor = .mainRed
                     confirmButton.isUserInteractionEnabled = true
