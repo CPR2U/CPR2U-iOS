@@ -29,17 +29,15 @@ final class SMSCodeVertificationViewController: UIViewController {
     
     private var smsCodeCheckArr = Array(repeating: false, count: 4) {
         willSet(newValue) {
-            newValue.map({
-                if $0 == true {
-                    confirmButton.setTitleColor(.mainWhite, for: .normal)
-                    confirmButton.backgroundColor = .mainRed
-                    confirmButton.isUserInteractionEnabled = true
-                } else {
-                    confirmButton.setTitleColor(.mainBlack, for: .normal)
-                    confirmButton.backgroundColor = .mainLightGray
-                    confirmButton.isUserInteractionEnabled = false
-                }
-            })
+            if newValue.allSatisfy({$0}) {
+                confirmButton.setTitleColor(.mainWhite, for: .normal)
+                confirmButton.backgroundColor = .mainRed
+                confirmButton.isUserInteractionEnabled = true
+            } else {
+                confirmButton.setTitleColor(.mainBlack, for: .normal)
+                confirmButton.backgroundColor = .mainLightGray
+                confirmButton.isUserInteractionEnabled = false
+            }
         }
     }
     private var cancellables = Set<AnyCancellable>()
@@ -59,6 +57,7 @@ final class SMSCodeVertificationViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpText()
+        setUpLayerName()
         setUpDelegate()
         setUpAction()
         setUpKeyboard()
@@ -188,6 +187,12 @@ final class SMSCodeVertificationViewController: UIViewController {
         confirmButton.setTitle("CONFIRM", for: .normal)
     }
     
+    private func setUpLayerName() {
+        let views = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
+        for index in 0..<views.count {
+            views[index].smsCodeTextField.layer.name = "\(index)"
+        }
+    }
     private func setUpDelegate() {
         [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4].forEach({
             $0.smsCodeTextField.delegate = self
@@ -246,5 +251,9 @@ final class SMSCodeVertificationViewController: UIViewController {
 extension SMSCodeVertificationViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = ""
+        guard let textFieldLayerName = textField.layer.name else { return }
+        guard let index = Int(textFieldLayerName) else { return }
+        self.smsCodeCheckArr[index] = false
+                
     }
 }
