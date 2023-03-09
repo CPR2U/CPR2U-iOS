@@ -190,6 +190,12 @@ final class NicknameVertificationViewController: UIViewController {
         guard let str = textField.text else {
             print("HIIII")
             return }
+        guard let str = textField.text else { return }
+        
+        if str.count > 20 {
+            textField.text?.removeLast()
+        }
+        
         let strArr = Array(str)
         let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]$"
         
