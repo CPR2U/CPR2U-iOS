@@ -191,7 +191,7 @@ final class NicknameVertificationViewController: UIViewController {
             print("HIIII")
             return }
         let strArr = Array(str)
-        let pattern = "^[a-zA-Z0-9]$"
+        let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]$"
         
         if strArr.count > 0 {
             if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
