@@ -40,7 +40,7 @@ final class EducationProgressView: UIView {
             annotationLabel.topAnchor.constraint(equalTo: self.topAnchor),
             annotationLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: make.space6),
             annotationLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            annotationLabel.heightAnchor.constraint(equalToConstant: 12)
+            annotationLabel.heightAnchor.constraint(equalToConstant: 14)
         ])
         
         NSLayoutConstraint.activate([
@@ -52,10 +52,10 @@ final class EducationProgressView: UIView {
     }
     
     private func setUpLayout() {
-        annotationLabel.font = UIFont(weight: .regular, size: 8)
+        annotationLabel.font = UIFont(weight: .regular, size: 11)
         annotationLabel.textColor = UIColor(rgb: 0x767676)
         
-        progressView.trackTintColor = .mainLightRed
+        progressView.trackTintColor = .mainLightRed.withAlphaComponent(0.05)
         progressView.progressTintColor = .mainRed
         progressView.layer.borderColor = UIColor.mainRed.cgColor
         progressView.layer.borderWidth = 1

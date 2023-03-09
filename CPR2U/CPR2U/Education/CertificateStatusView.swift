@@ -69,11 +69,11 @@ final class CertificateStatusView: UIView {
             greetingLabel.topAnchor.constraint(equalTo: labelStackView.topAnchor),
             greetingLabel.leadingAnchor.constraint(equalTo: labelStackView.leadingAnchor),
             greetingLabel.trailingAnchor.constraint(equalTo: labelStackView.trailingAnchor),
-            greetingLabel.heightAnchor.constraint(equalToConstant: 14)
+            greetingLabel.heightAnchor.constraint(equalToConstant: 18)
         ])
         
         NSLayoutConstraint.activate([
-            certificateLabel.bottomAnchor.constraint(equalTo: labelStackView.bottomAnchor),
+            certificateLabel.bottomAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: make.space2),
             certificateLabel.leadingAnchor.constraint(equalTo: labelStackView.leadingAnchor),
             certificateLabel.trailingAnchor.constraint(equalTo: labelStackView.trailingAnchor),
             certificateLabel.heightAnchor.constraint(equalToConstant: 22)
@@ -84,16 +84,16 @@ final class CertificateStatusView: UIView {
         self.layer.cornerRadius = 16
         self.layer.borderColor = UIColor.mainRed.cgColor
         self.layer.borderWidth = 1
-        self.backgroundColor = .mainLightRed
+        self.backgroundColor = .mainLightRed.withAlphaComponent(0.05)
         
         certificateImage.image = UIImage(named: "person.png")
         
-        greetingLabel.font = UIFont(weight: .regular, size: 12)
+        greetingLabel.font = UIFont(weight: .regular, size: 14)
         greetingLabel.textColor = .mainBlack
         
         
         // TODO: 로직 구현 시, certificateLabel NAttributedText 적용 예정
-        certificateLabel.font = UIFont(weight: .bold, size: 14)
+        certificateLabel.font = UIFont(weight: .bold, size: 16)
         certificateLabel.textColor = .mainBlack
     }
     
