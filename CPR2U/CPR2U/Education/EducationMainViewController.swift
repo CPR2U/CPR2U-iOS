@@ -8,15 +8,21 @@
 import UIKit
 
 final class EducationMainViewController: UIViewController {
-
+    
+    let eduName: [String] = ["Lecture" , "Quiz", "Pose Practice"]
+    let eduDescription: [String] = ["Video lecture for CPR angel certificate", "Let’s check your CPR study", "Posture practice to get CPR angel certificate"]
+    let eduStatus: [String] = ["Completed", "Not Completed", "Not Completed"]
     private let certificateStatusView = CertificateStatusView()
     private let progressView = EducationProgressView()
+    private let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         setUpStyle()
+        setUpCollectionView()
     }
     
     private func setUpConstraints() {
@@ -24,7 +30,8 @@ final class EducationMainViewController: UIViewController {
         let make = Constraints.shared
         [
             certificateStatusView,
-            progressView
+            progressView,
+            educationCollectionView
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +50,13 @@ final class EducationMainViewController: UIViewController {
             progressView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             progressView.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
+        NSLayoutConstraint.activate([
+            educationCollectionView.topAnchor.constraint(equalTo: progressView.bottomAnchor),
+            educationCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            educationCollectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            educationCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+        ])
     }
     
     private func setUpStyle() {
@@ -51,5 +65,53 @@ final class EducationMainViewController: UIViewController {
         navBar.topItem?.title = "Education"
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed]
         self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+        
+        educationCollectionView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    }
+    
+    private func setUpCollectionView() {
+        educationCollectionView.dataSource = self
+        educationCollectionView.delegate = self
+        educationCollectionView.register(EducationCollectionViewCell.self, forCellWithReuseIdentifier: EducationCollectionViewCell.identifier)
+    }
+}
+
+extension EducationMainViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return eduName.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EducationCollectionViewCell", for: indexPath) as! EducationCollectionViewCell
+        
+        cell.educationNameLabel.text = eduName[indexPath.row]
+        cell.descriptionLabel.text = eduDescription[indexPath.row]
+        cell.statusLabel.text = eduStatus[indexPath.row]
+        return cell
+    }
+}
+
+extension EducationMainViewController: UICollectionViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 358
+    }
+}
+
+extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return Constraints.shared.space16
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(width: 358, height: 108)
     }
 }

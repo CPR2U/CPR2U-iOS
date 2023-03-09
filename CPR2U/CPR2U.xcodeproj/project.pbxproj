@@ -27,6 +27,7 @@
 		3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */; };
 		3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */; };
 		3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */; };
+		3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationMainViewController.swift; sourceTree = "<group>"; };
 		3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateStatusView.swift; sourceTree = "<group>"; };
 		3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationProgressView.swift; sourceTree = "<group>"; };
+		3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */,
 				3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */,
 				3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */,
+				3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */,
 			);
 			path = Education;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
+				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
