@@ -136,12 +136,36 @@
 		3ADE725029B9D53E00EEE19C /* Education */ = {
 			isa = PBXGroup;
 			children = (
+				3ADE725C29BA3BC000EEE19C /* Main */,
+				3ADE725D29BA3BCD00EEE19C /* Quiz */,
+				3ADE725E29BA3BDB00EEE19C /* Pose */,
+			);
+			path = Education;
+			sourceTree = "<group>";
+		};
+		3ADE725C29BA3BC000EEE19C /* Main */ = {
+			isa = PBXGroup;
+			children = (
 				3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */,
 				3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */,
 				3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */,
 				3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */,
 			);
-			path = Education;
+			path = Main;
+			sourceTree = "<group>";
+		};
+		3ADE725D29BA3BCD00EEE19C /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Quiz;
+			sourceTree = "<group>";
+		};
+		3ADE725E29BA3BDB00EEE19C /* Pose */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pose;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
