@@ -187,11 +187,14 @@ final class NicknameVertificationViewController: UIViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let str = textField.text else {
-            print("HIIII")
-            return }
+        guard let str = textField.text else { return }
+        
+        if str.count > 20 {
+            textField.text?.removeLast()
+        }
+        
         let strArr = Array(str)
-        let pattern = "^[a-zA-Z0-9]$"
+        let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]$"
         
         if strArr.count > 0 {
             if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
