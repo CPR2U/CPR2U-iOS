@@ -10,6 +10,7 @@ import UIKit
 final class EducationMainViewController: UIViewController {
 
     private let certificateStatusView = CertificateStatusView()
+    private let progressView = EducationProgressView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,17 +23,25 @@ final class EducationMainViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         let make = Constraints.shared
         [
-            certificateStatusView
+            certificateStatusView,
+            progressView
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         
         NSLayoutConstraint.activate([
-            certificateStatusView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: make.space16),
+            certificateStatusView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: make.space8),
             certificateStatusView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
             certificateStatusView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             certificateStatusView.heightAnchor.constraint(equalToConstant: 64)
+        ])
+        
+        NSLayoutConstraint.activate([
+            progressView.topAnchor.constraint(equalTo: certificateStatusView.bottomAnchor, constant: make.space6),
+            progressView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            progressView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
+            progressView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
