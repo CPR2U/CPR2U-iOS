@@ -94,7 +94,7 @@ final class CertificateStatusView: UIView {
         
         // TODO: 로직 구현 시, certificateLabel NAttributedText 적용 예정
         certificateLabel.font = UIFont(weight: .bold, size: 14)
-        greetingLabel.textColor = .mainBlack
+        certificateLabel.textColor = .mainBlack
     }
     
     private func setUpText() {
