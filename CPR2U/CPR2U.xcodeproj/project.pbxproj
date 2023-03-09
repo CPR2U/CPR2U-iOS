@@ -24,6 +24,7 @@
 		3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F029B5F1C8006BB5EF /* UIControl+.swift */; };
 		3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F229B5F20D006BB5EF /* UITextField+.swift */; };
 		3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F429B61D67006BB5EF /* UIViewController+.swift */; };
+		3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		3AA636F029B5F1C8006BB5EF /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
 		3AA636F229B5F20D006BB5EF /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		3AA636F429B61D67006BB5EF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateStatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 		3AA636AC29AE5055006BB5EF /* CPR2U */ = {
 			isa = PBXGroup;
 			children = (
+				3ADE725029B9D53E00EEE19C /* Education */,
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3AA636C329B0835D006BB5EF /* Fonts */,
 				3AA636AD29AE5055006BB5EF /* AppDelegate.swift */,
@@ -122,6 +125,14 @@
 				3AA636EC29B5E816006BB5EF /* LoginViewModel.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3ADE725029B9D53E00EEE19C /* Education */ = {
+			isa = PBXGroup;
+			children = (
+				3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */,
+			);
+			path = Education;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +214,7 @@
 				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
+				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
