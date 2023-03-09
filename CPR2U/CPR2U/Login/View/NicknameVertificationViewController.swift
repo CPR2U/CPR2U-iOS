@@ -187,9 +187,6 @@ final class NicknameVertificationViewController: UIViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let str = textField.text else {
-            print("HIIII")
-            return }
         guard let str = textField.text else { return }
         
         if str.count > 20 {
