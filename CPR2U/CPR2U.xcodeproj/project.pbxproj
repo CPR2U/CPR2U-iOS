@@ -35,6 +35,7 @@
 		3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */; };
 		3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */; };
 		3ADE726A29BB27FB00EEE19C /* NoticeTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */; };
+		3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestionView.swift; sourceTree = "<group>"; };
 		3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoticeView.swift; sourceTree = "<group>"; };
 		3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTestViewController.swift; sourceTree = "<group>"; };
+		3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeExplainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 		3ADE725E29BA3BDB00EEE19C /* Pose */ = {
 			isa = PBXGroup;
 			children = (
+				3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */,
 			);
 			path = Pose;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
+				3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */,
 				3ADE726429BB049900EEE19C /* MultiQuizChoiceView.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,
