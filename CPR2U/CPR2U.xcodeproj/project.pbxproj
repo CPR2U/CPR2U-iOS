@@ -37,6 +37,7 @@
 		3ADE726A29BB27FB00EEE19C /* NoticeTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */; };
 		3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */; };
 		3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */; };
+		3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTestViewController.swift; sourceTree = "<group>"; };
 		3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeExplainViewController.swift; sourceTree = "<group>"; };
 		3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeViewController.swift; sourceTree = "<group>"; };
+		3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 			children = (
 				3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */,
 				3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */,
+				3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */,
 			);
 			path = Pose;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
 				3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */,
+				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
