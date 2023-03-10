@@ -37,6 +37,7 @@
 		3ADE726A29BB27FB00EEE19C /* NoticeTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */; };
 		3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */; };
 		3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */; };
+		3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */; };
 		3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */; };
 		3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,7 @@
 		3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTestViewController.swift; sourceTree = "<group>"; };
 		3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeExplainViewController.swift; sourceTree = "<group>"; };
 		3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeViewController.swift; sourceTree = "<group>"; };
+		3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeResultViewController.swift; sourceTree = "<group>"; };
 		3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResultView.swift; sourceTree = "<group>"; };
 		3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuracyResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +197,7 @@
 			children = (
 				3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */,
 				3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */,
+				3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */,
 				3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */,
 				3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */,
 			);
@@ -289,6 +292,7 @@
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
+				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
 				3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */,
 				3ADE726429BB049900EEE19C /* MultiQuizChoiceView.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
