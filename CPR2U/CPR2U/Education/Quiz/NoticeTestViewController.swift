@@ -18,7 +18,6 @@ class NoticeTestViewController: UIViewController {
         view.addSubview(noticeView)
         noticeView.translatesAutoresizingMaskIntoConstraints = false
 
-        let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             noticeView.topAnchor.constraint(equalTo: view.topAnchor),
             noticeView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

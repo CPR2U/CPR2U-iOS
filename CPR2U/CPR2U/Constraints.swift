@@ -15,6 +15,7 @@ final class Constraints {
     let space6: CGFloat = 6
     let space8: CGFloat = 8
     let space10: CGFloat = 10
+    let space12: CGFloat = 12
     let space14: CGFloat = 14
     let space16: CGFloat = 16
     let space18: CGFloat = 18
