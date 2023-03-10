@@ -44,7 +44,7 @@ final class QuizQuestionView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            questionLeftDecoLine.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: make.space12),
+            questionLeftDecoLine.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: make.space24),
             questionLeftDecoLine.topAnchor.constraint(equalTo: questionNumberLabel.bottomAnchor, constant: make.space24),
             questionLeftDecoLine.widthAnchor.constraint(equalToConstant: 3),
             questionLeftDecoLine.heightAnchor.constraint(equalToConstant: 75),
