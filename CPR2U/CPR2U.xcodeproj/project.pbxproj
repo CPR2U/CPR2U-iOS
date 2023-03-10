@@ -29,6 +29,7 @@
 		3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */; };
 		3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */; };
 		3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */; };
+		3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateStatusView.swift; sourceTree = "<group>"; };
 		3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationProgressView.swift; sourceTree = "<group>"; };
 		3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationCollectionViewCell.swift; sourceTree = "<group>"; };
+		3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 		3ADE725D29BA3BCD00EEE19C /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
+				3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */,
 			);
 			path = Quiz;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */,
 				3AA636EB29B5B30D006BB5EF /* TestViewController.swift in Sources */,
+				3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
