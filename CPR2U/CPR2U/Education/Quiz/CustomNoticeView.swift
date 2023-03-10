@@ -7,12 +7,35 @@
 
 import UIKit
 
+enum Notice {
+    case quiz
+    case certificate
+}
+
 final class CustomNoticeView: UIView {
 
+    private lazy var shadowView: UIView = {
+        let view = UIView()
+        
+        view.backgroundColor = UIColor(rgb: 0x7B7B7B).withAlphaComponent(0.45)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: view.topAnchor),
+            view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        return view
+    } ()
+    
+    private let noticeView = UIView()
     private let thumbnailImageView = UIImageView()
     private let titleLabel = UILabel()
     private let subTitleLabel = UILabel()
     
+    private let appearAnimDuration: CGFloat = 0.4
+    private let appearAnimDelay: CGFloat = 0.3
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -29,26 +52,36 @@ final class CustomNoticeView: UIView {
     
     private func setUpConstraints() {
         let make = Constraints.shared
+        
+        self.addSubview(noticeView)
+        noticeView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            noticeView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            noticeView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            noticeView.widthAnchor.constraint(equalToConstant: 313)
+        ])
+        
         [
             thumbnailImageView,
             titleLabel,
             subTitleLabel
         ].forEach({
-            self.addSubview($0)
+            noticeView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         
         NSLayoutConstraint.activate([
-            thumbnailImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
-            thumbnailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            thumbnailImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            thumbnailImageView.topAnchor.constraint(equalTo: noticeView.topAnchor, constant: 40),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: noticeView.leadingAnchor),
+            thumbnailImageView.trailingAnchor.constraint(equalTo: noticeView.trailingAnchor),
             thumbnailImageView.heightAnchor.constraint(equalToConstant: 95)
         ])
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: make.space24),
-            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: noticeView.centerXAnchor),
+            titleLabel.widthAnchor.constraint(equalTo: noticeView.widthAnchor),
             titleLabel.heightAnchor.constraint(equalToConstant: 24)
         ])
         
@@ -61,8 +94,9 @@ final class CustomNoticeView: UIView {
     }
     
     private func setUpLayout() {
-        self.backgroundColor = UIColor(rgb: 0xFCFCFC)
-        self.layer.cornerRadius = 20
+        self.backgroundColor = UIColor(rgb: 0x7B7B7B).withAlphaComponent(0.45)
+        noticeView.backgroundColor = UIColor(rgb: 0xFCFCFC)
+        noticeView.layer.cornerRadius = 20
         
         thumbnailImageView.contentMode = .scaleAspectFit
         
@@ -74,29 +108,45 @@ final class CustomNoticeView: UIView {
         subTitleLabel.textColor = .mainBlack
     }
     
-    func setImage(uiImage: UIImage) {
+    func setNotice(as notice: Notice) {
+        setTitle(title: "Congratulation!")
+        switch notice {
+        case .quiz:
+            guard let image = UIImage(named: "success_heart.png") else { return }
+            setImage(uiImage: image)
+            setSubTitle(subTitle: "You are perfect!")
+            isButtonExist(isExist: false)
+        case .certificate:
+            guard let image = UIImage(named: "certificate_big.png") else { return }
+            setImage(uiImage: image)
+            setSubTitle(subTitle: "You have got CPR Angel Certificate!")
+            isButtonExist(isExist: false)
+        }
+    }
+    
+    private func setImage(uiImage: UIImage) {
         thumbnailImageView.image = uiImage
     }
     
-    func setTitle(title: String) {
+    private func setTitle(title: String) {
         titleLabel.text = title
     }
     
-    func setSubTitle(subTitle: String) {
+    private func setSubTitle(subTitle: String) {
         subTitleLabel.text = subTitle
     }
     
-    func isButtonExist(isExist: Bool) {
-        self.heightAnchor.constraint(equalToConstant: isExist ? 308 : 230).isActive = true
+    private func isButtonExist(isExist: Bool) {
+        noticeView.heightAnchor.constraint(equalToConstant: isExist ? 308 : 240).isActive = true
         
         if isExist == true {
             setConfirmButton()
         } else {
-            noticeDisappear(delay: 1.0)
+            noticeDisappear(delay: appearAnimDelay + appearAnimDuration + 0.5)
         }
     }
     
-    func setConfirmButton() {
+    private func setConfirmButton() {
         let confirmButton = UIButton()
         
         self.addSubview(confirmButton)
@@ -123,20 +173,18 @@ final class CustomNoticeView: UIView {
     
     private func noticeAppear() {
         self.superview?.isUserInteractionEnabled = false
-        
         // 실제 적용 시 delay는 없을 예정
-        UIView.animate(withDuration: 0.3, delay: 0.3, animations: {
+        UIView.animate(withDuration: appearAnimDuration, delay: appearAnimDelay, animations: {
             self.alpha = 1.0
         })
     }
                        
-    func noticeDisappear(delay: CGFloat) {
-        self.superview?.isUserInteractionEnabled = false
-        UIView.animate(withDuration: 0.2, delay: delay, animations: {
+    private func noticeDisappear(delay: CGFloat) {
+        UIView.animate(withDuration: appearAnimDuration/2, delay: delay, animations: {
             self.alpha = 0.0
         }, completion: { [weak self] _ in
-            self?.removeFromSuperview()
             self?.superview?.isUserInteractionEnabled = true
+            self?.removeFromSuperview()
         })
     }
 }
