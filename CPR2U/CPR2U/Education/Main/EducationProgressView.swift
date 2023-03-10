@@ -10,6 +10,7 @@ import UIKit
 final class EducationProgressView: UIView {
 
     private let annotationLabel = UILabel()
+    private let infoButton = UIButton()
     private let progressView = UIProgressView()
     
     override init(frame: CGRect) {
@@ -30,6 +31,7 @@ final class EducationProgressView: UIView {
         
         [
             annotationLabel,
+            infoButton,
             progressView
         ].forEach({
             self.addSubview($0)
@@ -39,8 +41,15 @@ final class EducationProgressView: UIView {
         NSLayoutConstraint.activate([
             annotationLabel.topAnchor.constraint(equalTo: self.topAnchor),
             annotationLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: make.space6),
-            annotationLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            annotationLabel.widthAnchor.constraint(equalToConstant: 168),
             annotationLabel.heightAnchor.constraint(equalToConstant: 14)
+        ])
+        
+        NSLayoutConstraint.activate([
+            infoButton.leadingAnchor.constraint(equalTo: annotationLabel.trailingAnchor, constant: make.space4),
+            infoButton.centerYAnchor.constraint(equalTo: annotationLabel.centerYAnchor),
+            infoButton.widthAnchor.constraint(equalToConstant: 10),
+            infoButton.heightAnchor.constraint(equalToConstant: 10)
         ])
         
         NSLayoutConstraint.activate([
@@ -52,9 +61,12 @@ final class EducationProgressView: UIView {
     }
     
     private func setUpStyle() {
+        let color = UIColor(rgb: 0x767676)
         annotationLabel.font = UIFont(weight: .regular, size: 11)
-        annotationLabel.textColor = UIColor(rgb: 0x767676)
-        
+        annotationLabel.textColor = color
+        let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .light, scale: .medium)
+        guard let img = UIImage(systemName: "info.circle", withConfiguration: config)?.withTintColor(color).withRenderingMode(.alwaysOriginal) else { return }
+        infoButton.setImage(img, for: .normal)
         progressView.trackTintColor = .mainLightRed.withAlphaComponent(0.05)
         progressView.progressTintColor = .mainRed
         progressView.layer.borderColor = UIColor.mainRed.cgColor
