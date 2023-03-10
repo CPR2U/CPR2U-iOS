@@ -115,7 +115,7 @@ final class CustomNoticeView: UIView {
             guard let image = UIImage(named: "success_heart.png") else { return }
             setImage(uiImage: image)
             setSubTitle(subTitle: "You are perfect!")
-            isButtonExist(isExist: false)
+            isButtonExist(isExist: true)
         case .certificate:
             guard let image = UIImage(named: "certificate_big.png") else { return }
             setImage(uiImage: image)
@@ -153,7 +153,7 @@ final class CustomNoticeView: UIView {
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            confirmButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -26),
+            confirmButton.bottomAnchor.constraint(equalTo: noticeView.bottomAnchor, constant: -26),
             confirmButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             confirmButton.widthAnchor.constraint(equalToConstant: 206),
             confirmButton.heightAnchor.constraint(equalToConstant: 44)
