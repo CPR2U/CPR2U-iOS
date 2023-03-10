@@ -66,6 +66,7 @@ final class EducationMainViewController: UIViewController {
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed]
         self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         
+        educationCollectionView.backgroundColor = .white
         educationCollectionView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
     
