@@ -33,6 +33,7 @@
 		3ADE726229BB047300EEE19C /* OXQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726129BB047300EEE19C /* OXQuizChoiceView.swift */; };
 		3ADE726429BB049900EEE19C /* MultiQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726329BB049900EEE19C /* MultiQuizChoiceView.swift */; };
 		3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */; };
+		3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		3ADE726129BB047300EEE19C /* OXQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXQuizChoiceView.swift; sourceTree = "<group>"; };
 		3ADE726329BB049900EEE19C /* MultiQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiQuizChoiceView.swift; sourceTree = "<group>"; };
 		3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestionView.swift; sourceTree = "<group>"; };
+		3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoticeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */,
 				3ADE726129BB047300EEE19C /* OXQuizChoiceView.swift */,
 				3ADE726329BB049900EEE19C /* MultiQuizChoiceView.swift */,
+				3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */,
 			);
 			path = Quiz;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
+				3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
