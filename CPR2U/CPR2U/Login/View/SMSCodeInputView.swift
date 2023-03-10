@@ -26,7 +26,7 @@ final class SMSCodeInputView: UIView {
         super.init(frame: frame)
         
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpKeyboard()
         
     }
@@ -47,7 +47,7 @@ final class SMSCodeInputView: UIView {
         ])
     }
     
-    func setUpLayout() {
+    func setUpStyle() {
         self.backgroundColor = UIColor(rgb: 0xFBD6D6)
         
         self.layer.cornerRadius = 5

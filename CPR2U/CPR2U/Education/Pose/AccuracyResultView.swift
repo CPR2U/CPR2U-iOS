@@ -18,7 +18,7 @@ final class AccuracyResultView: UIView {
         super.init(frame: frame)
         
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpText()
     }
     
@@ -69,7 +69,7 @@ final class AccuracyResultView: UIView {
         
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         self.layer.cornerRadius = 16
         self.layer.borderColor = UIColor.mainRed.cgColor
         self.layer.borderWidth = 1

@@ -17,7 +17,7 @@ final class OXQuizChoiceView: UIView {
         
         setUpConstraints()
         setUpText()
-        setUpLayout()
+        setUpStyle()
         setUpAction()
     }
     
@@ -66,7 +66,7 @@ final class OXQuizChoiceView: UIView {
         ])
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         [
             leftChoice,
             rightChoice

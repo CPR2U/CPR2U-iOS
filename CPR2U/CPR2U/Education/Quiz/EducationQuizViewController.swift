@@ -34,7 +34,7 @@ final class EducationQuizViewController: UIViewController {
         super.viewDidLoad()
         
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpText()
         setUpAction()
     }
@@ -91,7 +91,7 @@ final class EducationQuizViewController: UIViewController {
         ])
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         answerLabel.font = UIFont(weight: .bold, size: 18)
         answerLabel.textColor = .mainBlack
         answerLabel.textAlignment = .center

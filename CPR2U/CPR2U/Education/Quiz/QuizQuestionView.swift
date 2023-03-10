@@ -17,7 +17,7 @@ final class QuizQuestionView: UIView {
         super.init(frame: frame)
         
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpText()
     }
     
@@ -58,7 +58,7 @@ final class QuizQuestionView: UIView {
         ])
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         
         questionNumberLabel.font = UIFont(weight: .bold, size: 28)
         questionNumberLabel.textColor = .mainRed

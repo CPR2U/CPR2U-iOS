@@ -16,7 +16,7 @@ final class EducationProgressView: UIView {
         super.init(frame: frame)
         
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpText()
     }
     
@@ -51,7 +51,7 @@ final class EducationProgressView: UIView {
         ])
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         annotationLabel.font = UIFont(weight: .regular, size: 11)
         annotationLabel.textColor = UIColor(rgb: 0x767676)
         

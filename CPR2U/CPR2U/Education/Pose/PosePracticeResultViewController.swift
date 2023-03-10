@@ -22,7 +22,7 @@ final class PosePracticeResultViewController: UIViewController {
 
         setUpOrientation()
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpResultViews()
         setUpAction()
     }
@@ -95,7 +95,7 @@ final class PosePracticeResultViewController: UIViewController {
         ])
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         quitButton.backgroundColor = .mainRed
         quitButton.layer.cornerRadius = 19
         quitButton.titleLabel?.font = UIFont(weight: .bold, size: 17)

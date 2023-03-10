@@ -21,7 +21,7 @@ final class PosePracticeViewController: UIViewController {
         
         setUpOrientation()
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpText()
         setUpAction()
     }
@@ -86,7 +86,7 @@ final class PosePracticeViewController: UIViewController {
         ])
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         let clockImgConfig = UIImage.SymbolConfiguration(pointSize: 26, weight: .regular, scale: .medium)
         timeImageView.image = UIImage(systemName: "clock", withConfiguration: clockImgConfig)
         let soundImgConfig = UIImage.SymbolConfiguration(pointSize: 29, weight: .regular, scale: .medium)

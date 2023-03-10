@@ -43,7 +43,7 @@ final class CustomNoticeView: UIView {
         
         noticeAppear()
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -93,7 +93,7 @@ final class CustomNoticeView: UIView {
         ])
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         self.backgroundColor = UIColor(rgb: 0x7B7B7B).withAlphaComponent(0.45)
         noticeView.backgroundColor = UIColor(rgb: 0xFCFCFC)
         noticeView.layer.cornerRadius = 20

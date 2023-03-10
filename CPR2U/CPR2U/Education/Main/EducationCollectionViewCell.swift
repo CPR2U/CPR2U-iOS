@@ -18,7 +18,7 @@ final class EducationCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpText()
     }
     
@@ -61,7 +61,7 @@ final class EducationCollectionViewCell: UICollectionViewCell {
         
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         self.backgroundColor = .mainLightRed
         self.layer.cornerRadius = 20
         

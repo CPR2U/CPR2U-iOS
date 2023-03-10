@@ -22,7 +22,7 @@ final class PracticeExplainViewController: UIViewController {
         super.viewDidLoad()
         
         setUpConstraints()
-        setUpLayout()
+        setUpStyle()
         setUpText()
         setUpAction()
     }
@@ -53,7 +53,7 @@ final class PracticeExplainViewController: UIViewController {
         ])
     }
     
-    private func setUpLayout() {
+    private func setUpStyle() {
         moveButton.backgroundColor = .mainLightRed
         moveButton.setTitleColor(.mainBlack, for: .normal)
         moveButton.titleLabel?.font = UIFont(weight: .bold, size: 16)
