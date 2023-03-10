@@ -38,6 +38,7 @@
 		3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */; };
 		3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */; };
 		3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */; };
+		3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeExplainViewController.swift; sourceTree = "<group>"; };
 		3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeViewController.swift; sourceTree = "<group>"; };
 		3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResultView.swift; sourceTree = "<group>"; };
+		3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuracyResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 				3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */,
 				3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */,
 				3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */,
+				3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */,
 			);
 			path = Pose;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
+				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
 				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
 			);
