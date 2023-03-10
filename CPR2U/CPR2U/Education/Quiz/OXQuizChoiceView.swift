@@ -77,8 +77,6 @@ final class OXQuizChoiceView: UIView {
             $0.layer.cornerRadius = 20
             $0.titleLabel?.font = UIFont(weight: .bold, size: 36)
             $0.setTitleColor(.mainBlack, for: .normal)
-            
-            print($0.titleLabel)
         })
     }
     
