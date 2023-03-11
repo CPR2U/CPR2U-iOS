@@ -13,6 +13,8 @@
 		3A22BF4929BCCD45004411BE /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4829BCCD45004411BE /* Moya */; };
 		3A22BF4B29BCCD45004411BE /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4A29BCCD45004411BE /* ReactiveMoya */; };
 		3A22BF4D29BCCD45004411BE /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4C29BCCD45004411BE /* RxMoya */; };
+		3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */; };
+		3A22BF5729BCEBA2004411BE /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5629BCEBA2004411BE /* NetworkResult.swift */; };
 		3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AD29AE5055006BB5EF /* AppDelegate.swift */; };
 		3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */; };
 		3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636B629AE5057006BB5EF /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		3A22BF4229BC9122004411BE /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
+		3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
+		3A22BF5629BCEBA2004411BE /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		3AA636AA29AE5055006BB5EF /* CPR2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPR2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA636AD29AE5055006BB5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 		3A22BF3C29BC8C3F004411BE /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				3A22BF5329BCE990004411BE /* APIServices */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -155,6 +160,15 @@
 				3A22BF4229BC9122004411BE /* URLs.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		3A22BF5329BCE990004411BE /* APIServices */ = {
+			isa = PBXGroup;
+			children = (
+				3A22BF5629BCEBA2004411BE /* NetworkResult.swift */,
+				3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */,
+			);
+			path = APIServices;
 			sourceTree = "<group>";
 		};
 		3AA636A129AE5054006BB5EF = {
@@ -356,12 +370,14 @@
 				3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */,
 				3AA636EB29B5B30D006BB5EF /* TestViewController.swift in Sources */,
 				3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */,
+				3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
 				3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */,
 				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
+				3A22BF5729BCEBA2004411BE /* NetworkResult.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
 				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
