@@ -24,6 +24,22 @@
 		3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F029B5F1C8006BB5EF /* UIControl+.swift */; };
 		3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F229B5F20D006BB5EF /* UITextField+.swift */; };
 		3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F429B61D67006BB5EF /* UIViewController+.swift */; };
+		3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE724E29B9D4AB00EEE19C /* Constraints.swift */; };
+		3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */; };
+		3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */; };
+		3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */; };
+		3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */; };
+		3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725F29BB03A100EEE19C /* EducationQuizViewController.swift */; };
+		3ADE726229BB047300EEE19C /* OXQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726129BB047300EEE19C /* OXQuizChoiceView.swift */; };
+		3ADE726429BB049900EEE19C /* MultiQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726329BB049900EEE19C /* MultiQuizChoiceView.swift */; };
+		3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */; };
+		3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */; };
+		3ADE726A29BB27FB00EEE19C /* NoticeTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */; };
+		3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */; };
+		3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */; };
+		3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */; };
+		3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */; };
+		3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +62,22 @@
 		3AA636F029B5F1C8006BB5EF /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
 		3AA636F229B5F20D006BB5EF /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		3AA636F429B61D67006BB5EF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		3ADE724E29B9D4AB00EEE19C /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationMainViewController.swift; sourceTree = "<group>"; };
+		3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateStatusView.swift; sourceTree = "<group>"; };
+		3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationProgressView.swift; sourceTree = "<group>"; };
+		3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationCollectionViewCell.swift; sourceTree = "<group>"; };
+		3ADE725F29BB03A100EEE19C /* EducationQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationQuizViewController.swift; sourceTree = "<group>"; };
+		3ADE726129BB047300EEE19C /* OXQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXQuizChoiceView.swift; sourceTree = "<group>"; };
+		3ADE726329BB049900EEE19C /* MultiQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiQuizChoiceView.swift; sourceTree = "<group>"; };
+		3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestionView.swift; sourceTree = "<group>"; };
+		3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoticeView.swift; sourceTree = "<group>"; };
+		3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTestViewController.swift; sourceTree = "<group>"; };
+		3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeExplainViewController.swift; sourceTree = "<group>"; };
+		3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeViewController.swift; sourceTree = "<group>"; };
+		3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeResultViewController.swift; sourceTree = "<group>"; };
+		3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResultView.swift; sourceTree = "<group>"; };
+		3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuracyResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +110,7 @@
 		3AA636AC29AE5055006BB5EF /* CPR2U */ = {
 			isa = PBXGroup;
 			children = (
+				3ADE725029B9D53E00EEE19C /* Education */,
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3AA636C329B0835D006BB5EF /* Fonts */,
 				3AA636AD29AE5055006BB5EF /* AppDelegate.swift */,
@@ -90,6 +123,7 @@
 				3AA636D229B24D72006BB5EF /* UIFont+.swift */,
 				3AA636F029B5F1C8006BB5EF /* UIControl+.swift */,
 				3AA636F429B61D67006BB5EF /* UIViewController+.swift */,
+				3ADE724E29B9D4AB00EEE19C /* Constraints.swift */,
 			);
 			path = CPR2U;
 			sourceTree = "<group>";
@@ -122,6 +156,52 @@
 				3AA636EC29B5E816006BB5EF /* LoginViewModel.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3ADE725029B9D53E00EEE19C /* Education */ = {
+			isa = PBXGroup;
+			children = (
+				3ADE725C29BA3BC000EEE19C /* Main */,
+				3ADE725D29BA3BCD00EEE19C /* Quiz */,
+				3ADE725E29BA3BDB00EEE19C /* Pose */,
+			);
+			path = Education;
+			sourceTree = "<group>";
+		};
+		3ADE725C29BA3BC000EEE19C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */,
+				3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */,
+				3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */,
+				3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		3ADE725D29BA3BCD00EEE19C /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				3ADE725F29BB03A100EEE19C /* EducationQuizViewController.swift */,
+				3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */,
+				3ADE726129BB047300EEE19C /* OXQuizChoiceView.swift */,
+				3ADE726329BB049900EEE19C /* MultiQuizChoiceView.swift */,
+				3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */,
+				3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */,
+			);
+			path = Quiz;
+			sourceTree = "<group>";
+		};
+		3ADE725E29BA3BDB00EEE19C /* Pose */ = {
+			isa = PBXGroup;
+			children = (
+				3ADE726B29BB536300EEE19C /* PracticeExplainViewController.swift */,
+				3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */,
+				3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */,
+				3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */,
+				3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */,
+			);
+			path = Pose;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,19 +276,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
+				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
+				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
+				3ADE726229BB047300EEE19C /* OXQuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */,
 				3AA636EB29B5B30D006BB5EF /* TestViewController.swift in Sources */,
+				3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
+				3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */,
+				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
+				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
+				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
+				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
+				3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */,
+				3ADE726429BB049900EEE19C /* MultiQuizChoiceView.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
+				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
+				3ADE726A29BB27FB00EEE19C /* NoticeTestViewController.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
+				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
+				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
