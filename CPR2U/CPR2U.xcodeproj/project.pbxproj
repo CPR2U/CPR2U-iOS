@@ -15,6 +15,7 @@
 		3A22BF4D29BCCD45004411BE /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4C29BCCD45004411BE /* RxMoya */; };
 		3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */; };
 		3A22BF5729BCEBA2004411BE /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5629BCEBA2004411BE /* NetworkResult.swift */; };
+		3A22BF5D29BCF159004411BE /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5C29BCF159004411BE /* Sign.swift */; };
 		3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AD29AE5055006BB5EF /* AppDelegate.swift */; };
 		3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */; };
 		3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636B629AE5057006BB5EF /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		3A22BF4229BC9122004411BE /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		3A22BF5629BCEBA2004411BE /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		3A22BF5C29BCF159004411BE /* Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign.swift; sourceTree = "<group>"; };
 		3AA636AA29AE5055006BB5EF /* CPR2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPR2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA636AD29AE5055006BB5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,6 +173,22 @@
 			path = APIServices;
 			sourceTree = "<group>";
 		};
+		3A22BF5829BCEFCA004411BE /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3A22BF5929BCF0AA004411BE /* DTO */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3A22BF5929BCF0AA004411BE /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				3A22BF5C29BCF159004411BE /* Sign.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
 		3AA636A129AE5054006BB5EF = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +211,7 @@
 				3A22BF3F29BC8D11004411BE /* Application */,
 				3A22BF3D29BC8C5D004411BE /* Util */,
 				3A22BF3B29BC8C14004411BE /* Scene */,
+				3A22BF5829BCEFCA004411BE /* Data */,
 				3A22BF3C29BC8C3F004411BE /* Service */,
 				3AA636C329B0835D006BB5EF /* Fonts */,
 				3AA636B629AE5057006BB5EF /* Assets.xcassets */,
@@ -364,6 +383,7 @@
 			files = (
 				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
+				3A22BF5D29BCF159004411BE /* Sign.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3ADE726229BB047300EEE19C /* OXQuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
