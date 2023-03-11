@@ -93,6 +93,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A22BF3B29BC8C14004411BE /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				3AA636DE29B37E04006BB5EF /* Login */,
+				3ADE725029B9D53E00EEE19C /* Education */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		3A22BF3C29BC8C3F004411BE /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		3A22BF3D29BC8C5D004411BE /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				3A22BF3E29BC8C62004411BE /* Extension */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		3A22BF3E29BC8C62004411BE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3AA636F229B5F20D006BB5EF /* UITextField+.swift */,
+				3AA636C129B07C5F006BB5EF /* UIColor+.swift */,
+				3AA636D229B24D72006BB5EF /* UIFont+.swift */,
+				3AA636F029B5F1C8006BB5EF /* UIControl+.swift */,
+				3AA636F429B61D67006BB5EF /* UIViewController+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		3A22BF3F29BC8D11004411BE /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				3AA636AD29AE5055006BB5EF /* AppDelegate.swift */,
+				3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		3AA636A129AE5054006BB5EF = {
 			isa = PBXGroup;
 			children = (
@@ -112,19 +157,14 @@
 		3AA636AC29AE5055006BB5EF /* CPR2U */ = {
 			isa = PBXGroup;
 			children = (
-				3ADE725029B9D53E00EEE19C /* Education */,
-				3AA636DE29B37E04006BB5EF /* Login */,
+				3A22BF3F29BC8D11004411BE /* Application */,
+				3A22BF3D29BC8C5D004411BE /* Util */,
+				3A22BF3B29BC8C14004411BE /* Scene */,
+				3A22BF3C29BC8C3F004411BE /* Service */,
 				3AA636C329B0835D006BB5EF /* Fonts */,
-				3AA636AD29AE5055006BB5EF /* AppDelegate.swift */,
-				3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */,
 				3AA636B629AE5057006BB5EF /* Assets.xcassets */,
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
-				3AA636F229B5F20D006BB5EF /* UITextField+.swift */,
-				3AA636C129B07C5F006BB5EF /* UIColor+.swift */,
-				3AA636D229B24D72006BB5EF /* UIFont+.swift */,
-				3AA636F029B5F1C8006BB5EF /* UIControl+.swift */,
-				3AA636F429B61D67006BB5EF /* UIViewController+.swift */,
 				3ADE724E29B9D4AB00EEE19C /* Constraints.swift */,
 			);
 			path = CPR2U;
