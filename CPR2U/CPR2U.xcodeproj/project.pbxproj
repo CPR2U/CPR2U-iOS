@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A22BF3A29BC8BE1004411BE /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF3929BC8BE1004411BE /* Alamofire */; };
+		3A22BF4329BC9122004411BE /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4229BC9122004411BE /* URLs.swift */; };
 		3A22BF4729BCCD45004411BE /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4629BCCD45004411BE /* CombineMoya */; };
 		3A22BF4929BCCD45004411BE /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4829BCCD45004411BE /* Moya */; };
 		3A22BF4B29BCCD45004411BE /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4A29BCCD45004411BE /* ReactiveMoya */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A22BF4229BC9122004411BE /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		3AA636AA29AE5055006BB5EF /* CPR2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPR2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA636AD29AE5055006BB5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		3A22BF3D29BC8C5D004411BE /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				3A22BF4129BC90E7004411BE /* Constants */,
 				3A22BF3E29BC8C62004411BE /* Extension */,
 			);
 			path = Util;
@@ -144,6 +147,14 @@
 				3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		3A22BF4129BC90E7004411BE /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				3A22BF4229BC9122004411BE /* URLs.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		3AA636A129AE5054006BB5EF = {
@@ -362,6 +373,7 @@
 				3ADE726A29BB27FB00EEE19C /* NoticeTestViewController.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
+				3A22BF4329BC9122004411BE /* URLs.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
 				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
