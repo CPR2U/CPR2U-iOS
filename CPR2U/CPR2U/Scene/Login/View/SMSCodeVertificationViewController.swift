@@ -1,5 +1,5 @@
 //
-//  SMSCodeVertificationViewController.swift
+//  SMSCodeVerificationViewController.swift
 //  CPR2U
 //
 //  Created by 황정현 on 2023/03/04.
@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class SMSCodeVertificationViewController: UIViewController {
+final class SMSCodeVerificationViewController: UIViewController {
     
     private let signAPI = SignManager(service: APIManager())
     
@@ -202,7 +202,7 @@ final class SMSCodeVertificationViewController: UIViewController {
     }
     
     private func setUpAction() {
-        confirmButton.addTarget(self, action: #selector(navigateToNicknameVertificationPage), for: .touchUpInside)
+        confirmButton.addTarget(self, action: #selector(navigateToNicknameVerificationPage), for: .touchUpInside)
     }
     
     private func setUpKeyboard() {
@@ -231,9 +231,9 @@ final class SMSCodeVertificationViewController: UIViewController {
         }
     }
     
-    @objc func navigateToNicknameVertificationPage() {
+    @objc func navigateToNicknameVerificationPage() {
         if smsCodeVerify() {
-            userVertify()
+            userVerify()
         } else {
             print("인증코드 오류")
         }
@@ -254,7 +254,7 @@ final class SMSCodeVertificationViewController: UIViewController {
     }
 }
 
-extension SMSCodeVertificationViewController: UITextFieldDelegate {
+extension SMSCodeVerificationViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = ""
         guard let textFieldLayerName = textField.layer.name else { return }
@@ -264,7 +264,7 @@ extension SMSCodeVertificationViewController: UITextFieldDelegate {
     }
 }
 
-extension SMSCodeVertificationViewController {
+extension SMSCodeVerificationViewController {
     func smsCodeVerify() -> Bool {
         let userInput = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
             .compactMap{$0.smsCodeTextField.text}
@@ -272,13 +272,13 @@ extension SMSCodeVertificationViewController {
         return userInput == smsCode
     }
     
-    func userVertify() {
+    func userVerify() {
         Task {
             guard let phoneNumber = phoneNumberString else { return }
             let result = try await signAPI.signIn(phoneNumber: phoneNumber, deviceToken: "")
             if result.success == false {
                 guard let phoneNumberString = phoneNumberString else { return }
-                navigationController?.pushViewController(NicknameVertificationViewController(phoneNumberString: phoneNumberString), animated: true)
+                navigationController?.pushViewController(NicknameVerificationViewController(phoneNumberString: phoneNumberString), animated: true)
             } else {
                 dismiss(animated: true)
             }

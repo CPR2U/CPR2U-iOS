@@ -21,10 +21,10 @@ protocol ViewModelType {
     func transform(loginPhase: LoginPhase, input: Input) -> Output
 }
 
-class VertificationViewModel: ViewModelType {
+class VerificationViewModel: ViewModelType {
 
     struct Input {
-        let vertifier: AnyPublisher<String, Never>
+        let verifier: AnyPublisher<String, Never>
     }
 
     struct Output {
@@ -32,8 +32,8 @@ class VertificationViewModel: ViewModelType {
     }
 
     func transform(loginPhase: LoginPhase, input: Input) -> Output {
-        let buttonStatePublisher = input.vertifier.map { vertifier in
-            vertifier.count > 0
+        let buttonStatePublisher = input.verifier.map { verifier in
+            verifier.count > 0
         }.eraseToAnyPublisher()
         return Output(buttonIsValid: buttonStatePublisher)
     }

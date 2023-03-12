@@ -8,8 +8,8 @@
 import Foundation
 
 enum SignEndPoint {
-    case phoneNumberVertify (phoneNumber: String)
-    case nicknameVertify (nickname: String)
+    case phoneNumberVerify (phoneNumber: String)
+    case nicknameVerify (nickname: String)
     case signIn (phoneNumber: String, deviceToken: String)
     case signUp (nickname: String, phoneNumber: String, deviceToken: String)
     // case autoLogin
@@ -19,9 +19,9 @@ extension SignEndPoint: EndPoint {
     
     var method: HttpMethod {
         switch self {
-        case .phoneNumberVertify, .signIn, .signUp:
+        case .phoneNumberVerify, .signIn, .signUp:
             return .POST
-        case .nicknameVertify:
+        case .nicknameVerify:
             return .GET
         }
     }
@@ -29,9 +29,9 @@ extension SignEndPoint: EndPoint {
     var body: Data? {
         var params: [String : String]
         switch self {
-        case .phoneNumberVertify(let phoneNumber):
+        case .phoneNumberVerify(let phoneNumber):
             params = ["phone_number" : phoneNumber]
-        case .nicknameVertify(let nickname):
+        case .nicknameVerify(let nickname):
             params = ["nickname" : nickname ]
         case .signIn(let phoneNumber, let deviceToken):
             params = [ "phone_number" : phoneNumber, "device_token" : deviceToken ]
@@ -44,9 +44,9 @@ extension SignEndPoint: EndPoint {
     func getURL(path: String) -> String {
         let baseURL = URLs.baseURL
         switch self {
-        case .phoneNumberVertify:
+        case .phoneNumberVerify:
             return "\(baseURL)/auth/verification"
-        case .nicknameVertify(let nickname):
+        case .nicknameVerify(let nickname):
             return "\(baseURL)/auth/nickname?nickname=\(nickname)"
         case .signIn:
             return "\(baseURL)/auth/login"
@@ -59,14 +59,14 @@ extension SignEndPoint: EndPoint {
         let baseURL = URLs.baseURL
         
         switch self {
-        case .phoneNumberVertify:
+        case .phoneNumberVerify:
             var headers: [String: String] = [:]
             headers["Content-Type"] = "application/json"
             return NetworkRequest(url: getURL(path: baseURL),
                                   httpMethod: method,
                                   headers: headers,
                                   requestBody: body)
-        case .nicknameVertify:
+        case .nicknameVerify:
             var headers: [String: String] = [:]
             headers["Content-Type"] = "application/json"
             return NetworkRequest(url: getURL(path: baseURL),

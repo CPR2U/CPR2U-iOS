@@ -32,7 +32,7 @@ class TestViewController: UIViewController {
     }
     
     @objc func presentModal() {
-        let vc = PhoneNumberVertificationViewController()
+        let vc = PhoneNumberVerificationViewController()
         let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .overFullScreen
         self.present(navVC, animated: true)

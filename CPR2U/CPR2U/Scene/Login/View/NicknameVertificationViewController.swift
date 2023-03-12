@@ -1,5 +1,5 @@
 //
-//  NicknameVertificationViewController.swift
+//  NicknameVerificationViewController.swift
 //  CPR2U
 //
 //  Created by 황정현 on 2023/03/04.
@@ -41,7 +41,7 @@ enum NicknameStatus {
     }
 }
 
-final class NicknameVertificationViewController: UIViewController {
+final class NicknameVerificationViewController: UIViewController {
 
     private let signAPI = SignManager(service: APIManager())
     
@@ -248,7 +248,7 @@ final class NicknameVertificationViewController: UIViewController {
     }
 }
 
-extension NicknameVertificationViewController {
+extension NicknameVerificationViewController {
     func nicknameVerify() {
         Task {
             guard let userInput = nicknameTextField.text else { return }

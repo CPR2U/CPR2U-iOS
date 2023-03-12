@@ -25,14 +25,14 @@ struct SignManager: SignService {
     
     func phoneNumberVerify(phoneNumber: String) async throws -> (success: Bool, data: SMSCodeResult?) {
         let request = SignEndPoint
-            .phoneNumberVertify(phoneNumber: phoneNumber)
+            .phoneNumberVerify(phoneNumber: phoneNumber)
             .createRequest()
         return try await self.service.request(request)
     }
     
     func nicknameVerify(nickname: String) async throws -> (success: Bool, data: NicknameVerifyResult?) {
         let request = SignEndPoint
-            .nicknameVertify(nickname: nickname)
+            .nicknameVerify(nickname: nickname)
             .createRequest()
         return try await self.service.request(request)
         }

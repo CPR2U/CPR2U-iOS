@@ -1,5 +1,5 @@
 //
-//  PhoneNumberVertificationViewController.swift
+//  PhoneNumberVerificationViewController.swift
 //  CPR2U
 //
 //  Created by 황정현 on 2023/03/02.
@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class PhoneNumberVertificationViewController: UIViewController {
+final class PhoneNumberVerificationViewController: UIViewController {
 
     private let signAPI = SignManager(service: APIManager())
     
@@ -25,7 +25,7 @@ final class PhoneNumberVertificationViewController: UIViewController {
     private var sendButtonBottomConstraints = NSLayoutConstraint()
     
     private var cancellables = Set<AnyCancellable>()
-    private let viewModel = VertificationViewModel()
+    private let viewModel = VerificationViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,9 +171,9 @@ final class PhoneNumberVertificationViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    private func bind(to viewModel: VertificationViewModel) {
-        let input = VertificationViewModel.Input(
-            vertifier: phoneNumberTextField.textPublisher.eraseToAnyPublisher()
+    private func bind(to viewModel: VerificationViewModel) {
+        let input = VerificationViewModel.Input(
+            verifier: phoneNumberTextField.textPublisher.eraseToAnyPublisher()
         )
 
         let output = viewModel.transform(loginPhase: LoginPhase.PhoneNumber, input: input)
@@ -204,12 +204,12 @@ final class PhoneNumberVertificationViewController: UIViewController {
     
     @objc func didTapSendButton() {
         guard let phoneNumberString = phoneNumberTextField.text else { return }
-        phoneNumberVertify(phoneNumber: phoneNumberString)
+        phoneNumberVerify(phoneNumber: phoneNumberString)
     }
 }
 
-extension PhoneNumberVertificationViewController {
-    func phoneNumberVertify(phoneNumber: String) {
+extension PhoneNumberVerificationViewController {
+    func phoneNumberVerify(phoneNumber: String) {
         Task {
             let result = try await signAPI.phoneNumberVerify(phoneNumber: phoneNumber)
             guard let validationCode = result.data?.validation_code else { return }
@@ -218,6 +218,6 @@ extension PhoneNumberVertificationViewController {
     }
     
     func navigateToSMSCodeVerificationPage(phoneNumberString: String, smsCode: String) {
-        self.navigationController?.pushViewController(SMSCodeVertificationViewController(phoneNumberString: "+82\(phoneNumberString)", smsCode: smsCode), animated: true)
+        self.navigationController?.pushViewController(SMSCodeVerificationViewController(phoneNumberString: "+82\(phoneNumberString)", smsCode: smsCode), animated: true)
     }
 }
