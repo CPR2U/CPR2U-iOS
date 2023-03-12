@@ -10,6 +10,8 @@ import UIKit
 
 final class PhoneNumberVertificationViewController: UIViewController {
 
+    private let signAPI = SignAPI()
+    
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
     
@@ -171,7 +173,11 @@ final class PhoneNumberVertificationViewController: UIViewController {
     
     @objc func navigateToSMSCodeVertificationPage() {
         guard let phoneNumberString = phoneNumberTextField.text else { return }
-        navigationController?.pushViewController(SMSCodeVertificationViewController(phoneNumberString: "+82\(phoneNumberString)"), animated: true)
+        phoneNumberVertify(phoneNumber: phoneNumberString) {
+            smsCodeString in
+            self.navigationController?.pushViewController(SMSCodeVertificationViewController(phoneNumberString: "+82\(phoneNumberString)", smsCode: smsCodeString), animated: true)
+        }
+        
     }
     
     private func bind(to viewModel: VertificationViewModel) {
@@ -184,7 +190,6 @@ final class PhoneNumberVertificationViewController: UIViewController {
         output
             .buttonIsValid
             .sink(receiveValue: { [weak self] state in
-                print(state)
                 self?.sendButton.isEnabled = state
                 self?.sendButton.setTitleColor(state ? .mainWhite : .mainBlack, for: .normal)
                 self?.sendButton.backgroundColor = state ? .mainRed : .mainLightGray
@@ -204,5 +209,25 @@ final class PhoneNumberVertificationViewController: UIViewController {
     @objc private func keyboardWillHide(_ notification: Notification) {
         sendButtonBottomConstraints.constant = -16
         view.layoutIfNeeded()
+    }
+}
+
+extension PhoneNumberVertificationViewController {
+    func phoneNumberVertify(phoneNumber: String, _ completion: @escaping (String) -> Void) {
+        signAPI.phoneNumberVertify(phoneNumber: phoneNumber, completion: {
+            result in
+            switch result {
+            case .success(let data):
+                if let smsCode = data as? SMSCodeResult {
+                    let smsCodeString = smsCode.validation_code
+                    completion(smsCodeString)
+                }
+            case .decodeError:
+                break
+            case .fail(let errorCode):
+                print("Error Code: \(errorCode as? Int)")
+                break
+            }
+        })
     }
 }
