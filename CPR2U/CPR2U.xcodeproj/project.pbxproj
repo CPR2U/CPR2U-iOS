@@ -7,12 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A22BF3A29BC8BE1004411BE /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF3929BC8BE1004411BE /* Alamofire */; };
 		3A22BF4329BC9122004411BE /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4229BC9122004411BE /* URLs.swift */; };
-		3A22BF4729BCCD45004411BE /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4629BCCD45004411BE /* CombineMoya */; };
-		3A22BF4929BCCD45004411BE /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4829BCCD45004411BE /* Moya */; };
-		3A22BF4B29BCCD45004411BE /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4A29BCCD45004411BE /* ReactiveMoya */; };
-		3A22BF4D29BCCD45004411BE /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4C29BCCD45004411BE /* RxMoya */; };
 		3A22BF5029BCCE07004411BE /* SignEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */; };
 		3A22BF5229BCD6B8004411BE /* SignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5129BCD6B8004411BE /* SignManager.swift */; };
 		3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */; };
@@ -112,11 +107,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A22BF4D29BCCD45004411BE /* RxMoya in Frameworks */,
-				3A22BF4729BCCD45004411BE /* CombineMoya in Frameworks */,
-				3A22BF4B29BCCD45004411BE /* ReactiveMoya in Frameworks */,
-				3A22BF3A29BC8BE1004411BE /* Alamofire in Frameworks */,
-				3A22BF4929BCCD45004411BE /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,11 +342,6 @@
 			);
 			name = CPR2U;
 			packageProductDependencies = (
-				3A22BF3929BC8BE1004411BE /* Alamofire */,
-				3A22BF4629BCCD45004411BE /* CombineMoya */,
-				3A22BF4829BCCD45004411BE /* Moya */,
-				3A22BF4A29BCCD45004411BE /* ReactiveMoya */,
-				3A22BF4C29BCCD45004411BE /* RxMoya */,
 			);
 			productName = CPR2U;
 			productReference = 3AA636AA29AE5055006BB5EF /* CPR2U.app */;
@@ -387,8 +372,6 @@
 			);
 			mainGroup = 3AA636A129AE5054006BB5EF;
 			packageReferences = (
-				3A22BF3829BC8BE1004411BE /* XCRemoteSwiftPackageReference "Alamofire" */,
-				3A22BF4529BCCD45004411BE /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = 3AA636AB29AE5055006BB5EF /* Products */;
 			projectDirPath = "";
@@ -665,53 +648,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		3A22BF3829BC8BE1004411BE /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		3A22BF4529BCCD45004411BE /* XCRemoteSwiftPackageReference "Moya" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Moya/Moya";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		3A22BF3929BC8BE1004411BE /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3A22BF3829BC8BE1004411BE /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		3A22BF4629BCCD45004411BE /* CombineMoya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3A22BF4529BCCD45004411BE /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = CombineMoya;
-		};
-		3A22BF4829BCCD45004411BE /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3A22BF4529BCCD45004411BE /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = Moya;
-		};
-		3A22BF4A29BCCD45004411BE /* ReactiveMoya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3A22BF4529BCCD45004411BE /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = ReactiveMoya;
-		};
-		3A22BF4C29BCCD45004411BE /* RxMoya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3A22BF4529BCCD45004411BE /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = RxMoya;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3AA636A229AE5054006BB5EF /* Project object */;
 }
