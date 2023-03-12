@@ -10,10 +10,7 @@ import Moya
 
 class SignAPI {
     
-    static let shared = SignAPI()
     var signProvider = MoyaProvider<SignService>()
-    
-    private init() {}
     
     func phoneNumberVertify(phoneNumber: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         signProvider.request(.phoneNumberVertify(phoneNumber: phoneNumber)) { result in
