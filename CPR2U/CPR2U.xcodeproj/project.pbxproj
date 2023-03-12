@@ -174,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				3A22BF4229BC9122004411BE /* URLs.swift */,
+				3ADE724E29B9D4AB00EEE19C /* Constraints.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -244,7 +245,6 @@
 				3AA636B629AE5057006BB5EF /* Assets.xcassets */,
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
-				3ADE724E29B9D4AB00EEE19C /* Constraints.swift */,
 			);
 			path = CPR2U;
 			sourceTree = "<group>";
