@@ -16,8 +16,13 @@
 		3A22BF5029BCCE07004411BE /* SignService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4F29BCCE07004411BE /* SignService.swift */; };
 		3A22BF5229BCD6B8004411BE /* SignAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5129BCD6B8004411BE /* SignAPI.swift */; };
 		3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */; };
-		3A22BF5729BCEBA2004411BE /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5629BCEBA2004411BE /* NetworkResult.swift */; };
+		3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5629BCEBA2004411BE /* APIError.swift */; };
 		3A22BF5D29BCF159004411BE /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5C29BCF159004411BE /* Sign.swift */; };
+		3A22BF5F29BDFF1A004411BE /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5E29BDFF1A004411BE /* NetworkRequest.swift */; };
+		3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6029BDFF3B004411BE /* HttpMethod.swift */; };
+		3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6429BE01AB004411BE /* EndPoint.swift */; };
+		3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6629BE05D9004411BE /* Encodable+.swift */; };
+		3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6829BE0A87004411BE /* Requestable.swift */; };
 		3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AD29AE5055006BB5EF /* AppDelegate.swift */; };
 		3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */; };
 		3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636B629AE5057006BB5EF /* Assets.xcassets */; };
@@ -58,8 +63,13 @@
 		3A22BF4F29BCCE07004411BE /* SignService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignService.swift; sourceTree = "<group>"; };
 		3A22BF5129BCD6B8004411BE /* SignAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAPI.swift; sourceTree = "<group>"; };
 		3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
-		3A22BF5629BCEBA2004411BE /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		3A22BF5629BCEBA2004411BE /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		3A22BF5C29BCF159004411BE /* Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign.swift; sourceTree = "<group>"; };
+		3A22BF5E29BDFF1A004411BE /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		3A22BF6029BDFF3B004411BE /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		3A22BF6429BE01AB004411BE /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		3A22BF6629BE05D9004411BE /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
+		3A22BF6829BE0A87004411BE /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		3AA636AA29AE5055006BB5EF /* CPR2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPR2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA636AD29AE5055006BB5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +158,7 @@
 				3AA636D229B24D72006BB5EF /* UIFont+.swift */,
 				3AA636F029B5F1C8006BB5EF /* UIControl+.swift */,
 				3AA636F429B61D67006BB5EF /* UIViewController+.swift */,
+				3A22BF6629BE05D9004411BE /* Encodable+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -189,8 +200,12 @@
 		3A22BF5329BCE990004411BE /* APIServices */ = {
 			isa = PBXGroup;
 			children = (
-				3A22BF5629BCEBA2004411BE /* NetworkResult.swift */,
+				3A22BF5629BCEBA2004411BE /* APIError.swift */,
+				3A22BF6029BDFF3B004411BE /* HttpMethod.swift */,
 				3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */,
+				3A22BF5E29BDFF1A004411BE /* NetworkRequest.swift */,
+				3A22BF6429BE01AB004411BE /* EndPoint.swift */,
+				3A22BF6829BE0A87004411BE /* Requestable.swift */,
 			);
 			path = APIServices;
 			sourceTree = "<group>";
@@ -403,6 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */,
 				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
 				3A22BF5D29BCF159004411BE /* Sign.swift in Sources */,
@@ -419,7 +435,8 @@
 				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
-				3A22BF5729BCEBA2004411BE /* NetworkResult.swift in Sources */,
+				3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */,
+				3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
 				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
@@ -435,9 +452,12 @@
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
 				3A22BF4329BC9122004411BE /* URLs.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
+				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
 				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
+				3A22BF5F29BDFF1A004411BE /* NetworkRequest.swift in Sources */,
 				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
+				3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
