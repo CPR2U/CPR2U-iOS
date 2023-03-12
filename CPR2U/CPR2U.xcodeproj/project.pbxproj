@@ -13,8 +13,8 @@
 		3A22BF4929BCCD45004411BE /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4829BCCD45004411BE /* Moya */; };
 		3A22BF4B29BCCD45004411BE /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4A29BCCD45004411BE /* ReactiveMoya */; };
 		3A22BF4D29BCCD45004411BE /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3A22BF4C29BCCD45004411BE /* RxMoya */; };
-		3A22BF5029BCCE07004411BE /* SignService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4F29BCCE07004411BE /* SignService.swift */; };
-		3A22BF5229BCD6B8004411BE /* SignAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5129BCD6B8004411BE /* SignAPI.swift */; };
+		3A22BF5029BCCE07004411BE /* SignEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */; };
+		3A22BF5229BCD6B8004411BE /* SignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5129BCD6B8004411BE /* SignManager.swift */; };
 		3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */; };
 		3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5629BCEBA2004411BE /* APIError.swift */; };
 		3A22BF5D29BCF159004411BE /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5C29BCF159004411BE /* Sign.swift */; };
@@ -60,8 +60,8 @@
 
 /* Begin PBXFileReference section */
 		3A22BF4229BC9122004411BE /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
-		3A22BF4F29BCCE07004411BE /* SignService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignService.swift; sourceTree = "<group>"; };
-		3A22BF5129BCD6B8004411BE /* SignAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAPI.swift; sourceTree = "<group>"; };
+		3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignEndPoint.swift; sourceTree = "<group>"; };
+		3A22BF5129BCD6B8004411BE /* SignManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignManager.swift; sourceTree = "<group>"; };
 		3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		3A22BF5629BCEBA2004411BE /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		3A22BF5C29BCF159004411BE /* Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign.swift; sourceTree = "<group>"; };
@@ -191,8 +191,8 @@
 		3A22BF4E29BCCDF7004411BE /* Sign */ = {
 			isa = PBXGroup;
 			children = (
-				3A22BF4F29BCCE07004411BE /* SignService.swift */,
-				3A22BF5129BCD6B8004411BE /* SignAPI.swift */,
+				3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */,
+				3A22BF5129BCD6B8004411BE /* SignManager.swift */,
 			);
 			path = Sign;
 			sourceTree = "<group>";
@@ -442,11 +442,11 @@
 				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
 				3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */,
 				3ADE726429BB049900EEE19C /* MultiQuizChoiceView.swift in Sources */,
-				3A22BF5229BCD6B8004411BE /* SignAPI.swift in Sources */,
+				3A22BF5229BCD6B8004411BE /* SignManager.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
-				3A22BF5029BCCE07004411BE /* SignService.swift in Sources */,
+				3A22BF5029BCCE07004411BE /* SignEndPoint.swift in Sources */,
 				3ADE726A29BB27FB00EEE19C /* NoticeTestViewController.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
