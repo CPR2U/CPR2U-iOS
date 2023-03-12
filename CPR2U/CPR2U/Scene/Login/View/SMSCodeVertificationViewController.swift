@@ -10,10 +10,14 @@ import UIKit
 
 final class SMSCodeVertificationViewController: UIViewController {
 
+    private let signAPI = SignAPI()
+    
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
     
     var phoneNumberString: String?
+    var smsCode: String?
+    
     private let phoneNumberLabel = UILabel()
     
     private let smsCodeInputView1 = SMSCodeInputView()
@@ -38,9 +42,11 @@ final class SMSCodeVertificationViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(phoneNumberString: String) {
+    init(phoneNumberString: String, smsCode: String) {
         super.init(nibName: nil, bundle: nil)
         self.phoneNumberString = phoneNumberString
+        self.smsCode = smsCode
+        print("SMS CODE: ", smsCode)
     }
     
     required init?(coder: NSCoder) {
@@ -226,7 +232,19 @@ final class SMSCodeVertificationViewController: UIViewController {
     }
     
     @objc func navigateToNicknameVertificationPage() {
-        navigationController?.pushViewController(NicknameVertificationViewController(), animated: true)
+        if smsCodeVerify() {
+            userVertify({ [weak self] isUser in
+                if isUser {
+                    // token 관련 설정하기
+                    self?.dismiss(animated: true)
+                } else {
+                    guard let phoneNumberString = self?.phoneNumberString else { return }
+                    self?.navigationController?.pushViewController(NicknameVertificationViewController(phoneNumberString: phoneNumberString), animated: true)
+                }
+            })
+        } else {
+            print("인증코드 오류")
+        }
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -251,5 +269,31 @@ extension SMSCodeVertificationViewController: UITextFieldDelegate {
         guard let index = Int(textFieldLayerName) else { return }
         self.smsCodeCheckArr[index] = false
                 
+    }
+}
+
+extension SMSCodeVertificationViewController {
+    func smsCodeVerify() -> Bool {
+        let userInput = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
+            .compactMap{$0.smsCodeTextField.text}
+            .reduce("") { return $0 + $1 }
+        
+        print("\(smsCode) \(userInput)")
+        return userInput == smsCode
+    }
+    
+    func userVertify(_ completion: @escaping (Bool) -> Void) {
+        guard let phoneNumberString = phoneNumberString else { return }
+        signAPI.signIn(phoneNumber: phoneNumberString, deviceToken: "", completion: {
+            result in
+            switch result {
+            case .success:
+                completion(true)
+            case .decodeError:
+                completion(false)
+            case .fail:
+                completion(false)
+            }
+        })
     }
 }
