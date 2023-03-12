@@ -43,6 +43,10 @@ enum NicknameStatus {
 
 final class NicknameVertificationViewController: UIViewController {
 
+    private let signAPI = SignAPI()
+    
+    var phoneNumberString: String?
+    
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
     
@@ -61,6 +65,15 @@ final class NicknameVertificationViewController: UIViewController {
             newValue.changeNoticeLabel(noticeLabel: irregularNoticeLabel, nickname: nicknameTextField.text)
             newValue.changeNoticeViewLayerBorderColor(view: nicknameView)
         }
+    }
+    
+    init(phoneNumberString: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.phoneNumberString = phoneNumberString
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -214,15 +227,27 @@ final class NicknameVertificationViewController: UIViewController {
     }
     
     @objc func continueButtonDidTap() {
-        // TODO: [SERVER API] 닉네임 사용 가능 여부 판별
-        // nickNamseStatus = 서버 API
-
-        nicknameStatus = .available
-        if nicknameStatus == .available {
-            dismiss(animated: true)
-            if availableNickname == nicknameTextField.text {
-                dismiss(animated: true)
-            }
+        guard let textCount = nicknameTextField.text?.count else { return }
+        if (nicknameStatus != .specialCharacters && textCount != 0 ) {
+            nicknameVerify({ [weak self] nicknameIsValid, verifiedNickname in
+                self?.nicknameStatus = nicknameIsValid
+                if self?.nicknameStatus == .available {
+                    self?.dismiss(animated: true)
+                    guard let phoneNumber = self?.phoneNumberString else { return }
+                    guard let nickname = verifiedNickname else { return }
+                    // TODO: SignUp
+                    self?.signAPI.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: "", completion: { result in
+                        switch result {
+                        case .success:
+                            self?.dismiss(animated: true)
+                        case .decodeError:
+                            print("error")
+                        case .fail:
+                            print("error")
+                        }
+                    })
+                }
+            })
         }
     }
 
@@ -238,5 +263,21 @@ final class NicknameVertificationViewController: UIViewController {
     @objc private func keyboardWillHide(_ notification: Notification) {
         continueButtonBottomConstraints.constant = -16
         view.layoutIfNeeded()
+    }
+}
+
+extension NicknameVertificationViewController {
+    func nicknameVerify(_ completion: @escaping (NicknameStatus, String?) -> Void) {
+        guard let userInput = nicknameTextField.text else { return }
+        signAPI.nicknameVertify(nickname: userInput, completion: { result in
+            switch result {
+            case .success:
+                completion(.available, userInput)
+            case .decodeError:
+                completion(.none, nil)
+            case .fail:
+                completion(.unavailable, nil)
+            }
+        })
     }
 }
