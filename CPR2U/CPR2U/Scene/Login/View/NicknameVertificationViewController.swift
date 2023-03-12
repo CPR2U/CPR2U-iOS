@@ -43,7 +43,7 @@ enum NicknameStatus {
 
 final class NicknameVertificationViewController: UIViewController {
 
-    private let signAPI = SignAPI()
+    private let signAPI = SignManager(service: APIManager())
     
     var phoneNumberString: String?
     
@@ -229,25 +229,7 @@ final class NicknameVertificationViewController: UIViewController {
     @objc func continueButtonDidTap() {
         guard let textCount = nicknameTextField.text?.count else { return }
         if (nicknameStatus != .specialCharacters && textCount != 0 ) {
-            nicknameVerify({ [weak self] nicknameIsValid, verifiedNickname in
-                self?.nicknameStatus = nicknameIsValid
-                if self?.nicknameStatus == .available {
-                    self?.dismiss(animated: true)
-                    guard let phoneNumber = self?.phoneNumberString else { return }
-                    guard let nickname = verifiedNickname else { return }
-                    // TODO: SignUp
-                    self?.signAPI.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: "", completion: { result in
-                        switch result {
-                        case .success:
-                            self?.dismiss(animated: true)
-                        case .decodeError:
-                            print("error")
-                        case .fail:
-                            print("error")
-                        }
-                    })
-                }
-            })
+            nicknameVerify()
         }
     }
 
@@ -267,17 +249,24 @@ final class NicknameVertificationViewController: UIViewController {
 }
 
 extension NicknameVertificationViewController {
-    func nicknameVerify(_ completion: @escaping (NicknameStatus, String?) -> Void) {
-        guard let userInput = nicknameTextField.text else { return }
-        signAPI.nicknameVertify(nickname: userInput, completion: { result in
-            switch result {
-            case .success:
-                completion(.available, userInput)
-            case .decodeError:
-                completion(.none, nil)
-            case .fail:
-                completion(.unavailable, nil)
+    func nicknameVerify() {
+        Task {
+            guard let userInput = nicknameTextField.text else { return }
+            let result = try await signAPI.nicknameVerify(nickname: userInput)
+            if result.success == false {
+                nicknameStatus = .unavailable
+            } else {
+                nicknameStatus = .available
+                signUp(nickname: userInput)
             }
-        })
+        }
+    }
+    
+    func signUp(nickname: String) {
+        Task {
+            guard let phoneNumber = phoneNumberString else { return }
+            try await signAPI.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: "")
+            dismiss(animated: true)
+        }
     }
 }

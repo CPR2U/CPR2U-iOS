@@ -10,7 +10,7 @@ import UIKit
 
 final class PhoneNumberVertificationViewController: UIViewController {
 
-    private let signAPI = SignAPI()
+    private let signAPI = SignManager(service: APIManager())
     
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
@@ -160,7 +160,7 @@ final class PhoneNumberVertificationViewController: UIViewController {
     }
 
     private func setUpAction() {
-        sendButton.addTarget(self, action: #selector(navigateToSMSCodeVertificationPage), for: .touchUpInside)
+        sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
     }
     
     private func setUpKeyboard() {
@@ -169,15 +169,6 @@ final class PhoneNumberVertificationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         hideKeyboardWhenTappedAround()
-    }
-    
-    @objc func navigateToSMSCodeVertificationPage() {
-        guard let phoneNumberString = phoneNumberTextField.text else { return }
-        phoneNumberVertify(phoneNumber: phoneNumberString) {
-            smsCodeString in
-            self.navigationController?.pushViewController(SMSCodeVertificationViewController(phoneNumberString: "+82\(phoneNumberString)", smsCode: smsCodeString), animated: true)
-        }
-        
     }
     
     private func bind(to viewModel: VertificationViewModel) {
@@ -210,24 +201,23 @@ final class PhoneNumberVertificationViewController: UIViewController {
         sendButtonBottomConstraints.constant = -16
         view.layoutIfNeeded()
     }
+    
+    @objc func didTapSendButton() {
+        guard let phoneNumberString = phoneNumberTextField.text else { return }
+        phoneNumberVertify(phoneNumber: phoneNumberString)
+    }
 }
 
 extension PhoneNumberVertificationViewController {
-    func phoneNumberVertify(phoneNumber: String, _ completion: @escaping (String) -> Void) {
-        signAPI.phoneNumberVertify(phoneNumber: phoneNumber, completion: {
-            result in
-            switch result {
-            case .success(let data):
-                if let smsCode = data as? SMSCodeResult {
-                    let smsCodeString = smsCode.validation_code
-                    completion(smsCodeString)
-                }
-            case .decodeError:
-                break
-            case .fail(let errorCode):
-                print("Error Code: \(errorCode as? Int)")
-                break
-            }
-        })
+    func phoneNumberVertify(phoneNumber: String) {
+        Task {
+            let result = try await signAPI.phoneNumberVerify(phoneNumber: phoneNumber)
+            guard let validationCode = result.data?.validation_code else { return }
+            navigateToSMSCodeVerificationPage(phoneNumberString: phoneNumber, smsCode: validationCode)
+        }
+    }
+    
+    func navigateToSMSCodeVerificationPage(phoneNumberString: String, smsCode: String) {
+        self.navigationController?.pushViewController(SMSCodeVertificationViewController(phoneNumberString: "+82\(phoneNumberString)", smsCode: smsCode), animated: true)
     }
 }

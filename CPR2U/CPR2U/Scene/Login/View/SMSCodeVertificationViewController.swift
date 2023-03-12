@@ -9,8 +9,8 @@ import Combine
 import UIKit
 
 final class SMSCodeVertificationViewController: UIViewController {
-
-    private let signAPI = SignAPI()
+    
+    private let signAPI = SignManager(service: APIManager())
     
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
@@ -55,7 +55,7 @@ final class SMSCodeVertificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpConstraints()
         setUpStyle()
         setUpText()
@@ -105,7 +105,7 @@ final class SMSCodeVertificationViewController: UIViewController {
             descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: space16),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
-
+        
         NSLayoutConstraint.activate([
             phoneNumberLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: space4),
             phoneNumberLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
@@ -233,15 +233,7 @@ final class SMSCodeVertificationViewController: UIViewController {
     
     @objc func navigateToNicknameVertificationPage() {
         if smsCodeVerify() {
-            userVertify({ [weak self] isUser in
-                if isUser {
-                    // token 관련 설정하기
-                    self?.dismiss(animated: true)
-                } else {
-                    guard let phoneNumberString = self?.phoneNumberString else { return }
-                    self?.navigationController?.pushViewController(NicknameVertificationViewController(phoneNumberString: phoneNumberString), animated: true)
-                }
-            })
+            userVertify()
         } else {
             print("인증코드 오류")
         }
@@ -250,7 +242,7 @@ final class SMSCodeVertificationViewController: UIViewController {
     @objc private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardHeight = keyboardFrame.cgRectValue.height
-
+            
             confirmButtonBottomConstraints.constant = -keyboardHeight
             view.layoutIfNeeded()
         }
@@ -268,7 +260,7 @@ extension SMSCodeVertificationViewController: UITextFieldDelegate {
         guard let textFieldLayerName = textField.layer.name else { return }
         guard let index = Int(textFieldLayerName) else { return }
         self.smsCodeCheckArr[index] = false
-                
+        
     }
 }
 
@@ -277,23 +269,19 @@ extension SMSCodeVertificationViewController {
         let userInput = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
             .compactMap{$0.smsCodeTextField.text}
             .reduce("") { return $0 + $1 }
-        
-        print("\(smsCode) \(userInput)")
         return userInput == smsCode
     }
     
-    func userVertify(_ completion: @escaping (Bool) -> Void) {
-        guard let phoneNumberString = phoneNumberString else { return }
-        signAPI.signIn(phoneNumber: phoneNumberString, deviceToken: "", completion: {
-            result in
-            switch result {
-            case .success:
-                completion(true)
-            case .decodeError:
-                completion(false)
-            case .fail:
-                completion(false)
+    func userVertify() {
+        Task {
+            guard let phoneNumber = phoneNumberString else { return }
+            let result = try await signAPI.signIn(phoneNumber: phoneNumber, deviceToken: "")
+            if result.success == false {
+                guard let phoneNumberString = phoneNumberString else { return }
+                navigationController?.pushViewController(NicknameVertificationViewController(phoneNumberString: phoneNumberString), animated: true)
+            } else {
+                dismiss(animated: true)
             }
-        })
+        }
     }
 }
