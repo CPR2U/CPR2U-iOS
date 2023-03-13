@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Moya
 
 protocol SignService {
     func phoneNumberVerify(phoneNumber: String) async throws -> (success: Bool, data: SMSCodeResult?)
