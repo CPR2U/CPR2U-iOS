@@ -54,6 +54,8 @@ final class PracticeExplainViewController: UIViewController {
     }
     
     private func setUpStyle() {
+        view.backgroundColor = .mainWhite
+        
         moveButton.backgroundColor = .mainLightRed
         moveButton.setTitleColor(.mainBlack, for: .normal)
         moveButton.titleLabel?.font = UIFont(weight: .bold, size: 16)

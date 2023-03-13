@@ -92,6 +92,8 @@ final class EducationQuizViewController: UIViewController {
     }
     
     private func setUpStyle() {
+        view.backgroundColor = .mainWhite
+        
         answerLabel.font = UIFont(weight: .bold, size: 18)
         answerLabel.textColor = .mainBlack
         answerLabel.textAlignment = .center
