@@ -10,7 +10,7 @@ import UIKit
 
 final class SMSCodeVerificationViewController: UIViewController {
     
-    private let signAPI = SignManager(service: APIManager())
+    private let signManager = SignManager(service: APIManager())
     
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
@@ -275,7 +275,7 @@ extension SMSCodeVerificationViewController {
     func userVerify() {
         Task {
             guard let phoneNumber = phoneNumberString else { return }
-            let result = try await signAPI.signIn(phoneNumber: phoneNumber, deviceToken: "")
+            let result = try await signManager.signIn(phoneNumber: phoneNumber, deviceToken: "")
             if result.success == false {
                 guard let phoneNumberString = phoneNumberString else { return }
                 navigationController?.pushViewController(NicknameVerificationViewController(phoneNumberString: phoneNumberString), animated: true)

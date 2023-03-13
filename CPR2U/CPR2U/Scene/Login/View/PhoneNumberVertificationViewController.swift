@@ -10,7 +10,7 @@ import UIKit
 
 final class PhoneNumberVerificationViewController: UIViewController {
 
-    private let signAPI = SignManager(service: APIManager())
+    private let signManager = SignManager(service: APIManager())
     
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
@@ -211,7 +211,7 @@ final class PhoneNumberVerificationViewController: UIViewController {
 extension PhoneNumberVerificationViewController {
     func phoneNumberVerify(phoneNumber: String) {
         Task {
-            let result = try await signAPI.phoneNumberVerify(phoneNumber: phoneNumber)
+            let result = try await signManager.phoneNumberVerify(phoneNumber: phoneNumber)
             guard let validationCode = result.data?.validation_code else { return }
             navigateToSMSCodeVerificationPage(phoneNumberString: phoneNumber, smsCode: validationCode)
         }

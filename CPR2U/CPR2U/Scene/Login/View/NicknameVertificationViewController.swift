@@ -43,7 +43,7 @@ enum NicknameStatus {
 
 final class NicknameVerificationViewController: UIViewController {
 
-    private let signAPI = SignManager(service: APIManager())
+    private let signManager = SignManager(service: APIManager())
     
     var phoneNumberString: String?
     
@@ -252,7 +252,7 @@ extension NicknameVerificationViewController {
     func nicknameVerify() {
         Task {
             guard let userInput = nicknameTextField.text else { return }
-            let result = try await signAPI.nicknameVerify(nickname: userInput)
+            let result = try await signManager.nicknameVerify(nickname: userInput)
             if result.success == false {
                 nicknameStatus = .unavailable
             } else {
@@ -265,7 +265,7 @@ extension NicknameVerificationViewController {
     func signUp(nickname: String) {
         Task {
             guard let phoneNumber = phoneNumberString else { return }
-            try await signAPI.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: "")
+            try await signManager.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: "")
             dismiss(animated: true)
         }
     }
