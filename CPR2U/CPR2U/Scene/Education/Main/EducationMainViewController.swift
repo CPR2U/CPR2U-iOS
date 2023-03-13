@@ -92,6 +92,13 @@ extension EducationMainViewController: UICollectionViewDataSource {
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.row
+        print(index)
+        let vc = navigateTo(index: index)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension EducationMainViewController: UICollectionViewDelegate {
@@ -116,5 +123,17 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         return CGSize(width: 358, height: 108)
+    }
+    
+    func navigateTo(index: Int) -> UIViewController {
+        var vc: UIViewController
+        if index == 0 {
+            vc = TestViewController()
+        } else if index == 1 {
+            vc = EducationQuizViewController()
+        } else {
+            vc = PracticeExplainViewController()
+        }
+        return vc
     }
 }

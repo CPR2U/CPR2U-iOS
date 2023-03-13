@@ -9,8 +9,8 @@ import UIKit
 
 final class OXQuizChoiceView: UIView {
 
-    private let leftChoice = UIButton()
-    private let rightChoice = UIButton()
+    private let choices = [UIButton(), UIButton()]
+    weak var delegate: QuizChoiceViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,12 +36,12 @@ final class OXQuizChoiceView: UIView {
         self.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        [
-            leftChoice,
-            rightChoice
-        ].forEach({
+        choices.forEach({
             stackView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
+            $0.widthAnchor.constraint(equalToConstant: 108).isActive = true
+            $0.heightAnchor.constraint(equalToConstant: 80).isActive = true
         })
         
         NSLayoutConstraint.activate([
@@ -52,25 +52,16 @@ final class OXQuizChoiceView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            leftChoice.topAnchor.constraint(equalTo: stackView.topAnchor),
-            leftChoice.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            leftChoice.widthAnchor.constraint(equalToConstant: 108),
-            leftChoice.heightAnchor.constraint(equalToConstant: 80)
+            choices[0].leadingAnchor.constraint(equalTo: stackView.leadingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            rightChoice.topAnchor.constraint(equalTo: stackView.topAnchor),
-            rightChoice.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            rightChoice.widthAnchor.constraint(equalToConstant: 108),
-            rightChoice.heightAnchor.constraint(equalToConstant: 80)
+            choices[1].trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
         ])
     }
     
     private func setUpStyle() {
-        [
-            leftChoice,
-            rightChoice
-        ].forEach({
+        choices.forEach({
             $0.backgroundColor = UIColor.mainRed.withAlphaComponent(0.05)
             $0.layer.borderWidth = 2
             $0.layer.borderColor = UIColor.mainRed.cgColor
@@ -81,13 +72,26 @@ final class OXQuizChoiceView: UIView {
     }
     
     private func setUpText() {
-        leftChoice.setTitle("O", for: .normal)
-        rightChoice.setTitle("X", for: .normal)
+        choices[0].setTitle("O", for: .normal)
+        choices[1].setTitle("X", for: .normal)
     }
     
     private func setUpAction() {
-        
+        for choice in choices {
+            choice.addTarget(self, action: #selector(didButtonClicked), for: .touchUpInside)
+        }
     }
     
-    
+    @objc func didButtonClicked(_ sender: UIButton) {
+        for (index, choice) in choices.enumerated() {
+            if choice == sender {
+                choice.isSelected = true
+                delegate?.isSelectedAnswer(index: index)
+                choice.changeButtonStyle(isSelected: true)
+            } else {
+                choice.isSelected = false
+                choice.changeButtonStyle(isSelected: false)
+            }
+        }
+    }
 }

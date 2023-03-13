@@ -20,14 +20,13 @@ final class EducationQuizViewController: UIViewController {
         return view
     }()
     
-    private let multiChoiceView = MultiQuizChoiceView()
-    
     private let answerLabel = UILabel()
     private let answerDescriptionLabel = UILabel()
     
     private let submitButton = UIButton()
     
     private let choiceNum = 4
+    private var currentSelectedAnswer: Int?
     private let isSolved = false
     
     override func viewDidLoad() {
@@ -36,6 +35,7 @@ final class EducationQuizViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpText()
+        setUpDelegate()
         setUpAction()
     }
     
@@ -66,7 +66,7 @@ final class EducationQuizViewController: UIViewController {
             choiceView.topAnchor.constraint(equalTo: questionView.bottomAnchor, constant: choiceNum == 2 ? 78 : 36),
             choiceView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
             choiceView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
-            choiceView.heightAnchor.constraint(equalToConstant: choiceNum == 2 ? 80 : 234)
+            choiceView.heightAnchor.constraint(equalToConstant: choiceNum == 2 ? 80 : 280)
         ])
         
         NSLayoutConstraint.activate([
@@ -104,6 +104,9 @@ final class EducationQuizViewController: UIViewController {
         answerDescriptionLabel.adjustsFontSizeToFitWidth = true
         answerDescriptionLabel.minimumScaleFactor = 0.5
         
+        answerLabel.isUserInteractionEnabled = false
+        answerDescriptionLabel.isUserInteractionEnabled = false
+        
         submitButton.backgroundColor = .mainLightRed
         submitButton.setTitleColor(.mainBlack, for: .normal)
         submitButton.titleLabel?.font = UIFont(weight: .bold, size: 20)
@@ -117,8 +120,23 @@ final class EducationQuizViewController: UIViewController {
         
     }
     
+    private func setUpDelegate() {
+        if let view = choiceView as? OXQuizChoiceView {
+            view.delegate = self
+        } else if let view = choiceView as? MultiQuizChoiceView {
+            view.delegate = self
+        }
+    }
+    
     func setUpAction() {
         
     }
     
+}
+
+extension EducationQuizViewController: QuizChoiceViewDelegate {
+    func isSelectedAnswer(index: Int) {
+        currentSelectedAnswer = index
+        print("SELECTED ONE INDEX IS \(index)")
+    }
 }
