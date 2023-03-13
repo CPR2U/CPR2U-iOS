@@ -1,5 +1,5 @@
 //
-//  PhoneNumberVertificationViewController.swift
+//  PhoneNumberVerificationViewController.swift
 //  CPR2U
 //
 //  Created by 황정현 on 2023/03/02.
@@ -8,8 +8,10 @@
 import Combine
 import UIKit
 
-final class PhoneNumberVertificationViewController: UIViewController {
+final class PhoneNumberVerificationViewController: UIViewController {
 
+    private let signManager = SignManager(service: APIManager())
+    
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
     
@@ -23,7 +25,7 @@ final class PhoneNumberVertificationViewController: UIViewController {
     private var sendButtonBottomConstraints = NSLayoutConstraint()
     
     private var cancellables = Set<AnyCancellable>()
-    private let viewModel = VertificationViewModel()
+    private let viewModel = VerificationViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,7 +160,7 @@ final class PhoneNumberVertificationViewController: UIViewController {
     }
 
     private func setUpAction() {
-        sendButton.addTarget(self, action: #selector(navigateToSMSCodeVertificationPage), for: .touchUpInside)
+        sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
     }
     
     private func setUpKeyboard() {
@@ -169,14 +171,9 @@ final class PhoneNumberVertificationViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    @objc func navigateToSMSCodeVertificationPage() {
-        guard let phoneNumberString = phoneNumberTextField.text else { return }
-        navigationController?.pushViewController(SMSCodeVertificationViewController(phoneNumberString: "+82\(phoneNumberString)"), animated: true)
-    }
-    
-    private func bind(to viewModel: VertificationViewModel) {
-        let input = VertificationViewModel.Input(
-            vertifier: phoneNumberTextField.textPublisher.eraseToAnyPublisher()
+    private func bind(to viewModel: VerificationViewModel) {
+        let input = VerificationViewModel.Input(
+            verifier: phoneNumberTextField.textPublisher.eraseToAnyPublisher()
         )
 
         let output = viewModel.transform(loginPhase: LoginPhase.PhoneNumber, input: input)
@@ -184,7 +181,6 @@ final class PhoneNumberVertificationViewController: UIViewController {
         output
             .buttonIsValid
             .sink(receiveValue: { [weak self] state in
-                print(state)
                 self?.sendButton.isEnabled = state
                 self?.sendButton.setTitleColor(state ? .mainWhite : .mainBlack, for: .normal)
                 self?.sendButton.backgroundColor = state ? .mainRed : .mainLightGray
@@ -204,5 +200,24 @@ final class PhoneNumberVertificationViewController: UIViewController {
     @objc private func keyboardWillHide(_ notification: Notification) {
         sendButtonBottomConstraints.constant = -16
         view.layoutIfNeeded()
+    }
+    
+    @objc func didTapSendButton() {
+        guard let phoneNumberString = phoneNumberTextField.text else { return }
+        phoneNumberVerify(phoneNumber: phoneNumberString)
+    }
+}
+
+extension PhoneNumberVerificationViewController {
+    func phoneNumberVerify(phoneNumber: String) {
+        Task {
+            let result = try await signManager.phoneNumberVerify(phoneNumber: phoneNumber)
+            guard let validationCode = result.data?.validation_code else { return }
+            navigateToSMSCodeVerificationPage(phoneNumberString: phoneNumber, smsCode: validationCode)
+        }
+    }
+    
+    func navigateToSMSCodeVerificationPage(phoneNumberString: String, smsCode: String) {
+        self.navigationController?.pushViewController(SMSCodeVerificationViewController(phoneNumberString: "+82\(phoneNumberString)", smsCode: smsCode), animated: true)
     }
 }

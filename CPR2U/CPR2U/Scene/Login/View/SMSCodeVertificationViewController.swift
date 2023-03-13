@@ -1,5 +1,5 @@
 //
-//  SMSCodeVertificationViewController.swift
+//  SMSCodeVerificationViewController.swift
 //  CPR2U
 //
 //  Created by 황정현 on 2023/03/04.
@@ -8,12 +8,16 @@
 import Combine
 import UIKit
 
-final class SMSCodeVertificationViewController: UIViewController {
-
+final class SMSCodeVerificationViewController: UIViewController {
+    
+    private let signManager = SignManager(service: APIManager())
+    
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
     
     var phoneNumberString: String?
+    var smsCode: String?
+    
     private let phoneNumberLabel = UILabel()
     
     private let smsCodeInputView1 = SMSCodeInputView()
@@ -38,9 +42,11 @@ final class SMSCodeVertificationViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(phoneNumberString: String) {
+    init(phoneNumberString: String, smsCode: String) {
         super.init(nibName: nil, bundle: nil)
         self.phoneNumberString = phoneNumberString
+        self.smsCode = smsCode
+        print("SMS CODE: ", smsCode)
     }
     
     required init?(coder: NSCoder) {
@@ -49,7 +55,7 @@ final class SMSCodeVertificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpConstraints()
         setUpStyle()
         setUpText()
@@ -99,7 +105,7 @@ final class SMSCodeVertificationViewController: UIViewController {
             descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: space16),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
-
+        
         NSLayoutConstraint.activate([
             phoneNumberLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: space4),
             phoneNumberLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
@@ -196,7 +202,7 @@ final class SMSCodeVertificationViewController: UIViewController {
     }
     
     private func setUpAction() {
-        confirmButton.addTarget(self, action: #selector(navigateToNicknameVertificationPage), for: .touchUpInside)
+        confirmButton.addTarget(self, action: #selector(navigateToNicknameVerificationPage), for: .touchUpInside)
     }
     
     private func setUpKeyboard() {
@@ -225,14 +231,18 @@ final class SMSCodeVertificationViewController: UIViewController {
         }
     }
     
-    @objc func navigateToNicknameVertificationPage() {
-        navigationController?.pushViewController(NicknameVertificationViewController(), animated: true)
+    @objc func navigateToNicknameVerificationPage() {
+        if smsCodeVerify() {
+            userVerify()
+        } else {
+            print("인증코드 오류")
+        }
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardHeight = keyboardFrame.cgRectValue.height
-
+            
             confirmButtonBottomConstraints.constant = -keyboardHeight
             view.layoutIfNeeded()
         }
@@ -244,12 +254,34 @@ final class SMSCodeVertificationViewController: UIViewController {
     }
 }
 
-extension SMSCodeVertificationViewController: UITextFieldDelegate {
+extension SMSCodeVerificationViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = ""
         guard let textFieldLayerName = textField.layer.name else { return }
         guard let index = Int(textFieldLayerName) else { return }
         self.smsCodeCheckArr[index] = false
-                
+        
+    }
+}
+
+extension SMSCodeVerificationViewController {
+    func smsCodeVerify() -> Bool {
+        let userInput = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
+            .compactMap{$0.smsCodeTextField.text}
+            .reduce("") { return $0 + $1 }
+        return userInput == smsCode
+    }
+    
+    func userVerify() {
+        Task {
+            guard let phoneNumber = phoneNumberString else { return }
+            let result = try await signManager.signIn(phoneNumber: phoneNumber, deviceToken: "")
+            if result.success == false {
+                guard let phoneNumberString = phoneNumberString else { return }
+                navigationController?.pushViewController(NicknameVerificationViewController(phoneNumberString: phoneNumberString), animated: true)
+            } else {
+                dismiss(animated: true)
+            }
+        }
     }
 }
