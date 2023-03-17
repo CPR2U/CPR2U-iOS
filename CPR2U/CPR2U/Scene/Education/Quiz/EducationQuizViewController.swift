@@ -103,6 +103,10 @@ final class EducationQuizViewController: UIViewController {
     }
     
     private func setUpStyle() {
+        navigationController?.navigationBar.topItem?.title = "Quiz"
+        let closeItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))
+        navigationItem.leftBarButtonItem = closeItem
+        
         view.backgroundColor = .mainWhite
         
         answerLabel.font = UIFont(weight: .bold, size: 18)
@@ -199,5 +203,20 @@ final class EducationQuizViewController: UIViewController {
         current.isUserInteractionEnabled = false
         will.alpha = 1.0
         will.isUserInteractionEnabled = true
+    }
+    
+    @objc private func closeButtonTapped() {
+        let alert = UIAlertController(title: "Quiz Exit", message: "All progress will be lost", preferredStyle: .alert)
+        
+        let confirm = UIAlertAction(title: "Confirm", style: .destructive, handler: { _ in
+            self.dismiss(animated: true)
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        [confirm, cancel].forEach {
+            alert.addAction($0)
+        }
+        
+        present(alert, animated: true, completion: nil)
     }
 }
