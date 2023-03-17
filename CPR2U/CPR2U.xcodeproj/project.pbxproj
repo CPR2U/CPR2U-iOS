@@ -18,6 +18,8 @@
 		3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6429BE01AB004411BE /* EndPoint.swift */; };
 		3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6629BE05D9004411BE /* Encodable+.swift */; };
 		3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6829BE0A87004411BE /* Requestable.swift */; };
+		3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */; };
+		3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */; };
 		3A50F39129BF426E00DC1E29 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A50F39029BF426E00DC1E29 /* Private.plist */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
@@ -69,6 +71,8 @@
 		3A22BF6429BE01AB004411BE /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		3A22BF6629BE05D9004411BE /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		3A22BF6829BE0A87004411BE /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
+		3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXQuizChoiceView.swift; sourceTree = "<group>"; };
+		3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiQuizChoiceView.swift; sourceTree = "<group>"; };
 		3A50F39029BF426E00DC1E29 /* Private.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Private.plist; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
@@ -325,6 +329,8 @@
 				3ADE725F29BB03A100EEE19C /* EducationQuizViewController.swift */,
 				3ADE726529BB04C900EEE19C /* QuizQuestionView.swift */,
 				3ADE726129BB047300EEE19C /* QuizChoiceView.swift */,
+				3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */,
+				3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */,
 				3ADE726729BB21BE00EEE19C /* CustomNoticeView.swift */,
 				3ADE726929BB27FB00EEE19C /* NoticeTestViewController.swift */,
 				3A5C390F29C08C8900378015 /* QuizViewModel.swift */,
@@ -441,6 +447,7 @@
 				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */,
+				3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */,
 				3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */,
@@ -464,6 +471,7 @@
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
 				3A22BF5F29BDFF1A004411BE /* NetworkRequest.swift in Sources */,
 				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
+				3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */,
 				3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
