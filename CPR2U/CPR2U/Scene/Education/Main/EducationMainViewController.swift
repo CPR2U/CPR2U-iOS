@@ -95,8 +95,8 @@ extension EducationMainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
-        let vc = navigateTo(index: index)
-        navigationController?.pushViewController(vc, animated: true)
+        navigateTo(index: index)
+        
     }
 }
 
@@ -124,15 +124,19 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 358, height: 108)
     }
     
-    func navigateTo(index: Int) -> UIViewController {
+    func navigateTo(index: Int) {
         var vc: UIViewController
         if index == 0 {
             vc = TestViewController()
+            navigationController?.pushViewController(vc, animated: true)
         } else if index == 1 {
-            vc = EducationQuizViewController()
+            let temp = EducationQuizViewController()
+            vc = UINavigationController(rootViewController: temp)
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true)
         } else {
             vc = PracticeExplainViewController()
+            navigationController?.pushViewController(vc, animated: true)
         }
-        return vc
     }
 }
