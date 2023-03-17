@@ -13,12 +13,12 @@ final class QuizQuestionView: UIView {
     private let questionLabel = UILabel()
     private let questionLeftDecoLine = UIView()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(questionNumber: Int, question: String) {
+        super.init(frame: CGRect.zero)
         
         setUpConstraints()
         setUpStyle()
-        setUpText()
+        setUpText(questionNumber: questionNumber, question: question)
     }
     
     required init?(coder: NSCoder) {
@@ -73,8 +73,9 @@ final class QuizQuestionView: UIView {
         
     }
     
-    private func setUpText() {
-        questionNumberLabel.text = "Q. 01"
-        questionLabel.text = "When you find someone who has fallen, you have to compress his chest instantly."
+    func setUpText(questionNumber: Int, question: String) {
+        let number = questionNumber > 10 ? "0\(questionNumber)" : String(questionNumber)
+        questionNumberLabel.text = "Q. \(number)"
+        questionLabel.text = question
     }
 }

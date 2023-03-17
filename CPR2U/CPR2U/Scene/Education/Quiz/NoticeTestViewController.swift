@@ -9,7 +9,7 @@ import UIKit
 
 class NoticeTestViewController: UIViewController {
 
-    private let noticeView = CustomNoticeView()
+    private let noticeView = CustomNoticeView(noticeAs: .quiz)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class NoticeTestViewController: UIViewController {
             noticeView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-//        noticeView.setNotice(as: .quiz)
-        noticeView.setNotice(as: .certificate)
+        noticeView.setQuizResultNotice(isAllCorrect: true)
+        noticeView.noticeAppear()
     }
 }

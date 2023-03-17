@@ -84,7 +84,7 @@ final class CertificateStatusView: UIView {
         self.layer.cornerRadius = 16
         self.layer.borderColor = UIColor.mainRed.cgColor
         self.layer.borderWidth = 1
-        self.backgroundColor = .mainLightRed.withAlphaComponent(0.05)
+        self.backgroundColor = .mainWhite
         
         certificateImage.image = UIImage(named: "person.png")
         

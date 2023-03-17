@@ -60,13 +60,14 @@ final class EducationMainViewController: UIViewController {
     }
     
     private func setUpStyle() {
+        view.backgroundColor = .mainWhite
         guard let navBar = self.navigationController?.navigationBar else { return }
         navBar.prefersLargeTitles = true
         navBar.topItem?.title = "Education"
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed]
         self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         
-        educationCollectionView.backgroundColor = .white
+        educationCollectionView.backgroundColor = .mainWhite
         educationCollectionView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
     
@@ -88,7 +89,14 @@ extension EducationMainViewController: UICollectionViewDataSource {
         cell.educationNameLabel.text = eduName[indexPath.row]
         cell.descriptionLabel.text = eduDescription[indexPath.row]
         cell.statusLabel.text = eduStatus[indexPath.row]
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let vc = navigateTo(index: index)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -114,5 +122,17 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         return CGSize(width: 358, height: 108)
+    }
+    
+    func navigateTo(index: Int) -> UIViewController {
+        var vc: UIViewController
+        if index == 0 {
+            vc = TestViewController()
+        } else if index == 1 {
+            vc = EducationQuizViewController()
+        } else {
+            vc = PracticeExplainViewController()
+        }
+        return vc
     }
 }

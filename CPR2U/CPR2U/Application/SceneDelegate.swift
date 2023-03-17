@@ -17,9 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         self.window = window
-        
-        let vc = TestViewController()
-        window.rootViewController =  TestViewController()
+        let navVC = UINavigationController(rootViewController: EducationMainViewController())
+        window.rootViewController =  navVC
         window.backgroundColor = .white
         window.makeKeyAndVisible()
     }
