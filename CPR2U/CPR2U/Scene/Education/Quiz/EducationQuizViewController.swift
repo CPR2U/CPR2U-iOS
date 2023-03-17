@@ -160,7 +160,21 @@ final class EducationQuizViewController: UIViewController {
             self?.answerLabel.isHidden = false
             self?.answerDescriptionLabel.isHidden = false
             self?.answerLabel.text = isCorrect ? "Correct!" : "Wrong!"
+            self?.answerDescriptionLabel.text = isCorrect ? "Correct!" : "Wrong!"
             self?.submitButton.setTitle("Next", for: .normal)
+            
+            guard let answerIndex = self?.quizViewModel.currentQuiz().answerIndex, let quizType = self?.quizViewModel.currentQuiz().questionType else {
+                return }
+            
+            print(answerIndex, " ", quizType)
+
+            switch quizType {
+            case .ox:
+                self?.oxChoiceView.animateChoiceButton(answerIndex: answerIndex)
+            case .multi:
+                self?.multiChoiceView.animateChoiceButton(answerIndex: answerIndex)
+            }
+            
         }.store(in: &cancellables)
         
         output.quiz?.sink { quiz in
@@ -195,6 +209,9 @@ final class EducationQuizViewController: UIViewController {
             updateChoiceView(current: oxChoiceView, as: multiChoiceView)
             multiChoiceView.setUpText(quiz.answerList)
         }
+        
+        oxChoiceView.resetChoiceButtonConstraint()
+        multiChoiceView.resetChoiceButtonConstraint()
         
         answerDescriptionLabel.text = quiz.answerDescription
         answerLabel.isHidden = true

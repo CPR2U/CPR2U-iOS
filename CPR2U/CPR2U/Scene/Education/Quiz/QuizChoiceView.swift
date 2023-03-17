@@ -10,6 +10,7 @@ import CombineCocoa
 import UIKit
 
 public class QuizChoiceView: UIView {
+    
     public var choices: [UIButton] = []
     private var viewModel: QuizViewModel?
     private var cancellables = Set<AnyCancellable>()
@@ -30,6 +31,9 @@ public class QuizChoiceView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setUpConstraints() { }
+    func setUpStyle() { }
+        
     private func setUpAction() {
         for (index, choice) in choices.enumerated() {
             choice.tapPublisher.sink { [weak self] in
@@ -70,4 +74,7 @@ public class QuizChoiceView: UIView {
             }
         }
     }
+    
+    func animateChoiceButton(answerIndex: Int) { }
+    func resetChoiceButtonConstraint() { }
 }

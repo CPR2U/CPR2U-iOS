@@ -104,7 +104,7 @@ final class CustomNoticeView: UIView {
     }
     
     private func setUpStyle() {
-        self.backgroundColor = UIColor(rgb: 0xC1C1C1)
+        self.backgroundColor = UIColor(rgb: 0x7B7B7B).withAlphaComponent(0.45)
         noticeView.backgroundColor = UIColor(rgb: 0xFCFCFC)
         noticeView.layer.cornerRadius = 20
         

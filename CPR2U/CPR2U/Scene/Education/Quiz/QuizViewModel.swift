@@ -22,7 +22,7 @@ class QuizViewModel: ViewModelTypeTest {
     var selectedAnswerIndex = CurrentValueSubject<Int, Never>(-1)
     
     init() {
-        self.quizList = [Quiz(questionType: .ox, questionNumber: 1, question: "11111", answerIndex: 0, answerList: ["111", "111"], answerDescription: "asjdeeeeeeeeeeee"), Quiz(questionType: .multi, questionNumber: 2, question: "333333333", answerIndex: 1, answerList: ["123", "456", "789", "141"], answerDescription: "asjdifjaisjdfiaisdjfijaisdf")]
+        self.quizList = [Quiz(questionType: .ox, questionNumber: 1, question: "11111", answerIndex: 0, answerList: ["111", "111"], answerDescription: "asjdeeeeeeeeeeee"), Quiz(questionType: .multi, questionNumber: 2, question: "333333333", answerIndex: 3, answerList: ["123", "456", "789", "141"], answerDescription: "asjdifjaisjdfiaisdjfijaisdf"), Quiz(questionType: .multi, questionNumber: 3, question: "3333eww33333", answerIndex: 2, answerList: ["aaa", "bbb", "ccc", "ddd"], answerDescription: "wlqrjiji")]
     }
     
     struct Output {
@@ -45,6 +45,9 @@ class QuizViewModel: ViewModelTypeTest {
         return quizList[0]
     }
     
+    func currentQuiz() -> Quiz {
+        return quizList[currentQuizIndex]
+    }
     func currentQuizType() -> QuizType {
         return quizList[currentQuizIndex].questionType
     }
@@ -70,12 +73,13 @@ class QuizViewModel: ViewModelTypeTest {
         
         if didSelectAnswer {
             let isCorrect = selectedAnswerIndex.value == quizList[currentQuizIndex].answerIndex
-            currentQuizIndex += 1
-            correctQuizNum += 1
+
             output = Output(quiz: nil, isCorrect: CurrentValueSubject(isCorrect), isQuizEnd: CurrentValueSubject<Bool, Never>(false))
             didSelectAnswer.toggle()
             print("RESULT: ", isCorrect ? "CORRECT" : "WRONG")
         } else {
+            currentQuizIndex += 1
+            correctQuizNum += 1
             if quizList.count == currentQuizIndex {
                 print("THERE's no more next quiz")
                 output = Output(quiz: nil, isCorrect: nil, isQuizEnd: CurrentValueSubject<Bool, Never>(true))

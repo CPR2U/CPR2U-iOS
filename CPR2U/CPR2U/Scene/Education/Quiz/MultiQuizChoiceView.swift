@@ -9,6 +9,10 @@ import UIKit
 
 final class MultiQuizChoiceView: QuizChoiceView {
     
+    private var answerCenterPosition = CGPoint()
+    private var defaultPosition = CGPoint()
+    private var selectedChoice = UIButton()
+    
     init (viewModel: QuizViewModel) {
         super.init(quizType: .multi, viewModel: viewModel)
         
@@ -25,7 +29,7 @@ final class MultiQuizChoiceView: QuizChoiceView {
         fatalError("init(quizType:viewModel:) has not been implemented")
     }
     
-    private func setUpConstraints() {
+    override func setUpConstraints() {
         let stackView   = UIStackView()
         stackView.axis  = NSLayoutConstraint.Axis.vertical
         stackView.distribution  = UIStackView.Distribution.equalSpacing
@@ -58,9 +62,11 @@ final class MultiQuizChoiceView: QuizChoiceView {
             choices[2].topAnchor.constraint(equalTo: choices[1].bottomAnchor, constant: 26),
             choices[3].topAnchor.constraint(equalTo: choices[2].bottomAnchor, constant: 26)
         ])
+        
+        answerCenterPosition = choices[1].center
     }
     
-    private func setUpStyle() {
+    override func setUpStyle() {
         choices.forEach({
             $0.backgroundColor = UIColor.mainRed.withAlphaComponent(0.05)
             $0.layer.borderWidth = 2
@@ -69,5 +75,28 @@ final class MultiQuizChoiceView: QuizChoiceView {
             $0.titleLabel?.font = UIFont(weight: .regular, size: 26)
             $0.setTitleColor(.mainBlack, for: .normal)
         })
+    }
+    
+    override func animateChoiceButton(answerIndex: Int) {
+        
+        var otherButtons: [UIButton] = []
+        for index in 0..<choices.count {
+            if index != answerIndex {
+                otherButtons.append(choices[index])
+            }
+        }
+        
+        defaultPosition = choices[answerIndex].center
+        selectedChoice = choices[answerIndex]
+        UIView.animate(withDuration: 0.3, animations: { [self] in
+            otherButtons.forEach({ $0.alpha = 0.0})
+            choices[answerIndex].center = choices[1].center
+            layoutIfNeeded()
+        })
+    }
+    
+    override func resetChoiceButtonConstraint() {
+        choices.forEach({ $0.alpha = 1.0 })
+        selectedChoice.center = defaultPosition
     }
 }
