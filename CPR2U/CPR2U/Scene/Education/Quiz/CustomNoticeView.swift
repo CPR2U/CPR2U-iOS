@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CustomNoticeViewDelegate: AnyObject {
+    func dismissQuizViewController()
+}
+
 enum Notice {
     case quiz
     case certificate
@@ -14,6 +18,8 @@ enum Notice {
 
 final class CustomNoticeView: UIView {
 
+    weak var delegate: CustomNoticeViewDelegate?
+    
     private lazy var shadowView: UIView = {
         let view = UIView()
         
@@ -35,6 +41,8 @@ final class CustomNoticeView: UIView {
     
     private let appearAnimDuration: CGFloat = 0.4
     private let appearAnimDelay: CGFloat = 0.0
+    
+    private var noticeType = Notice.quiz
 
     init(noticeAs: Notice) {
         super.init(frame: CGRect.zero)
@@ -44,6 +52,7 @@ final class CustomNoticeView: UIView {
         setUpConstraints()
         setUpStyle()
         setConfirmButton()
+        noticeType = noticeAs
     }
     
     required init?(coder: NSCoder) {
@@ -166,7 +175,11 @@ final class CustomNoticeView: UIView {
     }
     
     @objc private func didConfirmButtonTapped() {
-        noticeDisappear()
+        if noticeType == .quiz {
+            delegate?.dismissQuizViewController()
+        } else {
+            noticeDisappear()
+        }
     }
     
     func noticeAppear() {

@@ -31,6 +31,7 @@ final class EducationQuizViewController: UIViewController {
         
         setUpConstraints()
         setUpStyle()
+        setUpDelegate()
         setUpText()
         updateQuiz(quiz: quizViewModel.quizInit())
         bind(to: quizViewModel)
@@ -127,6 +128,10 @@ final class EducationQuizViewController: UIViewController {
         submitButton.titleLabel?.font = UIFont(weight: .bold, size: 20)
     }
     
+    private func setUpDelegate() {
+        noticeView.delegate = self
+    }
+    
     private func setUpText() {
         answerLabel.text = ""
         answerDescriptionLabel.text = ""
@@ -167,7 +172,6 @@ final class EducationQuizViewController: UIViewController {
             guard let isQuizAllCorrect = self?.quizViewModel.isQuizAllCorrect() else { return }
             guard let quizResultString = self?.quizViewModel.quizResultString() else { return }
             if isQuizEnd {
-                print("HHHHHHHHHHHHH")
                 if isQuizAllCorrect {
                     self?.noticeView.setQuizResultNotice(isAllCorrect: true)
                     self?.noticeView.noticeAppear()
@@ -218,5 +222,11 @@ final class EducationQuizViewController: UIViewController {
         }
         
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension EducationQuizViewController: CustomNoticeViewDelegate {
+    func dismissQuizViewController() {
+        dismiss(animated: true)
     }
 }
