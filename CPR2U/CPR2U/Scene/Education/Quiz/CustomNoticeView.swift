@@ -11,13 +11,13 @@ protocol CustomNoticeViewDelegate: AnyObject {
     func dismissQuizViewController()
 }
 
-enum Notice {
+enum NoticeUsage {
     case quiz
     case certificate
 }
 
 final class CustomNoticeView: UIView {
-
+    
     weak var delegate: CustomNoticeViewDelegate?
     
     private lazy var shadowView: UIView = {
@@ -34,24 +34,53 @@ final class CustomNoticeView: UIView {
         return view
     } ()
     
-    private let noticeView = UIView()
-    private let thumbnailImageView = UIImageView()
-    private let titleLabel = UILabel()
-    private let subTitleLabel = UILabel()
+    private let noticeView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(rgb: 0xFCFCFC)
+        view.layer.cornerRadius = 20
+        return view
+    }()
     
+    private let thumbnailImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 18)
+        label.textAlignment = .center
+        label.textColor = .mainBlack
+        return label
+    }()
+    private let subTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textAlignment = .center
+        label.textColor = .mainBlack
+        return label
+    }()
+    
+    private let confirmButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 22
+        button.backgroundColor = .mainRed
+        button.titleLabel?.font = UIFont(weight: .bold, size: 17)
+        button.setTitleColor(.mainWhite, for: .normal)
+        button.setTitle("CONFIRM", for: .normal)
+        return button
+    }()
     private let appearAnimDuration: CGFloat = 0.4
-    private let appearAnimDelay: CGFloat = 0.0
     
-    private var noticeType = Notice.quiz
+    private var noticeType = NoticeUsage.quiz
 
-    init(noticeAs: Notice) {
+    init(noticeAs: NoticeUsage) {
         super.init(frame: CGRect.zero)
-        
-        self.alpha = 0.0
         
         setUpConstraints()
         setUpStyle()
-        setConfirmButton()
+        setUpComponent()
         noticeType = noticeAs
     }
     
@@ -75,7 +104,8 @@ final class CustomNoticeView: UIView {
         [
             thumbnailImageView,
             titleLabel,
-            subTitleLabel
+            subTitleLabel,
+            confirmButton
         ].forEach({
             noticeView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -101,21 +131,23 @@ final class CustomNoticeView: UIView {
             subTitleLabel.widthAnchor.constraint(equalToConstant: 264),
             subTitleLabel.heightAnchor.constraint(equalToConstant: 18)
         ])
+        
+        NSLayoutConstraint.activate([
+            confirmButton.bottomAnchor.constraint(equalTo: noticeView.bottomAnchor, constant: -26),
+            confirmButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            confirmButton.widthAnchor.constraint(equalToConstant: 206),
+            confirmButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
     }
     
     private func setUpStyle() {
+        self.alpha = 0.0
         self.backgroundColor = UIColor(rgb: 0x7B7B7B).withAlphaComponent(0.45)
-        noticeView.backgroundColor = UIColor(rgb: 0xFCFCFC)
-        noticeView.layer.cornerRadius = 20
-        
-        thumbnailImageView.contentMode = .scaleAspectFit
-        
-        titleLabel.font = UIFont(weight: .bold, size: 18)
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = .mainBlack
-        subTitleLabel.font = UIFont(weight: .regular, size: 14)
-        subTitleLabel.textAlignment = .center
-        subTitleLabel.textColor = .mainBlack
+    }
+    
+    private func setUpComponent() {
+        confirmButton.addTarget(self, action: #selector(didConfirmButtonTapped), for: .touchUpInside)
     }
     
     func setCertificateNotice() {
@@ -126,7 +158,6 @@ final class CustomNoticeView: UIView {
     }
     
     func setQuizResultNotice(isAllCorrect: Bool, quizResultString: String = ""){
-        
         if isAllCorrect {
             guard let image = UIImage(named: "success_heart.png") else { return }
             setImage(uiImage: image)
@@ -138,7 +169,6 @@ final class CustomNoticeView: UIView {
             setTitle(title: "Failed \(quizResultString)")
             setSubTitle(subTitle: "Try Again")
         }
-        setConfirmButton()
         
     }
     private func setImage(uiImage: UIImage) {
@@ -153,27 +183,6 @@ final class CustomNoticeView: UIView {
         subTitleLabel.text = subTitle
     }
     
-    private func setConfirmButton() {
-        let confirmButton = UIButton()
-        
-        self.addSubview(confirmButton)
-        confirmButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            confirmButton.bottomAnchor.constraint(equalTo: noticeView.bottomAnchor, constant: -26),
-            confirmButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            confirmButton.widthAnchor.constraint(equalToConstant: 206),
-            confirmButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
-        
-        confirmButton.layer.cornerRadius = 22
-        confirmButton.backgroundColor = .mainRed
-        confirmButton.titleLabel?.font = UIFont(weight: .bold, size: 17)
-        confirmButton.setTitleColor(.mainWhite, for: .normal)
-        confirmButton.setTitle("CONFIRM", for: .normal)
-        confirmButton.addTarget(self, action: #selector(didConfirmButtonTapped), for: .touchUpInside)
-    }
-    
     @objc private func didConfirmButtonTapped() {
         if noticeType == .quiz {
             delegate?.dismissQuizViewController()
@@ -184,8 +193,7 @@ final class CustomNoticeView: UIView {
     
     func noticeAppear() {
         self.superview?.isUserInteractionEnabled = false
-        // 실제 적용 시 delay는 없을 예정
-        UIView.animate(withDuration: appearAnimDuration, delay: appearAnimDelay, animations: {
+        UIView.animate(withDuration: appearAnimDuration, animations: {
             self.alpha = 1.0
         }, completion: { _ in
                 self.superview?.isUserInteractionEnabled = true

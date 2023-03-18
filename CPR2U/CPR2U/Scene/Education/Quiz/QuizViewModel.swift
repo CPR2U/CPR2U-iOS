@@ -60,6 +60,7 @@ class QuizViewModel: ViewModelTypeTest {
     }
     
     func isQuizAllCorrect() -> Bool {
+        print(correctQuizNum, " " , quizList.count)
         return correctQuizNum == quizList.count
     }
     // quiz 넘김을 위한 메소드
@@ -74,12 +75,14 @@ class QuizViewModel: ViewModelTypeTest {
         if didSelectAnswer {
             let isCorrect = selectedAnswerIndex.value == quizList[currentQuizIndex].answerIndex
 
+            if isCorrect {
+                correctQuizNum += 1
+            }
             output = Output(quiz: nil, isCorrect: CurrentValueSubject(isCorrect), isQuizEnd: CurrentValueSubject<Bool, Never>(false))
             didSelectAnswer.toggle()
             print("RESULT: ", isCorrect ? "CORRECT" : "WRONG")
         } else {
             currentQuizIndex += 1
-            correctQuizNum += 1
             if quizList.count == currentQuizIndex {
                 print("THERE's no more next quiz")
                 output = Output(quiz: nil, isCorrect: nil, isQuizEnd: CurrentValueSubject<Bool, Never>(true))

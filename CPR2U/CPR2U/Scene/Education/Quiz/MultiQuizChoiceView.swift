@@ -78,7 +78,6 @@ final class MultiQuizChoiceView: QuizChoiceView {
     }
     
     override func animateChoiceButton(answerIndex: Int) {
-        
         var otherButtons: [UIButton] = []
         for index in 0..<choices.count {
             if index != answerIndex {

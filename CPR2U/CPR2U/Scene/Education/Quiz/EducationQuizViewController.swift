@@ -10,20 +10,44 @@ import Combine
 
 final class EducationQuizViewController: UIViewController {
 
-    private let questionView = QuizQuestionView(questionNumber: 1, question: "When you find someone who has fallen, you have to compress his chest instantly.")
+    private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "When you find someone who has fallen, you have to compress his chest instantly.")
     
-    private lazy var oxChoiceView = OXQuizChoiceView(viewModel: quizViewModel)
-    private lazy var multiChoiceView = MultiQuizChoiceView(viewModel: quizViewModel)
+    private lazy var oxChoiceView = OXQuizChoiceView(viewModel: viewModel)
+    private lazy var multiChoiceView = MultiQuizChoiceView(viewModel: viewModel)
     
-    private let noticeView = CustomNoticeView(noticeAs: .quiz)
+    private lazy var noticeView = CustomNoticeView(noticeAs: .quiz)
     
-    private let answerLabel = UILabel()
-    private let answerDescriptionLabel = UILabel()
+    private lazy var answerLabel: UILabel =  {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 18)
+        label.textColor = .mainBlack
+        label.textAlignment = .center
+        label.isUserInteractionEnabled = false
+        return label
+    }()
     
-    private let submitButton = UIButton()
-    var answer = 0
+    private lazy var answerDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 18)
+        label.textColor = .mainBlack
+        label.textAlignment = .center
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.isUserInteractionEnabled = false
+        return label
+    }()
     
-    private let quizViewModel = QuizViewModel()
+    private let submitButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .mainLightRed
+        button.setTitleColor(.mainBlack, for: .normal)
+        button.titleLabel?.font = UIFont(weight: .bold, size: 20)
+        button.setTitle("Confirm", for: .normal)
+        return button
+    }()
+    
+    private let viewModel = QuizViewModel()
     private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
@@ -32,9 +56,8 @@ final class EducationQuizViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpDelegate()
-        setUpText()
-        updateQuiz(quiz: quizViewModel.quizInit())
-        bind(to: quizViewModel)
+        updateQuiz(quiz: viewModel.quizInit())
+        bind(to: viewModel)
     }
     
     private func setUpConstraints() {
@@ -104,45 +127,23 @@ final class EducationQuizViewController: UIViewController {
     }
     
     private func setUpStyle() {
+        view.backgroundColor = .mainWhite
+        
         navigationController?.navigationBar.topItem?.title = "Quiz"
         let closeItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))
         navigationItem.leftBarButtonItem = closeItem
-        
-        view.backgroundColor = .mainWhite
-        
-        answerLabel.font = UIFont(weight: .bold, size: 18)
-        answerLabel.textColor = .mainBlack
-        answerLabel.textAlignment = .center
-        answerDescriptionLabel.font = UIFont(weight: .regular, size: 18)
-        answerDescriptionLabel.textColor = .mainBlack
-        answerDescriptionLabel.textAlignment = .center
-        answerDescriptionLabel.numberOfLines = 3
-        answerDescriptionLabel.adjustsFontSizeToFitWidth = true
-        answerDescriptionLabel.minimumScaleFactor = 0.5
-        
-        answerLabel.isUserInteractionEnabled = false
-        answerDescriptionLabel.isUserInteractionEnabled = false
-        
-        submitButton.backgroundColor = .mainLightRed
-        submitButton.setTitleColor(.mainBlack, for: .normal)
-        submitButton.titleLabel?.font = UIFont(weight: .bold, size: 20)
     }
     
     private func setUpDelegate() {
         noticeView.delegate = self
     }
-    
-    private func setUpText() {
-        answerLabel.text = ""
-        answerDescriptionLabel.text = ""
-        submitButton.setTitle("Confirm", for: .normal)
-        
-    }
-    
+}
+
+// MARK: ViewModel Binding
+extension EducationQuizViewController {
     private func bind(to viewModel: QuizViewModel) {
         viewModel.selectedAnswerIndex.sink { index in
                 if (index != -1) {
-                    print("SELECTED ONE!")
                     viewModel.isSelected()
                 }
             }
@@ -154,20 +155,20 @@ final class EducationQuizViewController: UIViewController {
     }
     
     private func nextQuiz() {
-        let output = quizViewModel.transform()
+        let output = viewModel.transform()
         
         output.isCorrect?.sink { [weak self] isCorrect in
+            
+            guard let currentQuiz = self?.viewModel.currentQuiz() else { return }
             self?.answerLabel.isHidden = false
             self?.answerDescriptionLabel.isHidden = false
             self?.answerLabel.text = isCorrect ? "Correct!" : "Wrong!"
-            self?.answerDescriptionLabel.text = isCorrect ? "Correct!" : "Wrong!"
+            self?.answerDescriptionLabel.text = currentQuiz.answerDescription
             self?.submitButton.setTitle("Next", for: .normal)
             
-            guard let answerIndex = self?.quizViewModel.currentQuiz().answerIndex, let quizType = self?.quizViewModel.currentQuiz().questionType else {
+            guard let answerIndex = self?.viewModel.currentQuiz().answerIndex, let quizType = self?.viewModel.currentQuiz().questionType else {
                 return }
             
-            print(answerIndex, " ", quizType)
-
             switch quizType {
             case .ox:
                 self?.oxChoiceView.animateChoiceButton(answerIndex: answerIndex)
@@ -182,9 +183,9 @@ final class EducationQuizViewController: UIViewController {
         }.store(in: &cancellables)
         
         output.isQuizEnd.sink { [weak self] isQuizEnd in
+            guard let isQuizAllCorrect = self?.viewModel.isQuizAllCorrect() else { return }
+            guard let quizResultString = self?.viewModel.quizResultString() else { return }
             
-            guard let isQuizAllCorrect = self?.quizViewModel.isQuizAllCorrect() else { return }
-            guard let quizResultString = self?.quizViewModel.quizResultString() else { return }
             if isQuizEnd {
                 if isQuizAllCorrect {
                     self?.noticeView.setQuizResultNotice(isAllCorrect: true)
@@ -197,8 +198,8 @@ final class EducationQuizViewController: UIViewController {
         }.store(in: &cancellables)
     }
     
-    func updateQuiz(quiz: Quiz) {
-        quizViewModel.updateSelectedAnswerIndex(index: -1)
+    private func updateQuiz(quiz: Quiz) {
+        viewModel.updateSelectedAnswerIndex(index: -1)
         questionView.setUpText(questionNumber: quiz.questionNumber, question: quiz.question)
         
         switch quiz.questionType {
@@ -213,19 +214,21 @@ final class EducationQuizViewController: UIViewController {
         oxChoiceView.resetChoiceButtonConstraint()
         multiChoiceView.resetChoiceButtonConstraint()
         
+        [answerLabel, answerDescriptionLabel].forEach{ $0.isHidden = true }
         answerDescriptionLabel.text = quiz.answerDescription
-        answerLabel.isHidden = true
-        answerDescriptionLabel.isHidden = true
         submitButton.setTitle("Confirm", for: .normal)
     }
     
-    func updateChoiceView(current: QuizChoiceView, as will: QuizChoiceView) {
+    private func updateChoiceView(current: QuizChoiceView, as will: QuizChoiceView) {
         current.alpha = 0.0
         current.isUserInteractionEnabled = false
         will.alpha = 1.0
         will.isUserInteractionEnabled = true
     }
-    
+}
+
+// MARK: Objc Function
+extension EducationQuizViewController {
     @objc private func closeButtonTapped() {
         let alert = UIAlertController(title: "Quiz Exit", message: "All progress will be lost", preferredStyle: .alert)
         
@@ -242,6 +245,7 @@ final class EducationQuizViewController: UIViewController {
     }
 }
 
+// MARK: Delegate
 extension EducationQuizViewController: CustomNoticeViewDelegate {
     func dismissQuizViewController() {
         dismiss(animated: true)

@@ -87,8 +87,6 @@ final class OXQuizChoiceView: QuizChoiceView {
             self.xButtonWidthConstraint.constant = xChoiceTargetConstraint
             self.layoutIfNeeded()
         })
-        
-        print("here")
     }
     
     override func resetChoiceButtonConstraint() {

@@ -9,15 +9,33 @@ import UIKit
 
 final class QuizQuestionView: UIView {
 
-    private let questionNumberLabel = UILabel()
-    private let questionLabel = UILabel()
-    private let questionLeftDecoLine = UIView()
+    private lazy var questionNumberLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 28)
+        label.textColor = .mainRed
+        return label
+    }()
+    
+    private lazy var questionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 20)
+        label.textColor = .mainBlack
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        return label
+    }()
+
+    private let questionLeftDecoLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .mainLightRed
+        return view
+    }()
     
     init(questionNumber: Int, question: String) {
         super.init(frame: CGRect.zero)
         
         setUpConstraints()
-        setUpStyle()
         setUpText(questionNumber: questionNumber, question: question)
     }
     
@@ -56,21 +74,6 @@ final class QuizQuestionView: UIView {
             questionLabel.widthAnchor.constraint(equalToConstant: 295),
             questionLabel.heightAnchor.constraint(equalToConstant: 95),
         ])
-    }
-    
-    private func setUpStyle() {
-        
-        questionNumberLabel.font = UIFont(weight: .bold, size: 28)
-        questionNumberLabel.textColor = .mainRed
-        
-        questionLabel.font = UIFont(weight: .bold, size: 20)
-        questionLabel.textColor = .mainBlack
-        questionLabel.numberOfLines = 3
-        questionLabel.adjustsFontSizeToFitWidth = true
-        questionLabel.minimumScaleFactor = 0.5
-        
-        questionLeftDecoLine.backgroundColor = .mainLightRed
-        
     }
     
     func setUpText(questionNumber: Int, question: String) {
