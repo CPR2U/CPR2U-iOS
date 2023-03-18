@@ -741,6 +741,7 @@
 				DEVELOPMENT_TEAM = UAM52RQFW9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CPR2U/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -769,6 +770,7 @@
 				DEVELOPMENT_TEAM = UAM52RQFW9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CPR2U/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
