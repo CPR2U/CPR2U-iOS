@@ -8,13 +8,13 @@
 import Foundation
 import Combine
 
-protocol ViewModelTypeTest {
+protocol OutputOnlyViewModel {
     associatedtype Output
 
     func transform() -> Output
 }
 
-class QuizViewModel: ViewModelTypeTest {
+class QuizViewModel: OutputOnlyViewModel {
     private var quizList: [Quiz] = []
     private var currentQuizIndex: Int = 0
     private var didSelectAnswer: Bool = false
@@ -32,12 +32,10 @@ class QuizViewModel: ViewModelTypeTest {
     }
      
     func isSelected() {
-        print("SELECTED: ANSWER")
         didSelectAnswer = true
     }
     
     func isConfirmed() {
-        print("CONFIRMED: ANSWER")
         didSelectAnswer = false
     }
     
@@ -63,7 +61,7 @@ class QuizViewModel: ViewModelTypeTest {
         print(correctQuizNum, " " , quizList.count)
         return correctQuizNum == quizList.count
     }
-    // quiz 넘김을 위한 메소드
+    
     func transform() -> Output {
         
         if selectedAnswerIndex.value == -1 {
@@ -80,20 +78,16 @@ class QuizViewModel: ViewModelTypeTest {
             }
             output = Output(quiz: nil, isCorrect: CurrentValueSubject(isCorrect), isQuizEnd: CurrentValueSubject<Bool, Never>(false))
             didSelectAnswer.toggle()
-            print("RESULT: ", isCorrect ? "CORRECT" : "WRONG")
         } else {
             currentQuizIndex += 1
             if quizList.count == currentQuizIndex {
-                print("THERE's no more next quiz")
                 output = Output(quiz: nil, isCorrect: nil, isQuizEnd: CurrentValueSubject<Bool, Never>(true))
             } else {
                 output = Output(quiz: CurrentValueSubject(quizList[currentQuizIndex]), isCorrect: nil, isQuizEnd: CurrentValueSubject<Bool, Never>(false))
                 selectedAnswerIndex.send(-1)
                 didSelectAnswer.toggle()
-                print("NEXT QUIZ")
             }
         }
-        
         return output
     }
     
