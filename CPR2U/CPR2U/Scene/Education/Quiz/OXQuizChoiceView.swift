@@ -2,31 +2,31 @@
 //  OXQuizChoiceView.swift
 //  CPR2U
 //
-//  Created by 황정현 on 2023/03/10.
+//  Created by 황정현 on 2023/03/18.
 //
 
 import UIKit
 
-final class OXQuizChoiceView: UIView {
-
-    private let leftChoice = UIButton()
-    private let rightChoice = UIButton()
+final class OXQuizChoiceView: QuizChoiceView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var oButtonWidthConstraint = NSLayoutConstraint()
+    var xButtonWidthConstraint = NSLayoutConstraint()
+    init (viewModel: QuizViewModel) {
+        super.init(quizType: .ox, viewModel: viewModel)
         
         setUpConstraints()
-        setUpText()
         setUpStyle()
-        setUpAction()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUpConstraints() {
-        
+    required init(quizType: QuizType, viewModel: QuizViewModel) {
+        fatalError("init(quizType:viewModel:) has not been implemented")
+    }
+    
+    override func setUpConstraints() {
         let stackView   = UIStackView()
         stackView.axis  = NSLayoutConstraint.Axis.horizontal
         stackView.distribution  = UIStackView.Distribution.equalSpacing
@@ -36,13 +36,20 @@ final class OXQuizChoiceView: UIView {
         self.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        [
-            leftChoice,
-            rightChoice
-        ].forEach({
+        choices.forEach({
             stackView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
+            $0.heightAnchor.constraint(equalToConstant: 80).isActive = true
         })
+        
+        oButtonWidthConstraint = choices[0].widthAnchor.constraint(equalToConstant: 108)
+        xButtonWidthConstraint = choices[1].widthAnchor.constraint(equalToConstant: 108)
+        
+        NSLayoutConstraint.activate([
+            oButtonWidthConstraint,
+            xButtonWidthConstraint
+        ])
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -52,25 +59,16 @@ final class OXQuizChoiceView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            leftChoice.topAnchor.constraint(equalTo: stackView.topAnchor),
-            leftChoice.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            leftChoice.widthAnchor.constraint(equalToConstant: 108),
-            leftChoice.heightAnchor.constraint(equalToConstant: 80)
+            choices[0].leadingAnchor.constraint(equalTo: stackView.leadingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            rightChoice.topAnchor.constraint(equalTo: stackView.topAnchor),
-            rightChoice.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            rightChoice.widthAnchor.constraint(equalToConstant: 108),
-            rightChoice.heightAnchor.constraint(equalToConstant: 80)
+            choices[1].trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
         ])
     }
     
-    private func setUpStyle() {
-        [
-            leftChoice,
-            rightChoice
-        ].forEach({
+    override func setUpStyle() {
+        choices.forEach({
             $0.backgroundColor = UIColor.mainRed.withAlphaComponent(0.05)
             $0.layer.borderWidth = 2
             $0.layer.borderColor = UIColor.mainRed.cgColor
@@ -80,14 +78,19 @@ final class OXQuizChoiceView: UIView {
         })
     }
     
-    private func setUpText() {
-        leftChoice.setTitle("O", for: .normal)
-        rightChoice.setTitle("X", for: .normal)
-    }
-    
-    private func setUpAction() {
+    override func animateChoiceButton(answerIndex: Int) {
+        let oChoiceTargetConstraint: CGFloat = answerIndex == 0 ? 260 : 0
+        let xChoiceTargetConstraint: CGFloat = answerIndex == 0 ? 0 : 260
         
+        UIView.animate(withDuration: 0.3, animations: {
+            self.oButtonWidthConstraint.constant = oChoiceTargetConstraint
+            self.xButtonWidthConstraint.constant = xChoiceTargetConstraint
+            self.layoutIfNeeded()
+        })
     }
     
-    
+    override func resetChoiceButtonConstraint() {
+        oButtonWidthConstraint.constant = 108
+        xButtonWidthConstraint.constant = 108
+    }
 }

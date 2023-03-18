@@ -9,16 +9,34 @@ import UIKit
 
 final class QuizQuestionView: UIView {
 
-    private let questionNumberLabel = UILabel()
-    private let questionLabel = UILabel()
-    private let questionLeftDecoLine = UIView()
+    private lazy var questionNumberLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 28)
+        label.textColor = .mainRed
+        return label
+    }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private lazy var questionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 20)
+        label.textColor = .mainBlack
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        return label
+    }()
+
+    private let questionLeftDecoLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .mainLightRed
+        return view
+    }()
+    
+    init(questionNumber: Int, question: String) {
+        super.init(frame: CGRect.zero)
         
         setUpConstraints()
-        setUpStyle()
-        setUpText()
+        setUpText(questionNumber: questionNumber, question: question)
     }
     
     required init?(coder: NSCoder) {
@@ -58,23 +76,9 @@ final class QuizQuestionView: UIView {
         ])
     }
     
-    private func setUpStyle() {
-        
-        questionNumberLabel.font = UIFont(weight: .bold, size: 28)
-        questionNumberLabel.textColor = .mainRed
-        
-        questionLabel.font = UIFont(weight: .bold, size: 20)
-        questionLabel.textColor = .mainBlack
-        questionLabel.numberOfLines = 3
-        questionLabel.adjustsFontSizeToFitWidth = true
-        questionLabel.minimumScaleFactor = 0.5
-        
-        questionLeftDecoLine.backgroundColor = .mainLightRed
-        
-    }
-    
-    private func setUpText() {
-        questionNumberLabel.text = "Q. 01"
-        questionLabel.text = "When you find someone who has fallen, you have to compress his chest instantly."
+    func setUpText(questionNumber: Int, question: String) {
+        let number = questionNumber > 10 ? "0\(questionNumber)" : String(questionNumber)
+        questionNumberLabel.text = "Q. \(number)"
+        questionLabel.text = question
     }
 }

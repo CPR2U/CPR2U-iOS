@@ -6,37 +6,58 @@
 //
 
 import UIKit
+import Combine
 
 final class EducationQuizViewController: UIViewController {
 
-    private let questionView = QuizQuestionView()
-    private lazy var choiceView: UIView = {
-        var view = UIView()
-        if choiceNum == 2 {
-            view = OXQuizChoiceView()
-        } else {
-            view = MultiQuizChoiceView()
-        }
-        return view
+    private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "When you find someone who has fallen, you have to compress his chest instantly.")
+    
+    private lazy var oxChoiceView = OXQuizChoiceView(viewModel: viewModel)
+    private lazy var multiChoiceView = MultiQuizChoiceView(viewModel: viewModel)
+    
+    private lazy var noticeView = CustomNoticeView(noticeAs: .quiz)
+    
+    private lazy var answerLabel: UILabel =  {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 18)
+        label.textColor = .mainBlack
+        label.textAlignment = .center
+        label.isUserInteractionEnabled = false
+        return label
     }()
     
-    private let multiChoiceView = MultiQuizChoiceView()
+    private lazy var answerDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 18)
+        label.textColor = .mainBlack
+        label.textAlignment = .center
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.isUserInteractionEnabled = false
+        return label
+    }()
     
-    private let answerLabel = UILabel()
-    private let answerDescriptionLabel = UILabel()
+    private let submitButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .mainLightRed
+        button.setTitleColor(.mainBlack, for: .normal)
+        button.titleLabel?.font = UIFont(weight: .bold, size: 20)
+        button.setTitle("Confirm", for: .normal)
+        return button
+    }()
     
-    private let submitButton = UIButton()
-    
-    private let choiceNum = 4
-    private let isSolved = false
+    private let viewModel = QuizViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         setUpStyle()
-        setUpText()
-        setUpAction()
+        setUpDelegate()
+        updateQuiz(quiz: viewModel.quizInit())
+        bind(to: viewModel)
     }
     
     private func setUpConstraints() {
@@ -45,10 +66,12 @@ final class EducationQuizViewController: UIViewController {
         
         [
             questionView,
-            choiceView,
+            oxChoiceView,
+            multiChoiceView,
             submitButton,
             answerLabel,
-            answerDescriptionLabel
+            answerDescriptionLabel,
+            noticeView
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -62,11 +85,16 @@ final class EducationQuizViewController: UIViewController {
             
         ])
         
+        [oxChoiceView, multiChoiceView].forEach({ choiceView in
+            choiceView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16).isActive = true
+            choiceView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16).isActive = true
+        })
+        
         NSLayoutConstraint.activate([
-            choiceView.topAnchor.constraint(equalTo: questionView.bottomAnchor, constant: choiceNum == 2 ? 78 : 36),
-            choiceView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
-            choiceView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
-            choiceView.heightAnchor.constraint(equalToConstant: choiceNum == 2 ? 80 : 234)
+            oxChoiceView.topAnchor.constraint(equalTo: questionView.bottomAnchor, constant: 78),
+            oxChoiceView.heightAnchor.constraint(equalToConstant: 80),
+            multiChoiceView.topAnchor.constraint(equalTo: questionView.bottomAnchor, constant: 36),
+            multiChoiceView.heightAnchor.constraint(equalToConstant: 280)
         ])
         
         NSLayoutConstraint.activate([
@@ -89,34 +117,137 @@ final class EducationQuizViewController: UIViewController {
             answerDescriptionLabel.widthAnchor.constraint(equalToConstant: 300),
             answerDescriptionLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
+
+        NSLayoutConstraint.activate([
+            noticeView.topAnchor.constraint(equalTo: view.topAnchor),
+            noticeView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            noticeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noticeView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func setUpStyle() {
-        answerLabel.font = UIFont(weight: .bold, size: 18)
-        answerLabel.textColor = .mainBlack
-        answerLabel.textAlignment = .center
-        answerDescriptionLabel.font = UIFont(weight: .regular, size: 18)
-        answerDescriptionLabel.textColor = .mainBlack
-        answerDescriptionLabel.textAlignment = .center
-        answerDescriptionLabel.numberOfLines = 3
-        answerDescriptionLabel.adjustsFontSizeToFitWidth = true
-        answerDescriptionLabel.minimumScaleFactor = 0.5
+        view.backgroundColor = .mainWhite
         
-        submitButton.backgroundColor = .mainLightRed
-        submitButton.setTitleColor(.mainBlack, for: .normal)
-        submitButton.titleLabel?.font = UIFont(weight: .bold, size: 20)
+        navigationController?.navigationBar.topItem?.title = "Quiz"
+        let closeItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))
+        navigationItem.leftBarButtonItem = closeItem
     }
     
-    private func setUpText() {
+    private func setUpDelegate() {
+        noticeView.delegate = self
+    }
+}
+
+// MARK: ViewModel Binding
+extension EducationQuizViewController {
+    private func bind(to viewModel: QuizViewModel) {
+        viewModel.selectedAnswerIndex.sink { index in
+                if (index != -1) {
+                    viewModel.isSelected()
+                }
+            }
+        .store(in: &cancellables)
         
-        answerLabel.text = "Correct!"
-        answerDescriptionLabel.text = "Trailing is really important component for what I'm saying now do you understandararara"
-        submitButton.setTitle(isSolved ? "Next" : "Confirm", for: .normal)
-        
+        submitButton.tapPublisher.sink { [weak self] _ in
+            self?.nextQuiz()
+        }.store(in: &cancellables)
     }
     
-    func setUpAction() {
+    private func nextQuiz() {
+        let output = viewModel.transform()
         
+        output.isCorrect?.sink { [weak self] isCorrect in
+            
+            guard let currentQuiz = self?.viewModel.currentQuiz() else { return }
+            self?.answerLabel.isHidden = false
+            self?.answerDescriptionLabel.isHidden = false
+            self?.answerLabel.text = isCorrect ? "Correct!" : "Wrong!"
+            self?.answerDescriptionLabel.text = currentQuiz.answerDescription
+            self?.submitButton.setTitle("Next", for: .normal)
+            
+            guard let answerIndex = self?.viewModel.currentQuiz().answerIndex, let quizType = self?.viewModel.currentQuiz().questionType else {
+                return }
+            
+            switch quizType {
+            case .ox:
+                self?.oxChoiceView.animateChoiceButton(answerIndex: answerIndex)
+            case .multi:
+                self?.multiChoiceView.animateChoiceButton(answerIndex: answerIndex)
+            }
+            
+        }.store(in: &cancellables)
+        
+        output.quiz?.sink { quiz in
+            self.updateQuiz(quiz: quiz)
+        }.store(in: &cancellables)
+        
+        output.isQuizEnd.sink { [weak self] isQuizEnd in
+            guard let isQuizAllCorrect = self?.viewModel.isQuizAllCorrect() else { return }
+            guard let quizResultString = self?.viewModel.quizResultString() else { return }
+            
+            if isQuizEnd {
+                if isQuizAllCorrect {
+                    self?.noticeView.setQuizResultNotice(isAllCorrect: true)
+                    self?.noticeView.noticeAppear()
+                } else {
+                    self?.noticeView.setQuizResultNotice(isAllCorrect: false, quizResultString: quizResultString)
+                    self?.noticeView.noticeAppear()
+                }
+            }
+        }.store(in: &cancellables)
     }
     
+    private func updateQuiz(quiz: Quiz) {
+        viewModel.updateSelectedAnswerIndex(index: -1)
+        questionView.setUpText(questionNumber: quiz.questionNumber, question: quiz.question)
+        
+        switch quiz.questionType {
+        case .ox:
+            updateChoiceView(current: multiChoiceView, as: oxChoiceView)
+            oxChoiceView.setUpText()
+        case .multi:
+            updateChoiceView(current: oxChoiceView, as: multiChoiceView)
+            multiChoiceView.setUpText(quiz.answerList)
+        }
+        
+        oxChoiceView.resetChoiceButtonConstraint()
+        multiChoiceView.resetChoiceButtonConstraint()
+        
+        [answerLabel, answerDescriptionLabel].forEach{ $0.isHidden = true }
+        answerDescriptionLabel.text = quiz.answerDescription
+        submitButton.setTitle("Confirm", for: .normal)
+    }
+    
+    private func updateChoiceView(current: QuizChoiceView, as will: QuizChoiceView) {
+        current.alpha = 0.0
+        current.isUserInteractionEnabled = false
+        will.alpha = 1.0
+        will.isUserInteractionEnabled = true
+    }
+}
+
+// MARK: Objc Function
+extension EducationQuizViewController {
+    @objc private func closeButtonTapped() {
+        let alert = UIAlertController(title: "Quiz Exit", message: "All progress will be lost", preferredStyle: .alert)
+        
+        let confirm = UIAlertAction(title: "Confirm", style: .destructive, handler: { _ in
+            self.dismiss(animated: true)
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        [confirm, cancel].forEach {
+            alert.addAction($0)
+        }
+        
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: Delegate
+extension EducationQuizViewController: CustomNoticeViewDelegate {
+    func dismissQuizViewController() {
+        dismiss(animated: true)
+    }
 }

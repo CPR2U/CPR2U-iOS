@@ -46,7 +46,6 @@ final class SMSCodeVerificationViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.phoneNumberString = phoneNumberString
         self.smsCode = smsCode
-        print("SMS CODE: ", smsCode)
     }
     
     required init?(coder: NSCoder) {

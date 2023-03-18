@@ -2,30 +2,34 @@
 //  MultiQuizChoiceView.swift
 //  CPR2U
 //
-//  Created by 황정현 on 2023/03/10.
+//  Created by 황정현 on 2023/03/18.
 //
 
 import UIKit
 
-final class MultiQuizChoiceView: UIView {
-
-    private let choices = [UIButton(), UIButton(), UIButton(), UIButton()]
+final class MultiQuizChoiceView: QuizChoiceView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private var answerCenterPosition = CGPoint()
+    private var defaultPosition = CGPoint()
+    private var selectedChoice = UIButton()
+    
+    init (viewModel: QuizViewModel) {
+        super.init(quizType: .multi, viewModel: viewModel)
         
         setUpConstraints()
         setUpText()
         setUpStyle()
-        setUpAction()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUpConstraints() {
-        
+    required init(quizType: QuizType, viewModel: QuizViewModel) {
+        fatalError("init(quizType:viewModel:) has not been implemented")
+    }
+    
+    override func setUpConstraints() {
         let stackView   = UIStackView()
         stackView.axis  = NSLayoutConstraint.Axis.vertical
         stackView.distribution  = UIStackView.Distribution.equalSpacing
@@ -46,14 +50,23 @@ final class MultiQuizChoiceView: UIView {
         })
         
         NSLayoutConstraint.activate([
-            choices[0].topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            stackView.widthAnchor.constraint(equalToConstant: 260)
+        ])
+        
+        NSLayoutConstraint.activate([
+            choices[0].topAnchor.constraint(equalTo: stackView.topAnchor),
             choices[1].topAnchor.constraint(equalTo: choices[0].bottomAnchor, constant: 26),
             choices[2].topAnchor.constraint(equalTo: choices[1].bottomAnchor, constant: 26),
             choices[3].topAnchor.constraint(equalTo: choices[2].bottomAnchor, constant: 26)
         ])
+        
+        answerCenterPosition = choices[1].center
     }
     
-    private func setUpStyle() {
+    override func setUpStyle() {
         choices.forEach({
             $0.backgroundColor = UIColor.mainRed.withAlphaComponent(0.05)
             $0.layer.borderWidth = 2
@@ -64,16 +77,25 @@ final class MultiQuizChoiceView: UIView {
         })
     }
     
-    private func setUpText() {
-        let tempChoices = ["Top", "Bottom", "Leading", "Trailing"]
-        
-        for (index, choice) in choices.enumerated() {
-            choice.setTitle(tempChoices[index], for: .normal)
+    override func animateChoiceButton(answerIndex: Int) {
+        var otherButtons: [UIButton] = []
+        for index in 0..<choices.count {
+            if index != answerIndex {
+                otherButtons.append(choices[index])
+            }
         }
+        
+        defaultPosition = choices[answerIndex].center
+        selectedChoice = choices[answerIndex]
+        UIView.animate(withDuration: 0.3, animations: { [self] in
+            otherButtons.forEach({ $0.alpha = 0.0})
+            choices[answerIndex].center = choices[1].center
+            layoutIfNeeded()
+        })
     }
     
-    private func setUpAction() {
-        
+    override func resetChoiceButtonConstraint() {
+        choices.forEach({ $0.alpha = 1.0 })
+        selectedChoice.center = defaultPosition
     }
-
 }
