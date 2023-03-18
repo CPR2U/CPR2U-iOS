@@ -21,6 +21,18 @@
 		3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6829BE0A87004411BE /* Requestable.swift */; };
 		3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */; };
 		3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */; };
+		3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3A324CD629C60E6400165E2E /* movenet_thunder.tflite */; };
+		3A324CD929C60E6400165E2E /* movenet_lightning.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3A324CD729C60E6400165E2E /* movenet_lightning.tflite */; };
+		3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CDA29C60E8F00165E2E /* PoseConfig.swift */; };
+		3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CDC29C60E9800165E2E /* MoveNet.swift */; };
+		3A324CDF29C60E9F00165E2E /* PoseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CDE29C60E9F00165E2E /* PoseData.swift */; };
+		3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE029C60EAC00165E2E /* PoseEstimator.swift */; };
+		3A324CE329C6103800165E2E /* CGSize+TFLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE229C6103800165E2E /* CGSize+TFLite.swift */; };
+		3A324CE529C6104400165E2E /* CVPixelBuffer+TFLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE429C6104400165E2E /* CVPixelBuffer+TFLite.swift */; };
+		3A324CE729C6104D00165E2E /* Data+TFLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE629C6104D00165E2E /* Data+TFLite.swift */; };
+		3A324CEA29C6111200165E2E /* CameraFeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE929C6111200165E2E /* CameraFeedManager.swift */; };
+		3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */; };
+		3A324CEE29C6120900165E2E /* TFLiteCameraTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CED29C6120900165E2E /* TFLiteCameraTestViewController.swift */; };
 		3A50F39129BF426E00DC1E29 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A50F39029BF426E00DC1E29 /* Private.plist */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
@@ -74,6 +86,18 @@
 		3A22BF6829BE0A87004411BE /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXQuizChoiceView.swift; sourceTree = "<group>"; };
 		3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiQuizChoiceView.swift; sourceTree = "<group>"; };
+		3A324CD629C60E6400165E2E /* movenet_thunder.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = movenet_thunder.tflite; sourceTree = "<group>"; };
+		3A324CD729C60E6400165E2E /* movenet_lightning.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = movenet_lightning.tflite; sourceTree = "<group>"; };
+		3A324CDA29C60E8F00165E2E /* PoseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseConfig.swift; sourceTree = "<group>"; };
+		3A324CDC29C60E9800165E2E /* MoveNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveNet.swift; sourceTree = "<group>"; };
+		3A324CDE29C60E9F00165E2E /* PoseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseData.swift; sourceTree = "<group>"; };
+		3A324CE029C60EAC00165E2E /* PoseEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseEstimator.swift; sourceTree = "<group>"; };
+		3A324CE229C6103800165E2E /* CGSize+TFLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+TFLite.swift"; sourceTree = "<group>"; };
+		3A324CE429C6104400165E2E /* CVPixelBuffer+TFLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+TFLite.swift"; sourceTree = "<group>"; };
+		3A324CE629C6104D00165E2E /* Data+TFLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+TFLite.swift"; sourceTree = "<group>"; };
+		3A324CE929C6111200165E2E /* CameraFeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeedManager.swift; sourceTree = "<group>"; };
+		3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
+		3A324CED29C6120900165E2E /* TFLiteCameraTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFLiteCameraTestViewController.swift; sourceTree = "<group>"; };
 		3A50F39029BF426E00DC1E29 /* Private.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Private.plist; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
@@ -134,7 +158,6 @@
 				2B9F1310FB54413A2CCE87FD /* Pods-CPR2U.debug.xcconfig */,
 				8603206BC53B2CC2028A3EFB /* Pods-CPR2U.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -244,6 +267,46 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
+		3A324CD329C60B0400165E2E /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				3A324CD429C60B0E00165E2E /* Extension */,
+				3A324CD529C60E4700165E2E /* Model */,
+			);
+			path = ML;
+			sourceTree = "<group>";
+		};
+		3A324CD429C60B0E00165E2E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3A324CE229C6103800165E2E /* CGSize+TFLite.swift */,
+				3A324CE429C6104400165E2E /* CVPixelBuffer+TFLite.swift */,
+				3A324CE629C6104D00165E2E /* Data+TFLite.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		3A324CD529C60E4700165E2E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3A324CD729C60E6400165E2E /* movenet_lightning.tflite */,
+				3A324CD629C60E6400165E2E /* movenet_thunder.tflite */,
+				3A324CDA29C60E8F00165E2E /* PoseConfig.swift */,
+				3A324CDE29C60E9F00165E2E /* PoseData.swift */,
+				3A324CDC29C60E9800165E2E /* MoveNet.swift */,
+				3A324CE029C60EAC00165E2E /* PoseEstimator.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3A324CE829C610FF00165E2E /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				3A324CE929C6111200165E2E /* CameraFeedManager.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		3A5C391129C0948600378015 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,11 +337,13 @@
 			isa = PBXGroup;
 			children = (
 				3A22BF3F29BC8D11004411BE /* Application */,
+				3A324CE829C610FF00165E2E /* Camera */,
 				3A22BF3D29BC8C5D004411BE /* Util */,
 				3A22BF3B29BC8C14004411BE /* Scene */,
 				3A22BF5829BCEFCA004411BE /* Data */,
 				3A22BF3C29BC8C3F004411BE /* Service */,
 				3AA636C329B0835D006BB5EF /* Fonts */,
+				3A324CD329C60B0400165E2E /* ML */,
 				3AA636B629AE5057006BB5EF /* Assets.xcassets */,
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
@@ -360,6 +425,8 @@
 				3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */,
 				3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */,
 				3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */,
+				3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */,
+				3A324CED29C6120900165E2E /* TFLiteCameraTestViewController.swift */,
 			);
 			path = Pose;
 			sourceTree = "<group>";
@@ -440,6 +507,8 @@
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A50F39129BF426E00DC1E29 /* Private.plist in Resources */,
+				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
+				3A324CD929C60E6400165E2E /* movenet_lightning.tflite in Resources */,
 				3AA636BA29AE5057006BB5EF /* LaunchScreen.storyboard in Resources */,
 				3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */,
 			);
@@ -481,6 +550,8 @@
 				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
 				3A22BF5D29BCF159004411BE /* Sign.swift in Sources */,
+				3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */,
+				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
@@ -491,8 +562,11 @@
 				3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
+				3A324CDF29C60E9F00165E2E /* PoseData.swift in Sources */,
 				3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */,
 				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
+				3A324CE729C6104D00165E2E /* Data+TFLite.swift in Sources */,
+				3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */,
 				3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */,
@@ -507,18 +581,23 @@
 				3A22BF5229BCD6B8004411BE /* SignManager.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,
+				3A324CE529C6104400165E2E /* CVPixelBuffer+TFLite.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
 				3A22BF5029BCCE07004411BE /* SignEndPoint.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
 				3A22BF4329BC9122004411BE /* URLs.swift in Sources */,
+				3A324CE329C6103800165E2E /* CGSize+TFLite.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
+				3A324CEE29C6120900165E2E /* TFLiteCameraTestViewController.swift in Sources */,
 				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
+				3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */,
 				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
 				3A22BF5F29BDFF1A004411BE /* NetworkRequest.swift in Sources */,
 				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
 				3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */,
+				3A324CEA29C6111200165E2E /* CameraFeedManager.swift in Sources */,
 				3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
