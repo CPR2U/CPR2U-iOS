@@ -17,8 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         self.window = window
-        let navVC = UINavigationController(rootViewController: EducationMainViewController())
-        window.rootViewController =  navVC
+//        let navVC = UINavigationController(rootViewController: EducationMainViewController())
+//        window.rootViewController =  navVC
+        let vc = PosePracticeViewController()
+        window.rootViewController =  vc
         window.backgroundColor = .white
         window.makeKeyAndVisible()
     }

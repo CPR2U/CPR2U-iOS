@@ -6,27 +6,84 @@
 //
 
 import UIKit
+import os
+
+enum Constants {
+    // Configs for the TFLite interpreter.
+    static let defaultThreadCount = 4
+    static let defaultDelegate: Delegates = .gpu
+    static let defaultModelType: ModelType = .movenetThunder
+    
+    // Minimum score to render the result.
+    static let minimumScore: Float32 = 0.2
+}
 
 final class PosePracticeViewController: UIViewController {
 
-    private let timeImageView = UIImageView()
-    private let timeLabel = UILabel()
-    private let soundImageView = UIImageView()
+    private let timeImageView: UIImageView = {
+        let view = UIImageView()
+        let config = UIImage.SymbolConfiguration(pointSize: 26, weight: .regular, scale: .medium)
+        view.image = UIImage(systemName: "clock", withConfiguration: config)
+        return view
+    }()
+    
+    private let timeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 24)
+        label.textColor = .mainBlack
+        
+        // TEST
+        label.text = "01:53"
+        return label
+    }()
+    private let soundImageView: UIImageView = {
+        let view = UIImageView()
+        let config = UIImage.SymbolConfiguration(pointSize: 29, weight: .regular, scale: .medium)
+        view.image = UIImage(systemName: "metronome", withConfiguration: config)
+        return view
+    }()
     private let soundSwitch = UISwitch()
     
-    private let quitButton = UIButton()
+    private let quitButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .mainRed
+        button.layer.cornerRadius = 19
+        button.titleLabel?.font = UIFont(weight: .bold, size: 17)
+        button.setTitleColor(.mainWhite, for: .normal)
+        button.setTitle("QUIT", for: .normal)
+        return button
+    }()
+    
+    private lazy var overlayView = CameraOverlayView()
+    
+    // MARK: Pose estimation model configs
+    private var modelType: ModelType = Constants.defaultModelType
+    private var threadCount: Int = Constants.defaultThreadCount
+    private var delegate: Delegates = Constants.defaultDelegate
+    private let minimumScore = Constants.minimumScore
+    
+    // MARK: Visualization
+    private var imageViewFrame: CGRect?
+    
+    // MARK: Controllers that manage functionality
+    private var poseEstimator: PoseEstimator?
+    private var cameraFeedManager: CameraFeedManager!
+    
+    private let queue = DispatchQueue(label: "serial_queue")
+    private var isRunning = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpOrientation()
         setUpConstraints()
-        setUpStyle()
-        setUpText()
-        setUpAction()
+        updateModel()
+        configCameraCapture()
     }
     
     private func setUpOrientation() {
+        UIApplication.shared.isIdleTimerDisabled = true
+        
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
             delegate.orientationLock = .landscapeRight
         }
@@ -40,6 +97,7 @@ final class PosePracticeViewController: UIViewController {
         let make = Constraints.shared
         
         [
+            overlayView,
             timeImageView,
             timeLabel,
             soundImageView,
@@ -84,29 +142,87 @@ final class PosePracticeViewController: UIViewController {
             quitButton.widthAnchor.constraint(equalToConstant: 160),
             quitButton.heightAnchor.constraint(equalToConstant: 38)
         ])
+        
+        NSLayoutConstraint.activate([
+            overlayView.topAnchor.constraint(equalTo: view.topAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
-    private func setUpStyle() {
-        let clockImgConfig = UIImage.SymbolConfiguration(pointSize: 26, weight: .regular, scale: .medium)
-        timeImageView.image = UIImage(systemName: "clock", withConfiguration: clockImgConfig)
-        let soundImgConfig = UIImage.SymbolConfiguration(pointSize: 29, weight: .regular, scale: .medium)
-        soundImageView.image = UIImage(systemName: "metronome", withConfiguration: soundImgConfig)
-        
-        timeLabel.font = UIFont(weight: .bold, size: 24)
-        timeLabel.textColor = .mainBlack
-        
-        quitButton.backgroundColor = .mainRed
-        quitButton.layer.cornerRadius = 19
-        quitButton.titleLabel?.font = UIFont(weight: .bold, size: 17)
-        quitButton.setTitleColor(.mainWhite, for: .normal)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        cameraFeedManager?.startRunning()
     }
     
-    private func setUpText() {
-        timeLabel.text = "01:53"
-        quitButton.setTitle("QUIT", for: .normal)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cameraFeedManager?.stopRunning()
     }
     
-    private func setUpAction() {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        imageViewFrame = overlayView.frame
+    }
+    
+    private func configCameraCapture() {
+        cameraFeedManager = CameraFeedManager()
+        cameraFeedManager.startRunning()
+        cameraFeedManager.delegate = self
+    }
+    
+    /// Call this method when there's change in pose estimation model config, including changing model
+    /// or updating runtime config.
+    private func updateModel() {
+        queue.async {
+            do {
+                self.poseEstimator = try MoveNet(
+                    threadCount: self.threadCount,
+                    delegate: self.delegate,
+                    modelType: self.modelType)
+            } catch let error {
+                os_log("Error: %@", log: .default, type: .error, String(describing: error))
+            }
+        }
+    }
+}
+
+// MARK: - CameraFeedManagerDelegate Methods
+extension PosePracticeViewController: CameraFeedManagerDelegate {
+    func cameraFeedManager(
+        _ cameraFeedManager: CameraFeedManager, didOutput pixelBuffer: CVPixelBuffer
+    ) {
+        self.runModel(pixelBuffer)
+    }
+    
+    private func runModel(_ pixelBuffer: CVPixelBuffer) {
+        // Guard to make sure that there's only 1 frame process at each moment.
+        guard !isRunning else { return }
         
+        guard let estimator = poseEstimator else { return }
+        
+        queue.async {
+            self.isRunning = true
+            defer { self.isRunning = false }
+            
+            do {
+                let (result, _) = try estimator.estimateSinglePose(
+                    on: pixelBuffer)
+                
+                DispatchQueue.main.async {
+                    let image = UIImage(ciImage: CIImage(cvPixelBuffer: pixelBuffer))
+                    if result.score < self.minimumScore {
+                        self.overlayView.image = image
+                        return
+                    }
+                    
+                    self.overlayView.draw(at: image, person: result)
+                }
+            } catch {
+                os_log("Error running pose estimation.", type: .error)
+                return
+            }
+        }
     }
 }
