@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
 //        let navVC = UINavigationController(rootViewController: EducationMainViewController())
 //        window.rootViewController =  navVC
-        let vc = TFLiteCameraTestViewController()
+        let vc = PosePracticeViewController()
         window.rootViewController =  vc
         window.backgroundColor = .white
         window.makeKeyAndVisible()

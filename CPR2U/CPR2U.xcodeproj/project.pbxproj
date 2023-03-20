@@ -31,7 +31,6 @@
 		3A324CE729C6104D00165E2E /* Data+TFLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE629C6104D00165E2E /* Data+TFLite.swift */; };
 		3A324CEA29C6111200165E2E /* CameraFeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE929C6111200165E2E /* CameraFeedManager.swift */; };
 		3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */; };
-		3A324CEE29C6120900165E2E /* TFLiteCameraTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CED29C6120900165E2E /* TFLiteCameraTestViewController.swift */; };
 		3A50F39129BF426E00DC1E29 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A50F39029BF426E00DC1E29 /* Private.plist */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
@@ -95,7 +94,6 @@
 		3A324CE629C6104D00165E2E /* Data+TFLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+TFLite.swift"; sourceTree = "<group>"; };
 		3A324CE929C6111200165E2E /* CameraFeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeedManager.swift; sourceTree = "<group>"; };
 		3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
-		3A324CED29C6120900165E2E /* TFLiteCameraTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFLiteCameraTestViewController.swift; sourceTree = "<group>"; };
 		3A50F39029BF426E00DC1E29 /* Private.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Private.plist; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
@@ -423,7 +421,6 @@
 				3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */,
 				3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */,
 				3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */,
-				3A324CED29C6120900165E2E /* TFLiteCameraTestViewController.swift */,
 			);
 			path = Pose;
 			sourceTree = "<group>";
@@ -585,7 +582,6 @@
 				3A22BF4329BC9122004411BE /* URLs.swift in Sources */,
 				3A324CE329C6103800165E2E /* CGSize+TFLite.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
-				3A324CEE29C6120900165E2E /* TFLiteCameraTestViewController.swift in Sources */,
 				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
 				3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */,
 				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,

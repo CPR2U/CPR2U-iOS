@@ -86,7 +86,7 @@ final class CameraFeedManager: NSObject, AVCaptureVideoDataOutputSampleBufferDel
       autoreleaseFrequency: .workItem)
     if captureSession.canAddOutput(videoOutput) {
       captureSession.addOutput(videoOutput)
-        videoOutput.connection(with: .video)?.videoOrientation = .portrait
+        videoOutput.connection(with: .video)?.videoOrientation = .landscapeRight
         videoOutput.connection(with: .video)?.isVideoMirrored = true
       captureSession.startRunning()
     }
