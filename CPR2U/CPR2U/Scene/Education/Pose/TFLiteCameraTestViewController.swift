@@ -9,6 +9,20 @@ import AVFoundation
 import UIKit
 import os
 
+// TODO: Model 관련 설정하기
+// TODO: FPS 설정
+// TODO: etc 사항이 끝나면 본 코드부 PosePracticeViewController로 옮기기
+
+enum Constants {
+    // Configs for the TFLite interpreter.
+    static let defaultThreadCount = 4
+    static let defaultDelegate: Delegates = .gpu
+    static let defaultModelType: ModelType = .movenetThunder
+    
+    // Minimum score to render the result.
+    static let minimumScore: Float32 = 0.2
+}
+
 class TFLiteCameraTestViewController: UIViewController {
     private lazy var overlayView = CameraOverlayView()
     
@@ -41,8 +55,6 @@ class TFLiteCameraTestViewController: UIViewController {
         
         UIApplication.shared.isIdleTimerDisabled = true
         setUpConstraints()
-        configSegmentedControl()
-        configStepper()
         updateModel()
         configCameraCapture()
     }
@@ -80,88 +92,20 @@ class TFLiteCameraTestViewController: UIViewController {
         cameraFeedManager.delegate = self
     }
     
-    private func configStepper() {
-//        threadStepper.value = Double(threadCount)
-//        threadStepper.setDecrementImage(threadStepper.decrementImage(for: .normal), for: .normal)
-//        threadStepper.setIncrementImage(threadStepper.incrementImage(for: .normal), for: .normal)
-    }
-    
-    private func configSegmentedControl() {
-        // Set title for device control
-//        delegatesSegmentedControl.setTitleTextAttributes(
-//            [NSAttributedString.Key.foregroundColor: UIColor.lightGray],
-//            for: .normal)
-//        delegatesSegmentedControl.setTitleTextAttributes(
-//            [NSAttributedString.Key.foregroundColor: UIColor.black],
-//            for: .selected)
-//        // Remove existing segments to initialize it with `Delegates` entries.
-//        delegatesSegmentedControl.removeAllSegments()
-//        var defaultDelegateIndex = 0
-//        Delegates.allCases.enumerated().forEach { (index, eachDelegate) in
-//            if eachDelegate == delegate {
-//                defaultDelegateIndex = index
-//            }
-//            delegatesSegmentedControl.insertSegment(
-//                withTitle: eachDelegate.rawValue,
-//                at: index,
-//                animated: false)
-//        }
-//        delegatesSegmentedControl.selectedSegmentIndex = defaultDelegateIndex
-//
-//        // Config model segment attributed
-//        modelSegmentedControl.setTitleTextAttributes(
-//            [NSAttributedString.Key.foregroundColor: UIColor.lightGray],
-//            for: .normal)
-//        modelSegmentedControl.setTitleTextAttributes(
-//            [NSAttributedString.Key.foregroundColor: UIColor.black],
-//            for: .selected)
-//        // Remove existing segments to initialize it with `Delegates` entries.
-//        modelSegmentedControl.removeAllSegments()
-//        var defaultModelTypeIndex = 0
-//        ModelType.allCases.enumerated().forEach { (index, eachModelType) in
-//            if eachModelType == modelType {
-//                defaultModelTypeIndex = index
-//            }
-//            modelSegmentedControl.insertSegment(
-//                withTitle: eachModelType.rawValue,
-//                at: index,
-//                animated: false)
-//        }
-//        modelSegmentedControl.selectedSegmentIndex = defaultModelTypeIndex
-    }
-    
     /// Call this method when there's change in pose estimation model config, including changing model
     /// or updating runtime config.
     private func updateModel() {
         // Update the model in the same serial queue with the inference logic to avoid race condition
         queue.async {
             do {
-                switch self.modelType {
-                case .movenetLighting, .movenetThunder:
-                    self.poseEstimator = try MoveNet(
-                        threadCount: self.threadCount,
-                        delegate: self.delegate,
-                        modelType: self.modelType)
-                }
+                self.poseEstimator = try MoveNet(
+                    threadCount: self.threadCount,
+                    delegate: self.delegate,
+                    modelType: self.modelType)
             } catch let error {
                 os_log("Error: %@", log: .default, type: .error, String(describing: error))
             }
         }
-    }
-    
-    @IBAction private func threadStepperValueChanged(_ sender: UIStepper) {
-        threadCount = Int(sender.value)
-//        threadStepperLabel.text = "\(threadCount)"
-        updateModel()
-    }
-    @IBAction private func delegatesValueChanged(_ sender: UISegmentedControl) {
-        delegate = Delegates.allCases[sender.selectedSegmentIndex]
-        updateModel()
-    }
-    
-    @IBAction private func modelTypeValueChanged(_ sender: UISegmentedControl) {
-        modelType = ModelType.allCases[sender.selectedSegmentIndex]
-        updateModel()
     }
 }
 
@@ -214,14 +158,4 @@ extension TFLiteCameraTestViewController: CameraFeedManagerDelegate {
             }
         }
     }
-}
-
-enum Constants {
-    // Configs for the TFLite interpreter.
-    static let defaultThreadCount = 4
-    static let defaultDelegate: Delegates = .gpu
-    static let defaultModelType: ModelType = .movenetThunder
-    
-    // Minimum score to render the result.
-    static let minimumScore: Float32 = 0.2
 }

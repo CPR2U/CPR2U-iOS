@@ -22,7 +22,6 @@
 		3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */; };
 		3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */; };
 		3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3A324CD629C60E6400165E2E /* movenet_thunder.tflite */; };
-		3A324CD929C60E6400165E2E /* movenet_lightning.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3A324CD729C60E6400165E2E /* movenet_lightning.tflite */; };
 		3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CDA29C60E8F00165E2E /* PoseConfig.swift */; };
 		3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CDC29C60E9800165E2E /* MoveNet.swift */; };
 		3A324CDF29C60E9F00165E2E /* PoseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CDE29C60E9F00165E2E /* PoseData.swift */; };
@@ -87,7 +86,6 @@
 		3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXQuizChoiceView.swift; sourceTree = "<group>"; };
 		3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiQuizChoiceView.swift; sourceTree = "<group>"; };
 		3A324CD629C60E6400165E2E /* movenet_thunder.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = movenet_thunder.tflite; sourceTree = "<group>"; };
-		3A324CD729C60E6400165E2E /* movenet_lightning.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = movenet_lightning.tflite; sourceTree = "<group>"; };
 		3A324CDA29C60E8F00165E2E /* PoseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseConfig.swift; sourceTree = "<group>"; };
 		3A324CDC29C60E9800165E2E /* MoveNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveNet.swift; sourceTree = "<group>"; };
 		3A324CDE29C60E9F00165E2E /* PoseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseData.swift; sourceTree = "<group>"; };
@@ -289,7 +287,6 @@
 		3A324CD529C60E4700165E2E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3A324CD729C60E6400165E2E /* movenet_lightning.tflite */,
 				3A324CD629C60E6400165E2E /* movenet_thunder.tflite */,
 				3A324CDA29C60E8F00165E2E /* PoseConfig.swift */,
 				3A324CDE29C60E9F00165E2E /* PoseData.swift */,
@@ -508,7 +505,6 @@
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A50F39129BF426E00DC1E29 /* Private.plist in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
-				3A324CD929C60E6400165E2E /* movenet_lightning.tflite in Resources */,
 				3AA636BA29AE5057006BB5EF /* LaunchScreen.storyboard in Resources */,
 				3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */,
 			);

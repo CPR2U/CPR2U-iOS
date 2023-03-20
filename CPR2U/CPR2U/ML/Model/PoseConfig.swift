@@ -25,9 +25,7 @@ import Foundation
 
 /// TFLite Delegate used to run the model.
 enum Delegates: String, CaseIterable {
-  case cpu = "CPU"
   case gpu = "GPU"
-  case npu = "NPU"
 }
 
 /// Information about a TFLite model file.
@@ -38,7 +36,6 @@ struct FileInfo {
 
 /// Type of the pose estimation model to be used.
 enum ModelType: String, CaseIterable {
-  case movenetLighting = "Lightning"  // Movenet lightning
   case movenetThunder = "Thunder"  // Movenet thunder
 }
 
