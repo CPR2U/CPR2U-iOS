@@ -8,13 +8,7 @@
 import Foundation
 import Combine
 
-protocol OutputOnlyViewModel {
-    associatedtype Output
-
-    func transform() -> Output
-}
-
-class QuizViewModel: OutputOnlyViewModel {
+class QuizViewModel: OutputOnlyViewModelType {
     private var quizList: [Quiz] = []
     private var currentQuizIndex: Int = 0
     private var didSelectAnswer: Bool = false
