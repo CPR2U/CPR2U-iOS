@@ -8,11 +8,6 @@
 import Combine
 import UIKit
 
-// MARK: 로직 파트
-// TODO: Education Big Label...
-// MARK: 서버 파트
-// TODO: 암튼 많음
-
 final class EducationMainViewController: UIViewController {
 
     let eduStatus: [String] = ["Completed", "Not Completed", "Not Completed"]
