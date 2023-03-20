@@ -9,49 +9,89 @@ import Foundation
 import Combine
 
 enum AngelStatus: Int {
-    case complete
+    case acquired
     case expired
-    case incomplete
-}
+    case unacquired
 
-enum EducationStatus: Int {
-    case incomplete
-    case lectureComplete
-    case quizComplete
-    case postureComplete
+    func certificationImageName() -> String {
+        switch self {
+        case .acquired:
+            return "heart_person"
+        case .expired, .unacquired:
+            return "person"
+        }
+    }
+    
+    func certificationStatus() -> String {
+        switch self {
+        case .acquired:
+            return "ACQUIRED"
+        case .expired:
+            return "EXPIRED"
+        case .unacquired:
+            return "UNACQUIRED"
+        }
+    }
 }
 
 final class EducationViewModel: DefaultViewModelType {
+    private let eduName: [String] = ["Lecture" , "Quiz", "Pose Practice"]
+    private let eduDescription: [String] = ["Video lecture for CPR angel certificate", "Let’s check your CPR study", "Posture practice to get CPR angel certificate"]
+    private var eduStatusArr:[Bool] = []
+    
+    init() {
+        // MARK: API NETWORK
+        let educationStatusArr: [Bool] = [true, false, false]
+        eduStatusArr = educationStatusArr
+    }
+    
     struct Input {
+        let nickname: String
         let angelStatus: Int
         let progressPercent: Float
+        let leftDay: Int?
         let isLectureCompleted: Bool
         let isQuizCompleted: Bool
         let isPostureCompleted: Bool
     }
     
+    struct CertificateStatus {
+        let status: AngelStatus
+        let leftDay: Int?
+    }
+    
     struct Output {
-        let angelStatus: CurrentValueSubject<AngelStatus, Never>
+        let nickname: CurrentValueSubject<String, Never>
+        let certificateStatus: CurrentValueSubject<CertificateStatus, Never>
         let progressPercent: CurrentValueSubject<Float, Never>
-        let educationStatus: CurrentValueSubject<EducationStatus, Never>
+    }
+    
+    func educationName() -> [String] {
+        return eduName
+    }
+    
+    func educationDescription() -> [String] {
+        return eduDescription
+    }
+    
+    func educationStatus() -> [Bool] {
+        return eduStatusArr
     }
     
     func transform(input: Input) -> Output {
+        let nickname: CurrentValueSubject<String, Never> = CurrentValueSubject(input.nickname)
         
-        let angelStatus = AngelStatus(rawValue: input.angelStatus)
-        let progressPercent = input.progressPercent
-        let educationStatus: EducationStatus = {
-            if input.isPostureCompleted {
-                return EducationStatus.postureComplete
-            } else if input.isQuizCompleted {
-                return EducationStatus.quizComplete
-            } else if input.isLectureCompleted {
-                return EducationStatus.lectureComplete
-            } else {
-                return EducationStatus.incomplete
+        let certificateStatus: CurrentValueSubject<CertificateStatus, Never> = {
+            guard let status = AngelStatus(rawValue: input.angelStatus), let leftDayNum = input.leftDay else {
+                return CurrentValueSubject(CertificateStatus(status: AngelStatus.unacquired, leftDay: nil))
             }
+ 
+            return CurrentValueSubject(CertificateStatus(status: status, leftDay: leftDayNum))
+            
         }()
         
-        return Output(angelStatus: CurrentValueSubject(angelStatus ?? .incomplete), progressPercent: CurrentValueSubject(progressPercent), educationStatus: CurrentValueSubject(educationStatus))
+        let progressPercent = input.progressPercent
+        
+        return Output(nickname: nickname, certificateStatus: certificateStatus, progressPercent: CurrentValueSubject(progressPercent))
     }
 }
