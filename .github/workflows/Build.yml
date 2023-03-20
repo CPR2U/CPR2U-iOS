@@ -16,4 +16,5 @@ jobs:
 
     - name: Build Xcode
       run: |
-        xcodebuild build -project ./CPR2U/CPR2U.xcodeproj -scheme CPR2U -destination "platform=iOS Simulator,name=iPhone 14,OS=latest"
+        pod install --repo-update --clean-install --project-directory=CPR2U/
+        xcodebuild clean test -workspace ./CPR2U/CPR2U.xcworkspace -scheme CPR2U -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest'
