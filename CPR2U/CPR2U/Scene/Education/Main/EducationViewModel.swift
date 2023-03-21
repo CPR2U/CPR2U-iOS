@@ -82,8 +82,12 @@ final class EducationViewModel: DefaultViewModelType {
         let nickname: CurrentValueSubject<String, Never> = CurrentValueSubject(input.nickname)
         
         let certificateStatus: CurrentValueSubject<CertificateStatus, Never> = {
-            guard let status = AngelStatus(rawValue: input.angelStatus), let leftDayNum = input.leftDay else {
+            guard let status = AngelStatus(rawValue: input.angelStatus) else {
                 return CurrentValueSubject(CertificateStatus(status: AngelStatus.unacquired, leftDay: nil))
+            }
+            
+            guard let leftDayNum = input.leftDay else {
+                return CurrentValueSubject(CertificateStatus(status: status, leftDay: nil))
             }
  
             return CurrentValueSubject(CertificateStatus(status: status, leftDay: leftDayNum))
