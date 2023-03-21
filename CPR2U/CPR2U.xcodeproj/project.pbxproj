@@ -34,6 +34,8 @@
 		3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */; };
 		3A396B9129C8A87D009B0545 /* ViewModelList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9029C8A87D009B0545 /* ViewModelList.swift */; };
 		3A396B9329C97E31009B0545 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9229C97E31009B0545 /* UIView+.swift */; };
+		3A396B9829C9D2F4009B0545 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396B9729C9D2F4009B0545 /* GoogleService-Info.plist */; };
+		3A396B9B29C9D395009B0545 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3A396B9A29C9D395009B0545 /* FirebaseMessaging */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
@@ -99,6 +101,8 @@
 		3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationViewModel.swift; sourceTree = "<group>"; };
 		3A396B9029C8A87D009B0545 /* ViewModelList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelList.swift; sourceTree = "<group>"; };
 		3A396B9229C97E31009B0545 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		3A396B9629C9C648009B0545 /* CPR2U.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CPR2U.entitlements; sourceTree = "<group>"; };
+		3A396B9729C9D2F4009B0545 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A396B9B29C9D395009B0545 /* FirebaseMessaging in Frameworks */,
 				3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */,
 				24CEFDC9C69B23440E07EF1C /* Pods_CPR2U.framework in Frameworks */,
 			);
@@ -337,6 +342,7 @@
 		3AA636AC29AE5055006BB5EF /* CPR2U */ = {
 			isa = PBXGroup;
 			children = (
+				3A396B9629C9C648009B0545 /* CPR2U.entitlements */,
 				3A22BF3F29BC8D11004411BE /* Application */,
 				3A324CE829C610FF00165E2E /* Camera */,
 				3A22BF3D29BC8C5D004411BE /* Util */,
@@ -348,6 +354,7 @@
 				3AA636B629AE5057006BB5EF /* Assets.xcassets */,
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
+				3A396B9729C9D2F4009B0545 /* GoogleService-Info.plist */,
 			);
 			path = CPR2U;
 			sourceTree = "<group>";
@@ -458,6 +465,7 @@
 			name = CPR2U;
 			packageProductDependencies = (
 				3A5C390D29C0844700378015 /* CombineCocoa */,
+				3A396B9A29C9D395009B0545 /* FirebaseMessaging */,
 			);
 			productName = CPR2U;
 			productReference = 3AA636AA29AE5055006BB5EF /* CPR2U.app */;
@@ -489,6 +497,7 @@
 			mainGroup = 3AA636A129AE5054006BB5EF;
 			packageReferences = (
 				3A5C390C29C0844700378015 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				3A396B9929C9D395009B0545 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3AA636AB29AE5055006BB5EF /* Products */;
 			projectDirPath = "";
@@ -509,6 +518,7 @@
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
 				3AA636BA29AE5057006BB5EF /* LaunchScreen.storyboard in Resources */,
 				3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */,
+				3A396B9829C9D2F4009B0545 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,6 +746,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CPR2U/CPR2U.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UAM52RQFW9;
@@ -751,7 +762,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jhHwang.CPR2U;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jhHwang.CPRtoU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -765,6 +776,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CPR2U/CPR2U.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UAM52RQFW9;
@@ -780,7 +792,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jhHwang.CPR2U;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jhHwang.CPRtoU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -812,6 +824,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3A396B9929C9D395009B0545 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		3A5C390C29C0844700378015 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa";
@@ -823,6 +843,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3A396B9A29C9D395009B0545 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A396B9929C9D395009B0545 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		3A5C390D29C0844700378015 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3A5C390C29C0844700378015 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
