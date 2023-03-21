@@ -33,6 +33,7 @@
 		3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */; };
 		3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */; };
 		3A396B9129C8A87D009B0545 /* ViewModelList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9029C8A87D009B0545 /* ViewModelList.swift */; };
+		3A396B9329C97E31009B0545 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9229C97E31009B0545 /* UIView+.swift */; };
 		3A50F39129BF426E00DC1E29 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A50F39029BF426E00DC1E29 /* Private.plist */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
@@ -98,6 +99,7 @@
 		3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
 		3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationViewModel.swift; sourceTree = "<group>"; };
 		3A396B9029C8A87D009B0545 /* ViewModelList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelList.swift; sourceTree = "<group>"; };
+		3A396B9229C97E31009B0545 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		3A50F39029BF426E00DC1E29 /* Private.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Private.plist; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				3AA636F429B61D67006BB5EF /* UIViewController+.swift */,
 				3A22BF6629BE05D9004411BE /* Encodable+.swift */,
 				3A50F39229BF51F800DC1E29 /* UIButton+.swift */,
+				3A396B9229C97E31009B0545 /* UIView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
 				3A324CDF29C60E9F00165E2E /* PoseData.swift in Sources */,
 				3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */,
+				3A396B9329C97E31009B0545 /* UIView+.swift in Sources */,
 				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3A324CE729C6104D00165E2E /* Data+TFLite.swift in Sources */,
 				3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */,

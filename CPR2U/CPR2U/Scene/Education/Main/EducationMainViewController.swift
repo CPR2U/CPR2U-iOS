@@ -113,7 +113,12 @@ extension EducationMainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
-        navigateTo(index: index)
+        let isCompleted = index != 0 ? viewModel.educationStatus()[index - 1] : true
+        if isCompleted == true {
+            navigateTo(index: index)
+        } else {
+            view.showToastMessage(type: .education)
+        }
         
     }
 }
