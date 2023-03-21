@@ -59,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().apnsToken = deviceToken
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("NO!!!")
     }
     
     private func registerForRemoteNotifications() {
@@ -98,18 +97,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         print("\(#function)")
-        // 푸시가 오면 alert, badge, sound표시를 하라는 의미
         completionHandler([.alert, .badge, .sound])
     }
     
     // push를 탭한 경우 처리
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        // deep link처리 시 아래 url값 가지고 처리
         let url = response.notification.request.content.userInfo
         print("url = \(url)")
-        
-        // if url.containts("receipt")...
     }
 }
 
