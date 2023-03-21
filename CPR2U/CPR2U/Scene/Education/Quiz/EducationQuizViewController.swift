@@ -127,7 +127,7 @@ final class EducationQuizViewController: UIViewController {
     }
     
     private func setUpStyle() {
-        view.backgroundColor = .mainWhite
+        view.backgroundColor = .white
         
         navigationController?.navigationBar.topItem?.title = "Quiz"
         let closeItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))

@@ -9,22 +9,45 @@ import UIKit
 
 final class EducationProgressView: UIView {
 
-    private let annotationLabel = UILabel()
-    private let infoButton = UIButton()
-    private let progressView = UIProgressView()
+    private let annotationLabel: UILabel = {
+        let label = UILabel()
+        let color = UIColor(rgb: 0x767676)
+        label.font = UIFont(weight: .regular, size: 11)
+        label.textColor = color
+        label.text = "CPR Angel Certification Progress"
+        return label
+    }()
+    
+    private let infoButton: UIButton = {
+        let button = UIButton()
+        let color = UIColor(rgb: 0x767676)
+        let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .light, scale: .medium)
+        guard let img = UIImage(systemName: "info.circle", withConfiguration: config)?.withTintColor(color).withRenderingMode(.alwaysOriginal) else { return UIButton() }
+        button.setImage(img, for: .normal)
+        return button
+    }()
+    
+    private lazy var progressView: UIProgressView = {
+        let view = UIProgressView()
+        view.trackTintColor = .mainLightRed.withAlphaComponent(0.05)
+        view.progressTintColor = .mainRed
+        view.layer.borderColor = UIColor.mainRed.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 8
+        view.layer.sublayers![1].cornerRadius = 8
+        view.clipsToBounds = true
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setUpConstraints()
-        setUpStyle()
-        setUpText()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     private func setUpConstraints() {
         let make = Constraints.shared
@@ -60,24 +83,7 @@ final class EducationProgressView: UIView {
         ])
     }
     
-    private func setUpStyle() {
-        let color = UIColor(rgb: 0x767676)
-        annotationLabel.font = UIFont(weight: .regular, size: 11)
-        annotationLabel.textColor = color
-        let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .light, scale: .medium)
-        guard let img = UIImage(systemName: "info.circle", withConfiguration: config)?.withTintColor(color).withRenderingMode(.alwaysOriginal) else { return }
-        infoButton.setImage(img, for: .normal)
-        progressView.trackTintColor = .mainLightRed.withAlphaComponent(0.05)
-        progressView.progressTintColor = .mainRed
-        progressView.layer.borderColor = UIColor.mainRed.cgColor
-        progressView.layer.borderWidth = 1
-        progressView.layer.cornerRadius = 8
-        progressView.layer.sublayers![1].cornerRadius = 8
-        progressView.clipsToBounds = true
-        progressView.progress = 0.2
-    }
-    
-    private func setUpText() {
-        annotationLabel.text = "CPR Angel Certification Progress"
+    func setUpProgress(as value: Float) {
+        progressView.progress = value
     }
 }

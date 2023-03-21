@@ -9,16 +9,27 @@ import UIKit
 
 final class CertificateStatusView: UIView {
 
+    private let status: AngelStatus = .unacquired
     private let certificateImage = UIImageView()
-    private let greetingLabel = UILabel()
-    private let certificateLabel = UILabel()
+    private lazy var  greetingLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textColor = .mainBlack
+        return label
+    }()
+    
+    private lazy var certificateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textColor = .mainBlack
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setUpConstraints()
         setUpStyle()
-        setUpText()
     }
     
     required init?(coder: NSCoder) {
@@ -85,20 +96,33 @@ final class CertificateStatusView: UIView {
         self.layer.borderColor = UIColor.mainRed.cgColor
         self.layer.borderWidth = 1
         self.backgroundColor = .mainWhite
-        
-        certificateImage.image = UIImage(named: "person.png")
-        
-        greetingLabel.font = UIFont(weight: .regular, size: 14)
-        greetingLabel.textColor = .mainBlack
-        
-        
-        // TODO: 로직 구현 시, certificateLabel NAttributedText 적용 예정
-        certificateLabel.font = UIFont(weight: .bold, size: 16)
-        certificateLabel.textColor = .mainBlack
     }
     
-    private func setUpText() {
-        greetingLabel.text = "Hi HeartBeatingS2,"
-        certificateLabel.text = "You are not a CPR ANGEL yet."
+    func setUpStatus(as status: AngelStatus, leftDay: Int?) {
+        
+        let imgName = status.certificationImageName()
+        certificateImage.image = UIImage(named: imgName)
+        
+        var statusString: String
+        if let leftDayString = leftDay {
+            statusString = "\(status.certificationStatus()) (D-\(leftDayString))"
+        } else {
+            statusString = status.certificationStatus()
+        }
+        let certificateStatusString = "Certificate Status: "
+        let customFont = UIFont(weight: .bold, size: 14)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: customFont,
+            .foregroundColor: UIColor.mainRed
+        ]
+        let resultString = NSMutableAttributedString(string: certificateStatusString)
+        let attributedString = NSMutableAttributedString(string: statusString, attributes: attributes)
+        resultString.append(attributedString)
+        
+        certificateLabel.attributedText = resultString
+    }
+    
+    func setUpGreetingLabel(nickname: String) {
+        greetingLabel.text = "Hi \(nickname)"
     }
 }

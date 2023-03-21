@@ -11,15 +11,29 @@ final class EducationCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "EducationCollectionViewCell"
     
-    let educationNameLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let statusLabel = UILabel()
+    private lazy var educationNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 16)
+        label.textColor = .mainBlack
+        return label
+    }()
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 12)
+        label.textColor = .mainBlack
+        return label
+    }()
+    private lazy var statusLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 16)
+        label.textColor = .mainRed
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpConstraints()
         setUpStyle()
-        setUpText()
     }
     
     required init?(coder: NSCoder) {
@@ -62,23 +76,21 @@ final class EducationCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpStyle() {
-        self.backgroundColor = .mainLightRed
         self.layer.cornerRadius = 20
-        
-        educationNameLabel.font = UIFont(weight: .bold, size: 16)
-        descriptionLabel.font = UIFont(weight: .regular, size: 12)
-        statusLabel.font = UIFont(weight: .bold, size: 16)
-        
-        educationNameLabel.textColor = .mainBlack
-        descriptionLabel.textColor = .mainBlack
-        statusLabel.textColor = .mainRed
-        
     }
     
-    private func setUpText() {
-        educationNameLabel.text = "Lecture"
-        descriptionLabel.text = "Video lecture for CPR angel certificate"
-        statusLabel.text = "Completed"
+    func setUpEducationNameLabel(as str: String) {
+        educationNameLabel.text = str
+    }
+    
+    func setUpDescriptionLabel(as str: String) {
+        descriptionLabel.text = str
+    }
+    
+    func setUpStatus(isCompleted: Bool) {
+        statusLabel.text = isCompleted == true ? "Completed" : "Not Completed"
+        statusLabel.textColor = isCompleted == true ? .mainRed : .mainDarkGray
+        self.backgroundColor = isCompleted  == true ? .mainLightRed : .mainLightGray
     }
 
 }

@@ -5,17 +5,18 @@
 //  Created by 황정현 on 2023/03/09.
 //
 
+import Combine
 import UIKit
 
 final class EducationMainViewController: UIViewController {
-    
-    let eduName: [String] = ["Lecture" , "Quiz", "Pose Practice"]
-    let eduDescription: [String] = ["Video lecture for CPR angel certificate", "Let’s check your CPR study", "Posture practice to get CPR angel certificate"]
+
     let eduStatus: [String] = ["Completed", "Not Completed", "Not Completed"]
-    private let certificateStatusView = CertificateStatusView()
+    private var certificateStatusView = CertificateStatusView()
     private let progressView = EducationProgressView()
     private let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
+    private let viewModel = EducationViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ final class EducationMainViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpCollectionView()
+        bind(to: viewModel)
     }
     
     private func setUpConstraints() {
@@ -60,15 +62,11 @@ final class EducationMainViewController: UIViewController {
     }
     
     private func setUpStyle() {
-        view.backgroundColor = .mainWhite
         guard let navBar = self.navigationController?.navigationBar else { return }
         navBar.prefersLargeTitles = true
         navBar.topItem?.title = "Education"
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed]
         self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
-        
-        educationCollectionView.backgroundColor = .mainWhite
-        educationCollectionView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
     
     private func setUpCollectionView() {
@@ -76,26 +74,51 @@ final class EducationMainViewController: UIViewController {
         educationCollectionView.delegate = self
         educationCollectionView.register(EducationCollectionViewCell.self, forCellWithReuseIdentifier: EducationCollectionViewCell.identifier)
     }
+    
+    private func bind(to viewModel: EducationViewModel) {
+        
+        // TEST
+        let input = EducationViewModel.Input(nickname: "HeartBeatingS2", angelStatus: 2, progressPercent: 1.0, leftDay: nil, isLectureCompleted: true, isQuizCompleted: true, isPostureCompleted: true)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.certificateStatus.sink { status in
+            self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
+        }.store(in: &cancellables)
+        
+        output.nickname.sink { nickname in
+            self.certificateStatusView.setUpGreetingLabel(nickname: nickname)
+        }.store(in: &cancellables)
+        
+        output.progressPercent.sink { progress in
+            self.progressView.setUpProgress(as: progress)
+        }.store(in: &cancellables)
+    }
 }
 
 extension EducationMainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return eduName.count
+        return viewModel.educationName().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EducationCollectionViewCell", for: indexPath) as! EducationCollectionViewCell
         
-        cell.educationNameLabel.text = eduName[indexPath.row]
-        cell.descriptionLabel.text = eduDescription[indexPath.row]
-        cell.statusLabel.text = eduStatus[indexPath.row]
+        cell.setUpEducationNameLabel(as: viewModel.educationName()[indexPath.row])
+        cell.setUpDescriptionLabel(as: viewModel.educationDescription()[indexPath.row])
+        cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row])
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
-        navigateTo(index: index)
+        let isCompleted = index != 0 ? viewModel.educationStatus()[index - 1] : true
+        if isCompleted == true {
+            navigateTo(index: index)
+        } else {
+            view.showToastMessage(type: .education)
+        }
         
     }
 }
