@@ -14,7 +14,7 @@ class TestViewController: UIViewController {
         super.viewDidLoad()
 
         Task {
-            let result1 = try await educationManager.saveQuizResult()
+            let result1 = try await educationManager.saveQuizResult(score: 100)
             await print("RESULT 1 ", result1.0)
             await print("RESULT 1 ", result1.1)
             let result2 = try await educationManager.saveLectureProgress(lectureId: 1)
