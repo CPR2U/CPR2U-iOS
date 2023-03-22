@@ -1,5 +1,5 @@
 //
-//  SignEndPoint.swift
+//  AuthEndPoint.swift
 //  CPR2U
 //
 //  Created by 황정현 on 2023/03/11.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SignEndPoint {
+enum AuthEndPoint {
     case phoneNumberVerify (phoneNumber: String)
     case nicknameVerify (nickname: String)
     case signIn (phoneNumber: String, deviceToken: String)
@@ -15,7 +15,7 @@ enum SignEndPoint {
     case autoLogin (refreshToken: String)
 }
 
-extension SignEndPoint: EndPoint {
+extension AuthEndPoint: EndPoint {
     
     var method: HttpMethod {
         switch self {
