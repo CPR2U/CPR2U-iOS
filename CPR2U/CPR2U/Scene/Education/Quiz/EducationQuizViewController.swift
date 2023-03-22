@@ -189,6 +189,13 @@ extension EducationQuizViewController {
         
         output.quiz?.sink { quiz in
             self.updateQuiz(quiz: quiz)
+            
+            switch quiz.questionType {
+            case .ox:
+                self.oxChoiceView.interactionEnabled(to: true)
+            case .multi:
+                self.multiChoiceView.interactionEnabled(to: true)
+            }
         }.store(in: &cancellables)
         
         output.isQuizEnd.sink { [weak self] isQuizEnd in
@@ -260,6 +267,7 @@ extension EducationQuizViewController {
 // MARK: Delegate
 extension EducationQuizViewController: CustomNoticeViewDelegate {
     func dismissQuizViewController() {
+        delegate?.updateUserEducationStatus()
         dismiss(animated: true)
     }
 }
