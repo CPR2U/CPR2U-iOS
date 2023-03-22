@@ -250,6 +250,9 @@ final class NicknameVerificationViewController: UIViewController {
                         } else {
                             print("에러")
                         }
+                    } else {
+                        guard let label = self?.irregularNoticeLabel else { return }
+                        nicknameStatus?.changeNoticeLabel(noticeLabel: label, nickname: userInput)
                     }
                 }
             }

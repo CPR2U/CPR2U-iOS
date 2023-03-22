@@ -21,7 +21,7 @@ protocol ViewModelType {
     func transform(loginPhase: LoginPhase, input: Input) -> Output
 }
 
-class AuthViewModel: ViewModelType {
+final class AuthViewModel: ViewModelType {
 
     private let authManager: AuthManager
     private var phoneNumberString: String?
@@ -60,8 +60,8 @@ class AuthViewModel: ViewModelType {
     }
     
     func autoLogin() async throws -> Bool {
-        let refreshToken = UserDefaultsManager.refreshToken
-//        let refreshToken = ""
+//        let refreshToken = UserDefaultsManager.refreshToken
+        let refreshToken = ""
         let result = Task {
             if refreshToken == "" {
                 return false
@@ -99,7 +99,7 @@ class AuthViewModel: ViewModelType {
         let result = Task { () -> Bool in
             guard let phoneNumber = phoneNumberString else { return false }
             // deviceToken GET
-            let authResult = try await authManager.signIn(phoneNumber: phoneNumber, deviceToken: "")
+            let authResult = try await authManager.signIn(phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
             
             return authResult.success
         }
@@ -122,7 +122,7 @@ class AuthViewModel: ViewModelType {
     func signUp() async throws -> Bool {
         let taskResult = Task { () -> Bool in
             guard let phoneNumber = phoneNumberString, let nickname = nickname else { return false }
-            let authResult = try await authManager.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: "")
+            let authResult = try await authManager.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
             if authResult.success == true {
                 guard let data = authResult.data else { return false }
                 UserDefaultsManager.accessToken = data.access_token

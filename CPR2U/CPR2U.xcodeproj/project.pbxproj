@@ -32,7 +32,7 @@
 		3A324CEA29C6111200165E2E /* CameraFeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE929C6111200165E2E /* CameraFeedManager.swift */; };
 		3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */; };
 		3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */; };
-		3A396B9129C8A87D009B0545 /* ViewModelList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9029C8A87D009B0545 /* ViewModelList.swift */; };
+		3A396B9129C8A87D009B0545 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9029C8A87D009B0545 /* ViewModelProtocol.swift */; };
 		3A396B9329C97E31009B0545 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9229C97E31009B0545 /* UIView+.swift */; };
 		3A396B9829C9D2F4009B0545 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396B9729C9D2F4009B0545 /* GoogleService-Info.plist */; };
 		3A396B9B29C9D395009B0545 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3A396B9A29C9D395009B0545 /* FirebaseMessaging */; };
@@ -41,6 +41,7 @@
 		3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA429CA0646009B0545 /* UIWindow+.swift */; };
 		3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA929CA0A07009B0545 /* TabBarViewController.swift */; };
 		3A396BAD29CA138A009B0545 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
+		3A396BB229CAF0DA009B0545 /* DeviceTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
@@ -103,7 +104,7 @@
 		3A324CE929C6111200165E2E /* CameraFeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeedManager.swift; sourceTree = "<group>"; };
 		3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
 		3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationViewModel.swift; sourceTree = "<group>"; };
-		3A396B9029C8A87D009B0545 /* ViewModelList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelList.swift; sourceTree = "<group>"; };
+		3A396B9029C8A87D009B0545 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		3A396B9229C97E31009B0545 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		3A396B9629C9C648009B0545 /* CPR2U.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CPR2U.entitlements; sourceTree = "<group>"; };
 		3A396B9729C9D2F4009B0545 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -112,6 +113,7 @@
 		3A396BA429CA0646009B0545 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		3A396BA929CA0A07009B0545 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3A396BAC29CA138A009B0545 /* Private.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Private.plist; sourceTree = "<group>"; };
+		3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenManager.swift; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
@@ -199,8 +201,9 @@
 			children = (
 				3A22BF4129BC90E7004411BE /* Constants */,
 				3A22BF3E29BC8C62004411BE /* Extension */,
-				3A396B9029C8A87D009B0545 /* ViewModelList.swift */,
-				3A396BA229C9EDAB009B0545 /* UserDefaultsManager.swift */,
+				3A396BAF29CAF001009B0545 /* Protocol */,
+				3A396BB029CAF0B6009B0545 /* Shared */,
+				3A396BAE29CAEFF0009B0545 /* Wrapper */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -339,6 +342,30 @@
 				3A396BA029C9E906009B0545 /* AutoLoginViewController.swift */,
 			);
 			path = Splash;
+			sourceTree = "<group>";
+		};
+		3A396BAE29CAEFF0009B0545 /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BA229C9EDAB009B0545 /* UserDefaultsManager.swift */,
+			);
+			path = Wrapper;
+			sourceTree = "<group>";
+		};
+		3A396BAF29CAF001009B0545 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3A396B9029C8A87D009B0545 /* ViewModelProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3A396BB029CAF0B6009B0545 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		3A5C391129C0948600378015 /* Model */ = {
@@ -615,6 +642,7 @@
 				3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
+				3A396BB229CAF0DA009B0545 /* DeviceTokenManager.swift in Sources */,
 				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
 				3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */,
 				3A5C391329C0948F00378015 /* Quiz.swift in Sources */,
@@ -635,7 +663,7 @@
 				3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */,
 				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
-				3A396B9129C8A87D009B0545 /* ViewModelList.swift in Sources */,
+				3A396B9129C8A87D009B0545 /* ViewModelProtocol.swift in Sources */,
 				3A22BF5F29BDFF1A004411BE /* NetworkRequest.swift in Sources */,
 				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
 				3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */,
