@@ -6,17 +6,15 @@
 //
 
 import Combine
+import CombineCocoa
 import UIKit
 
 final class SMSCodeVerificationViewController: UIViewController {
     
-    private let signManager = SignManager(service: APIManager())
+    private let authManager = AuthManager(service: APIManager())
     
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
-    
-    var phoneNumberString: String?
-    var smsCode: String?
     
     private let phoneNumberLabel = UILabel()
     
@@ -40,12 +38,12 @@ final class SMSCodeVerificationViewController: UIViewController {
         }
     }
     
+    private var viewModel: AuthViewModel
     private var cancellables = Set<AnyCancellable>()
     
-    init(phoneNumberString: String, smsCode: String) {
+    init(viewModel: AuthViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.phoneNumberString = phoneNumberString
-        self.smsCode = smsCode
     }
     
     required init?(coder: NSCoder) {
@@ -60,9 +58,8 @@ final class SMSCodeVerificationViewController: UIViewController {
         setUpText()
         setUpLayerName()
         setUpDelegate()
-        setUpAction()
         setUpKeyboard()
-        bind()
+        bind(viewModel: viewModel)
     }
     
     private func setUpConstraints() {
@@ -183,7 +180,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         instructionLabel.text = "Enter Code"
         descriptionLabel.text = "An SMS code was sent to"
         
-        phoneNumberLabel.text = phoneNumberString
+        phoneNumberLabel.text = viewModel.getPhoneNumber()
         codeResendLabel.text = "Not receiveing the code?"
         confirmButton.setTitle("CONFIRM", for: .normal)
     }
@@ -200,10 +197,6 @@ final class SMSCodeVerificationViewController: UIViewController {
         })
     }
     
-    private func setUpAction() {
-        confirmButton.addTarget(self, action: #selector(navigateToNicknameVerificationPage), for: .touchUpInside)
-    }
-    
     private func setUpKeyboard() {
         smsCodeInputView1.smsCodeTextField.becomeFirstResponder()
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -211,7 +204,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    private func bind() {
+    private func bind(viewModel: AuthViewModel) {
         let smsCodeViews = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
         
         for index in 0...3 {
@@ -228,14 +221,25 @@ final class SMSCodeVerificationViewController: UIViewController {
             }
             .store(in: &cancellables)
         }
-    }
-    
-    @objc func navigateToNicknameVerificationPage() {
-        if smsCodeVerify() {
-            userVerify()
-        } else {
-            print("인증코드 오류")
-        }
+        
+        confirmButton.tapPublisher.sink { [self] in
+            Task {
+                if smsCodeVerify() {
+                    let isUser = try await viewModel.userVerify()
+                    print("USER CHECK: ", isUser)
+                    if isUser {
+                        let vc = TabBarViewController()
+                        guard let window = self.view.window else { return }
+                        await window.setRootViewController(vc, animated: true)
+                        dismiss(animated: true)
+                    } else {
+                        navigationController?.pushViewController(NicknameVerificationViewController(viewModel: viewModel), animated: true)
+                    }
+                } else {
+                    print("인증코드 오류")
+                }
+            }
+        }.store(in: &cancellables)
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -268,19 +272,6 @@ extension SMSCodeVerificationViewController {
         let userInput = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
             .compactMap{$0.smsCodeTextField.text}
             .reduce("") { return $0 + $1 }
-        return userInput == smsCode
-    }
-    
-    func userVerify() {
-        Task {
-            guard let phoneNumber = phoneNumberString else { return }
-            let result = try await signManager.signIn(phoneNumber: phoneNumber, deviceToken: "")
-            if result.success == false {
-                guard let phoneNumberString = phoneNumberString else { return }
-                navigationController?.pushViewController(NicknameVerificationViewController(phoneNumberString: phoneNumberString), animated: true)
-            } else {
-                dismiss(animated: true)
-            }
-        }
+        return userInput == viewModel.getSMSCode()
     }
 }

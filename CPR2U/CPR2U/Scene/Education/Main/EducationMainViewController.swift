@@ -150,7 +150,7 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
     func navigateTo(index: Int) {
         var vc: UIViewController
         if index == 0 {
-            vc = TestViewController()
+            vc = UIViewController()
             navigationController?.pushViewController(vc, animated: true)
         } else if index == 1 {
             let temp = EducationQuizViewController()
