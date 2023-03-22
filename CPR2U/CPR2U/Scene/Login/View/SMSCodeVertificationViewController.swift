@@ -10,22 +10,57 @@ import CombineCocoa
 import UIKit
 
 final class SMSCodeVerificationViewController: UIViewController {
-    
     private let authManager = AuthManager(service: APIManager())
     
-    private let instructionLabel = UILabel()
-    private let descriptionLabel = UILabel()
+    private let instructionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 24)
+        label.textColor = .mainBlack
+        label.text = "Enter Code"
+        return label
+    }()
     
-    private let phoneNumberLabel = UILabel()
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textColor = .mainBlack
+        label.text = "An SMS code was sent to"
+        return label
+    }()
+    
+    private lazy var phoneNumberLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 16)
+        label.textAlignment = .left
+        label.textColor = .mainBlack
+        label.text = self.viewModel.getPhoneNumber()
+        return label
+    }()
     
     private let smsCodeInputView1 = SMSCodeInputView()
     private let smsCodeInputView2 = SMSCodeInputView()
     private let smsCodeInputView3 = SMSCodeInputView()
     private let smsCodeInputView4 = SMSCodeInputView()
     
-    private let codeResendLabel = UILabel()
+    private let codeResendLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textAlignment = .right
+        label.textColor = .mainRed
+        label.text = "Not receiveing the code?"
+        return label
+    }()
     
-    private let confirmButton = UIButton()
+    private let confirmButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont(weight: .bold, size: 16)
+        button.setTitleColor(.mainBlack, for: .normal)
+        button.backgroundColor = .mainLightGray
+        button.layer.cornerRadius = 27.5
+        button.isUserInteractionEnabled = false
+        button.setTitle("CONFIRM", for: .normal)
+        return button
+    }()
     
     private var confirmButtonBottomConstraints = NSLayoutConstraint()
     
@@ -55,7 +90,6 @@ final class SMSCodeVerificationViewController: UIViewController {
         
         setUpConstraints()
         setUpStyle()
-        setUpText()
         setUpLayerName()
         setUpDelegate()
         setUpKeyboard()
@@ -153,36 +187,7 @@ final class SMSCodeVerificationViewController: UIViewController {
     }
     
     private func setUpStyle() {
-        
         view.backgroundColor = .white
-        
-        instructionLabel.font = UIFont(weight: .bold, size: 24)
-        instructionLabel.textColor = .mainBlack
-        descriptionLabel.font = UIFont(weight: .regular, size: 14)
-        descriptionLabel.textColor = .mainBlack
-        
-        phoneNumberLabel.font = UIFont(weight: .bold, size: 16)
-        phoneNumberLabel.textAlignment = .left
-        phoneNumberLabel.textColor = .mainBlack
-        
-        codeResendLabel.font = UIFont(weight: .regular, size: 14)
-        codeResendLabel.textAlignment = .right
-        codeResendLabel.textColor = .mainRed
-        
-        confirmButton.titleLabel?.font = UIFont(weight: .bold, size: 16)
-        confirmButton.setTitleColor(.mainBlack, for: .normal)
-        confirmButton.backgroundColor = .mainLightGray
-        confirmButton.layer.cornerRadius = 27.5
-        confirmButton.isUserInteractionEnabled = false
-    }
-    
-    private func setUpText() {
-        instructionLabel.text = "Enter Code"
-        descriptionLabel.text = "An SMS code was sent to"
-        
-        phoneNumberLabel.text = viewModel.getPhoneNumber()
-        codeResendLabel.text = "Not receiveing the code?"
-        confirmButton.setTitle("CONFIRM", for: .normal)
     }
     
     private func setUpLayerName() {
@@ -191,6 +196,7 @@ final class SMSCodeVerificationViewController: UIViewController {
             views[index].smsCodeTextField.layer.name = "\(index)"
         }
     }
+    
     private func setUpDelegate() {
         [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4].forEach({
             $0.smsCodeTextField.delegate = self
