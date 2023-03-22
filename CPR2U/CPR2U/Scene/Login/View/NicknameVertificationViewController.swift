@@ -5,6 +5,8 @@
 //  Created by 황정현 on 2023/03/04.
 //
 
+import Combine
+import CombineCocoa
 import UIKit
 
 enum NicknameStatus {
@@ -43,7 +45,7 @@ enum NicknameStatus {
 
 final class NicknameVerificationViewController: UIViewController {
 
-    private let signManager = SignManager(service: APIManager())
+    private let signManager = AuthManager(service: APIManager())
     
     var phoneNumberString: String?
     
@@ -59,7 +61,6 @@ final class NicknameVerificationViewController: UIViewController {
     
     private var continueButtonBottomConstraints = NSLayoutConstraint()
     
-    private var availableNickname = ""
     private var nicknameStatus: NicknameStatus = NicknameStatus.none {
         willSet(newValue) {
             newValue.changeNoticeLabel(noticeLabel: irregularNoticeLabel, nickname: nicknameTextField.text)
@@ -67,9 +68,14 @@ final class NicknameVerificationViewController: UIViewController {
         }
     }
     
-    init(phoneNumberString: String) {
+    private var viewModel: AuthViewModel
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(viewModel: AuthViewModel) {
+        self.viewModel = viewModel
+        self.phoneNumberString = viewModel.getPhoneNumber()
+        
         super.init(nibName: nil, bundle: nil)
-        self.phoneNumberString = phoneNumberString
     }
     
     required init?(coder: NSCoder) {
@@ -84,6 +90,7 @@ final class NicknameVerificationViewController: UIViewController {
         setUpText()
         setUpAction()
         setUpKeyboard()
+        bind(viewModel: viewModel)
     }
     
     private func setUpConstraints() {
@@ -189,7 +196,6 @@ final class NicknameVerificationViewController: UIViewController {
     
     private func setUpAction() {
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        continueButton.addTarget(self, action: #selector(continueButtonDidTap), for: .touchUpInside)
     }
     
     private func setUpKeyboard() {
@@ -226,11 +232,31 @@ final class NicknameVerificationViewController: UIViewController {
        
     }
     
-    @objc func continueButtonDidTap() {
-        guard let textCount = nicknameTextField.text?.count else { return }
-        if (nicknameStatus != .specialCharacters && textCount != 0 ) {
-            nicknameVerify()
-        }
+    private func bind(viewModel: AuthViewModel) {
+        continueButton.tapPublisher.sink { [weak self] in
+            guard let userInput = self?.nicknameTextField.text else { return }
+            Task {
+                guard userInput.count > 0 else { return }
+                if (self?.nicknameStatus != .specialCharacters) {
+                    let nicknameStatus = try await self?.viewModel.nicknameVerify(userInput: userInput)
+                    if nicknameStatus == .available {
+                        self?.viewModel.setNickname(name: userInput)
+                        let signUpResult = try await self?.viewModel.signUp()
+                        if signUpResult == true {
+                            self?.dismiss(animated: true)
+                            let vc = TabBarViewController()
+                            guard let window = self?.view.window else { return }
+                            await window.setRootViewController(vc, animated: true)
+                        } else {
+                            print("에러")
+                        }
+                    } else {
+                        guard let label = self?.irregularNoticeLabel else { return }
+                        nicknameStatus?.changeNoticeLabel(noticeLabel: label, nickname: userInput)
+                    }
+                }
+            }
+        }.store(in: &cancellables)
     }
 
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -245,28 +271,5 @@ final class NicknameVerificationViewController: UIViewController {
     @objc private func keyboardWillHide(_ notification: Notification) {
         continueButtonBottomConstraints.constant = -16
         view.layoutIfNeeded()
-    }
-}
-
-extension NicknameVerificationViewController {
-    func nicknameVerify() {
-        Task {
-            guard let userInput = nicknameTextField.text else { return }
-            let result = try await signManager.nicknameVerify(nickname: userInput)
-            if result.success == false {
-                nicknameStatus = .unavailable
-            } else {
-                nicknameStatus = .available
-                signUp(nickname: userInput)
-            }
-        }
-    }
-    
-    func signUp(nickname: String) {
-        Task {
-            guard let phoneNumber = phoneNumberString else { return }
-            try await signManager.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: "")
-            dismiss(animated: true)
-        }
     }
 }

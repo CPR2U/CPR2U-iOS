@@ -52,7 +52,6 @@ class QuizViewModel: OutputOnlyViewModelType {
     }
     
     func isQuizAllCorrect() -> Bool {
-        print(correctQuizNum, " " , quizList.count)
         return correctQuizNum == quizList.count
     }
     

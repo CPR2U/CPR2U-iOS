@@ -1,5 +1,5 @@
 //
-//  SignManager.swift
+//  AuthManager.swift
 //  CPR2U
 //
 //  Created by 황정현 on 2023/03/12.
@@ -7,14 +7,15 @@
 
 import Foundation
 
-protocol SignService {
+protocol AuthService {
     func phoneNumberVerify(phoneNumber: String) async throws -> (success: Bool, data: SMSCodeResult?)
     func nicknameVerify(nickname: String) async throws -> (success: Bool, data: NicknameVerifyResult?)
     func signIn(phoneNumber: String, deviceToken: String) async throws -> (success: Bool, data: SignInResult?)
     func signUp(nickname: String, phoneNumber: String, deviceToken: String) async throws -> (success: Bool, data: SignUpResult?)
+    func autoLogin(refreshToken: String) async throws -> (success: Bool, data: AutoLoginResult?)
 }
 
-struct SignManager: SignService {
+struct AuthManager: AuthService {
     
     private let service: Requestable
     
@@ -46,6 +47,13 @@ struct SignManager: SignService {
     func signUp(nickname: String, phoneNumber: String, deviceToken: String) async throws -> (success: Bool, data: SignUpResult?) {
         let request = SignEndPoint
             .signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: deviceToken)
+            .createRequest()
+        return try await self.service.request(request)
+    }
+    
+    func autoLogin(refreshToken: String) async throws -> (success: Bool, data: AutoLoginResult?) {
+        let request = SignEndPoint
+            .autoLogin(refreshToken: refreshToken)
             .createRequest()
         return try await self.service.request(request)
     }

@@ -6,28 +6,61 @@
 //
 
 import Combine
+import CombineCocoa
 import UIKit
 
 final class SMSCodeVerificationViewController: UIViewController {
+    private let authManager = AuthManager(service: APIManager())
     
-    private let signManager = SignManager(service: APIManager())
+    private let instructionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 24)
+        label.textColor = .mainBlack
+        label.text = "Enter Code"
+        return label
+    }()
     
-    private let instructionLabel = UILabel()
-    private let descriptionLabel = UILabel()
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textColor = .mainBlack
+        label.text = "An SMS code was sent to"
+        return label
+    }()
     
-    var phoneNumberString: String?
-    var smsCode: String?
-    
-    private let phoneNumberLabel = UILabel()
+    private lazy var phoneNumberLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 16)
+        label.textAlignment = .left
+        label.textColor = .mainBlack
+        label.text = self.viewModel.getPhoneNumber()
+        return label
+    }()
     
     private let smsCodeInputView1 = SMSCodeInputView()
     private let smsCodeInputView2 = SMSCodeInputView()
     private let smsCodeInputView3 = SMSCodeInputView()
     private let smsCodeInputView4 = SMSCodeInputView()
     
-    private let codeResendLabel = UILabel()
+    private let codeResendLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textAlignment = .right
+        label.textColor = .mainRed
+        label.text = "Not receiveing the code?"
+        return label
+    }()
     
-    private let confirmButton = UIButton()
+    private let confirmButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont(weight: .bold, size: 16)
+        button.setTitleColor(.mainBlack, for: .normal)
+        button.backgroundColor = .mainLightGray
+        button.layer.cornerRadius = 27.5
+        button.isUserInteractionEnabled = false
+        button.setTitle("CONFIRM", for: .normal)
+        return button
+    }()
     
     private var confirmButtonBottomConstraints = NSLayoutConstraint()
     
@@ -40,12 +73,12 @@ final class SMSCodeVerificationViewController: UIViewController {
         }
     }
     
+    private var viewModel: AuthViewModel
     private var cancellables = Set<AnyCancellable>()
     
-    init(phoneNumberString: String, smsCode: String) {
+    init(viewModel: AuthViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.phoneNumberString = phoneNumberString
-        self.smsCode = smsCode
     }
     
     required init?(coder: NSCoder) {
@@ -57,12 +90,10 @@ final class SMSCodeVerificationViewController: UIViewController {
         
         setUpConstraints()
         setUpStyle()
-        setUpText()
         setUpLayerName()
         setUpDelegate()
-        setUpAction()
         setUpKeyboard()
-        bind()
+        bind(viewModel: viewModel)
     }
     
     private func setUpConstraints() {
@@ -156,36 +187,7 @@ final class SMSCodeVerificationViewController: UIViewController {
     }
     
     private func setUpStyle() {
-        
         view.backgroundColor = .white
-        
-        instructionLabel.font = UIFont(weight: .bold, size: 24)
-        instructionLabel.textColor = .mainBlack
-        descriptionLabel.font = UIFont(weight: .regular, size: 14)
-        descriptionLabel.textColor = .mainBlack
-        
-        phoneNumberLabel.font = UIFont(weight: .bold, size: 16)
-        phoneNumberLabel.textAlignment = .left
-        phoneNumberLabel.textColor = .mainBlack
-        
-        codeResendLabel.font = UIFont(weight: .regular, size: 14)
-        codeResendLabel.textAlignment = .right
-        codeResendLabel.textColor = .mainRed
-        
-        confirmButton.titleLabel?.font = UIFont(weight: .bold, size: 16)
-        confirmButton.setTitleColor(.mainBlack, for: .normal)
-        confirmButton.backgroundColor = .mainLightGray
-        confirmButton.layer.cornerRadius = 27.5
-        confirmButton.isUserInteractionEnabled = false
-    }
-    
-    private func setUpText() {
-        instructionLabel.text = "Enter Code"
-        descriptionLabel.text = "An SMS code was sent to"
-        
-        phoneNumberLabel.text = phoneNumberString
-        codeResendLabel.text = "Not receiveing the code?"
-        confirmButton.setTitle("CONFIRM", for: .normal)
     }
     
     private func setUpLayerName() {
@@ -194,14 +196,11 @@ final class SMSCodeVerificationViewController: UIViewController {
             views[index].smsCodeTextField.layer.name = "\(index)"
         }
     }
+    
     private func setUpDelegate() {
         [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4].forEach({
             $0.smsCodeTextField.delegate = self
         })
-    }
-    
-    private func setUpAction() {
-        confirmButton.addTarget(self, action: #selector(navigateToNicknameVerificationPage), for: .touchUpInside)
     }
     
     private func setUpKeyboard() {
@@ -211,7 +210,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    private func bind() {
+    private func bind(viewModel: AuthViewModel) {
         let smsCodeViews = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
         
         for index in 0...3 {
@@ -228,14 +227,25 @@ final class SMSCodeVerificationViewController: UIViewController {
             }
             .store(in: &cancellables)
         }
-    }
-    
-    @objc func navigateToNicknameVerificationPage() {
-        if smsCodeVerify() {
-            userVerify()
-        } else {
-            print("인증코드 오류")
-        }
+        
+        confirmButton.tapPublisher.sink { [self] in
+            Task {
+                if smsCodeVerify() {
+                    let isUser = try await viewModel.userVerify()
+                    print("USER CHECK: ", isUser)
+                    if isUser {
+                        let vc = TabBarViewController()
+                        guard let window = self.view.window else { return }
+                        await window.setRootViewController(vc, animated: true)
+                        dismiss(animated: true)
+                    } else {
+                        navigationController?.pushViewController(NicknameVerificationViewController(viewModel: viewModel), animated: true)
+                    }
+                } else {
+                    print("인증코드 오류")
+                }
+            }
+        }.store(in: &cancellables)
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -268,19 +278,6 @@ extension SMSCodeVerificationViewController {
         let userInput = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
             .compactMap{$0.smsCodeTextField.text}
             .reduce("") { return $0 + $1 }
-        return userInput == smsCode
-    }
-    
-    func userVerify() {
-        Task {
-            guard let phoneNumber = phoneNumberString else { return }
-            let result = try await signManager.signIn(phoneNumber: phoneNumber, deviceToken: "")
-            if result.success == false {
-                guard let phoneNumberString = phoneNumberString else { return }
-                navigationController?.pushViewController(NicknameVerificationViewController(phoneNumberString: phoneNumberString), animated: true)
-            } else {
-                dismiss(animated: true)
-            }
-        }
+        return userInput == viewModel.getSMSCode()
     }
 }

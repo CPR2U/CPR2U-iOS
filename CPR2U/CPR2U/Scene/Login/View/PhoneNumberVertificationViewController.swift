@@ -6,12 +6,11 @@
 //
 
 import Combine
+import CombineCocoa
 import UIKit
 
 final class PhoneNumberVerificationViewController: UIViewController {
 
-    private let signManager = SignManager(service: APIManager())
-    
     private let instructionLabel = UILabel()
     private let descriptionLabel = UILabel()
     
@@ -24,8 +23,17 @@ final class PhoneNumberVerificationViewController: UIViewController {
     
     private var sendButtonBottomConstraints = NSLayoutConstraint()
     
+    private var viewModel: AuthViewModel
     private var cancellables = Set<AnyCancellable>()
-    private let viewModel = VerificationViewModel()
+    
+    init(viewModel: AuthViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +41,6 @@ final class PhoneNumberVerificationViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpText()
-        setUpAction()
         setUpKeyboard()
         bind(to: viewModel)
     }
@@ -159,10 +166,6 @@ final class PhoneNumberVerificationViewController: UIViewController {
         sendButton.setTitle("SEND", for: .normal)
     }
 
-    private func setUpAction() {
-        sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
-    }
-    
     private func setUpKeyboard() {
         phoneNumberTextField.becomeFirstResponder()
         phoneNumberTextField.keyboardType = .numberPad
@@ -171,8 +174,8 @@ final class PhoneNumberVerificationViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    private func bind(to viewModel: VerificationViewModel) {
-        let input = VerificationViewModel.Input(
+    private func bind(to viewModel: AuthViewModel) {
+        let input = AuthViewModel.Input(
             verifier: phoneNumberTextField.textPublisher.eraseToAnyPublisher()
         )
 
@@ -186,6 +189,15 @@ final class PhoneNumberVerificationViewController: UIViewController {
                 self?.sendButton.backgroundColor = state ? .mainRed : .mainLightGray
             })
             .store(in: &cancellables)
+        
+        sendButton.tapPublisher.sink {
+            guard let phoneNumberString = self.phoneNumberTextField.text else { return }
+            Task {
+                guard let smsCode = try await self.viewModel.phoneNumberVerify(phoneNumber: phoneNumberString) else { return }
+                self.navigateToSMSCodeVerificationPage(phoneNumberString: phoneNumberString, smsCode: smsCode)
+            }
+
+        }.store(in: &cancellables)
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -201,23 +213,12 @@ final class PhoneNumberVerificationViewController: UIViewController {
         sendButtonBottomConstraints.constant = -16
         view.layoutIfNeeded()
     }
-    
-    @objc func didTapSendButton() {
-        guard let phoneNumberString = phoneNumberTextField.text else { return }
-        phoneNumberVerify(phoneNumber: phoneNumberString)
-    }
 }
 
 extension PhoneNumberVerificationViewController {
-    func phoneNumberVerify(phoneNumber: String) {
-        Task {
-            let result = try await signManager.phoneNumberVerify(phoneNumber: phoneNumber)
-            guard let validationCode = result.data?.validation_code else { return }
-            navigateToSMSCodeVerificationPage(phoneNumberString: phoneNumber, smsCode: validationCode)
-        }
-    }
-    
     func navigateToSMSCodeVerificationPage(phoneNumberString: String, smsCode: String) {
-        self.navigationController?.pushViewController(SMSCodeVerificationViewController(phoneNumberString: "+82\(phoneNumberString)", smsCode: smsCode), animated: true)
+        viewModel.setPhoneNumber(number: phoneNumberString)
+        viewModel.setSMSCode(number: smsCode)
+        self.navigationController?.pushViewController(SMSCodeVerificationViewController(viewModel: viewModel), animated: true)
     }
 }

@@ -12,14 +12,14 @@ enum SignEndPoint {
     case nicknameVerify (nickname: String)
     case signIn (phoneNumber: String, deviceToken: String)
     case signUp (nickname: String, phoneNumber: String, deviceToken: String)
-    // case autoLogin
+    case autoLogin (refreshToken: String)
 }
 
 extension SignEndPoint: EndPoint {
     
     var method: HttpMethod {
         switch self {
-        case .phoneNumberVerify, .signIn, .signUp:
+        case .phoneNumberVerify, .signIn, .signUp, .autoLogin:
             return .POST
         case .nicknameVerify:
             return .GET
@@ -37,7 +37,10 @@ extension SignEndPoint: EndPoint {
             params = [ "phone_number" : phoneNumber, "device_token" : deviceToken ]
         case .signUp(let nickname, let phoneNumber, let deviceToken):
             params = ["nickname" : nickname, "phone_number" : phoneNumber, "device_token" : deviceToken ]
+        case .autoLogin(let refreshToken) :
+            params = ["refresh_token" : refreshToken]
         }
+        
         return params.encode()
     }
     
@@ -52,12 +55,13 @@ extension SignEndPoint: EndPoint {
             return "\(baseURL)/auth/login"
         case .signUp:
             return "\(baseURL)/auth/signup"
+        case .autoLogin:
+            return "\(baseURL)/auth/auto-login"
         }
     }
     
     func createRequest() -> NetworkRequest {
         let baseURL = URLs.baseURL
-        
         switch self {
         case .phoneNumberVerify:
             var headers: [String: String] = [:]
@@ -80,6 +84,13 @@ extension SignEndPoint: EndPoint {
                                   headers: headers,
                                   requestBody: body)
         case .signUp:
+            var headers: [String: String] = [:]
+            headers["Content-Type"] = "application/json"
+            return NetworkRequest(url: getURL(path: baseURL),
+                                  httpMethod: method,
+                                  headers: headers,
+                                  requestBody: body)
+        case .autoLogin:
             var headers: [String: String] = [:]
             headers["Content-Type"] = "application/json"
             return NetworkRequest(url: getURL(path: baseURL),

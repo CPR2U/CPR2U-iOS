@@ -10,7 +10,7 @@
 		24CEFDC9C69B23440E07EF1C /* Pods_CPR2U.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF82C0EF3B44D7FED6D1535 /* Pods_CPR2U.framework */; };
 		3A22BF4329BC9122004411BE /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4229BC9122004411BE /* URLs.swift */; };
 		3A22BF5029BCCE07004411BE /* SignEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */; };
-		3A22BF5229BCD6B8004411BE /* SignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5129BCD6B8004411BE /* SignManager.swift */; };
+		3A22BF5229BCD6B8004411BE /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5129BCD6B8004411BE /* AuthManager.swift */; };
 		3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */; };
 		3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5629BCEBA2004411BE /* APIError.swift */; };
 		3A22BF5D29BCF159004411BE /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5C29BCF159004411BE /* Sign.swift */; };
@@ -32,10 +32,15 @@
 		3A324CEA29C6111200165E2E /* CameraFeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE929C6111200165E2E /* CameraFeedManager.swift */; };
 		3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */; };
 		3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */; };
-		3A396B9129C8A87D009B0545 /* ViewModelList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9029C8A87D009B0545 /* ViewModelList.swift */; };
+		3A396B9129C8A87D009B0545 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9029C8A87D009B0545 /* ViewModelProtocol.swift */; };
 		3A396B9329C97E31009B0545 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9229C97E31009B0545 /* UIView+.swift */; };
 		3A396B9829C9D2F4009B0545 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396B9729C9D2F4009B0545 /* GoogleService-Info.plist */; };
 		3A396B9B29C9D395009B0545 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3A396B9A29C9D395009B0545 /* FirebaseMessaging */; };
+		3A396BA129C9E906009B0545 /* AutoLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA029C9E906009B0545 /* AutoLoginViewController.swift */; };
+		3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA229C9EDAB009B0545 /* UserDefaultsManager.swift */; };
+		3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA429CA0646009B0545 /* UIWindow+.swift */; };
+		3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA929CA0A07009B0545 /* TabBarViewController.swift */; };
+		3A396BB229CAF0DA009B0545 /* DeviceTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
@@ -52,8 +57,7 @@
 		3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */; };
 		3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */; };
 		3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */; };
-		3AA636EB29B5B30D006BB5EF /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636EA29B5B30D006BB5EF /* TestViewController.swift */; };
-		3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636EC29B5E816006BB5EF /* LoginViewModel.swift */; };
+		3AA636ED29B5E816006BB5EF /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636EC29B5E816006BB5EF /* AuthViewModel.swift */; };
 		3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F029B5F1C8006BB5EF /* UIControl+.swift */; };
 		3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F229B5F20D006BB5EF /* UITextField+.swift */; };
 		3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F429B61D67006BB5EF /* UIViewController+.swift */; };
@@ -77,7 +81,7 @@
 		2B9F1310FB54413A2CCE87FD /* Pods-CPR2U.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.debug.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.debug.xcconfig"; sourceTree = "<group>"; };
 		3A22BF4229BC9122004411BE /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignEndPoint.swift; sourceTree = "<group>"; };
-		3A22BF5129BCD6B8004411BE /* SignManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignManager.swift; sourceTree = "<group>"; };
+		3A22BF5129BCD6B8004411BE /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		3A22BF5629BCEBA2004411BE /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		3A22BF5C29BCF159004411BE /* Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign.swift; sourceTree = "<group>"; };
@@ -99,10 +103,16 @@
 		3A324CE929C6111200165E2E /* CameraFeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeedManager.swift; sourceTree = "<group>"; };
 		3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
 		3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationViewModel.swift; sourceTree = "<group>"; };
-		3A396B9029C8A87D009B0545 /* ViewModelList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelList.swift; sourceTree = "<group>"; };
+		3A396B9029C8A87D009B0545 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		3A396B9229C97E31009B0545 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		3A396B9629C9C648009B0545 /* CPR2U.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CPR2U.entitlements; sourceTree = "<group>"; };
 		3A396B9729C9D2F4009B0545 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3A396BA029C9E906009B0545 /* AutoLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLoginViewController.swift; sourceTree = "<group>"; };
+		3A396BA229C9EDAB009B0545 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		3A396BA429CA0646009B0545 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
+		3A396BA929CA0A07009B0545 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		3A396BAC29CA138A009B0545 /* Private.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Private.plist; sourceTree = "<group>"; };
+		3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenManager.swift; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
@@ -120,8 +130,7 @@
 		3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeVertificationViewController.swift; sourceTree = "<group>"; };
 		3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeInputView.swift; sourceTree = "<group>"; };
 		3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameVertificationViewController.swift; sourceTree = "<group>"; };
-		3AA636EA29B5B30D006BB5EF /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		3AA636EC29B5E816006BB5EF /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		3AA636EC29B5E816006BB5EF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		3AA636F029B5F1C8006BB5EF /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
 		3AA636F229B5F20D006BB5EF /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		3AA636F429B61D67006BB5EF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -169,6 +178,8 @@
 		3A22BF3B29BC8C14004411BE /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				3A396BAB29CA0B58009B0545 /* Splash */,
+				3A396BA829CA09DB009B0545 /* Main */,
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3ADE725029B9D53E00EEE19C /* Education */,
 			);
@@ -189,7 +200,9 @@
 			children = (
 				3A22BF4129BC90E7004411BE /* Constants */,
 				3A22BF3E29BC8C62004411BE /* Extension */,
-				3A396B9029C8A87D009B0545 /* ViewModelList.swift */,
+				3A396BAF29CAF001009B0545 /* Protocol */,
+				3A396BB029CAF0B6009B0545 /* Shared */,
+				3A396BAE29CAEFF0009B0545 /* Wrapper */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -205,6 +218,7 @@
 				3A22BF6629BE05D9004411BE /* Encodable+.swift */,
 				3A50F39229BF51F800DC1E29 /* UIButton+.swift */,
 				3A396B9229C97E31009B0545 /* UIView+.swift */,
+				3A396BA429CA0646009B0545 /* UIWindow+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -239,7 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */,
-				3A22BF5129BCD6B8004411BE /* SignManager.swift */,
+				3A22BF5129BCD6B8004411BE /* AuthManager.swift */,
 			);
 			path = Sign;
 			sourceTree = "<group>";
@@ -313,6 +327,46 @@
 			path = Camera;
 			sourceTree = "<group>";
 		};
+		3A396BA829CA09DB009B0545 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BA929CA0A07009B0545 /* TabBarViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		3A396BAB29CA0B58009B0545 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BA029C9E906009B0545 /* AutoLoginViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		3A396BAE29CAEFF0009B0545 /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BA229C9EDAB009B0545 /* UserDefaultsManager.swift */,
+			);
+			path = Wrapper;
+			sourceTree = "<group>";
+		};
+		3A396BAF29CAF001009B0545 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3A396B9029C8A87D009B0545 /* ViewModelProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3A396BB029CAF0B6009B0545 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		3A5C391129C0948600378015 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +408,7 @@
 				3AA636B629AE5057006BB5EF /* Assets.xcassets */,
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
+				3A396BAC29CA138A009B0545 /* Private.plist */,
 				3A396B9729C9D2F4009B0545 /* GoogleService-Info.plist */,
 			);
 			path = CPR2U;
@@ -379,12 +434,11 @@
 		3AA636DF29B37E21006BB5EF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3AA636EA29B5B30D006BB5EF /* TestViewController.swift */,
 				3AA636CC29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift */,
 				3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */,
 				3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */,
 				3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */,
-				3AA636EC29B5E816006BB5EF /* LoginViewModel.swift */,
+				3AA636EC29B5E816006BB5EF /* AuthViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -559,18 +613,18 @@
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
 				3A22BF5D29BCF159004411BE /* Sign.swift in Sources */,
 				3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */,
+				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */,
 				3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */,
-				3AA636EB29B5B30D006BB5EF /* TestViewController.swift in Sources */,
 				3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */,
 				3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */,
 				3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
-				3AA636ED29B5E816006BB5EF /* LoginViewModel.swift in Sources */,
+				3AA636ED29B5E816006BB5EF /* AuthViewModel.swift in Sources */,
 				3A324CDF29C60E9F00165E2E /* PoseData.swift in Sources */,
 				3ADE726829BB21BE00EEE19C /* CustomNoticeView.swift in Sources */,
 				3A396B9329C97E31009B0545 /* UIView+.swift in Sources */,
@@ -580,21 +634,25 @@
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */,
 				3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */,
+				3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */,
 				3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
+				3A396BB229CAF0DA009B0545 /* DeviceTokenManager.swift in Sources */,
 				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
+				3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */,
 				3A5C391329C0948F00378015 /* Quiz.swift in Sources */,
 				3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */,
-				3A22BF5229BCD6B8004411BE /* SignManager.swift in Sources */,
+				3A22BF5229BCD6B8004411BE /* AuthManager.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,
 				3A324CE529C6104400165E2E /* CVPixelBuffer+TFLite.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
 				3A22BF5029BCCE07004411BE /* SignEndPoint.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
+				3A396BA129C9E906009B0545 /* AutoLoginViewController.swift in Sources */,
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
 				3A22BF4329BC9122004411BE /* URLs.swift in Sources */,
 				3A324CE329C6103800165E2E /* CGSize+TFLite.swift in Sources */,
@@ -603,7 +661,7 @@
 				3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */,
 				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
-				3A396B9129C8A87D009B0545 /* ViewModelList.swift in Sources */,
+				3A396B9129C8A87D009B0545 /* ViewModelProtocol.swift in Sources */,
 				3A22BF5F29BDFF1A004411BE /* NetworkRequest.swift in Sources */,
 				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
 				3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */,
