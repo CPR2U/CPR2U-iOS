@@ -105,4 +105,9 @@ class QuizViewModel: OutputOnlyViewModelType {
             print(error)
         }
     }
+
+    func saveQuizResult() async throws{
+        (_, _) = try await eduManager.saveQuizResult(score: 100)
+    }
+    
 }

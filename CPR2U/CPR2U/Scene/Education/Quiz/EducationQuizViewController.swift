@@ -197,8 +197,11 @@ extension EducationQuizViewController {
             
             if isQuizEnd {
                 if isQuizAllCorrect {
-                    self?.noticeView.setQuizResultNotice(isAllCorrect: true)
-                    self?.noticeView.noticeAppear()
+                    Task {
+                        try await self?.viewModel.saveQuizResult()
+                        self?.noticeView.setQuizResultNotice(isAllCorrect: true)
+                        self?.noticeView.noticeAppear()
+                    }
                 } else {
                     self?.noticeView.setQuizResultNotice(isAllCorrect: false, quizResultString: quizResultString)
                     self?.noticeView.noticeAppear()
