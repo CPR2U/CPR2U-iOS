@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		24CEFDC9C69B23440E07EF1C /* Pods_CPR2U.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF82C0EF3B44D7FED6D1535 /* Pods_CPR2U.framework */; };
 		3A22BF4329BC9122004411BE /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4229BC9122004411BE /* URLs.swift */; };
-		3A22BF5029BCCE07004411BE /* SignEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */; };
+		3A22BF5029BCCE07004411BE /* AuthEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4F29BCCE07004411BE /* AuthEndPoint.swift */; };
 		3A22BF5229BCD6B8004411BE /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5129BCD6B8004411BE /* AuthManager.swift */; };
 		3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */; };
 		3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5629BCEBA2004411BE /* APIError.swift */; };
-		3A22BF5D29BCF159004411BE /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5C29BCF159004411BE /* Sign.swift */; };
+		3A22BF5D29BCF159004411BE /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5C29BCF159004411BE /* Auth.swift */; };
 		3A22BF5F29BDFF1A004411BE /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5E29BDFF1A004411BE /* NetworkRequest.swift */; };
 		3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6029BDFF3B004411BE /* HttpMethod.swift */; };
 		3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6429BE01AB004411BE /* EndPoint.swift */; };
@@ -41,6 +41,11 @@
 		3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA429CA0646009B0545 /* UIWindow+.swift */; };
 		3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA929CA0A07009B0545 /* TabBarViewController.swift */; };
 		3A396BB229CAF0DA009B0545 /* DeviceTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */; };
+		3A396BB529CB1F31009B0545 /* EducationEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB429CB1F31009B0545 /* EducationEndPoint.swift */; };
+		3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB629CB1F38009B0545 /* EducationManager.swift */; };
+		3A396BB929CB2686009B0545 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB829CB2686009B0545 /* Education.swift */; };
+		3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BBA29CB2C87009B0545 /* TestViewController.swift */; };
+		3A396BBC29CB2E39009B0545 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
@@ -80,11 +85,11 @@
 /* Begin PBXFileReference section */
 		2B9F1310FB54413A2CCE87FD /* Pods-CPR2U.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.debug.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.debug.xcconfig"; sourceTree = "<group>"; };
 		3A22BF4229BC9122004411BE /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
-		3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignEndPoint.swift; sourceTree = "<group>"; };
+		3A22BF4F29BCCE07004411BE /* AuthEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEndPoint.swift; sourceTree = "<group>"; };
 		3A22BF5129BCD6B8004411BE /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		3A22BF5429BCEAC8004411BE /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		3A22BF5629BCEBA2004411BE /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		3A22BF5C29BCF159004411BE /* Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign.swift; sourceTree = "<group>"; };
+		3A22BF5C29BCF159004411BE /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		3A22BF5E29BDFF1A004411BE /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		3A22BF6029BDFF3B004411BE /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		3A22BF6429BE01AB004411BE /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
@@ -113,6 +118,10 @@
 		3A396BA929CA0A07009B0545 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3A396BAC29CA138A009B0545 /* Private.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Private.plist; sourceTree = "<group>"; };
 		3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenManager.swift; sourceTree = "<group>"; };
+		3A396BB429CB1F31009B0545 /* EducationEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationEndPoint.swift; sourceTree = "<group>"; };
+		3A396BB629CB1F38009B0545 /* EducationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationManager.swift; sourceTree = "<group>"; };
+		3A396BB829CB2686009B0545 /* Education.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Education.swift; sourceTree = "<group>"; };
+		3A396BBA29CB2C87009B0545 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
@@ -235,7 +244,8 @@
 		3A22BF4029BC90D6004411BE /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				3A22BF4E29BCCDF7004411BE /* Sign */,
+				3A22BF4E29BCCDF7004411BE /* Auth */,
+				3A396BB329CB1F0A009B0545 /* Education */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -249,13 +259,13 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		3A22BF4E29BCCDF7004411BE /* Sign */ = {
+		3A22BF4E29BCCDF7004411BE /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				3A22BF4F29BCCE07004411BE /* SignEndPoint.swift */,
+				3A22BF4F29BCCE07004411BE /* AuthEndPoint.swift */,
 				3A22BF5129BCD6B8004411BE /* AuthManager.swift */,
 			);
-			path = Sign;
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		3A22BF5329BCE990004411BE /* APIServices */ = {
@@ -283,7 +293,8 @@
 		3A22BF5929BCF0AA004411BE /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				3A22BF5C29BCF159004411BE /* Sign.swift */,
+				3A22BF5C29BCF159004411BE /* Auth.swift */,
+				3A396BB829CB2686009B0545 /* Education.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -367,6 +378,15 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		3A396BB329CB1F0A009B0545 /* Education */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BB429CB1F31009B0545 /* EducationEndPoint.swift */,
+				3A396BB629CB1F38009B0545 /* EducationManager.swift */,
+			);
+			path = Education;
+			sourceTree = "<group>";
+		};
 		3A5C391129C0948600378015 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,6 +466,7 @@
 		3ADE725029B9D53E00EEE19C /* Education */ = {
 			isa = PBXGroup;
 			children = (
+				3A396BBA29CB2C87009B0545 /* TestViewController.swift */,
 				3ADE725C29BA3BC000EEE19C /* Main */,
 				3ADE725D29BA3BCD00EEE19C /* Quiz */,
 				3ADE725E29BA3BDB00EEE19C /* Pose */,
@@ -567,6 +588,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A396BBC29CB2E39009B0545 /* Private.plist in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
@@ -611,11 +633,13 @@
 				3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */,
 				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
-				3A22BF5D29BCF159004411BE /* Sign.swift in Sources */,
+				3A22BF5D29BCF159004411BE /* Auth.swift in Sources */,
 				3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */,
 				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
+				3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
+				3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */,
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */,
@@ -623,6 +647,7 @@
 				3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */,
 				3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */,
 				3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */,
+				3A396BB929CB2686009B0545 /* Education.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636ED29B5E816006BB5EF /* AuthViewModel.swift in Sources */,
 				3A324CDF29C60E9F00165E2E /* PoseData.swift in Sources */,
@@ -650,7 +675,8 @@
 				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,
 				3A324CE529C6104400165E2E /* CVPixelBuffer+TFLite.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
-				3A22BF5029BCCE07004411BE /* SignEndPoint.swift in Sources */,
+				3A22BF5029BCCE07004411BE /* AuthEndPoint.swift in Sources */,
+				3A396BB529CB1F31009B0545 /* EducationEndPoint.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
 				3A396BA129C9E906009B0545 /* AutoLoginViewController.swift in Sources */,
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
