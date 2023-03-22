@@ -8,13 +8,13 @@
 import Foundation
 
 protocol EducationService {
-    func saveQuizResult() async throws -> (Bool, QuizResult?)
-    func saveLectureProgress(lectureId: Int) async throws -> (Bool, LectureProgressResult?)
-    func savePosturePracticeResult(score: Int) async throws -> (Bool, PosturePracticeResult?)
-    func getEducationProgress() async throws -> (Bool, UserInfo?)
-    func getQuizList() async throws -> (Bool, [QuizInfo]?)
-    func getLecture() async throws -> (Bool, LectureProgressInfo?)
-    func getPostureLecture() async throws -> (Bool, PostureLectureInfo?)
+    func saveQuizResult(score: Int) async throws -> (success: Bool, data: QuizResult?)
+    func saveLectureProgress(lectureId: Int) async throws -> (success: Bool, data: LectureProgressResult?)
+    func savePosturePracticeResult(score: Int) async throws -> (success: Bool, data: PosturePracticeResult?)
+    func getEducationProgress() async throws -> (success: Bool, data: UserInfo?)
+    func getQuizList() async throws -> (success: Bool, data: [QuizInfo]?)
+    func getLecture() async throws -> (success: Bool, data: LectureProgressInfo?)
+    func getPostureLecture() async throws -> (success: Bool, data: PostureLectureInfo?)
 }
 
 struct EducationManager: EducationService {
@@ -25,49 +25,49 @@ struct EducationManager: EducationService {
         self.service = service
     }
     
-    func saveQuizResult() async throws -> (Bool, QuizResult?) {
+    func saveQuizResult(score: Int) async throws -> (success: Bool, data: QuizResult?) {
         let request = EducationEndPoint
-            .saveQuizResult
+            .saveQuizResult(score: score)
             .createRequest()
         return try await self.service.request(request)
     }
     
-    func saveLectureProgress(lectureId: Int) async throws -> (Bool, LectureProgressResult?) {
+    func saveLectureProgress(lectureId: Int) async throws -> (success: Bool, data: LectureProgressResult?) {
         let request = EducationEndPoint
             .saveLectureProgress(lectureId: lectureId)
             .createRequest()
         return try await self.service.request(request)
     }
     
-    func savePosturePracticeResult(score: Int) async throws -> (Bool, PosturePracticeResult?) {
+    func savePosturePracticeResult(score: Int) async throws -> (success: Bool, data: PosturePracticeResult?) {
         let request = EducationEndPoint
             .savePosturePracticeResult(score: score)
             .createRequest()
         return try await self.service.request(request)
     }
     
-    func getEducationProgress() async throws -> (Bool, UserInfo?) {
+    func getEducationProgress() async throws -> (success: Bool, data: UserInfo?) {
         let request = EducationEndPoint
             .getEducationProgress
             .createRequest()
         return try await self.service.request(request)
     }
     
-    func getQuizList() async throws -> (Bool, [QuizInfo]?) {
+    func getQuizList() async throws -> (success: Bool, data: [QuizInfo]?) {
         let request = EducationEndPoint
             .getQuizList
             .createRequest()
         return try await self.service.request(request)
     }
     
-    func getLecture() async throws -> (Bool, LectureProgressInfo?) {
+    func getLecture() async throws -> (success: Bool, data: LectureProgressInfo?) {
         let request = EducationEndPoint
             .getLecture
             .createRequest()
         return try await self.service.request(request)
     }
     
-    func getPostureLecture() async throws -> (Bool, PostureLectureInfo?) {
+    func getPostureLecture() async throws -> (success: Bool, data: PostureLectureInfo?) {
         let request = EducationEndPoint
             .getPostureLecture
             .createRequest()
