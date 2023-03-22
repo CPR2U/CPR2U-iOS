@@ -8,7 +8,7 @@
 import Foundation
 
 enum EducationEndPoint {
-    case saveQuizResult
+    case saveQuizResult(score: Int)
     case saveLectureProgress(lectureId: Int)
     case savePosturePracticeResult(score: Int)
     case getEducationProgress
@@ -31,9 +31,9 @@ extension EducationEndPoint: EndPoint {
     var body: Data? {
         var params: [String : Int]
         switch self {
-        case .savePosturePracticeResult(let score):
+        case .saveQuizResult(let score), .savePosturePracticeResult(let score):
             params = ["score" : score]
-        case .saveQuizResult, .saveLectureProgress, .getEducationProgress, .getQuizList, .getLecture, .getPostureLecture:
+        case .saveLectureProgress, .getEducationProgress, .getQuizList, .getLecture, .getPostureLecture:
             params = [:]
         }
         
