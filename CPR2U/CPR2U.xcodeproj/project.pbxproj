@@ -40,7 +40,6 @@
 		3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA229C9EDAB009B0545 /* UserDefaultsManager.swift */; };
 		3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA429CA0646009B0545 /* UIWindow+.swift */; };
 		3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BA929CA0A07009B0545 /* TabBarViewController.swift */; };
-		3A396BAD29CA138A009B0545 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
 		3A396BB229CAF0DA009B0545 /* DeviceTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
@@ -570,7 +569,6 @@
 			files = (
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
-				3A396BAD29CA138A009B0545 /* Private.plist in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
 				3AA636BA29AE5057006BB5EF /* LaunchScreen.storyboard in Resources */,
 				3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */,

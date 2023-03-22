@@ -60,8 +60,7 @@ final class AuthViewModel: ViewModelType {
     }
     
     func autoLogin() async throws -> Bool {
-//        let refreshToken = UserDefaultsManager.refreshToken
-        let refreshToken = ""
+        let refreshToken = UserDefaultsManager.refreshToken
         let result = Task {
             if refreshToken == "" {
                 return false
@@ -98,7 +97,6 @@ final class AuthViewModel: ViewModelType {
     func userVerify() async throws -> Bool {
         let result = Task { () -> Bool in
             guard let phoneNumber = phoneNumberString else { return false }
-            // deviceToken GET
             let authResult = try await authManager.signIn(phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
             
             return authResult.success
