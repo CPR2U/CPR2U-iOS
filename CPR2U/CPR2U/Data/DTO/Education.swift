@@ -24,10 +24,6 @@ struct UserInfo: Codable {
     let days_left_until_expiration: Int?
 }
 
-struct QuizInfoList: Codable {
-    let list: [QuizInfo]
-}
-
 struct QuizInfo: Codable {
     let index: Int
     let question: String
