@@ -8,8 +8,10 @@
 import UIKit
 import Combine
 
-final class EducationQuizViewController: UIViewController {
 
+
+final class EducationQuizViewController: UIViewController {
+    
     private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "When you find someone who has fallen, you have to compress his chest instantly.")
     
     private lazy var oxChoiceView = OXQuizChoiceView(viewModel: viewModel)
@@ -50,13 +52,18 @@ final class EducationQuizViewController: UIViewController {
     private let viewModel = QuizViewModel()
     private var cancellables = Set<AnyCancellable>()
     
+    weak var delegate: EducationMainViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         setUpStyle()
         setUpDelegate()
-        updateQuiz(quiz: viewModel.quizInit())
+        Task {
+            try await viewModel.receiveQuizList()
+            updateQuiz(quiz: viewModel.currentQuiz())
+        }
         bind(to: viewModel)
     }
     
@@ -165,15 +172,17 @@ extension EducationQuizViewController {
             self?.answerLabel.text = isCorrect ? "Correct!" : "Wrong!"
             self?.answerDescriptionLabel.text = currentQuiz.answerDescription
             self?.submitButton.setTitle("Next", for: .normal)
-            
+
             guard let answerIndex = self?.viewModel.currentQuiz().answerIndex, let quizType = self?.viewModel.currentQuiz().questionType else {
                 return }
             
             switch quizType {
             case .ox:
                 self?.oxChoiceView.animateChoiceButton(answerIndex: answerIndex)
+                self?.oxChoiceView.interactionEnabled(to: false)
             case .multi:
                 self?.multiChoiceView.animateChoiceButton(answerIndex: answerIndex)
+                self?.multiChoiceView.interactionEnabled(to: false)
             }
             
         }.store(in: &cancellables)

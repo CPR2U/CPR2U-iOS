@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 class QuizViewModel: OutputOnlyViewModelType {
+    private var eduManager: EducationManager
     private var quizList: [Quiz] = []
     private var currentQuizIndex: Int = 0
     private var didSelectAnswer: Bool = false
@@ -16,7 +17,7 @@ class QuizViewModel: OutputOnlyViewModelType {
     var selectedAnswerIndex = CurrentValueSubject<Int, Never>(-1)
     
     init() {
-        self.quizList = [Quiz(questionType: .ox, questionNumber: 1, question: "11111", answerIndex: 0, answerList: ["111", "111"], answerDescription: "asjdeeeeeeeeeeee"), Quiz(questionType: .multi, questionNumber: 2, question: "333333333", answerIndex: 3, answerList: ["123", "456", "789", "141"], answerDescription: "asjdifjaisjdfiaisdjfijaisdf"), Quiz(questionType: .multi, questionNumber: 3, question: "3333eww33333", answerIndex: 2, answerList: ["aaa", "bbb", "ccc", "ddd"], answerDescription: "wlqrjiji")]
+        eduManager = EducationManager(service: APIManager())
     }
     
     struct Output {
@@ -64,7 +65,8 @@ class QuizViewModel: OutputOnlyViewModelType {
         var output: Output
         
         if didSelectAnswer {
-            let isCorrect = selectedAnswerIndex.value == quizList[currentQuizIndex].answerIndex
+            let index = selectedAnswerIndex.value
+            let isCorrect = currentQuiz().answerIndex == index
 
             if isCorrect {
                 correctQuizNum += 1
@@ -84,4 +86,23 @@ class QuizViewModel: OutputOnlyViewModelType {
         return output
     }
     
+    func receiveQuizList() async throws {
+        let result = Task { () -> [QuizInfo]? in
+            let eduResult = try await eduManager.getQuizList()
+            return eduResult.data
+        }
+        
+        do {
+            let data = try await result.value
+            data?.forEach({ item in
+                
+                guard let answerIndex = item.answer_list.map({ $0.id }).firstIndex(of: item.answer) else { return }
+                let answerList = item.answer_list.map { $0.content }
+                let quiz = Quiz(questionType: item.type == 0 ? .ox : .multi, questionNumber: item.index, question: item.question, answerIndex: answerIndex, answerList: answerList, answerDescription: item.reason)
+                quizList.append(quiz)
+            })
+        } catch(let error) {
+            print(error)
+        }
+    }
 }
