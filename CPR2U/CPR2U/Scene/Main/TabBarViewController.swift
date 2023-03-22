@@ -15,7 +15,7 @@ final class TabBarViewController: UITabBarController {
         setUpTabBar()
     }
 
-    func setUpTabBar() {
+    private func setUpTabBar() {
         let educationVC = EducationMainViewController()
         let callVC = UIViewController()
         let mypageVC = UIViewController()
