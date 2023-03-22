@@ -17,7 +17,7 @@ struct SignInResult: Codable {
     let refresh_token: String
 }
 
-struct AutoLogin: Codable {
+struct AutoLoginResult: Codable {
     let access_token: String
     let refresh_token: String
 }
