@@ -8,6 +8,10 @@
 import Combine
 import UIKit
 
+protocol EducationMainViewControllerDelegate: AnyObject {
+    func updateUserEducationStatus()
+}
+
 final class EducationMainViewController: UIViewController {
 
     let eduStatus: [String] = ["Completed", "Not Completed", "Not Completed"]
@@ -18,12 +22,15 @@ final class EducationMainViewController: UIViewController {
     private let viewModel = EducationViewModel()
     private var cancellables = Set<AnyCancellable>()
     
+    private weak var delegate: EducationMainViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         setUpStyle()
         setUpCollectionView()
+        setUpDelegate()
         bind(to: viewModel)
     }
     
@@ -75,22 +82,22 @@ final class EducationMainViewController: UIViewController {
         educationCollectionView.register(EducationCollectionViewCell.self, forCellWithReuseIdentifier: EducationCollectionViewCell.identifier)
     }
     
+    private func setUpDelegate() {
+        
+    }
     private func bind(to viewModel: EducationViewModel) {
         
-        // TEST
-        let input = EducationViewModel.Input(nickname: "HeartBeatingS2", angelStatus: 2, progressPercent: 1.0, leftDay: nil, isLectureCompleted: true, isQuizCompleted: true, isPostureCompleted: true)
+        let output = viewModel.transform()
         
-        let output = viewModel.transform(input: input)
-        
-        output.certificateStatus.sink { status in
+        output.certificateStatus?.sink { status in
             self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
         }.store(in: &cancellables)
         
-        output.nickname.sink { nickname in
+        output.nickname?.sink { nickname in
             self.certificateStatusView.setUpGreetingLabel(nickname: nickname)
         }.store(in: &cancellables)
         
-        output.progressPercent.sink { progress in
+        output.progressPercent?.sink { progress in
             self.progressView.setUpProgress(as: progress)
         }.store(in: &cancellables)
     }
@@ -154,12 +161,21 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
             navigationController?.pushViewController(vc, animated: true)
         } else if index == 1 {
             let temp = EducationQuizViewController()
+            temp.delegate = self
             vc = UINavigationController(rootViewController: temp)
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
         } else {
             vc = PracticeExplainViewController()
             navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension EducationMainViewController: EducationMainViewControllerDelegate {
+    func updateUserEducationStatus() {
+        Task {
+            try await viewModel.receiveEducationStatus()
         }
     }
 }

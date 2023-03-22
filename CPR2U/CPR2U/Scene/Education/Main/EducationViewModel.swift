@@ -34,12 +34,20 @@ enum AngelStatus: Int {
     }
 }
 
-final class EducationViewModel: DefaultViewModelType {
+final class EducationViewModel: OutputOnlyViewModelType {
+    
+    private let eduManager: EducationManager
     private let eduName: [String] = ["Lecture" , "Quiz", "Pose Practice"]
     private let eduDescription: [String] = ["Video lecture for CPR angel certificate", "Let’s check your CPR study", "Posture practice to get CPR angel certificate"]
     private var eduStatusArr:[Bool] = []
+    private var input: Input?
     
     init() {
+        eduManager = EducationManager(service: APIManager())
+        
+        Task {
+            try await receiveEducationStatus()
+        }
         // MARK: API NETWORK
         let educationStatusArr: [Bool] = [true, false, false]
         eduStatusArr = educationStatusArr
@@ -61,9 +69,9 @@ final class EducationViewModel: DefaultViewModelType {
     }
     
     struct Output {
-        let nickname: CurrentValueSubject<String, Never>
-        let certificateStatus: CurrentValueSubject<CertificateStatus, Never>
-        let progressPercent: CurrentValueSubject<Float, Never>
+        let nickname: CurrentValueSubject<String, Never>?
+        let certificateStatus: CurrentValueSubject<CertificateStatus, Never>?
+        let progressPercent: CurrentValueSubject<Float, Never>?
     }
     
     func educationName() -> [String] {
@@ -78,7 +86,8 @@ final class EducationViewModel: DefaultViewModelType {
         return eduStatusArr
     }
     
-    func transform(input: Input) -> Output {
+    func transform() -> Output {
+        guard let input = input else { return Output(nickname: nil, certificateStatus: nil, progressPercent: nil) }
         let nickname: CurrentValueSubject<String, Never> = CurrentValueSubject(input.nickname)
         
         let certificateStatus: CurrentValueSubject<CertificateStatus, Never> = {
@@ -97,5 +106,25 @@ final class EducationViewModel: DefaultViewModelType {
         let progressPercent = input.progressPercent
         
         return Output(nickname: nickname, certificateStatus: certificateStatus, progressPercent: CurrentValueSubject(progressPercent))
+    }
+    
+    func receiveEducationStatus() async throws {
+        let result = Task { () -> UserInfo? in
+            let eduResult = try await eduManager.getEducationProgress()
+            return eduResult.data
+        }
+        
+        do {
+            let data = try await result.value
+        
+            let progressPercent = Float(data?.progress_percent ?? 0)
+            let isLectureCompleted = data?.is_lecture_completed == 2
+            let isQuizCompleted = data?.is_quiz_completed == 2
+            let isPostureCompleted = data?.is_posture_completed == 2
+            input = Input(nickname: data?.nickname ?? "", angelStatus: data?.angel_status ?? 0, progressPercent: progressPercent, leftDay: data?.days_left_until_expiration, isLectureCompleted: isLectureCompleted, isQuizCompleted: isQuizCompleted, isPostureCompleted: isPostureCompleted)
+            eduStatusArr = [isLectureCompleted, isQuizCompleted, isPostureCompleted]
+        } catch(let error) {
+            print(error)
+        }
     }
 }
