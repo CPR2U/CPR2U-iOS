@@ -18,7 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = window
         let navVC = UINavigationController(rootViewController: EducationMainViewController())
-        window.rootViewController =  navVC
+        let vc = AutoLoginViewController()
+        window.rootViewController =  vc
         window.backgroundColor = .white
         window.overrideUserInterfaceStyle = .light
         window.makeKeyAndVisible()
