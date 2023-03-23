@@ -31,6 +31,10 @@ final class LectureViewController: UIViewController {
         loadWebPage()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -61,7 +65,6 @@ final class LectureViewController: UIViewController {
             guard let stringToURL = URL(string: "http://naver.com") else { return }
             let URLToRequest = URLRequest(url: stringToURL)
             webView.load(URLToRequest)
-            navigationController?.navigationBar.prefersLargeTitles = false
         }
     }
 }
