@@ -14,7 +14,6 @@ protocol EducationMainViewControllerDelegate: AnyObject {
 
 final class EducationMainViewController: UIViewController {
 
-    let eduStatus: [String] = ["Completed", "Not Completed", "Not Completed"]
     private var certificateStatusView = CertificateStatusView()
     private let progressView = EducationProgressView()
     private let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -30,7 +29,6 @@ final class EducationMainViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpCollectionView()
-        setUpDelegate()
         bind(to: viewModel)
     }
     
@@ -73,7 +71,7 @@ final class EducationMainViewController: UIViewController {
         navBar.prefersLargeTitles = true
         navBar.topItem?.title = "Education"
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed]
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setUpCollectionView() {
@@ -82,9 +80,6 @@ final class EducationMainViewController: UIViewController {
         educationCollectionView.register(EducationCollectionViewCell.self, forCellWithReuseIdentifier: EducationCollectionViewCell.identifier)
     }
     
-    private func setUpDelegate() {
-        
-    }
     private func bind(to viewModel: EducationViewModel) {
         
         let output = viewModel.transform()
@@ -157,7 +152,7 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
     func navigateTo(index: Int) {
         var vc: UIViewController
         if index == 0 {
-            vc = UIViewController()
+            vc = LectureViewController(viewModel: viewModel)
             navigationController?.pushViewController(vc, animated: true)
         } else if index == 1 {
             let temp = EducationQuizViewController()
