@@ -31,7 +31,7 @@ final class LectureViewController: UIViewController {
         setUpStyle()
         loadWebPage()
         viewModel.updateTimerType(vc: self)
-        viewModel.setTimer().store(in: &cancellables)
+        setTimer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,5 +69,21 @@ final class LectureViewController: UIViewController {
             let URLToRequest = URLRequest(url: stringToURL)
             webView.load(URLToRequest)
         }
+    }
+    
+    private func setTimer() {
+        let count = viewModel.timeLimit()
+        viewModel.timer
+            .autoconnect()
+            .scan(0) { counter, _ in counter + 1 }
+            .sink { [self] counter in
+                if counter == count + 1 {
+                    // TEST
+                    Task {
+                        try await viewModel.saveLectureProgress()
+                    }
+                    viewModel.timer.connect().cancel()
+                }
+            }.store(in: &cancellables)
     }
 }
