@@ -123,30 +123,6 @@ final class EducationViewModel: OutputOnlyViewModelType {
         return Output(nickname: nickname, certificateStatus: certificateStatus, progressPercent: CurrentValueSubject(progressPercent))
     }
     
-    func setTimer() -> AnyCancellable {
-        return timer
-            .autoconnect()
-            .scan(0) { counter, _ in counter + 1 }
-            .sink { [self] counter in
-                let count = currentTimerType.rawValue
-                if counter == count {
-                    switch currentTimerType {
-                    case .lecture:
-                        Task {
-                            try await self.saveLectureProgress()
-                        }
-                    case .posture:
-                        Task {
-                            try await self.savePosturePracticeResult(score: 90)
-                        }
-                    case .other:
-                        break
-                    }
-                    self.timer.connect().cancel()
-                }
-            }
-    }
-    
     func updateTimerType(vc: UIViewController) {
         if (vc as? LectureViewController) != nil {
             currentTimerType = .lecture
