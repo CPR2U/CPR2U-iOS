@@ -11,9 +11,10 @@ import WebKit
 
 final class LectureViewController: UIViewController {
     
+    private let webView = WKWebView()
+    
     private var viewModel: EducationViewModel
     private var cancellables = Set<AnyCancellable>()
-    private let webView = WKWebView()
     
     init(viewModel: EducationViewModel) {
         self.viewModel = viewModel
@@ -29,6 +30,8 @@ final class LectureViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         loadWebPage()
+        viewModel.updateTimerType(vc: self)
+        viewModel.setTimer().store(in: &cancellables)
     }
     
     override func viewDidAppear(_ animated: Bool) {
