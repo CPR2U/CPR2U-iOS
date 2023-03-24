@@ -12,11 +12,11 @@ protocol CustomNoticeViewDelegate: AnyObject {
 }
 
 enum NoticeUsage {
-    case quiz
+    case pf
     case certificate
 }
 
-final class CustomNoticeView: UIView {
+class CustomNoticeView: UIView {
     
     weak var delegate: CustomNoticeViewDelegate?
     
@@ -62,7 +62,7 @@ final class CustomNoticeView: UIView {
         return label
     }()
     
-    private let confirmButton: UIButton = {
+    let confirmButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 22
         button.backgroundColor = .mainRed
@@ -73,7 +73,7 @@ final class CustomNoticeView: UIView {
     }()
     private let appearAnimDuration: CGFloat = 0.4
     
-    private var noticeType = NoticeUsage.quiz
+    private var noticeType = NoticeUsage.pf
 
     init(noticeAs: NoticeUsage) {
         super.init(frame: CGRect.zero)
@@ -157,8 +157,8 @@ final class CustomNoticeView: UIView {
         setSubTitle(subTitle: "You have got CPR Angel Certificate!")
     }
     
-    func setQuizResultNotice(isAllCorrect: Bool, quizResultString: String = ""){
-        if isAllCorrect {
+    func setPFResultNotice(isPass: Bool, quizResultString: String = ""){
+        if isPass {
             guard let image = UIImage(named: "success_heart.png") else { return }
             setImage(uiImage: image)
             setTitle(title: "Congratulation!")
@@ -183,8 +183,8 @@ final class CustomNoticeView: UIView {
         subTitleLabel.text = subTitle
     }
     
-    @objc private func didConfirmButtonTapped() {
-        if noticeType == .quiz {
+    @objc func didConfirmButtonTapped() {
+        if noticeType == .pf {
             delegate?.dismissQuizViewController()
         } else {
             noticeDisappear()
@@ -200,7 +200,7 @@ final class CustomNoticeView: UIView {
         })
     }
                        
-    private func noticeDisappear() {
+    func noticeDisappear() {
         UIView.animate(withDuration: appearAnimDuration/2, delay: 0, animations: {
             self.alpha = 0.0
         }, completion: { [weak self] _ in
