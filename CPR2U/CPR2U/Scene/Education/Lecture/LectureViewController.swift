@@ -50,9 +50,11 @@ final class LectureViewController: UIViewController {
         super.viewDidAppear(true)
         navigationController?.navigationBar.prefersLargeTitles = false
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         navigationController?.navigationBar.prefersLargeTitles = true
+        viewModel.timer.connect().cancel()
     }
     
     private func setUpConstraints() {

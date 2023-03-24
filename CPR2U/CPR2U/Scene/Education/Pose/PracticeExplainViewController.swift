@@ -14,7 +14,6 @@ final class PracticeExplainViewController: UIViewController {
     // temp: 추후 설명용 이미지가 삽입될 영역
     private lazy var temp: UIView = {
         let view = UIView()
-        view.backgroundColor = .black
         return view
     }()
     
@@ -47,6 +46,16 @@ final class PracticeExplainViewController: UIViewController {
         setUpAction()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     private func setUpConstraints() {
         let safeArea = view.safeAreaLayoutGuide
 
@@ -74,11 +83,12 @@ final class PracticeExplainViewController: UIViewController {
     }
     
     private func setUpStyle() {
-        view.backgroundColor = .mainWhite
+        view.backgroundColor = .white
     }
     
     private func setUpAction() {
         moveButton.tapPublisher.sink { [self] in
+            setUpOrientation(as: .landscapeRight)
             let vc = PosePracticeViewController(viewModel: viewModel)
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)

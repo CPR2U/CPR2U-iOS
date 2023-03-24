@@ -7,8 +7,8 @@
 
 import UIKit
 
-// https://stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift
 extension UIViewController {
+    // https://stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift
     func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -16,5 +16,14 @@ extension UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func setUpOrientation(as status: UIInterfaceOrientationMask) {
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.orientationLock = status
+        }
+        self.setNeedsUpdateOfSupportedInterfaceOrientations()
     }
 }

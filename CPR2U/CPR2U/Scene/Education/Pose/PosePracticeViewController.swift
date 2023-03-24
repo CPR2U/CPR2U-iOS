@@ -87,23 +87,30 @@ final class PosePracticeViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel.updateTimerType(vc: self)
-        setUpOrientation()
+        setUpOrientation(as: .landscape)
         setUpConstraints()
         updateModel()
         configCameraCapture()
         setTimer()
+        setUpAction()
     }
     
-    private func setUpOrientation() {
-        UIApplication.shared.isIdleTimerDisabled = true
-        
-        if let delegate = UIApplication.shared.delegate as? AppDelegate {
-            delegate.orientationLock = .landscapeRight
-        }
-        
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        self.setNeedsUpdateOfSupportedInterfaceOrientations()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        cameraFeedManager?.startRunning()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cameraFeedManager?.stopRunning()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        imageViewFrame = overlayView.frame
+    }
+    
+    
     
     private func setUpConstraints() {
         let safeArea = view.safeAreaLayoutGuide
@@ -163,22 +170,7 @@ final class PosePracticeViewController: UIViewController {
             overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        cameraFeedManager?.startRunning()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        cameraFeedManager?.stopRunning()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        imageViewFrame = overlayView.frame
-    }
-    
+
     private func configCameraCapture() {
         cameraFeedManager = CameraFeedManager()
         cameraFeedManager.startRunning()
@@ -211,7 +203,6 @@ final class PosePracticeViewController: UIViewController {
                     cameraFeedManager.stopRunning()
                     // TEST
                     Task {
-                        print("Times Up")
                         usleep(1000000)
                         let vc = PosePracticeResultViewController(viewModel: viewModel)
                         vc.modalPresentationStyle = .overFullScreen
@@ -229,6 +220,13 @@ final class PosePracticeViewController: UIViewController {
         let minuteStr = mValue < 10 ? "0\(mValue)" : "\(mValue)"
         let secondStr = sValue < 10 ? "0\(sValue)" : "\(sValue)"
         return "\(minuteStr):\(secondStr)"
+    }
+    
+    private func setUpAction() {
+        quitButton.tapPublisher.sink { [weak self] in
+            self?.setUpOrientation(as: .portrait)
+            self?.dismiss(animated: true)
+        }.store(in: &cancellables)
     }
 }
 

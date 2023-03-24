@@ -8,8 +8,6 @@
 import UIKit
 import Combine
 
-
-
 final class EducationQuizViewController: UIViewController {
     
     private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "When you find someone who has fallen, you have to compress his chest instantly.")

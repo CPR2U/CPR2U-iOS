@@ -29,7 +29,9 @@ final class EducationMainViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpCollectionView()
-        bind(to: viewModel)
+        Task {
+            try await bind(to: viewModel)
+        }
     }
     
     private func setUpConstraints() {
@@ -80,12 +82,13 @@ final class EducationMainViewController: UIViewController {
         educationCollectionView.register(EducationCollectionViewCell.self, forCellWithReuseIdentifier: EducationCollectionViewCell.identifier)
     }
     
-    private func bind(to viewModel: EducationViewModel) {
+    private func bind(to viewModel: EducationViewModel) async throws {
         
-        let output = viewModel.transform()
+        let output = try await viewModel.transform()
         
         output.certificateStatus?.sink { status in
             self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
+            print("HERE!")
         }.store(in: &cancellables)
         
         output.nickname?.sink { nickname in
@@ -171,6 +174,7 @@ extension EducationMainViewController: EducationMainViewControllerDelegate {
     func updateUserEducationStatus() {
         Task {
             try await viewModel.receiveEducationStatus()
+            view.layoutIfNeeded()
         }
     }
 }

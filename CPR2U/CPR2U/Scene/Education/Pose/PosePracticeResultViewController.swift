@@ -73,7 +73,6 @@ final class PosePracticeResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setUpOrientation()
         setUpConstraints()
         setUpStyle()
         bind(viewModel: viewModel)
@@ -81,15 +80,6 @@ final class PosePracticeResultViewController: UIViewController {
         Task {
             try await viewModel.savePosturePracticeResult(score: 90)
         }
-    }
-    
-    private func setUpOrientation() {
-        if let delegate = UIApplication.shared.delegate as? AppDelegate {
-            delegate.orientationLock = .landscapeRight
-        }
-        
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        self.setNeedsUpdateOfSupportedInterfaceOrientations()
     }
     
     private func setUpConstraints() {
@@ -157,7 +147,11 @@ final class PosePracticeResultViewController: UIViewController {
     
     private func bind(viewModel: EducationViewModel) {
         quitButton.tapPublisher.sink { [weak self] _ in
-            self?.dismiss(animated: true)
+            self?.setUpOrientation(as: .portrait)
+            Task {
+                let rootVC = TabBarViewController(0)
+                await self?.view.window?.setRootViewController(rootVC)
+            }
         }.store(in: &cancellables)
     }
 
