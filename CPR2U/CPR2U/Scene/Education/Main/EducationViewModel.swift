@@ -51,7 +51,7 @@ final class EducationViewModel: OutputOnlyViewModelType {
     private var input: Input?
     
     private var currentTimerType = TimerType.other
-    private let timer = Timer.publish(every: 1, on: .current, in: .common)
+    let timer = Timer.publish(every: 1, on: .current, in: .common)
     
     init() {
         eduManager = EducationManager(service: APIManager())
@@ -95,6 +95,10 @@ final class EducationViewModel: OutputOnlyViewModelType {
     
     func educationStatus() -> [Bool] {
         return eduStatusArr
+    }
+    
+    func timeLimit() -> Int {
+        currentTimerType.rawValue
     }
     
     func transform() -> Output {
@@ -169,5 +173,42 @@ final class EducationViewModel: OutputOnlyViewModelType {
         } catch(let error) {
             print(error)
         }
+    }
+    
+    // MARK: TEST NOT YET
+    func saveLectureProgress() async throws -> Bool {
+        let result = Task {
+            let eduResult = try await eduManager.saveLectureProgress(lectureId: 1)
+            return eduResult.success
+        }
+        return try await result.value
+    }
+    
+    func savePosturePracticeResult(score: Int) async throws -> Bool {
+        let result = Task {
+            let eduResult = try await eduManager.savePosturePracticeResult(score: score)
+            print(eduResult.success)
+            print(eduResult.data)
+            return eduResult.success
+        }
+        return try await result.value
+    }
+    
+    // MARK: TEST NOT YET
+    func getLecture() async throws -> String? {
+        let result = Task { () -> String? in
+            let eduResult = try await eduManager.getLecture()
+            return eduResult.data?.lecture_list[0].video_url
+        }
+        return try await result.value
+    }
+    
+    // MARK: TEST NOT YET
+    func getPostureLecture() async throws -> String? {
+        let result = Task { () -> String? in
+            let eduResult = try await eduManager.getPostureLecture()
+            return eduResult.data?.video_url
+        }
+        return try await result.value
     }
 }

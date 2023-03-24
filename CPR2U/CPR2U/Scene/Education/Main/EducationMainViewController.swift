@@ -161,7 +161,7 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
         } else {
-            vc = PracticeExplainViewController()
+            vc = PracticeExplainViewController(viewModel: viewModel)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

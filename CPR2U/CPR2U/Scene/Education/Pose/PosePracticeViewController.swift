@@ -5,8 +5,9 @@
 //  Created by 황정현 on 2023/03/10.
 //
 
-import UIKit
+import Combine
 import os
+import UIKit
 
 enum Constants {
     // Configs for the TFLite interpreter.
@@ -72,6 +73,18 @@ final class PosePracticeViewController: UIViewController {
     private let queue = DispatchQueue(label: "serial_queue")
     private var isRunning = false
     
+    private let viewModel: EducationViewModel
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(viewModel: EducationViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +92,8 @@ final class PosePracticeViewController: UIViewController {
         setUpConstraints()
         updateModel()
         configCameraCapture()
+        viewModel.updateTimerType(vc: self)
+        setTimer()
     }
     
     private func setUpOrientation() {
@@ -185,6 +200,27 @@ final class PosePracticeViewController: UIViewController {
                 os_log("Error: %@", log: .default, type: .error, String(describing: error))
             }
         }
+    }
+    
+    private func setTimer() {
+        let count = viewModel.timeLimit()
+        viewModel.timer
+            .autoconnect()
+            .scan(0) { counter, _ in counter + 1 }
+            .sink { [self] counter in
+                if counter == count {
+                    cameraFeedManager.stopRunning()
+                    // TEST
+                    Task {
+                        print("Times Up")
+                        usleep(1000000)
+                        let vc = PosePracticeResultViewController(viewModel: viewModel)
+                        vc.modalPresentationStyle = .overFullScreen
+                        self.present(vc, animated: true)
+                    }
+                    viewModel.timer.connect().cancel()
+                }
+            }.store(in: &cancellables)
     }
 }
 

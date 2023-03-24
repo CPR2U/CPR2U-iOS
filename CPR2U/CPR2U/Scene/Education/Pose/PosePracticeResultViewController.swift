@@ -5,17 +5,70 @@
 //  Created by 황정현 on 2023/03/10.
 //
 
+import Combine
+import CombineCocoa
 import UIKit
 
 final class PosePracticeResultViewController: UIViewController {
-
-    private let compressRateResultView = EvaluationResultView()
-    private let pressDepthResultView = EvaluationResultView()
-    private let handLocationResultView = EvaluationResultView()
-    private let armAngleResultView = EvaluationResultView()
+    private let compressRateResultView: EvaluationResultView = {
+        let view = EvaluationResultView()
+        view.setImage(imgName: "ruler")
+        view.setTitle(title: "Compression Rate")
+        view.setResultLabelText(as: "0.5 per 1 time")
+        view.setDescriptionLabelText(as: "It’s too fast. Little bit Slower")
+        return view
+    }()
+    
+    private let pressDepthResultView: EvaluationResultView = {
+        let view = EvaluationResultView()
+        view.setImage(imgName: "ruler")
+        view.setTitle(title: "Press Depth")
+        view.setResultLabelText(as: "Slightly shallow")
+        view.setDescriptionLabelText(as: "Press little deeper")
+        return view
+    }()
+    
+    private let handLocationResultView: EvaluationResultView = {
+        let view = EvaluationResultView()
+        view.setImage(imgName: "ruler")
+        view.setTitle(title: "Hand Location")
+        view.setResultLabelText(as: "Adequate")
+        view.setDescriptionLabelText(as: "Nice Location!")
+        return view
+    }()
+    
+    private let armAngleResultView: EvaluationResultView = {
+        let view = EvaluationResultView()
+        view.setImage(imgName: "ruler")
+        view.setTitle(title: "Arm Angle")
+        view.setResultLabelText(as: "Adequate")
+        view.setDescriptionLabelText(as: "Nice Angle!")
+        return view
+    }()
+    
     private let finalResultView = AccuracyResultView()
     
-    private let quitButton = UIButton()
+    private let quitButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .mainRed
+        button.layer.cornerRadius = 19
+        button.titleLabel?.font = UIFont(weight: .bold, size: 17)
+        button.setTitleColor(.mainWhite, for: .normal)
+        button.setTitle("QUIT", for: .normal)
+        return button
+    }()
+    
+    private let viewModel: EducationViewModel
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(viewModel: EducationViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +76,11 @@ final class PosePracticeResultViewController: UIViewController {
         setUpOrientation()
         setUpConstraints()
         setUpStyle()
-        setUpResultViews()
-        setUpAction()
+        bind(viewModel: viewModel)
+        
+        Task {
+            try await viewModel.savePosturePracticeResult(score: 90)
+        }
     }
     
     private func setUpOrientation() {
@@ -96,38 +152,13 @@ final class PosePracticeResultViewController: UIViewController {
     }
     
     private func setUpStyle() {
-        quitButton.backgroundColor = .mainRed
-        quitButton.layer.cornerRadius = 19
-        quitButton.titleLabel?.font = UIFont(weight: .bold, size: 17)
-        quitButton.setTitleColor(.mainWhite, for: .normal)
-        quitButton.setTitle("QUIT", for: .normal)
+        view.backgroundColor = .white
     }
     
-    private func setUpResultViews() {
-        
-        compressRateResultView.setImage(imgName: "ruler")
-        compressRateResultView.setTitle(title: "Compression Rate")
-        compressRateResultView.setResultLabelText(as: "0.5 per 1 time")
-        compressRateResultView.setDescriptionLabelText(as: "It’s too fast. Little bit Slower")
-        
-        pressDepthResultView.setImage(imgName: "ruler")
-        pressDepthResultView.setTitle(title: "Press Depth")
-        pressDepthResultView.setResultLabelText(as: "Slightly shallow")
-        pressDepthResultView.setDescriptionLabelText(as: "Press little deeper")
-        
-        handLocationResultView.setImage(imgName: "ruler")
-        handLocationResultView.setTitle(title: "Hand Location")
-        handLocationResultView.setResultLabelText(as: "Adequate")
-        handLocationResultView.setDescriptionLabelText(as: "Nice Location!")
-        
-        armAngleResultView.setImage(imgName: "ruler")
-        armAngleResultView.setTitle(title: "Arm Angle")
-        armAngleResultView.setResultLabelText(as: "Adequate")
-        armAngleResultView.setDescriptionLabelText(as: "Nice Angle!")
-    }
-    
-    private func setUpAction() {
-        
+    private func bind(viewModel: EducationViewModel) {
+        quitButton.tapPublisher.sink { [weak self] _ in
+            self?.dismiss(animated: true)
+        }.store(in: &cancellables)
     }
 
 }
