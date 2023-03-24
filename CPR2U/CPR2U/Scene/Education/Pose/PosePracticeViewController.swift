@@ -28,13 +28,11 @@ final class PosePracticeViewController: UIViewController {
         return view
     }()
     
-    private let timeLabel: UILabel = {
+    private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 24)
         label.textColor = .mainBlack
-        
-        // TEST
-        label.text = "01:53"
+        label.text = NumberAsTime(number: viewModel.timeLimit())
         return label
     }()
     private let soundImageView: UIImageView = {
@@ -88,11 +86,11 @@ final class PosePracticeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.updateTimerType(vc: self)
         setUpOrientation()
         setUpConstraints()
         updateModel()
         configCameraCapture()
-        viewModel.updateTimerType(vc: self)
         setTimer()
     }
     
@@ -208,6 +206,7 @@ final class PosePracticeViewController: UIViewController {
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
+                timeLabel.text = NumberAsTime(number: count - counter)
                 if counter == count {
                     cameraFeedManager.stopRunning()
                     // TEST
@@ -221,6 +220,15 @@ final class PosePracticeViewController: UIViewController {
                     viewModel.timer.connect().cancel()
                 }
             }.store(in: &cancellables)
+    }
+    
+    private func NumberAsTime(number: Int) -> String {
+        let mValue = number/60
+        let sValue = number%60
+        
+        let minuteStr = mValue < 10 ? "0\(mValue)" : "\(mValue)"
+        let secondStr = sValue < 10 ? "0\(sValue)" : "\(sValue)"
+        return "\(minuteStr):\(secondStr)"
     }
 }
 
