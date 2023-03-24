@@ -5,8 +5,9 @@
 //  Created by 황정현 on 2023/03/20.
 //
 
-import Foundation
 import Combine
+import UIKit
+
 
 enum AngelStatus: Int {
     case acquired
@@ -34,13 +35,23 @@ enum AngelStatus: Int {
     }
 }
 
+enum TimerType: Int {
+    case lecture = 5 // 3000
+    case posture = 10 // 120
+    case other = 0
+}
+
 final class EducationViewModel: OutputOnlyViewModelType {
     
     private let eduManager: EducationManager
+    
     private let eduName: [String] = ["Lecture" , "Quiz", "Pose Practice"]
     private let eduDescription: [String] = ["Video lecture for CPR angel certificate", "Let’s check your CPR study", "Posture practice to get CPR angel certificate"]
     private var eduStatusArr:[Bool] = []
     private var input: Input?
+    
+    private var currentTimerType = TimerType.other
+    private let timer = Timer.publish(every: 1, on: .current, in: .common)
     
     init() {
         eduManager = EducationManager(service: APIManager())
@@ -106,6 +117,38 @@ final class EducationViewModel: OutputOnlyViewModelType {
         let progressPercent = input.progressPercent
         
         return Output(nickname: nickname, certificateStatus: certificateStatus, progressPercent: CurrentValueSubject(progressPercent))
+    }
+    
+    func setTimer() -> AnyCancellable {
+        return timer
+            .autoconnect()
+            .scan(0) { counter, _ in counter + 1 }
+            .sink { [self] counter in
+                let count = currentTimerType.rawValue
+                if counter == count {
+                    switch currentTimerType {
+                    case .lecture:
+                        Task {
+                            try await self.saveLectureProgress()
+                        }
+                    case .posture:
+                        Task {
+                            try await self.savePosturePracticeResult(score: 90)
+                        }
+                    case .other:
+                        break
+                    }
+                    self.timer.connect().cancel()
+                }
+            }
+    }
+    
+    func updateTimerType(vc: UIViewController) {
+        if (vc as? LectureViewController) != nil {
+            currentTimerType = .lecture
+        } else if (vc as? PosePracticeViewController) != nil {
+            currentTimerType = .posture
+        }
     }
     
     func receiveEducationStatus() async throws {
