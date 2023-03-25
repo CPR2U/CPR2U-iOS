@@ -45,26 +45,28 @@ final class CallCircleView: UIView {
     }
     
     private func createCircularPath() {
+        [
+            circleLayer,
+            progressLayer
+        ].forEach({
+            layer.addSublayer($0)
+        })
+        
         let circularPath = UIBezierPath(arcCenter: CGPoint(x: 40, y: 40), radius: 40, startAngle: startPoint, endAngle: endPoint, clockwise: true)
         circleLayer.path = circularPath.cgPath
-        // ui edits
         circleLayer.fillColor = UIColor.mainRed.cgColor
         circleLayer.lineCap = .round
         circleLayer.lineWidth = 12.0
         circleLayer.strokeEnd = 1.0
         circleLayer.strokeColor = UIColor.white.cgColor
         
-        layer.addSublayer(circleLayer)
-        // progressLayer path defined to circularPath
         progressLayer.path = circularPath.cgPath
-        // ui edits
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = .round
         progressLayer.lineWidth = 10.0
         progressLayer.strokeEnd = 0
         progressLayer.strokeColor = UIColor.mainRed.cgColor
-        // added progressLayer to layer
-        layer.addSublayer(progressLayer)
+        
     }
     
     func progressAnimation() {

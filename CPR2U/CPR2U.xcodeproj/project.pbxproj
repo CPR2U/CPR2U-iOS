@@ -54,6 +54,7 @@
 		3A396BCF29CF2A9B009B0545 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
 		3A396BD129CF2BA2009B0545 /* CallCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD029CF2BA2009B0545 /* CallCircleView.swift */; };
 		3A396BD329CF3301009B0545 /* TimeCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD229CF3301009B0545 /* TimeCounterView.swift */; };
+		3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD429CF4A0E009B0545 /* CallViewModel.swift */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
@@ -138,6 +139,7 @@
 		3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationNoticeView.swift; sourceTree = "<group>"; };
 		3A396BD029CF2BA2009B0545 /* CallCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CallCircleView.swift; path = CPR2U/Scene/Call/CallCircleView.swift; sourceTree = SOURCE_ROOT; };
 		3A396BD229CF3301009B0545 /* TimeCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCounterView.swift; sourceTree = "<group>"; };
+		3A396BD429CF4A0E009B0545 /* CallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewModel.swift; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3ADE725029B9D53E00EEE19C /* Education */,
 				3A396BC429CF1487009B0545 /* Call */,
+				3A396BD729CF6137009B0545 /* DispatchWait */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -415,15 +418,31 @@
 		3A396BC429CF1487009B0545 /* Call */ = {
 			isa = PBXGroup;
 			children = (
+				3A396BD429CF4A0E009B0545 /* CallViewModel.swift */,
+				3A396BD629CF612F009B0545 /* Main */,
 				3A396BC529CF14AB009B0545 /* CallMainViewController.swift */,
+				3A396BD229CF3301009B0545 /* TimeCounterView.swift */,
 				3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */,
 				3A396BD029CF2BA2009B0545 /* CallCircleView.swift */,
-				3A396BD229CF3301009B0545 /* TimeCounterView.swift */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		3A396BD629CF612F009B0545 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		3A396BD729CF6137009B0545 /* DispatchWait */ = {
+			isa = PBXGroup;
+			children = (
 				3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */,
 				3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */,
 				3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */,
 			);
-			path = Call;
+			path = DispatchWait;
 			sourceTree = "<group>";
 		};
 		3A5C391129C0948600378015 /* Model */ = {
@@ -700,6 +719,7 @@
 				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3A324CE729C6104D00165E2E /* Data+TFLite.swift in Sources */,
 				3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */,
+				3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */,
 				3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */,

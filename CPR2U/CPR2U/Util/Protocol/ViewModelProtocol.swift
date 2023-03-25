@@ -15,8 +15,15 @@ protocol DefaultViewModelType {
 }
 
 
+protocol AsyncOutputOnlyViewModelType {
+    associatedtype Output
+
+    func transform() async throws -> Output
+}
+
+
 protocol OutputOnlyViewModelType {
     associatedtype Output
 
-//    func transform() -> Output
+    func transform() -> Output
 }

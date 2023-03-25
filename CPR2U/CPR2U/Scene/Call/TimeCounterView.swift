@@ -9,9 +9,6 @@ import UIKit
 import Combine
 
 final class TimeCounterView: UIView {
-    private var timer: Timer.TimerPublisher?
-    private var cancellables = Set<AnyCancellable>()
-    
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 98)
@@ -23,8 +20,14 @@ final class TimeCounterView: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private let viewModel: CallViewModel
+    private var timer: Timer.TimerPublisher?
+    private var cancellables = Set<AnyCancellable>()
+
+    
+    required init(viewModel: CallViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: CGRect.zero)
         setUpConstriants()
         setUpStyle()
     }
@@ -57,8 +60,8 @@ final class TimeCounterView: UIView {
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                print(counter)
                 if counter == 3 {
+                    viewModel.isCallSucceed()
                     timer?.connect().cancel()
                 } else {
                     timeLabel.text = "\(3 - counter)"

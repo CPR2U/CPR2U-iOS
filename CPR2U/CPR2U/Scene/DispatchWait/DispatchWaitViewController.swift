@@ -5,7 +5,9 @@
 //  Created by 황정현 on 2023/03/25.
 //
 
+import Combine
 import UIKit
+
 
 final class DispatchWaitViewController: UIViewController {
 
@@ -18,8 +20,23 @@ final class DispatchWaitViewController: UIViewController {
         return label
     }()
     
-    private let approachNoticeView = ApproachNoticeView()
+    private lazy var approachNoticeView: ApproachNoticeView = {
+        let view = ApproachNoticeView(viewModel: viewModel)
+        return view
+    }()
+    
     private let emergencyDescriptionView = EmergencyDescriptionView()
+
+    private let viewModel: CallViewModel
+    
+    init(viewModel: CallViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +45,12 @@ final class DispatchWaitViewController: UIViewController {
         setUpStyle()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        viewModel.cancelTimer()
+    }
+    
     private func setUpConstraints() {
-        let safeArea = view.safeAreaLayoutGuide
-        
         [
             mainLabel,
             approachNoticeView,

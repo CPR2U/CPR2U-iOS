@@ -5,13 +5,20 @@
 //  Created by 황정현 on 2023/03/25.
 //
 
+import Combine
 import UIKit
 
 final class CallMainViewController: UIViewController {
 
-    private let timeCounterView = TimeCounterView()
+    private lazy var timeCounterView = {
+        let view = TimeCounterView(viewModel: viewModel)
+        return view
+    }()
     private let currentLocationNoticeView = CurrentLocationNoticeView()
     private let callButton = CallCircleView()
+    
+    private let viewModel = CallViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +26,7 @@ final class CallMainViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpAction()
+        bind(viewModel: viewModel)
     }
     
     private func setUpConstraints() {
@@ -67,6 +75,20 @@ final class CallMainViewController: UIViewController {
         
     }
     
+    private func bind(viewModel: CallViewModel) {
+        let output = viewModel.transform()
+        
+        output.isCalled.sink { isCalled in
+            if isCalled {
+                let vc = DispatchWaitViewController(viewModel: viewModel)
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
+                self.callButton.cancelProgressAnimation()
+                self.timeCounterView.cancelTimeCount()
+            }
+        }.store(in: &cancellables)
+    }
+    
     @objc func didPressCallButton(_ sender: UILongPressGestureRecognizer) {
         let state = sender.state
         
@@ -77,22 +99,6 @@ final class CallMainViewController: UIViewController {
             callButton.cancelProgressAnimation()
             timeCounterView.cancelTimeCount()
         }
-//        switch state {
-//        case .possible:
-//            <#code#>
-//        case .began:
-//            <#code#>
-//        case .changed:
-//            <#code#>
-//        case .ended:
-//            <#code#>
-//        case .cancelled:
-//            <#code#>
-//        case .failed:
-//            <#code#>
-//        case .recognized:
-//            <#code#>
-//        }
     }
                                                    
 }

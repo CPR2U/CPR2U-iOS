@@ -5,6 +5,7 @@
 //  Created by 황정현 on 2023/03/25.
 //
 
+import Combine
 import UIKit
 
 final class ApproachNoticeView: UIView {
@@ -20,7 +21,7 @@ final class ApproachNoticeView: UIView {
         label.font = UIFont(weight: .bold, size: 48)
         label.textColor = .mainRed
         label.textAlignment = .center
-        label.text = "9"
+        label.text = "0"
         return label
     }()
     
@@ -58,11 +59,17 @@ final class ApproachNoticeView: UIView {
         return button
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private var viewModel: CallViewModel
+    private var cancellables = Set<AnyCancellable>()
+    
+    required init(viewModel: CallViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: CGRect.zero)
         
         setUpConstraints()
         setUpStyle()
+        bind(viewModel: viewModel)
+        setTimer()
     }
     
     required init?(coder: NSCoder) {
@@ -167,6 +174,27 @@ final class ApproachNoticeView: UIView {
     private func setUpStyle() {
         backgroundColor = .white
         self.layer.cornerRadius = 24
+    }
+    
+    
+    private func bind(viewModel: CallViewModel) {
+        situationEndButton.tapPublisher.sink {
+            self.parentViewController().dismiss(animated: true)
+        }.store(in: &cancellables)
+    }
+    
+    private func setTimer() {
+        viewModel.timer = Timer.publish(every: 1,tolerance: 0.9, on: .main, in: .default)
+        viewModel.timer?
+            .autoconnect()
+            .scan(0) { counter, _ in counter + 1 }
+            .sink { [self] counter in
+                if counter == 300 {
+                    viewModel.timer?.connect().cancel()
+                } else {
+                    timeLabel.text = counter.numberAsTime()
+                }
+            }.store(in: &cancellables)
     }
 
 }
