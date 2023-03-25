@@ -9,6 +9,15 @@ import UIKit
 
 final class TabBarViewController: UITabBarController {
 
+    init(_ selectedIndex: Int = 1) {
+        super.init(nibName: nil, bundle: nil)
+        self.selectedIndex = selectedIndex
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,7 +49,5 @@ final class TabBarViewController: UITabBarController {
         navigationMypage.navigationBar.prefersLargeTitles = true
         
         setViewControllers([navigationEdu, navigationCall, navigationMypage], animated: false)
-        
-        selectedIndex = 1
     }
 }

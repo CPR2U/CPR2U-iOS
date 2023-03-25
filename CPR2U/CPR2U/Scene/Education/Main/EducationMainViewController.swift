@@ -28,8 +28,10 @@ final class EducationMainViewController: UIViewController {
         
         setUpConstraints()
         setUpStyle()
-        setUpCollectionView()
-        bind(to: viewModel)
+        Task {
+            await bind(to:viewModel)
+            setUpCollectionView()
+        }
     }
     
     private func setUpConstraints() {
@@ -86,6 +88,7 @@ final class EducationMainViewController: UIViewController {
         
         output.certificateStatus?.sink { status in
             self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
+            print("HERE!")
         }.store(in: &cancellables)
         
         output.nickname?.sink { nickname in
@@ -95,6 +98,8 @@ final class EducationMainViewController: UIViewController {
         output.progressPercent?.sink { progress in
             self.progressView.setUpProgress(as: progress)
         }.store(in: &cancellables)
+        
+        output.
     }
 }
 
@@ -108,6 +113,7 @@ extension EducationMainViewController: UICollectionViewDataSource {
         
         cell.setUpEducationNameLabel(as: viewModel.educationName()[indexPath.row])
         cell.setUpDescriptionLabel(as: viewModel.educationDescription()[indexPath.row])
+        print(viewModel.educationStatus().count)
         cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row])
         
         return cell
@@ -161,7 +167,7 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
         } else {
-            vc = PracticeExplainViewController()
+            vc = PracticeExplainViewController(viewModel: viewModel)
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -170,7 +176,8 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
 extension EducationMainViewController: EducationMainViewControllerDelegate {
     func updateUserEducationStatus() {
         Task {
-            try await viewModel.receiveEducationStatus()
+            let userInfo = try await viewModel.receiveEducationStatus()
+            viewModel.updateInput(data: userInfo)
         }
     }
 }
