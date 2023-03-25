@@ -75,6 +75,11 @@ public class QuizChoiceView: UIView {
         }
     }
     
+    func interactionEnabled(to status: Bool) {
+        choices.forEach({
+            $0.isUserInteractionEnabled = status
+        })
+    }
     func animateChoiceButton(answerIndex: Int) { }
     func resetChoiceButtonConstraint() { }
 }

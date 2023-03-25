@@ -18,5 +18,5 @@ protocol DefaultViewModelType {
 protocol OutputOnlyViewModelType {
     associatedtype Output
 
-    func transform() -> Output
+//    func transform() -> Output
 }

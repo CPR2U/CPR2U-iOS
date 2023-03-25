@@ -8,23 +8,34 @@
 import Combine
 import UIKit
 
+protocol EducationMainViewControllerDelegate: AnyObject {
+    func updateUserEducationStatus()
+}
+
 final class EducationMainViewController: UIViewController {
 
-    let eduStatus: [String] = ["Completed", "Not Completed", "Not Completed"]
     private var certificateStatusView = CertificateStatusView()
     private let progressView = EducationProgressView()
-    private let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private let viewModel = EducationViewModel()
     private var cancellables = Set<AnyCancellable>()
+    
+    private weak var delegate: EducationMainViewControllerDelegate?
+    
+    private lazy var noticeView = CustomNoticeView(noticeAs: .certificate)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         setUpStyle()
-        setUpCollectionView()
-        bind(to: viewModel)
+        bind(to:viewModel)
+        noticeView.setCertificateNotice()
+        DispatchQueue.main.async { [weak self] in
+            self?.setUpCollectionView()
+        }
+
     }
     
     private func setUpConstraints() {
@@ -33,7 +44,8 @@ final class EducationMainViewController: UIViewController {
         [
             certificateStatusView,
             progressView,
-            educationCollectionView
+            educationCollectionView,
+            noticeView
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +71,13 @@ final class EducationMainViewController: UIViewController {
             educationCollectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             educationCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            noticeView.topAnchor.constraint(equalTo: view.topAnchor),
+            noticeView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            noticeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noticeView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func setUpStyle() {
@@ -66,7 +85,7 @@ final class EducationMainViewController: UIViewController {
         navBar.prefersLargeTitles = true
         navBar.topItem?.title = "Education"
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed]
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setUpCollectionView() {
@@ -76,23 +95,29 @@ final class EducationMainViewController: UIViewController {
     }
     
     private func bind(to viewModel: EducationViewModel) {
-        
-        // TEST
-        let input = EducationViewModel.Input(nickname: "HeartBeatingS2", angelStatus: 2, progressPercent: 1.0, leftDay: nil, isLectureCompleted: true, isQuizCompleted: true, isPostureCompleted: true)
-        
-        let output = viewModel.transform(input: input)
-        
-        output.certificateStatus.sink { status in
-            self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
-        }.store(in: &cancellables)
-        
-        output.nickname.sink { nickname in
-            self.certificateStatusView.setUpGreetingLabel(nickname: nickname)
-        }.store(in: &cancellables)
-        
-        output.progressPercent.sink { progress in
-            self.progressView.setUpProgress(as: progress)
-        }.store(in: &cancellables)
+        Task {
+            let output = try await viewModel.transform()
+            
+            output.certificateStatus?.sink { status in
+                self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
+                if status.status == .acquired && UserDefaultsManager.isCertificateNotice == false {
+                    self.noticeView.noticeAppear()
+                    UserDefaultsManager.isCertificateNotice = true
+                }
+            }.store(in: &cancellables)
+            
+            output.nickname?.sink { nickname in
+                self.certificateStatusView.setUpGreetingLabel(nickname: nickname)
+            }.store(in: &cancellables)
+            
+            output.progressPercent?.sink { progress in
+                self.progressView.setUpProgress(as: progress)
+            }.store(in: &cancellables)
+            
+            DispatchQueue.main.async {
+                self.educationCollectionView.reloadData()
+            }
+        }
     }
 }
 
@@ -106,14 +131,14 @@ extension EducationMainViewController: UICollectionViewDataSource {
         
         cell.setUpEducationNameLabel(as: viewModel.educationName()[indexPath.row])
         cell.setUpDescriptionLabel(as: viewModel.educationDescription()[indexPath.row])
-        cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row])
+        cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row].value)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
-        let isCompleted = index != 0 ? viewModel.educationStatus()[index - 1] : true
+        let isCompleted = index != 0 ? viewModel.educationStatus()[index - 1].value : true
         if isCompleted == true {
             navigateTo(index: index)
         } else {
@@ -150,16 +175,31 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
     func navigateTo(index: Int) {
         var vc: UIViewController
         if index == 0 {
-            vc = UIViewController()
+            vc = LectureViewController(viewModel: viewModel)
             navigationController?.pushViewController(vc, animated: true)
         } else if index == 1 {
             let temp = EducationQuizViewController()
+            temp.delegate = self
             vc = UINavigationController(rootViewController: temp)
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
         } else {
-            vc = PracticeExplainViewController()
+            vc = PracticeExplainViewController(viewModel: viewModel)
             navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension EducationMainViewController: EducationMainViewControllerDelegate {
+    func updateUserEducationStatus() {
+        Task {
+            let userInfo = try await viewModel.receiveEducationStatus()
+            viewModel.updateInput(data: userInfo)
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.educationCollectionView.reloadData()
+                self?.dismiss(animated: true)
+            }
         }
     }
 }

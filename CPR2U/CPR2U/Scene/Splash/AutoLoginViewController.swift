@@ -47,6 +47,7 @@ final class AutoLoginViewController: UIViewController {
                 usleep(1200000)
                 if result == true {
                     let vc = TabBarViewController()
+//                    let vc = TestViewController()
                     guard let window = self.view.window else { return }
                     await window.setRootViewController(vc, animated: true)
                 } else {

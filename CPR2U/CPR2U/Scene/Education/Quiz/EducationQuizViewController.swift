@@ -9,13 +9,13 @@ import UIKit
 import Combine
 
 final class EducationQuizViewController: UIViewController {
-
+    
     private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "When you find someone who has fallen, you have to compress his chest instantly.")
     
     private lazy var oxChoiceView = OXQuizChoiceView(viewModel: viewModel)
     private lazy var multiChoiceView = MultiQuizChoiceView(viewModel: viewModel)
     
-    private lazy var noticeView = CustomNoticeView(noticeAs: .quiz)
+    private lazy var noticeView = CustomNoticeView(noticeAs: .pf)
     
     private lazy var answerLabel: UILabel =  {
         let label = UILabel()
@@ -50,13 +50,18 @@ final class EducationQuizViewController: UIViewController {
     private let viewModel = QuizViewModel()
     private var cancellables = Set<AnyCancellable>()
     
+    weak var delegate: EducationMainViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         setUpStyle()
         setUpDelegate()
-        updateQuiz(quiz: viewModel.quizInit())
+        Task {
+            try await viewModel.receiveQuizList()
+            updateQuiz(quiz: viewModel.currentQuiz())
+        }
         bind(to: viewModel)
     }
     
@@ -165,21 +170,30 @@ extension EducationQuizViewController {
             self?.answerLabel.text = isCorrect ? "Correct!" : "Wrong!"
             self?.answerDescriptionLabel.text = currentQuiz.answerDescription
             self?.submitButton.setTitle("Next", for: .normal)
-            
+
             guard let answerIndex = self?.viewModel.currentQuiz().answerIndex, let quizType = self?.viewModel.currentQuiz().questionType else {
                 return }
             
             switch quizType {
             case .ox:
                 self?.oxChoiceView.animateChoiceButton(answerIndex: answerIndex)
+                self?.oxChoiceView.interactionEnabled(to: false)
             case .multi:
                 self?.multiChoiceView.animateChoiceButton(answerIndex: answerIndex)
+                self?.multiChoiceView.interactionEnabled(to: false)
             }
             
         }.store(in: &cancellables)
         
         output.quiz?.sink { quiz in
             self.updateQuiz(quiz: quiz)
+            
+            switch quiz.questionType {
+            case .ox:
+                self.oxChoiceView.interactionEnabled(to: true)
+            case .multi:
+                self.multiChoiceView.interactionEnabled(to: true)
+            }
         }.store(in: &cancellables)
         
         output.isQuizEnd.sink { [weak self] isQuizEnd in
@@ -188,10 +202,13 @@ extension EducationQuizViewController {
             
             if isQuizEnd {
                 if isQuizAllCorrect {
-                    self?.noticeView.setQuizResultNotice(isAllCorrect: true)
-                    self?.noticeView.noticeAppear()
+                    Task {
+                        try await self?.viewModel.saveQuizResult()
+                        self?.noticeView.setPFResultNotice(isPass: true)
+                        self?.noticeView.noticeAppear()
+                    }
                 } else {
-                    self?.noticeView.setQuizResultNotice(isAllCorrect: false, quizResultString: quizResultString)
+                    self?.noticeView.setPFResultNotice(isPass: false, quizResultString: quizResultString)
                     self?.noticeView.noticeAppear()
                 }
             }
@@ -248,6 +265,6 @@ extension EducationQuizViewController {
 // MARK: Delegate
 extension EducationQuizViewController: CustomNoticeViewDelegate {
     func dismissQuizViewController() {
-        dismiss(animated: true)
+        delegate?.updateUserEducationStatus()
     }
 }

@@ -24,35 +24,35 @@ struct AuthManager: AuthService {
     }
     
     func phoneNumberVerify(phoneNumber: String) async throws -> (success: Bool, data: SMSCodeResult?) {
-        let request = SignEndPoint
+        let request = AuthEndPoint
             .phoneNumberVerify(phoneNumber: phoneNumber)
             .createRequest()
         return try await self.service.request(request)
     }
     
     func nicknameVerify(nickname: String) async throws -> (success: Bool, data: NicknameVerifyResult?) {
-        let request = SignEndPoint
+        let request = AuthEndPoint
             .nicknameVerify(nickname: nickname)
             .createRequest()
         return try await self.service.request(request)
         }
     
     func signIn(phoneNumber: String, deviceToken: String) async throws -> (success: Bool, data: SignInResult?) {
-        let request = SignEndPoint
+        let request = AuthEndPoint
             .signIn(phoneNumber: phoneNumber, deviceToken: deviceToken)
             .createRequest()
         return try await self.service.request(request)
     }
     
     func signUp(nickname: String, phoneNumber: String, deviceToken: String) async throws -> (success: Bool, data: SignUpResult?) {
-        let request = SignEndPoint
+        let request = AuthEndPoint
             .signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: deviceToken)
             .createRequest()
         return try await self.service.request(request)
     }
     
     func autoLogin(refreshToken: String) async throws -> (success: Bool, data: AutoLoginResult?) {
-        let request = SignEndPoint
+        let request = AuthEndPoint
             .autoLogin(refreshToken: refreshToken)
             .createRequest()
         return try await self.service.request(request)

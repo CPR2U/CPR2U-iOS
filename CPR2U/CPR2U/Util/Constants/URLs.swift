@@ -9,15 +9,15 @@ import Foundation
 
 class URLs {
 //     FOR CI:CD
-    static var baseURL: String = {
-        return ""
-    }()
+//    static var baseURL: String = {
+//        return ""
+//    }()
 
     // REAL BaseURL
-//    static var baseURL: String = {
-//        guard let privatePlist = Bundle.main.url(forResource: "Private", withExtension: "plist"), let dictionary = NSDictionary(contentsOf: privatePlist), let link: String = dictionary["baseURL"] as? String else { return "" }
-//
-//        return link
-//    }()
+    static var baseURL: String = {
+        guard let privatePlist = Bundle.main.url(forResource: "Private", withExtension: "plist"), let dictionary = NSDictionary(contentsOf: privatePlist), let link: String = dictionary["baseURL"] as? String else { return "" }
+
+        return link
+    }()
 
 }
