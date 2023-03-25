@@ -46,6 +46,9 @@
 		3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BBA29CB2C87009B0545 /* TestViewController.swift */; };
 		3A396BBE29CC3D32009B0545 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BBD29CC3D32009B0545 /* GoogleService-Info.plist */; };
 		3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC229CCA563009B0545 /* LectureViewController.swift */; };
+		3A396BC829CF14D5009B0545 /* DispatchWaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */; };
+		3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */; };
+		3A396BCC29CF204F009B0545 /* EmergencyDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
@@ -123,6 +126,9 @@
 		3A396BBA29CB2C87009B0545 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		3A396BBD29CC3D32009B0545 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A396BC229CCA563009B0545 /* LectureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectureViewController.swift; sourceTree = "<group>"; };
+		3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWaitViewController.swift; sourceTree = "<group>"; };
+		3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachNoticeView.swift; sourceTree = "<group>"; };
+		3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDescriptionView.swift; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
@@ -192,6 +198,7 @@
 				3A396BA829CA09DB009B0545 /* Main */,
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3ADE725029B9D53E00EEE19C /* Education */,
+				3A396BC429CF1487009B0545 /* Call */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -394,6 +401,16 @@
 				3A396BC229CCA563009B0545 /* LectureViewController.swift */,
 			);
 			path = Lecture;
+			sourceTree = "<group>";
+		};
+		3A396BC429CF1487009B0545 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */,
+				3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */,
+				3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */,
+			);
+			path = Call;
 			sourceTree = "<group>";
 		};
 		3A5C391129C0948600378015 /* Model */ = {
@@ -644,12 +661,14 @@
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
 				3A22BF5D29BCF159004411BE /* Auth.swift in Sources */,
 				3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */,
+				3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */,
 				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
 				3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */,
 				3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */,
+				3A396BCC29CF204F009B0545 /* EmergencyDescriptionView.swift in Sources */,
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */,
@@ -680,6 +699,7 @@
 				3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */,
 				3A5C391329C0948F00378015 /* Quiz.swift in Sources */,
 				3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */,
+				3A396BC829CF14D5009B0545 /* DispatchWaitViewController.swift in Sources */,
 				3A22BF5229BCD6B8004411BE /* AuthManager.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,

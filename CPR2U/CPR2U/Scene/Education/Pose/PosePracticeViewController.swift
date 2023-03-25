@@ -35,6 +35,7 @@ final class PosePracticeViewController: UIViewController {
         label.text = NumberAsTime(number: viewModel.timeLimit())
         return label
     }()
+    
     private let soundImageView: UIImageView = {
         let view = UIImageView()
         let config = UIImage.SymbolConfiguration(pointSize: 29, weight: .regular, scale: .medium)
