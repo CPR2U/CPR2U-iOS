@@ -50,7 +50,6 @@
 		3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */; };
 		3A396BCC29CF204F009B0545 /* EmergencyDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */; };
 		3A396BCE29CF278E009B0545 /* CurrentLocationNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */; };
-		3A396BCF29CF2A9B009B0545 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
 		3A396BD129CF2BA2009B0545 /* CallCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD029CF2BA2009B0545 /* CallCircleView.swift */; };
 		3A396BD329CF3301009B0545 /* TimeCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD229CF3301009B0545 /* TimeCounterView.swift */; };
 		3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD429CF4A0E009B0545 /* CallViewModel.swift */; };
@@ -648,7 +647,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A396BCF29CF2A9B009B0545 /* Private.plist in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
