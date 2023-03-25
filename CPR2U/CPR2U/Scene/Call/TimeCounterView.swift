@@ -6,16 +6,20 @@
 //
 
 import UIKit
+import Combine
 
 final class TimeCounterView: UIView {
+    private var timer: Timer.TimerPublisher?
+    private var cancellables = Set<AnyCancellable>()
+    
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 98)
         label.textColor = .mainRed
         label.shadowColor = UIColor(rgb: 0xB50000)
-        label.numberOfLines = 3
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
+        label.textAlignment = .center
+        label.text = "3"
+        label.isHidden = true
         return label
     }()
     
@@ -42,6 +46,37 @@ final class TimeCounterView: UIView {
     }
     
     private func setUpStyle() {
-        backgroundColor = .mainRed.withAlphaComponent(0.5)
+        backgroundColor = .mainRed.withAlphaComponent(0.0)
+    }
+    
+    func timeCountAnimation() {
+        timeLabel.isHidden = false
+        backgroundAlphaAnimation()
+        timer = Timer.publish(every: 1,tolerance: 0.9, on: .main, in: .default)
+        timer?
+            .autoconnect()
+            .scan(0) { counter, _ in counter + 1 }
+            .sink { [self] counter in
+                print(counter)
+                if counter == 3 {
+                    timer?.connect().cancel()
+                } else {
+                    timeLabel.text = "\(3 - counter)"
+                }
+            }.store(in: &cancellables)
+    }
+    
+    func cancelTimeCount() {
+        timer?.connect().cancel()
+        backgroundColor = .mainRed.withAlphaComponent(0)
+        timeLabel.isHidden = true
+        timeLabel.text = "3"
+    }
+    
+    private func backgroundAlphaAnimation() {
+        UIView.animate(withDuration: 3.0, delay: 0.0, animations: {
+            self.backgroundColor = .mainRed.withAlphaComponent(0.5)
+        })
+        
     }
 }

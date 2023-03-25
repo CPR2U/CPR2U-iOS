@@ -76,4 +76,8 @@ final class CallCircleView: UIView {
         circularProgressAnimation.isRemovedOnCompletion = false
         progressLayer.add(circularProgressAnimation, forKey: "progressAnim")
     }
+    
+    func cancelProgressAnimation() {
+        progressLayer.removeAnimation(forKey: "progressAnim")
+    }
 }

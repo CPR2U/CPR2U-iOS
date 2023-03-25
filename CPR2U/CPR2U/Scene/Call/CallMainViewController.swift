@@ -18,6 +18,7 @@ final class CallMainViewController: UIViewController {
 
         setUpConstraints()
         setUpStyle()
+        setUpAction()
     }
     
     private func setUpConstraints() {
@@ -58,4 +59,40 @@ final class CallMainViewController: UIViewController {
     private func setUpStyle() {
         view.backgroundColor = .lightGray
     }
+    
+    private func setUpAction() {
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(didPressCallButton))
+        recognizer.minimumPressDuration = 0.0
+        callButton.addGestureRecognizer(recognizer)
+        
+    }
+    
+    @objc func didPressCallButton(_ sender: UILongPressGestureRecognizer) {
+        let state = sender.state
+        
+        if state == .began {
+            callButton.progressAnimation()
+            timeCounterView.timeCountAnimation()
+        } else if state == .ended {
+            callButton.cancelProgressAnimation()
+            timeCounterView.cancelTimeCount()
+        }
+//        switch state {
+//        case .possible:
+//            <#code#>
+//        case .began:
+//            <#code#>
+//        case .changed:
+//            <#code#>
+//        case .ended:
+//            <#code#>
+//        case .cancelled:
+//            <#code#>
+//        case .failed:
+//            <#code#>
+//        case .recognized:
+//            <#code#>
+//        }
+    }
+                                                   
 }
