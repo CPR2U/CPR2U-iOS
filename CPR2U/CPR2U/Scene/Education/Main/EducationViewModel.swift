@@ -144,8 +144,6 @@ final class EducationViewModel: OutputOnlyViewModelType {
     }
     
     func initialize() async throws -> Input? {
-        
-        print("Initializee....")
         let result = Task { () -> Input? in
             let eduResult = try await self.eduManager.getEducationProgress()
             guard let data = eduResult.data else { return nil }

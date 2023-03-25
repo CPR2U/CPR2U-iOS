@@ -23,12 +23,15 @@ final class EducationMainViewController: UIViewController {
     
     private weak var delegate: EducationMainViewControllerDelegate?
     
+    private lazy var noticeView = CustomNoticeView(noticeAs: .certificate)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         setUpStyle()
         bind(to:viewModel)
+        noticeView.setCertificateNotice()
         DispatchQueue.main.async { [weak self] in
             self?.setUpCollectionView()
         }
@@ -41,7 +44,8 @@ final class EducationMainViewController: UIViewController {
         [
             certificateStatusView,
             progressView,
-            educationCollectionView
+            educationCollectionView,
+            noticeView
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +71,13 @@ final class EducationMainViewController: UIViewController {
             educationCollectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             educationCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            noticeView.topAnchor.constraint(equalTo: view.topAnchor),
+            noticeView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            noticeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noticeView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func setUpStyle() {
@@ -89,6 +100,10 @@ final class EducationMainViewController: UIViewController {
             
             output.certificateStatus?.sink { status in
                 self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
+                if status.status == .acquired && UserDefaultsManager.isCertificateNotice == false {
+                    self.noticeView.noticeAppear()
+                    UserDefaultsManager.isCertificateNotice = true
+                }
             }.store(in: &cancellables)
             
             output.nickname?.sink { nickname in
@@ -116,7 +131,6 @@ extension EducationMainViewController: UICollectionViewDataSource {
         
         cell.setUpEducationNameLabel(as: viewModel.educationName()[indexPath.row])
         cell.setUpDescriptionLabel(as: viewModel.educationDescription()[indexPath.row])
-        print(viewModel.educationStatus().count)
         cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row].value)
         
         return cell

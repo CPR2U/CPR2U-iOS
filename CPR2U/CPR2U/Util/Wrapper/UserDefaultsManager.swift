@@ -33,4 +33,7 @@ struct UserDefaultsManager {
     
     @UserDefaultWrapper(key: "refreshToken", defaultValue: "")
     static var refreshToken
+    
+    @UserDefaultWrapper(key: "isCertificateNotice", defaultValue: false)
+    static var isCertificateNotice
 }
