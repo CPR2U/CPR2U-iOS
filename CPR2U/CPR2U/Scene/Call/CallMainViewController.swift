@@ -6,6 +6,7 @@
 //
 
 import Combine
+import GoogleMaps
 import UIKit
 
 final class CallMainViewController: UIViewController {
@@ -19,16 +20,17 @@ final class CallMainViewController: UIViewController {
     
     private let viewModel = CallViewModel()
     private var cancellables = Set<AnyCancellable>()
+    var locationManager: CLLocationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setUpLocation()
         setUpConstraints()
         setUpStyle()
         setUpAction()
         bind(viewModel: viewModel)
     }
-    
+
     private func setUpConstraints() {
         let safeArea = view.safeAreaLayoutGuide
         let make = Constraints.shared
@@ -75,6 +77,25 @@ final class CallMainViewController: UIViewController {
         
     }
     
+    private func setUpLocation() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        
+
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        
+        let coor = locationManager.location?.coordinate
+        
+        let latitude = (coor?.latitude ?? 37.566508) as Double
+        let longitude = (coor?.longitude ?? 126.977945) as Double
+        
+        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 15.0)
+        let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
+        self.view.addSubview(mapView)
+    }
+    
     private func bind(viewModel: CallViewModel) {
         let output = viewModel.transform()
         
@@ -100,5 +121,9 @@ final class CallMainViewController: UIViewController {
             timeCounterView.cancelTimeCount()
         }
     }
-                                                   
+    
+}
+
+extension CallMainViewController: CLLocationManagerDelegate {
+    
 }

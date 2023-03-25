@@ -25,6 +25,8 @@ final class TabBarViewController: UITabBarController {
     }
 
     private func setUpTabBar() {
+        self.tabBar.backgroundColor = .white
+        
         let educationVC = EducationMainViewController()
         let callVC = CallMainViewController()
         let mypageVC = UIViewController()

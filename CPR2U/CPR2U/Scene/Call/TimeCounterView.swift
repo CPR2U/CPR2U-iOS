@@ -49,6 +49,7 @@ final class TimeCounterView: UIView {
     }
     
     private func setUpStyle() {
+        isUserInteractionEnabled = false
         backgroundColor = .mainRed.withAlphaComponent(0.0)
     }
     

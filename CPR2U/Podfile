@@ -7,5 +7,10 @@ target 'CPR2U' do
 
   # Pods for CPR2U
 use_frameworks!
+
 pod 'TensorFlowLiteSwift', '~> 0.0.1-nightly', :subspecs => ['CoreML', 'Metal']
+source 'https://github.com/CocoaPods/Specs.git'
+pod 'GoogleMaps'
+pod 'GooglePlaces'
+
 end
