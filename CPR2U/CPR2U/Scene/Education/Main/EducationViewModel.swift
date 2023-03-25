@@ -47,7 +47,6 @@ final class EducationViewModel: OutputOnlyViewModelType {
     
     private let eduName: [String] = ["Lecture" , "Quiz", "Pose Practice"]
     private let eduDescription: [String] = ["Video lecture for CPR angel certificate", "Let’s check your CPR study", "Posture practice to get CPR angel certificate"]
-    private var eduStatusArr:[Bool] = []
     private var input: Input?
     
     private var currentTimerType = TimerType.other
@@ -55,9 +54,8 @@ final class EducationViewModel: OutputOnlyViewModelType {
     
     init() {
         eduManager = EducationManager(service: APIManager())
-        
         Task {
-            try await receiveEducationStatus()
+            self.input = try await initialize() ?? nil
         }
     }
     
@@ -98,15 +96,14 @@ final class EducationViewModel: OutputOnlyViewModelType {
         currentTimerType.rawValue
     }
     
-    func transform() async throws -> Output {
-        guard let input = try await receiveEducationStatus() else { return Output(nickname: nil, certificateStatus: nil, progressPercent: nil) }
+    func transform() -> Output {
         
         let certificateStatus: CurrentValueSubject<CertificateStatus, Never> = {
-            guard let status = AngelStatus(rawValue: input.angelStatus.value) else {
+            guard let status = AngelStatus(rawValue: input?.angelStatus.value ?? 2) else {
                 return CurrentValueSubject(CertificateStatus(status: AngelStatus.unacquired, leftDay: nil))
             }
             
-            guard let leftDayNum = input.leftDay.value else {
+            guard let leftDayNum = input?.leftDay.value else {
                 return CurrentValueSubject(CertificateStatus(status: status, leftDay: nil))
             }
  
@@ -114,7 +111,7 @@ final class EducationViewModel: OutputOnlyViewModelType {
             
         }()
         
-        return Output(nickname: input.nickname, certificateStatus: certificateStatus, progressPercent: input.progressPercent)
+        return Output(nickname: input?.nickname, certificateStatus: certificateStatus, progressPercent: input?.progressPercent)
     }
     
     func updateTimerType(vc: UIViewController) {
@@ -125,34 +122,42 @@ final class EducationViewModel: OutputOnlyViewModelType {
         }
     }
     
-    func receiveEducationStatus() async throws -> Input? {
+    func receiveEducationStatus() async throws -> UserInfo? {
         let result = Task { () -> UserInfo? in
             let eduResult = try await eduManager.getEducationProgress()
             return eduResult.data
         }
         
-        let input: Input
-        do {
-            let data = try await result.value
+        let data = try await result.value
         
-            let progressPercent = Float(data?.progress_percent ?? 0)
-            let isLectureCompleted = data?.is_lecture_completed == 2
-            let isQuizCompleted = data?.is_quiz_completed == 2
-            let isPostureCompleted = data?.is_posture_completed == 2
+        return data
+    }
+    
+    func initialize() async throws -> Input? {
+        let result = Task { () -> Input? in
+            let eduResult = try await self.eduManager.getEducationProgress()
+            guard let data = eduResult.data else { return nil }
         
-            input = Input(nickname: CurrentValueSubject(data?.nickname ?? ""), angelStatus: CurrentValueSubject(data?.angel_status ?? 0), progressPercent: CurrentValueSubject(progressPercent), leftDay: CurrentValueSubject(data?.days_left_until_expiration ?? nil), isLectureCompleted: CurrentValueSubject(isLectureCompleted), isQuizCompleted: CurrentValueSubject(isQuizCompleted), isPostureCompleted: CurrentValueSubject(isPostureCompleted))
+            let progressPercent = Float(data.progress_percent)
+            let isLectureCompleted = data.is_lecture_completed == 2
+            let isQuizCompleted = data.is_quiz_completed == 2
+            let isPostureCompleted = data.is_posture_completed == 2
+            
             eduStatusArr = [isLectureCompleted, isQuizCompleted, isPostureCompleted]
-            return input
-        } catch(let error) {
-            print(error)
+            return Input(nickname: CurrentValueSubject(data.nickname), angelStatus: CurrentValueSubject(data.angel_status), progressPercent: CurrentValueSubject(progressPercent), leftDay: CurrentValueSubject(data.days_left_until_expiration), isLectureCompleted: CurrentValueSubject(isLectureCompleted), isQuizCompleted: CurrentValueSubject(isQuizCompleted), isPostureCompleted: CurrentValueSubject(isPostureCompleted))
         }
-        return nil
+        
+        return try await result.value
+        
+       
     }
     
     // MARK: TEST NOT YET
     func saveLectureProgress() async throws -> Bool {
         let result = Task {
             let eduResult = try await eduManager.saveLectureProgress(lectureId: 1)
+            let userInfo = try await receiveEducationStatus()
+            updateInput(data: userInfo)
             return eduResult.success
         }
         return try await result.value
@@ -161,8 +166,8 @@ final class EducationViewModel: OutputOnlyViewModelType {
     func savePosturePracticeResult(score: Int) async throws -> Bool {
         let result = Task {
             let eduResult = try await eduManager.savePosturePracticeResult(score: score)
-            print(eduResult.success)
-            print(eduResult.data)
+            let userInfo = try await receiveEducationStatus()
+            updateInput(data: userInfo)
             return eduResult.success
         }
         return try await result.value
@@ -184,5 +189,23 @@ final class EducationViewModel: OutputOnlyViewModelType {
             return eduResult.data?.video_url
         }
         return try await result.value
+    }
+    
+    func updateInput(data: UserInfo?) {
+        let progressPercent = Float(data?.progress_percent ?? 0)
+        let isLectureCompleted = data?.is_lecture_completed == 2
+        let isQuizCompleted = data?.is_quiz_completed == 2
+        let isPostureCompleted = data?.is_posture_completed == 2
+    
+        DispatchQueue.main.async {
+            self.input?.nickname.send(data?.nickname ?? "")
+            self.input?.angelStatus.send(data?.angel_status ?? 0)
+            self.input?.progressPercent.send(progressPercent)
+            self.input?.leftDay.send(data?.days_left_until_expiration ?? nil)
+            self.input?.isLectureCompleted.send(isLectureCompleted)
+            self.input?.isQuizCompleted.send(isQuizCompleted)
+            self.input?.isPostureCompleted.send(isPostureCompleted)
+            self.eduStatusArr = [isLectureCompleted, isQuizCompleted, isPostureCompleted]
+        }
     }
 }

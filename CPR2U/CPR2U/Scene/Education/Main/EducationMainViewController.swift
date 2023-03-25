@@ -28,9 +28,9 @@ final class EducationMainViewController: UIViewController {
         
         setUpConstraints()
         setUpStyle()
-        setUpCollectionView()
         Task {
-            try await bind(to: viewModel)
+            await bind(to:viewModel)
+            setUpCollectionView()
         }
     }
     
@@ -82,9 +82,9 @@ final class EducationMainViewController: UIViewController {
         educationCollectionView.register(EducationCollectionViewCell.self, forCellWithReuseIdentifier: EducationCollectionViewCell.identifier)
     }
     
-    private func bind(to viewModel: EducationViewModel) async throws {
+    private func bind(to viewModel: EducationViewModel) {
         
-        let output = try await viewModel.transform()
+        let output = viewModel.transform()
         
         output.certificateStatus?.sink { status in
             self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
@@ -98,6 +98,8 @@ final class EducationMainViewController: UIViewController {
         output.progressPercent?.sink { progress in
             self.progressView.setUpProgress(as: progress)
         }.store(in: &cancellables)
+        
+        output.
     }
 }
 
@@ -111,6 +113,7 @@ extension EducationMainViewController: UICollectionViewDataSource {
         
         cell.setUpEducationNameLabel(as: viewModel.educationName()[indexPath.row])
         cell.setUpDescriptionLabel(as: viewModel.educationDescription()[indexPath.row])
+        print(viewModel.educationStatus().count)
         cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row])
         
         return cell
@@ -173,8 +176,8 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
 extension EducationMainViewController: EducationMainViewControllerDelegate {
     func updateUserEducationStatus() {
         Task {
-            try await viewModel.receiveEducationStatus()
-            view.layoutIfNeeded()
+            let userInfo = try await viewModel.receiveEducationStatus()
+            viewModel.updateInput(data: userInfo)
         }
     }
 }

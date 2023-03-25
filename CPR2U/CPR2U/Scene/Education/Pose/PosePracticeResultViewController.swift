@@ -76,10 +76,6 @@ final class PosePracticeResultViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         bind(viewModel: viewModel)
-        
-        Task {
-            try await viewModel.savePosturePracticeResult(score: 90)
-        }
     }
     
     private func setUpConstraints() {
@@ -149,6 +145,7 @@ final class PosePracticeResultViewController: UIViewController {
         quitButton.tapPublisher.sink { [weak self] _ in
             self?.setUpOrientation(as: .portrait)
             Task {
+                try await viewModel.savePosturePracticeResult(score: 90)
                 let rootVC = TabBarViewController(0)
                 await self?.view.window?.setRootViewController(rootVC)
             }
