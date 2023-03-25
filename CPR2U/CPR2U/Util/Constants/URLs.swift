@@ -19,5 +19,10 @@ class URLs {
 
         return link
     }()
+    
+    static var mapsAPIKey: String = {
+        guard let privatePlist = Bundle.main.url(forResource: "Private", withExtension: "plist"), let dictionary = NSDictionary(contentsOf: privatePlist), let link: String = dictionary["googleMapsAPIKey"] as? String else { return "" }
 
+        return link
+    }()
 }

@@ -25,8 +25,10 @@ final class TabBarViewController: UITabBarController {
     }
 
     private func setUpTabBar() {
+        self.tabBar.backgroundColor = .white
+        
         let educationVC = EducationMainViewController()
-        let callVC = UIViewController()
+        let callVC = CallMainViewController()
         let mypageVC = UIViewController()
         
         educationVC.title = "Education"
@@ -46,6 +48,7 @@ final class TabBarViewController: UITabBarController {
         
         
         navigationEdu.navigationBar.prefersLargeTitles = true
+        navigationCall.navigationBar.isHidden = true
         navigationMypage.navigationBar.prefersLargeTitles = true
         
         setViewControllers([navigationEdu, navigationCall, navigationMypage], animated: false)

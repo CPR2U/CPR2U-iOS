@@ -56,5 +56,16 @@ enum ToastMessage: Equatable {
              })
          })
      }
+     
+     func parentViewController() -> UIViewController {
+         var responder: UIResponder? = self
+         while !(responder is UIViewController) {
+             responder = responder?.next
+             if nil == responder {
+                 break
+             }
+         }
+         return (responder as? UIViewController)!
+     }
 
  }

@@ -41,7 +41,7 @@ enum TimerType: Int {
     case other = 0
 }
 
-final class EducationViewModel: OutputOnlyViewModelType {
+final class EducationViewModel: AsyncOutputOnlyViewModelType {
     
     private let eduManager: EducationManager
     

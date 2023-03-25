@@ -44,8 +44,16 @@
 		3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB629CB1F38009B0545 /* EducationManager.swift */; };
 		3A396BB929CB2686009B0545 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB829CB2686009B0545 /* Education.swift */; };
 		3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BBA29CB2C87009B0545 /* TestViewController.swift */; };
-		3A396BBE29CC3D32009B0545 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BBD29CC3D32009B0545 /* GoogleService-Info.plist */; };
 		3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC229CCA563009B0545 /* LectureViewController.swift */; };
+		3A396BC629CF14AB009B0545 /* CallMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC529CF14AB009B0545 /* CallMainViewController.swift */; };
+		3A396BC829CF14D5009B0545 /* DispatchWaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */; };
+		3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */; };
+		3A396BCC29CF204F009B0545 /* EmergencyDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */; };
+		3A396BCE29CF278E009B0545 /* CurrentLocationNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */; };
+		3A396BD129CF2BA2009B0545 /* CallCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD029CF2BA2009B0545 /* CallCircleView.swift */; };
+		3A396BD329CF3301009B0545 /* TimeCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD229CF3301009B0545 /* TimeCounterView.swift */; };
+		3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD429CF4A0E009B0545 /* CallViewModel.swift */; };
+		3A396BD929CF644A009B0545 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD829CF644A009B0545 /* Int+.swift */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
@@ -121,8 +129,16 @@
 		3A396BB629CB1F38009B0545 /* EducationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationManager.swift; sourceTree = "<group>"; };
 		3A396BB829CB2686009B0545 /* Education.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Education.swift; sourceTree = "<group>"; };
 		3A396BBA29CB2C87009B0545 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		3A396BBD29CC3D32009B0545 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A396BC229CCA563009B0545 /* LectureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectureViewController.swift; sourceTree = "<group>"; };
+		3A396BC529CF14AB009B0545 /* CallMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallMainViewController.swift; sourceTree = "<group>"; };
+		3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWaitViewController.swift; sourceTree = "<group>"; };
+		3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachNoticeView.swift; sourceTree = "<group>"; };
+		3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDescriptionView.swift; sourceTree = "<group>"; };
+		3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationNoticeView.swift; sourceTree = "<group>"; };
+		3A396BD029CF2BA2009B0545 /* CallCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CallCircleView.swift; path = CPR2U/Scene/Call/CallCircleView.swift; sourceTree = SOURCE_ROOT; };
+		3A396BD229CF3301009B0545 /* TimeCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCounterView.swift; sourceTree = "<group>"; };
+		3A396BD429CF4A0E009B0545 /* CallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewModel.swift; sourceTree = "<group>"; };
+		3A396BD829CF644A009B0545 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
@@ -192,6 +208,8 @@
 				3A396BA829CA09DB009B0545 /* Main */,
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3ADE725029B9D53E00EEE19C /* Education */,
+				3A396BC429CF1487009B0545 /* Call */,
+				3A396BD729CF6137009B0545 /* DispatchWait */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -229,6 +247,7 @@
 				3A50F39229BF51F800DC1E29 /* UIButton+.swift */,
 				3A396B9229C97E31009B0545 /* UIView+.swift */,
 				3A396BA429CA0646009B0545 /* UIWindow+.swift */,
+				3A396BD829CF644A009B0545 /* Int+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -396,6 +415,36 @@
 			path = Lecture;
 			sourceTree = "<group>";
 		};
+		3A396BC429CF1487009B0545 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BD429CF4A0E009B0545 /* CallViewModel.swift */,
+				3A396BD629CF612F009B0545 /* Main */,
+				3A396BC529CF14AB009B0545 /* CallMainViewController.swift */,
+				3A396BD229CF3301009B0545 /* TimeCounterView.swift */,
+				3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */,
+				3A396BD029CF2BA2009B0545 /* CallCircleView.swift */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		3A396BD629CF612F009B0545 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		3A396BD729CF6137009B0545 /* DispatchWait */ = {
+			isa = PBXGroup;
+			children = (
+				3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */,
+				3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */,
+				3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */,
+			);
+			path = DispatchWait;
+			sourceTree = "<group>";
+		};
 		3A5C391129C0948600378015 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,7 +487,6 @@
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
 				3A396BAC29CA138A009B0545 /* Private.plist */,
-				3A396BBD29CC3D32009B0545 /* GoogleService-Info.plist */,
 			);
 			path = CPR2U;
 			sourceTree = "<group>";
@@ -542,6 +590,7 @@
 				3AA636A629AE5055006BB5EF /* Sources */,
 				3AA636A729AE5055006BB5EF /* Frameworks */,
 				3AA636A829AE5055006BB5EF /* Resources */,
+				59C2C471D36B615BE19C5723 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -603,7 +652,6 @@
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
 				3AA636BA29AE5057006BB5EF /* LaunchScreen.storyboard in Resources */,
 				3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */,
-				3A396BBE29CC3D32009B0545 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +680,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		59C2C471D36B615BE19C5723 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CPR2U/Pods-CPR2U-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CPR2U/Pods-CPR2U-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CPR2U/Pods-CPR2U-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -641,15 +706,19 @@
 			files = (
 				3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */,
 				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
+				3A396BD329CF3301009B0545 /* TimeCounterView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
 				3A22BF5D29BCF159004411BE /* Auth.swift in Sources */,
 				3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */,
+				3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */,
 				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
 				3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */,
 				3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */,
+				3A396BCC29CF204F009B0545 /* EmergencyDescriptionView.swift in Sources */,
+				3A396BD929CF644A009B0545 /* Int+.swift in Sources */,
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */,
@@ -666,6 +735,7 @@
 				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3A324CE729C6104D00165E2E /* Data+TFLite.swift in Sources */,
 				3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */,
+				3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */,
 				3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */,
@@ -676,10 +746,13 @@
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
 				3A396BB229CAF0DA009B0545 /* DeviceTokenManager.swift in Sources */,
+				3A396BCE29CF278E009B0545 /* CurrentLocationNoticeView.swift in Sources */,
 				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
 				3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */,
 				3A5C391329C0948F00378015 /* Quiz.swift in Sources */,
 				3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */,
+				3A396BC629CF14AB009B0545 /* CallMainViewController.swift in Sources */,
+				3A396BC829CF14D5009B0545 /* DispatchWaitViewController.swift in Sources */,
 				3A22BF5229BCD6B8004411BE /* AuthManager.swift in Sources */,
 				3AA636CD29B0AB17006BB5EF /* PhoneNumberVertificationViewController.swift in Sources */,
 				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,
@@ -702,6 +775,7 @@
 				3ADE725A29BA333D00EEE19C /* EducationCollectionViewCell.swift in Sources */,
 				3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */,
 				3A324CEA29C6111200165E2E /* CameraFeedManager.swift in Sources */,
+				3A396BD129CF2BA2009B0545 /* CallCircleView.swift in Sources */,
 				3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -847,6 +921,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CPR2U/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get Location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -877,6 +952,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CPR2U/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get Location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
