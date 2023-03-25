@@ -113,10 +113,13 @@ final class LectureViewController: UIViewController {
     private func bind(viewModel: EducationViewModel) {
         noticeView.confirmButton.tapPublisher.sink { [weak self] in
             Task {
-                try await viewModel.saveLectureProgress()
+                _ = try await viewModel.saveLectureProgress()
+                self?.noticeView.noticeDisappear()
+                if let vc = self?.navigationController?.viewControllers[0] as? EducationMainViewController {
+                    vc.educationCollectionView.reloadData()
+                }
+                self?.navigationController?.popViewController(animated: true)
             }
-            self?.noticeView.noticeDisappear()
-            self?.navigationController?.popViewController(animated: true)
         }.store(in: &cancellables)
     }
 }

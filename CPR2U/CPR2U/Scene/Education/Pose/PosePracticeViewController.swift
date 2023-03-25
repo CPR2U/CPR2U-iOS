@@ -85,7 +85,6 @@ final class PosePracticeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         viewModel.updateTimerType(vc: self)
         setUpOrientation(as: .landscape)
         setUpConstraints()
@@ -103,6 +102,7 @@ final class PosePracticeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cameraFeedManager?.stopRunning()
+        viewModel.timer.connect().cancel()
     }
     
     override func viewDidLayoutSubviews() {

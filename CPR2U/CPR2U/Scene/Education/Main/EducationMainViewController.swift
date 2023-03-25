@@ -16,7 +16,7 @@ final class EducationMainViewController: UIViewController {
 
     private var certificateStatusView = CertificateStatusView()
     private let progressView = EducationProgressView()
-    private let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private let viewModel = EducationViewModel()
     private var cancellables = Set<AnyCancellable>()
@@ -28,10 +28,11 @@ final class EducationMainViewController: UIViewController {
         
         setUpConstraints()
         setUpStyle()
-        Task {
-            await bind(to:viewModel)
-            setUpCollectionView()
+        bind(to:viewModel)
+        DispatchQueue.main.async { [weak self] in
+            self?.setUpCollectionView()
         }
+
     }
     
     private func setUpConstraints() {
@@ -83,23 +84,25 @@ final class EducationMainViewController: UIViewController {
     }
     
     private func bind(to viewModel: EducationViewModel) {
-        
-        let output = viewModel.transform()
-        
-        output.certificateStatus?.sink { status in
-            self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
-            print("HERE!")
-        }.store(in: &cancellables)
-        
-        output.nickname?.sink { nickname in
-            self.certificateStatusView.setUpGreetingLabel(nickname: nickname)
-        }.store(in: &cancellables)
-        
-        output.progressPercent?.sink { progress in
-            self.progressView.setUpProgress(as: progress)
-        }.store(in: &cancellables)
-        
-        output.
+        Task {
+            let output = try await viewModel.transform()
+            
+            output.certificateStatus?.sink { status in
+                self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
+            }.store(in: &cancellables)
+            
+            output.nickname?.sink { nickname in
+                self.certificateStatusView.setUpGreetingLabel(nickname: nickname)
+            }.store(in: &cancellables)
+            
+            output.progressPercent?.sink { progress in
+                self.progressView.setUpProgress(as: progress)
+            }.store(in: &cancellables)
+            
+            DispatchQueue.main.async {
+                self.educationCollectionView.reloadData()
+            }
+        }
     }
 }
 
@@ -114,14 +117,14 @@ extension EducationMainViewController: UICollectionViewDataSource {
         cell.setUpEducationNameLabel(as: viewModel.educationName()[indexPath.row])
         cell.setUpDescriptionLabel(as: viewModel.educationDescription()[indexPath.row])
         print(viewModel.educationStatus().count)
-        cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row])
+        cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row].value)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
-        let isCompleted = index != 0 ? viewModel.educationStatus()[index - 1] : true
+        let isCompleted = index != 0 ? viewModel.educationStatus()[index - 1].value : true
         if isCompleted == true {
             navigateTo(index: index)
         } else {
@@ -178,6 +181,11 @@ extension EducationMainViewController: EducationMainViewControllerDelegate {
         Task {
             let userInfo = try await viewModel.receiveEducationStatus()
             viewModel.updateInput(data: userInfo)
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.educationCollectionView.reloadData()
+                self?.dismiss(animated: true)
+            }
         }
     }
 }

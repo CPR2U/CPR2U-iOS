@@ -266,6 +266,5 @@ extension EducationQuizViewController {
 extension EducationQuizViewController: CustomNoticeViewDelegate {
     func dismissQuizViewController() {
         delegate?.updateUserEducationStatus()
-        dismiss(animated: true)
     }
 }
