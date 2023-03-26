@@ -140,7 +140,7 @@
 		3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachNoticeView.swift; sourceTree = "<group>"; };
 		3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDescriptionView.swift; sourceTree = "<group>"; };
 		3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationNoticeView.swift; sourceTree = "<group>"; };
-		3A396BD029CF2BA2009B0545 /* CallCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CallCircleView.swift; path = CPR2U/Scene/Call/CallCircleView.swift; sourceTree = SOURCE_ROOT; };
+		3A396BD029CF2BA2009B0545 /* CallCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CallCircleView.swift; path = CPR2U/Scene/Call/Main/CallCircleView.swift; sourceTree = SOURCE_ROOT; };
 		3A396BD229CF3301009B0545 /* TimeCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCounterView.swift; sourceTree = "<group>"; };
 		3A396BD429CF4A0E009B0545 /* CallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewModel.swift; sourceTree = "<group>"; };
 		3A396BD829CF644A009B0545 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
@@ -219,7 +219,6 @@
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3ADE725029B9D53E00EEE19C /* Education */,
 				3A396BC429CF1487009B0545 /* Call */,
-				3A396BD729CF6137009B0545 /* DispatchWait */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -432,10 +431,7 @@
 			children = (
 				3A396BD429CF4A0E009B0545 /* CallViewModel.swift */,
 				3A396BD629CF612F009B0545 /* Main */,
-				3A396BC529CF14AB009B0545 /* CallMainViewController.swift */,
-				3A396BD229CF3301009B0545 /* TimeCounterView.swift */,
-				3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */,
-				3A396BD029CF2BA2009B0545 /* CallCircleView.swift */,
+				3A396BD729CF6137009B0545 /* DispatchWait */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -443,6 +439,10 @@
 		3A396BD629CF612F009B0545 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3A396BC529CF14AB009B0545 /* CallMainViewController.swift */,
+				3A396BD229CF3301009B0545 /* TimeCounterView.swift */,
+				3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */,
+				3A396BD029CF2BA2009B0545 /* CallCircleView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";

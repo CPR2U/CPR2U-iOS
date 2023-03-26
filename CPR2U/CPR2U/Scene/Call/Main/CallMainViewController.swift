@@ -101,11 +101,15 @@ final class CallMainViewController: UIViewController {
         
         output.isCalled.sink { isCalled in
             if isCalled {
-                let vc = DispatchWaitViewController(viewModel: viewModel)
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true)
-                self.callButton.cancelProgressAnimation()
-                self.timeCounterView.cancelTimeCount()
+                Task {
+                    let testInfo = CallerLocationInfo(latitude: 125.5, longitude: 33.5, fullAddress: "jijiji")
+                    try await viewModel.callDispatcher(callerLocationInfo: testInfo)
+                    let vc = DispatchWaitViewController(viewModel: viewModel)
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true)
+                    self.callButton.cancelProgressAnimation()
+                    self.timeCounterView.cancelTimeCount()
+                }
             }
         }.store(in: &cancellables)
     }

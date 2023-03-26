@@ -179,7 +179,10 @@ final class ApproachNoticeView: UIView {
     
     private func bind(viewModel: CallViewModel) {
         situationEndButton.tapPublisher.sink {
-            self.parentViewController().dismiss(animated: true)
+            Task {
+                try await viewModel.situationEnd()
+                self.parentViewController().dismiss(animated: true)
+            }
         }.store(in: &cancellables)
     }
     
