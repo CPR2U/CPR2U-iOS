@@ -61,6 +61,8 @@
 		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
 		3A91C2D129D0396E00028003 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D029D0396E00028003 /* CallManager.swift */; };
+		3A91C2D329D03FCC00028003 /* CallerLocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */; };
+		3A91C2D429D048B200028003 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
 		3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AD29AE5055006BB5EF /* AppDelegate.swift */; };
 		3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */; };
 		3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636B629AE5057006BB5EF /* Assets.xcassets */; };
@@ -148,6 +150,7 @@
 		3A91C2CB29D0392B00028003 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
 		3A91C2D029D0396E00028003 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
+		3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallerLocationInfo.swift; sourceTree = "<group>"; };
 		3AA636AA29AE5055006BB5EF /* CPR2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPR2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA636AD29AE5055006BB5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -210,6 +213,7 @@
 		3A22BF3B29BC8C14004411BE /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				3A396BBA29CB2C87009B0545 /* TestViewController.swift */,
 				3A396BAB29CA0B58009B0545 /* Splash */,
 				3A396BA829CA09DB009B0545 /* Main */,
 				3AA636DE29B37E04006BB5EF /* Login */,
@@ -457,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				3A5C391229C0948F00378015 /* Quiz.swift */,
+				3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -540,7 +545,6 @@
 		3ADE725029B9D53E00EEE19C /* Education */ = {
 			isa = PBXGroup;
 			children = (
-				3A396BBA29CB2C87009B0545 /* TestViewController.swift */,
 				3ADE725C29BA3BC000EEE19C /* Main */,
 				3A396BC129CCA4F1009B0545 /* Lecture */,
 				3ADE725D29BA3BCD00EEE19C /* Quiz */,
@@ -664,6 +668,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A91C2D429D048B200028003 /* Private.plist in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
@@ -726,6 +731,7 @@
 				3A396BD329CF3301009B0545 /* TimeCounterView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
 				3A22BF5D29BCF159004411BE /* Auth.swift in Sources */,
+				3A91C2D329D03FCC00028003 /* CallerLocationInfo.swift in Sources */,
 				3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */,
 				3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */,
 				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
