@@ -229,7 +229,6 @@
 			children = (
 				3A22BF5329BCE990004411BE /* APIServices */,
 				3A22BF4029BC90D6004411BE /* Network */,
-				3A91C2CD29D0395700028003 /* Call */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -277,6 +276,7 @@
 			children = (
 				3A22BF4E29BCCDF7004411BE /* Auth */,
 				3A396BB329CB1F0A009B0545 /* Education */,
+				3A91C2CD29D0395700028003 /* Call */,
 			);
 			path = Network;
 			sourceTree = "<group>";
