@@ -10,6 +10,7 @@ import Foundation
 
 final class CallViewModel: OutputOnlyViewModelType {
     private var callManager: CallManager
+    private var callId: Int?
     var timer: Timer.TimerPublisher?
     private let iscalled = CurrentValueSubject<Bool, Never>(false)
     
@@ -34,6 +35,9 @@ final class CallViewModel: OutputOnlyViewModelType {
     }
     
     func receiveCallerList() async throws -> CallerListInfo? {
+        // MARK: TEST
+        print("RECEIVE CALLER LIST")
+        
         let result = Task { () -> CallerListInfo? in
             let callResult = try await callManager.getCallerList()
             
@@ -43,19 +47,33 @@ final class CallViewModel: OutputOnlyViewModelType {
         return try await result.value
     }
     
-    func callDispatcher(callerLocationInfo: CallerLocationInfo) async throws -> CallResult? {
-        let result = Task { () -> CallResult? in
+    func callDispatcher(callerLocationInfo: CallerLocationInfo) async throws {
+        // MARK: TEST
+        print("CALL DISPATCHER")
+        updateCallId(callId: 24)
+        
+        Task {
             let callResult = try await callManager.callDispatcher(callerLocationInfo: callerLocationInfo)
             
-            guard let id = callResult.data else { return nil }
-            return id
+            guard let data = callResult.data else { return }
+            updateCallId(callId: data.call_id)
         }
-        return try await result.value
     }
     
-    func situationEnd(callId: Int) async throws {
+    func situationEnd() async throws {
+        // MARK: TEST
+        print("SITUATION END")
+        guard let callId = callId else { return }
+        
         Task {
             try await callManager.situationEnd(callId: callId)
         }
+    }
+    
+    func updateCallId(callId: Int) {
+        // MARK: TEST
+        print("CALL ID UPDATED AS \(callId)")
+        
+        self.callId = callId
     }
 }
