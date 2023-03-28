@@ -10,5 +10,5 @@ import Foundation
 struct CallerLocationInfo: Encodable {
     let latitude: Double
     let longitude: Double
-    let fullAddress: String
+    let full_address: String
 }

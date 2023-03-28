@@ -58,6 +58,7 @@
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
 		3A5C391329C0948F00378015 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C391229C0948F00378015 /* Quiz.swift */; };
+		3A70255E29D0869200225F56 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70255D29D0869200225F56 /* MapManager.swift */; };
 		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
 		3A91C2D129D0396E00028003 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D029D0396E00028003 /* CallManager.swift */; };
@@ -147,6 +148,7 @@
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		3A70255D29D0869200225F56 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		3A91C2CB29D0392B00028003 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
 		3A91C2D029D0396E00028003 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */,
+				3A70255D29D0869200225F56 /* MapManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
 				3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */,
+				3A70255E29D0869200225F56 /* MapManager.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */,
 				3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */,
