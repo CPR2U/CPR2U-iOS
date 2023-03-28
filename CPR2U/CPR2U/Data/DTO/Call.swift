@@ -8,7 +8,7 @@
 import Foundation
 
 struct CallerListInfo: Codable {
-    let angel_status: Int
+    let angel_status: String
     let is_patient: Bool
     let call_list: [CallerInfo]
 }

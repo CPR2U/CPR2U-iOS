@@ -11,6 +11,11 @@ import UIKit
 
 final class CallMainViewController: UIViewController {
 
+    private lazy var mapView: GMSMapView = {
+        let view = GMSMapView(frame: self.view.frame)
+        return view
+    }()
+    
     private lazy var timeCounterView = {
         let view = TimeCounterView(viewModel: viewModel)
         return view
@@ -38,12 +43,18 @@ final class CallMainViewController: UIViewController {
         setUpStyle()
         setUpAction()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpLocation()
+    }
 
     private func setUpConstraints() {
         let safeArea = view.safeAreaLayoutGuide
         let make = Constraints.shared
         
         [
+            mapView,
             timeCounterView,
             currentLocationNoticeView,
             callButton
@@ -72,6 +83,7 @@ final class CallMainViewController: UIViewController {
             callButton.widthAnchor.constraint(equalToConstant: 80),
             callButton.heightAnchor.constraint(equalToConstant: 80)
         ])
+        
     }
     
     private func setUpStyle() {
@@ -89,8 +101,7 @@ final class CallMainViewController: UIViewController {
         // MARK: Location
         let location = viewModel.getLocation()
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
-        let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
-        self.view.addSubview(mapView)
+        mapView.camera = camera
      
         // MARK: Location Text
         Task {
@@ -131,11 +142,18 @@ final class CallMainViewController: UIViewController {
         output.currentLocationAddress?.sink { address in
             self.currentLocationNoticeView.setUpLocationLabelText(as: address)
         }.store(in: &cancellables)
+        
+        output.callerList?.sink { list in
+            print(list)
+            if list.angel_status == "ACQUIRED" && !list.is_patient {
+                print(list.call_list)
+            }
+            
+        }.store(in: &cancellables)
     }
     
     @objc func didPressCallButton(_ sender: UILongPressGestureRecognizer) {
         let state = sender.state
-        
         if state == .began {
             callButton.progressAnimation()
             timeCounterView.timeCountAnimation()

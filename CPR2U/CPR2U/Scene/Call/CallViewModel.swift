@@ -14,7 +14,9 @@ final class CallViewModel: OutputOnlyViewModelType {
     
     private var mapManager: MapManager
     private var currentLocation: CLLocationCoordinate2D?
+    
     private var currentLocationAddress = CurrentValueSubject<String, Never>("Unable")
+    var callerList: CurrentValueSubject<CallerListInfo, Never>?
     
     private var callId: Int?
     private let iscalled = CurrentValueSubject<Bool, Never>(false)
@@ -24,16 +26,20 @@ final class CallViewModel: OutputOnlyViewModelType {
     init() {
         callManager = CallManager(service: APIManager())
         mapManager = MapManager()
+        Task {
+            try await receiveCallerList()
+        }
         setLocation()
     }
     
     struct Output {
         let isCalled: CurrentValueSubject<Bool, Never>
         let currentLocationAddress: CurrentValueSubject<String, Never>?
+        let callerList: CurrentValueSubject<CallerListInfo, Never>?
     }
     
     func transform() -> Output {
-        return Output(isCalled: iscalled, currentLocationAddress: currentLocationAddress)
+        return Output(isCalled: iscalled, currentLocationAddress: currentLocationAddress, callerList: callerList)
     }
     
     func isCallSucceed() {
@@ -49,6 +55,7 @@ final class CallViewModel: OutputOnlyViewModelType {
     }
     
     func getLocation() -> CLLocationCoordinate2D {
+        setLocation()
         guard let currentLocation = currentLocation else { return CLLocationCoordinate2D(latitude: 15, longitude: 15) }
         return currentLocation
     }
@@ -56,11 +63,14 @@ final class CallViewModel: OutputOnlyViewModelType {
     func setLocationAddress(str: String) {
         currentLocationAddress.send(str)
     }
+    
     func receiveCallerList() async throws -> CallerListInfo? {
         let result = Task { () -> CallerListInfo? in
             let callResult = try await callManager.getCallerList()
             
             guard let list = callResult.data else { return nil }
+            callerList = CurrentValueSubject(list)
+            print(callerList)
             return list
         }
         return try await result.value
