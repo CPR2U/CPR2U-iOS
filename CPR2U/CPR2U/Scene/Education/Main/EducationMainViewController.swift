@@ -18,23 +18,30 @@ final class EducationMainViewController: UIViewController {
     private let progressView = EducationProgressView()
     let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    private let viewModel = EducationViewModel()
+    private let viewModel: EducationViewModel
     private var cancellables = Set<AnyCancellable>()
     
     private weak var delegate: EducationMainViewControllerDelegate?
     
     private lazy var noticeView = CustomNoticeView(noticeAs: .certificate)
     
+    init(viewModel: EducationViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         setUpStyle()
-        bind(to:viewModel)
+        bind(to: viewModel)
         noticeView.setCertificateNotice()
-        DispatchQueue.main.async { [weak self] in
-            self?.setUpCollectionView()
-        }
+        
 
     }
     
@@ -115,6 +122,7 @@ final class EducationMainViewController: UIViewController {
             }.store(in: &cancellables)
             
             DispatchQueue.main.async {
+                self.setUpCollectionView()
                 self.educationCollectionView.reloadData()
             }
         }

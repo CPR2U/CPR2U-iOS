@@ -43,7 +43,6 @@
 		3A396BB529CB1F31009B0545 /* EducationEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB429CB1F31009B0545 /* EducationEndPoint.swift */; };
 		3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB629CB1F38009B0545 /* EducationManager.swift */; };
 		3A396BB929CB2686009B0545 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB829CB2686009B0545 /* Education.swift */; };
-		3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BBA29CB2C87009B0545 /* TestViewController.swift */; };
 		3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC229CCA563009B0545 /* LectureViewController.swift */; };
 		3A396BC629CF14AB009B0545 /* CallMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC529CF14AB009B0545 /* CallMainViewController.swift */; };
 		3A396BC829CF14D5009B0545 /* DispatchWaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */; };
@@ -134,7 +133,6 @@
 		3A396BB429CB1F31009B0545 /* EducationEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationEndPoint.swift; sourceTree = "<group>"; };
 		3A396BB629CB1F38009B0545 /* EducationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationManager.swift; sourceTree = "<group>"; };
 		3A396BB829CB2686009B0545 /* Education.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Education.swift; sourceTree = "<group>"; };
-		3A396BBA29CB2C87009B0545 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		3A396BC229CCA563009B0545 /* LectureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectureViewController.swift; sourceTree = "<group>"; };
 		3A396BC529CF14AB009B0545 /* CallMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallMainViewController.swift; sourceTree = "<group>"; };
 		3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWaitViewController.swift; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 		3A22BF3B29BC8C14004411BE /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				3A396BBA29CB2C87009B0545 /* TestViewController.swift */,
 				3A396BAB29CA0B58009B0545 /* Splash */,
 				3A396BA829CA09DB009B0545 /* Main */,
 				3AA636DE29B37E04006BB5EF /* Login */,
@@ -739,7 +736,6 @@
 				3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */,
 				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
-				3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */,
 				3A70255E29D0869200225F56 /* MapManager.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */,
