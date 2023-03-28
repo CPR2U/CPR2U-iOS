@@ -18,17 +18,25 @@ final class CallMainViewController: UIViewController {
     private let currentLocationNoticeView = CurrentLocationNoticeView()
     private let callButton = CallCircleView()
     
-    private let viewModel = CallViewModel()
+    private let viewModel: CallViewModel
     private var cancellables = Set<AnyCancellable>()
-    var locationManager: CLLocationManager!
+    
+    init(viewModel: CallViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind(viewModel: viewModel)
         setUpLocation()
         setUpConstraints()
         setUpStyle()
         setUpAction()
-        bind(viewModel: viewModel)
     }
 
     private func setUpConstraints() {
@@ -78,22 +86,29 @@ final class CallMainViewController: UIViewController {
     }
     
     private func setUpLocation() {
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        
-
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        
-        let coor = locationManager.location?.coordinate
-        
-        let latitude = (coor?.latitude ?? 37.566508) as Double
-        let longitude = (coor?.longitude ?? 126.977945) as Double
-        
-        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 15.0)
+        // MARK: Location
+        let location = viewModel.getLocation()
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
         self.view.addSubview(mapView)
+     
+        // MARK: Location Text
+        Task {
+            let temp = try await GMSGeocoder().reverseGeocodeCoordinate(location)
+            guard let refinedAddress = temp.results()?[0].lines?.joined() else { return }
+            let idx = refinedAddress.firstIndex(of: " ")!
+            let index = refinedAddress.distance(from: refinedAddress.startIndex, to: idx)
+            let startIndex = refinedAddress.index(refinedAddress.startIndex, offsetBy: index)
+            var address = "\(refinedAddress[startIndex...])"
+            address.remove(at: address.startIndex)
+            
+            viewModel.setLocationAddress(str: address)
+        }
+
+        // MARK: Marker
+        let marker = GMSMarker()
+        marker.position = location
+        marker.map = mapView
     }
     
     private func bind(viewModel: CallViewModel) {
@@ -102,7 +117,7 @@ final class CallMainViewController: UIViewController {
         output.isCalled.sink { isCalled in
             if isCalled {
                 Task {
-                    let testInfo = CallerLocationInfo(latitude: 125.5, longitude: 33.5, fullAddress: "jijiji")
+                    let testInfo = CallerLocationInfo(latitude: 125.5, longitude: 33.5, full_address: "jijiji")
                     try await viewModel.callDispatcher(callerLocationInfo: testInfo)
                     let vc = DispatchWaitViewController(viewModel: viewModel)
                     vc.modalPresentationStyle = .fullScreen
@@ -111,6 +126,10 @@ final class CallMainViewController: UIViewController {
                     self.timeCounterView.cancelTimeCount()
                 }
             }
+        }.store(in: &cancellables)
+        
+        output.currentLocationAddress?.sink { address in
+            self.currentLocationNoticeView.setUpLocationLabelText(as: address)
         }.store(in: &cancellables)
     }
     
@@ -125,9 +144,5 @@ final class CallMainViewController: UIViewController {
             timeCounterView.cancelTimeCount()
         }
     }
-    
-}
-
-extension CallMainViewController: CLLocationManagerDelegate {
     
 }
