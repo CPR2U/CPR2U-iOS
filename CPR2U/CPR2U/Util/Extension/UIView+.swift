@@ -30,7 +30,7 @@ enum ToastMessage: Equatable {
 
          let margin = 8
 
-         let labelYPos = type == .education ? Int(height * 0.84) : Int(height * 0.88)
+         let labelYPos = type == .education ? Int(height * 0.78) : Int(height * 0.88)
          let labelHeight = type == .education ? 80 : 45
          toastLabel.frame = CGRect(x: margin, y: labelYPos, width: Int(width) - margin * 2, height: labelHeight)
 

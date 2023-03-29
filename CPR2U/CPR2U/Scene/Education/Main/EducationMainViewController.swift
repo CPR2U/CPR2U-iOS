@@ -121,7 +121,7 @@ final class EducationMainViewController: UIViewController {
                     }
                     if UserDefaultsManager.isAddressSet == false {
                         self.addressSettingView.noticeAppear()
-                        UserDefaultsManager.isCertificateNotice = true
+                        UserDefaultsManager.isAddressSet = true
                     }
                 }
             }.store(in: &cancellables)
