@@ -24,6 +24,7 @@ final class EducationMainViewController: UIViewController {
     private weak var delegate: EducationMainViewControllerDelegate?
     
     private lazy var noticeView = CustomNoticeView(noticeAs: .certificate)
+    private lazy var addressSettingView = AddressSettingView()
     
     init(viewModel: EducationViewModel) {
         self.viewModel = viewModel
@@ -41,7 +42,7 @@ final class EducationMainViewController: UIViewController {
         setUpStyle()
         bind(to: viewModel)
         noticeView.setCertificateNotice()
-        
+        makeAddressSettingView()
 
     }
     
@@ -107,9 +108,15 @@ final class EducationMainViewController: UIViewController {
             
             output.certificateStatus?.sink { status in
                 self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
-                if status.status == .acquired && UserDefaultsManager.isCertificateNotice == false {
-                    self.noticeView.noticeAppear()
-                    UserDefaultsManager.isCertificateNotice = true
+                if status.status == .acquired{
+                    if UserDefaultsManager.isCertificateNotice == false {
+                        self.noticeView.noticeAppear()
+                        UserDefaultsManager.isCertificateNotice = true
+                    }
+                    if UserDefaultsManager.isAddressSet == false {
+                        self.makeAddressSettingView()
+                        UserDefaultsManager.isAddressSet = true
+                    }
                 }
             }.store(in: &cancellables)
             
@@ -126,6 +133,20 @@ final class EducationMainViewController: UIViewController {
                 self.educationCollectionView.reloadData()
             }
         }
+    }
+    
+    private func makeAddressSettingView() {
+        view.addSubview(addressSettingView)
+        addressSettingView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            addressSettingView.topAnchor.constraint(equalTo: view.topAnchor),
+            addressSettingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addressSettingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addressSettingView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        addressSettingView.noticeAppear()
     }
 }
 
