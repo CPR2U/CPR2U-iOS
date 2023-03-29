@@ -5,6 +5,8 @@
 //  Created by 황정현 on 2023/03/10.
 //
 
+import AVFoundation
+import CombineCocoa
 import Combine
 import os
 import UIKit
@@ -42,7 +44,12 @@ final class PosePracticeViewController: UIViewController {
         view.image = UIImage(systemName: "metronome", withConfiguration: config)
         return view
     }()
-    private let soundSwitch = UISwitch()
+    private let soundSwitch: UISwitch = {
+        let sSwitch = UISwitch()
+        sSwitch.tintColor = .mainRed
+        sSwitch.isOn = true
+        return sSwitch
+    }()
     
     private let quitButton: UIButton = {
         let button = UIButton()
@@ -74,6 +81,7 @@ final class PosePracticeViewController: UIViewController {
     
     private let viewModel: EducationViewModel
     private var cancellables = Set<AnyCancellable>()
+    private var audioPlayer: AVAudioPlayer!
     
     init(viewModel: EducationViewModel) {
         self.viewModel = viewModel
@@ -92,6 +100,7 @@ final class PosePracticeViewController: UIViewController {
         updateModel()
         configCameraCapture()
         setTimer()
+        playSound()
         setUpAction()
     }
     
@@ -215,11 +224,26 @@ final class PosePracticeViewController: UIViewController {
     }
     
     private func setUpAction() {
+        soundSwitch.isOnPublisher.sink { isOn in
+            self.audioPlayer.volume = isOn ? 1 : 0
+        }.store(in: &cancellables)
+        
         quitButton.tapPublisher.sink { [weak self] in
             self?.setUpOrientation(as: .portrait)
             self?.dismiss(animated: true)
         }.store(in: &cancellables)
     }
+    
+    private func playSound() {
+        guard let url = Bundle.main.url(forResource: "CPR_Sound", withExtension: "mp3") else { return }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+        } catch (let error) {
+            print(error)
+        }
+        audioPlayer?.play()
+    }
+
 }
 
 // MARK: - CameraFeedManagerDelegate Methods
