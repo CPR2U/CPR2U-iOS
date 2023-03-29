@@ -23,7 +23,6 @@ class CurrentLocationNoticeView: UIView {
         label.textAlignment = .left
         label.textColor = .black
         label.minimumScaleFactor = 0.5
-        label.text = "100 Cheongpa-dong 3-ga, Yongsan-gu"
         return label
     }()
     
@@ -68,6 +67,10 @@ class CurrentLocationNoticeView: UIView {
         self.layer.borderColor = UIColor.mainRed.cgColor
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 20
+    }
+    
+    func setUpLocationLabelText(as str: String) {
+        locationLabel.text = str
     }
 
 }

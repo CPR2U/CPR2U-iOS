@@ -179,7 +179,10 @@ final class ApproachNoticeView: UIView {
     
     private func bind(viewModel: CallViewModel) {
         situationEndButton.tapPublisher.sink {
-            self.parentViewController().dismiss(animated: true)
+            Task {
+                try await viewModel.situationEnd()
+                self.parentViewController().dismiss(animated: true)
+            }
         }.store(in: &cancellables)
     }
     
@@ -189,7 +192,7 @@ final class ApproachNoticeView: UIView {
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                if counter == 300 {
+                if counter == 301 {
                     viewModel.timer?.connect().cancel()
                 } else {
                     timeLabel.text = counter.numberAsTime()

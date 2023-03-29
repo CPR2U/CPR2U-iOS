@@ -43,7 +43,6 @@
 		3A396BB529CB1F31009B0545 /* EducationEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB429CB1F31009B0545 /* EducationEndPoint.swift */; };
 		3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB629CB1F38009B0545 /* EducationManager.swift */; };
 		3A396BB929CB2686009B0545 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BB829CB2686009B0545 /* Education.swift */; };
-		3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BBA29CB2C87009B0545 /* TestViewController.swift */; };
 		3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC229CCA563009B0545 /* LectureViewController.swift */; };
 		3A396BC629CF14AB009B0545 /* CallMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC529CF14AB009B0545 /* CallMainViewController.swift */; };
 		3A396BC829CF14D5009B0545 /* DispatchWaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */; };
@@ -58,6 +57,11 @@
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
 		3A5C391329C0948F00378015 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C391229C0948F00378015 /* Quiz.swift */; };
+		3A70255E29D0869200225F56 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70255D29D0869200225F56 /* MapManager.swift */; };
+		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
+		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
+		3A91C2D129D0396E00028003 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D029D0396E00028003 /* CallManager.swift */; };
+		3A91C2D329D03FCC00028003 /* CallerLocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */; };
 		3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AD29AE5055006BB5EF /* AppDelegate.swift */; };
 		3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */; };
 		3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636B629AE5057006BB5EF /* Assets.xcassets */; };
@@ -128,20 +132,24 @@
 		3A396BB429CB1F31009B0545 /* EducationEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationEndPoint.swift; sourceTree = "<group>"; };
 		3A396BB629CB1F38009B0545 /* EducationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationManager.swift; sourceTree = "<group>"; };
 		3A396BB829CB2686009B0545 /* Education.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Education.swift; sourceTree = "<group>"; };
-		3A396BBA29CB2C87009B0545 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		3A396BC229CCA563009B0545 /* LectureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectureViewController.swift; sourceTree = "<group>"; };
 		3A396BC529CF14AB009B0545 /* CallMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallMainViewController.swift; sourceTree = "<group>"; };
 		3A396BC729CF14D5009B0545 /* DispatchWaitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWaitViewController.swift; sourceTree = "<group>"; };
 		3A396BC929CF16DF009B0545 /* ApproachNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachNoticeView.swift; sourceTree = "<group>"; };
 		3A396BCB29CF204F009B0545 /* EmergencyDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDescriptionView.swift; sourceTree = "<group>"; };
 		3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationNoticeView.swift; sourceTree = "<group>"; };
-		3A396BD029CF2BA2009B0545 /* CallCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CallCircleView.swift; path = CPR2U/Scene/Call/CallCircleView.swift; sourceTree = SOURCE_ROOT; };
+		3A396BD029CF2BA2009B0545 /* CallCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CallCircleView.swift; path = CPR2U/Scene/Call/Main/CallCircleView.swift; sourceTree = SOURCE_ROOT; };
 		3A396BD229CF3301009B0545 /* TimeCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCounterView.swift; sourceTree = "<group>"; };
 		3A396BD429CF4A0E009B0545 /* CallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewModel.swift; sourceTree = "<group>"; };
 		3A396BD829CF644A009B0545 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		3A70255D29D0869200225F56 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		3A91C2CB29D0392B00028003 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
+		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
+		3A91C2D029D0396E00028003 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
+		3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallerLocationInfo.swift; sourceTree = "<group>"; };
 		3AA636AA29AE5055006BB5EF /* CPR2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPR2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA636AD29AE5055006BB5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -209,7 +217,6 @@
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3ADE725029B9D53E00EEE19C /* Education */,
 				3A396BC429CF1487009B0545 /* Call */,
-				3A396BD729CF6137009B0545 /* DispatchWait */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -266,6 +273,7 @@
 			children = (
 				3A22BF4E29BCCDF7004411BE /* Auth */,
 				3A396BB329CB1F0A009B0545 /* Education */,
+				3A91C2CD29D0395700028003 /* Call */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -315,6 +323,7 @@
 			children = (
 				3A22BF5C29BCF159004411BE /* Auth.swift */,
 				3A396BB829CB2686009B0545 /* Education.swift */,
+				3A91C2CB29D0392B00028003 /* Call.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -394,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				3A396BB129CAF0DA009B0545 /* DeviceTokenManager.swift */,
+				3A70255D29D0869200225F56 /* MapManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -420,10 +430,7 @@
 			children = (
 				3A396BD429CF4A0E009B0545 /* CallViewModel.swift */,
 				3A396BD629CF612F009B0545 /* Main */,
-				3A396BC529CF14AB009B0545 /* CallMainViewController.swift */,
-				3A396BD229CF3301009B0545 /* TimeCounterView.swift */,
-				3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */,
-				3A396BD029CF2BA2009B0545 /* CallCircleView.swift */,
+				3A396BD729CF6137009B0545 /* DispatchWait */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -431,6 +438,10 @@
 		3A396BD629CF612F009B0545 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3A396BC529CF14AB009B0545 /* CallMainViewController.swift */,
+				3A396BD229CF3301009B0545 /* TimeCounterView.swift */,
+				3A396BCD29CF278E009B0545 /* CurrentLocationNoticeView.swift */,
+				3A396BD029CF2BA2009B0545 /* CallCircleView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -449,8 +460,18 @@
 			isa = PBXGroup;
 			children = (
 				3A5C391229C0948F00378015 /* Quiz.swift */,
+				3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3A91C2CD29D0395700028003 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				3A91C2CE29D0396500028003 /* CallEndPoint.swift */,
+				3A91C2D029D0396E00028003 /* CallManager.swift */,
+			);
+			path = Call;
 			sourceTree = "<group>";
 		};
 		3AA636A129AE5054006BB5EF = {
@@ -523,7 +544,6 @@
 		3ADE725029B9D53E00EEE19C /* Education */ = {
 			isa = PBXGroup;
 			children = (
-				3A396BBA29CB2C87009B0545 /* TestViewController.swift */,
 				3ADE725C29BA3BC000EEE19C /* Main */,
 				3A396BC129CCA4F1009B0545 /* Lecture */,
 				3ADE725D29BA3BCD00EEE19C /* Quiz */,
@@ -709,11 +729,12 @@
 				3A396BD329CF3301009B0545 /* TimeCounterView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
 				3A22BF5D29BCF159004411BE /* Auth.swift in Sources */,
+				3A91C2D329D03FCC00028003 /* CallerLocationInfo.swift in Sources */,
 				3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */,
 				3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */,
 				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
-				3A396BBB29CB2C87009B0545 /* TestViewController.swift in Sources */,
+				3A70255E29D0869200225F56 /* MapManager.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */,
 				3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */,
@@ -746,7 +767,9 @@
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
 				3A396BB229CAF0DA009B0545 /* DeviceTokenManager.swift in Sources */,
+				3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */,
 				3A396BCE29CF278E009B0545 /* CurrentLocationNoticeView.swift in Sources */,
+				3A91C2CC29D0392B00028003 /* Call.swift in Sources */,
 				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
 				3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */,
 				3A5C391329C0948F00378015 /* Quiz.swift in Sources */,
@@ -765,6 +788,7 @@
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
 				3A22BF4329BC9122004411BE /* URLs.swift in Sources */,
 				3A324CE329C6103800165E2E /* CGSize+TFLite.swift in Sources */,
+				3A91C2D129D0396E00028003 /* CallManager.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
 				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
 				3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */,
