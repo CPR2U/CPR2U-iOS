@@ -76,13 +76,12 @@ final class CallViewModel: OutputOnlyViewModelType {
         return try await result.value
     }
     
-    func callDispatcher(callerLocationInfo: CallerLocationInfo) async throws {
+    func callDispatcher() async throws {
         Task {
             let address = self.currentLocationAddress.value
             let callerLocationInfo = CallerLocationInfo(latitude: getLocation().latitude, longitude: getLocation().longitude, full_address: address )
             let callResult = try await callManager.callDispatcher(callerLocationInfo: callerLocationInfo)
             guard let data = callResult.data else { return }
-            print(data.call_id)
             updateCallId(callId: data.call_id)
         }
     }
