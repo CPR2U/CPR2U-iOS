@@ -8,6 +8,87 @@
 import Combine
 import UIKit
 
+enum CompressionRateStatus: String {
+    case tooSlow = "Too Slow"
+    case slow = "Slow"
+    case adequate = "Adequate"
+    case fast = "Fast"
+    case tooFast = "Too Fast"
+    case wrong
+    
+    // 압박 속도
+    // 190-250 : 50점
+    // 170-270 : 35점
+    // 150-290 : 20점
+    var score: Int {
+        switch self {
+        case .adequate:
+            return 50
+        case .slow, .fast:
+            return 35
+        case .tooSlow, .tooFast:
+            return 20
+        case .wrong:
+            return 0
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .tooSlow:
+            return "It's too slow. Press faster"
+        case .slow:
+            return "It's slow. Press more faster"
+        case .adequate:
+            return "Good job! Very Adequate"
+        case .fast:
+            return "It's fast. Press more slower"
+        case .tooFast:
+            return "It's too fast. Press slower"
+        case .wrong:
+            return "Something went wrong. Try Again"
+        }
+    }
+}
+
+enum AngleStatus: String {
+    case adequate = "Adequate"
+    case almost = "Almost Adequate"
+    case notGood = "Not Good"
+    case bad = "Bad"
+    
+    // 팔 각도
+    // CORRECT : NON-CORRECT
+    // 7:3     : 50점
+    // 6:4     : 35점
+    // 5:5     : 20점
+    // 나머지    : 5점
+    var score: Int {
+        switch self {
+        case .adequate:
+            return 50
+        case .almost:
+            return 35
+        case .notGood:
+            return 20
+        case .bad:
+            return 5
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .adequate:
+            return "Good job! Very Nice Angle!"
+        case .almost:
+            return "Almost there. Try again"
+        case .notGood:
+            return "Pay more attention to the angle of your arms"
+        case .bad:
+            return "You need some more practice"
+        }
+    }
+}
 
 enum AngelStatus: Int {
     case acquired
@@ -52,6 +133,9 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
     
     private var currentTimerType = TimerType.other
     var timer = Timer.publish(every: 1, on: .current, in: .common)
+    
+    private var compressionRate: Int?
+    private var angleRate: (correct: Int?, nonCorrect: Int?)
     
     init() {
         eduManager = EducationManager(service: APIManager())
@@ -161,11 +245,8 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         }
         
         return try await result.value
-        
-       
     }
     
-    // MARK: TEST NOT YET
     func saveLectureProgress() async throws -> Bool {
         let result = Task {
             let eduResult = try await eduManager.saveLectureProgress(lectureId: 1)
@@ -186,7 +267,6 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         return try await result.value
     }
     
-    // MARK: TEST NOT YET
     func getLecture() async throws -> String? {
         let result = Task { () -> String? in
             let eduResult = try await eduManager.getLecture()
@@ -195,7 +275,6 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         return try await result.value
     }
     
-    // MARK: TEST NOT YET
     func getPostureLecture() async throws -> String? {
         let result = Task { () -> String? in
             let eduResult = try await eduManager.getPostureLecture()
@@ -225,5 +304,53 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
                 self?.eduStatusArr[i].send(isCompleted[i])
             }
         }
+    }
+    
+    func judgePostureResult() -> (compResult: CompressionRateStatus, angleResult: AngleStatus){
+        guard let compRate = compressionRate else { return (CompressionRateStatus.wrong, AngleStatus.bad) }
+        var compResult: CompressionRateStatus = .adequate
+        switch compRate {
+        case ...170:
+            compResult = .tooSlow
+        case 170...190:
+            compResult = .slow
+        case 190...250:
+            compResult = .adequate
+        case 250...270:
+            compResult = .fast
+        case 270...:
+            compResult = .tooFast
+        default:
+            compResult = .wrong
+        }
+        
+        let angleRate = angleRate
+        guard let correct = angleRate.correct, let nonCorrect = angleRate.nonCorrect else { return (CompressionRateStatus.wrong, AngleStatus.bad) }
+        var angleResult: AngleStatus = .adequate
+        let totalAngleCount = Double(correct + nonCorrect)
+                
+        switch Double(correct) {
+        case Double(totalAngleCount) * 0.7...totalAngleCount:
+            angleResult = .adequate
+        case Double(totalAngleCount) * 0.6...Double(totalAngleCount) * 0.7:
+            angleResult = .almost
+        case Double(totalAngleCount) * 0.5...Double(totalAngleCount) * 0.6:
+            angleResult = .notGood
+        default:
+            angleResult = .bad
+        }
+        
+        print(totalAngleCount)
+        if totalAngleCount < 100 {
+            angleResult = .bad
+        }
+        return (compResult, angleResult)
+    }
+    
+    func setPostureResult(compCount: Int, armAngleCount: (correct: Int, nonCorrect: Int)) {
+        compressionRate = compCount
+        angleRate.correct = armAngleCount.correct
+        angleRate.nonCorrect = armAngleCount.nonCorrect
+        
     }
 }

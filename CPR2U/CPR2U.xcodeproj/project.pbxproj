@@ -96,7 +96,7 @@
 		3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */; };
 		3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */; };
 		3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */; };
-		3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */; };
+		3ADE727629BB78BF00EEE19C /* ScoreResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727529BB78BF00EEE19C /* ScoreResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -191,7 +191,7 @@
 		3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeViewController.swift; sourceTree = "<group>"; };
 		3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeResultViewController.swift; sourceTree = "<group>"; };
 		3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResultView.swift; sourceTree = "<group>"; };
-		3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuracyResultView.swift; sourceTree = "<group>"; };
+		3ADE727529BB78BF00EEE19C /* ScoreResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreResultView.swift; sourceTree = "<group>"; };
 		8603206BC53B2CC2028A3EFB /* Pods-CPR2U.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.release.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.release.xcconfig"; sourceTree = "<group>"; };
 		EDF82C0EF3B44D7FED6D1535 /* Pods_CPR2U.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPR2U.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -624,7 +624,7 @@
 				3ADE726D29BB59C000EEE19C /* PosePracticeViewController.swift */,
 				3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */,
 				3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */,
-				3ADE727529BB78BF00EEE19C /* AccuracyResultView.swift */,
+				3ADE727529BB78BF00EEE19C /* ScoreResultView.swift */,
 				3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */,
 			);
 			path = Pose;
@@ -835,7 +835,7 @@
 				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
 				3A70256B29D4292E00225F56 /* AddressEndPoint.swift in Sources */,
 				3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */,
-				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
+				3ADE727629BB78BF00EEE19C /* ScoreResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
 				3A396B9129C8A87D009B0545 /* ViewModelProtocol.swift in Sources */,
 				3A22BF5F29BDFF1A004411BE /* NetworkRequest.swift in Sources */,
