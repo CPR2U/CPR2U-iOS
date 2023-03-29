@@ -58,6 +58,10 @@
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
 		3A5C391329C0948F00378015 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C391229C0948F00378015 /* Quiz.swift */; };
 		3A70255E29D0869200225F56 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70255D29D0869200225F56 /* MapManager.swift */; };
+		3A70256729D428AC00225F56 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
+		3A70256B29D4292E00225F56 /* AddressEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256A29D4292E00225F56 /* AddressEndPoint.swift */; };
+		3A70256D29D4293800225F56 /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256C29D4293800225F56 /* AddressManager.swift */; };
+		3A70256F29D4293E00225F56 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256E29D4293E00225F56 /* Address.swift */; };
 		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
 		3A91C2D129D0396E00028003 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D029D0396E00028003 /* CallManager.swift */; };
@@ -146,6 +150,9 @@
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		3A70255D29D0869200225F56 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		3A70256A29D4292E00225F56 /* AddressEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressEndPoint.swift; sourceTree = "<group>"; };
+		3A70256C29D4293800225F56 /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
+		3A70256E29D4293E00225F56 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3A91C2CB29D0392B00028003 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
 		3A91C2D029D0396E00028003 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
@@ -274,6 +281,7 @@
 				3A22BF4E29BCCDF7004411BE /* Auth */,
 				3A396BB329CB1F0A009B0545 /* Education */,
 				3A91C2CD29D0395700028003 /* Call */,
+				3A70256929D4291400225F56 /* Address */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -324,6 +332,7 @@
 				3A22BF5C29BCF159004411BE /* Auth.swift */,
 				3A396BB829CB2686009B0545 /* Education.swift */,
 				3A91C2CB29D0392B00028003 /* Call.swift */,
+				3A70256E29D4293E00225F56 /* Address.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -463,6 +472,15 @@
 				3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3A70256929D4291400225F56 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				3A70256A29D4292E00225F56 /* AddressEndPoint.swift */,
+				3A70256C29D4293800225F56 /* AddressManager.swift */,
+			);
+			path = Address;
 			sourceTree = "<group>";
 		};
 		3A91C2CD29D0395700028003 /* Call */ = {
@@ -667,6 +685,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A70256729D428AC00225F56 /* Private.plist in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
@@ -738,6 +757,7 @@
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
 				3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */,
 				3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */,
+				3A70256F29D4293E00225F56 /* Address.swift in Sources */,
 				3A396BCC29CF204F009B0545 /* EmergencyDescriptionView.swift in Sources */,
 				3A396BD929CF644A009B0545 /* Int+.swift in Sources */,
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
@@ -755,6 +775,7 @@
 				3A396B9329C97E31009B0545 /* UIView+.swift in Sources */,
 				3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */,
 				3A324CE729C6104D00165E2E /* Data+TFLite.swift in Sources */,
+				3A70256D29D4293800225F56 /* AddressManager.swift in Sources */,
 				3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */,
 				3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
@@ -791,6 +812,7 @@
 				3A91C2D129D0396E00028003 /* CallManager.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
 				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
+				3A70256B29D4292E00225F56 /* AddressEndPoint.swift in Sources */,
 				3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */,
 				3ADE727629BB78BF00EEE19C /* AccuracyResultView.swift in Sources */,
 				3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */,
