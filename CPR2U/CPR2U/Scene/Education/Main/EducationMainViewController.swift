@@ -42,8 +42,6 @@ final class EducationMainViewController: UIViewController {
         setUpStyle()
         bind(to: viewModel)
         noticeView.setCertificateNotice()
-        makeAddressSettingView()
-
     }
     
     private func setUpConstraints() {
@@ -53,6 +51,7 @@ final class EducationMainViewController: UIViewController {
             certificateStatusView,
             progressView,
             educationCollectionView,
+            addressSettingView,
             noticeView
         ].forEach({
             view.addSubview($0)
@@ -78,6 +77,13 @@ final class EducationMainViewController: UIViewController {
             educationCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             educationCollectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             educationCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            addressSettingView.topAnchor.constraint(equalTo: view.topAnchor),
+            addressSettingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addressSettingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addressSettingView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -114,8 +120,8 @@ final class EducationMainViewController: UIViewController {
                         UserDefaultsManager.isCertificateNotice = true
                     }
                     if UserDefaultsManager.isAddressSet == false {
-                        self.makeAddressSettingView()
-                        UserDefaultsManager.isAddressSet = true
+                        self.addressSettingView.noticeAppear()
+                        UserDefaultsManager.isCertificateNotice = true
                     }
                 }
             }.store(in: &cancellables)
@@ -133,20 +139,6 @@ final class EducationMainViewController: UIViewController {
                 self.educationCollectionView.reloadData()
             }
         }
-    }
-    
-    private func makeAddressSettingView() {
-        view.addSubview(addressSettingView)
-        addressSettingView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            addressSettingView.topAnchor.constraint(equalTo: view.topAnchor),
-            addressSettingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            addressSettingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addressSettingView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-        
-        addressSettingView.noticeAppear()
     }
 }
 
@@ -173,7 +165,6 @@ extension EducationMainViewController: UICollectionViewDataSource {
         } else {
             view.showToastMessage(type: .education)
         }
-        
     }
 }
 
