@@ -207,21 +207,23 @@ final class PosePracticeViewController: UIViewController {
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                
                 if counter > 5 {
                     timeLabel.text = (count - counter - 5).numberAsTime()
                     if counter == 125 {
                         cameraFeedManager.stopRunning()
+                        print("Correct \(overlayView.correct)")
+                        print("NON-Correct \(overlayView.nonCorrect)")
+                        viewModel.setPostureResult(compCount: overlayView.getCompressionTotalCount(), armAngleCount: overlayView.getArmAngleRate())
                         Task {
                             usleep(1000000)
                             let vc = PosePracticeResultViewController(viewModel: viewModel)
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(vc, animated: true)
                         }
-                        viewModel.timer.connect().cancel()
-                    }
+                    viewModel.timer.connect().cancel()
                 }
-            }.store(in: &cancellables)
+            }
+        }.store(in: &cancellables)
     }
     
     private func setUpAction() {
@@ -284,5 +286,9 @@ extension PosePracticeViewController: CameraFeedManagerDelegate {
                 return
             }
         }
+    }
+    
+    private func setUpText() {
+        viewModel.judgePostureResult()
     }
 }
