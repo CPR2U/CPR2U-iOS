@@ -27,7 +27,7 @@ final class PracticeExplainViewController: UIViewController {
     
     private lazy var onboardingScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.frame = CGRect(x: 0, y: 0, width: 390, height: 390)
+        scrollView.frame = CGRect(x: 0, y: 0, width: 330, height: 330)
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
@@ -181,6 +181,5 @@ extension PracticeExplainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let value = scrollView.contentOffset.x/scrollView.frame.size.width
         updateOnboardingComponent(index: Int(round(value)))
-     
     }
 }
