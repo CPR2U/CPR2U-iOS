@@ -34,7 +34,7 @@ final class PosePracticeViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 24)
         label.textColor = .mainBlack
-        label.text = viewModel.timeLimit().numberAsTime()
+        label.text = "02:00"
         return label
     }()
     
@@ -202,21 +202,24 @@ final class PosePracticeViewController: UIViewController {
     
     private func setTimer() {
         let count = viewModel.timeLimit()
+        viewModel.timer = Timer.publish(every: 1, on: .current, in: .common)
         viewModel.timer
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                timeLabel.text = (count - counter).numberAsTime()
-                if counter == count {
-                    cameraFeedManager.stopRunning()
-                    // TEST
-                    Task {
-                        usleep(1000000)
-                        let vc = PosePracticeResultViewController(viewModel: viewModel)
-                        vc.modalPresentationStyle = .overFullScreen
-                        self.present(vc, animated: true)
+                
+                if counter > 5 {
+                    timeLabel.text = (count - counter - 5).numberAsTime()
+                    if counter == 125 {
+                        cameraFeedManager.stopRunning()
+                        Task {
+                            usleep(1000000)
+                            let vc = PosePracticeResultViewController(viewModel: viewModel)
+                            vc.modalPresentationStyle = .overFullScreen
+                            self.present(vc, animated: true)
+                        }
+                        viewModel.timer.connect().cancel()
                     }
-                    viewModel.timer.connect().cancel()
                 }
             }.store(in: &cancellables)
     }

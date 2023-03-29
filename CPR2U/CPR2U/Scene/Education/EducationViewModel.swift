@@ -36,8 +36,8 @@ enum AngelStatus: Int {
 }
 
 enum TimerType: Int {
-    case lecture = 5 // 3000
-    case posture = 121 // 120
+    case lecture = 5 //3001
+    case posture = 130
     case other = 0
 }
 
@@ -51,7 +51,7 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
     private var input: Input?
     
     private var currentTimerType = TimerType.other
-    let timer = Timer.publish(every: 1, on: .current, in: .common)
+    var timer = Timer.publish(every: 1, on: .current, in: .common)
     
     init() {
         eduManager = EducationManager(service: APIManager())
