@@ -24,6 +24,7 @@ final class EducationMainViewController: UIViewController {
     private weak var delegate: EducationMainViewControllerDelegate?
     
     private lazy var noticeView = CustomNoticeView(noticeAs: .certificate)
+    private lazy var addressSettingView = AddressSettingView()
     
     init(viewModel: EducationViewModel) {
         self.viewModel = viewModel
@@ -41,8 +42,6 @@ final class EducationMainViewController: UIViewController {
         setUpStyle()
         bind(to: viewModel)
         noticeView.setCertificateNotice()
-        
-
     }
     
     private func setUpConstraints() {
@@ -52,6 +51,7 @@ final class EducationMainViewController: UIViewController {
             certificateStatusView,
             progressView,
             educationCollectionView,
+            addressSettingView,
             noticeView
         ].forEach({
             view.addSubview($0)
@@ -77,6 +77,13 @@ final class EducationMainViewController: UIViewController {
             educationCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             educationCollectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             educationCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            addressSettingView.topAnchor.constraint(equalTo: view.topAnchor),
+            addressSettingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addressSettingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addressSettingView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -107,9 +114,15 @@ final class EducationMainViewController: UIViewController {
             
             output.certificateStatus?.sink { status in
                 self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
-                if status.status == .acquired && UserDefaultsManager.isCertificateNotice == false {
-                    self.noticeView.noticeAppear()
-                    UserDefaultsManager.isCertificateNotice = true
+                if status.status == .acquired{
+                    if UserDefaultsManager.isCertificateNotice == false {
+                        self.noticeView.noticeAppear()
+                        UserDefaultsManager.isCertificateNotice = true
+                    }
+                    if UserDefaultsManager.isAddressSet == false {
+                        self.addressSettingView.noticeAppear()
+                        UserDefaultsManager.isCertificateNotice = true
+                    }
                 }
             }.store(in: &cancellables)
             
@@ -152,7 +165,6 @@ extension EducationMainViewController: UICollectionViewDataSource {
         } else {
             view.showToastMessage(type: .education)
         }
-        
     }
 }
 

@@ -73,6 +73,10 @@ final class MultiQuizChoiceView: QuizChoiceView {
             $0.layer.borderColor = UIColor.mainRed.cgColor
             $0.layer.cornerRadius = 20
             $0.titleLabel?.font = UIFont(weight: .regular, size: 26)
+            $0.titleLabel?.minimumScaleFactor = 0.15
+            $0.titleLabel?.numberOfLines = 1
+            $0.titleLabel?.adjustsFontSizeToFitWidth = true
+            $0.titleLabel?.lineBreakMode = NSLineBreakMode.byClipping
             $0.setTitleColor(.mainBlack, for: .normal)
         })
     }
