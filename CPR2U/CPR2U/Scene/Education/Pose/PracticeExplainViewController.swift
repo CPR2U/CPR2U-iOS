@@ -27,7 +27,7 @@ final class PracticeExplainViewController: UIViewController {
     
     private lazy var onboardingScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.frame = CGRect(x: 0, y: 0, width: 330, height: 330)
+        scrollView.frame = CGRect(x: 0, y: 0, width: 390, height: 300)
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
@@ -107,50 +107,49 @@ final class PracticeExplainViewController: UIViewController {
         })
         
         NSLayoutConstraint.activate([
-            onboardingScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-            onboardingScrollView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            onboardingScrollView.widthAnchor.constraint(equalToConstant: 330),
-            onboardingScrollView.heightAnchor.constraint(equalToConstant: 330)
-        ])
-        
-        for i in 0..<imageList.count {
-            let imageView = UIImageView()
-            let xPos = onboardingScrollView.frame.width * CGFloat(i)
-            
-            print(onboardingScrollView.frame.width)
-            imageView.frame = CGRect(x: xPos, y: 0, width: 330, height: 330)
-            imageView.image = UIImage(named: imageList[i]) ?? UIImage()
-            onboardingScrollView.addSubview(imageView)
-            onboardingScrollView.contentSize.width = imageView.frame.width * CGFloat(i + 1)
-        }
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: onboardingScrollView.bottomAnchor, constant: 60),
-            titleLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            titleLabel.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 24)
+            moveButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            moveButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            moveButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            moveButton.heightAnchor.constraint(equalToConstant: 80)
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 18),
-            descriptionLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            descriptionLabel.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 48)
-        ])
-        
-        NSLayoutConstraint.activate([
-            pageControl.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 40),
+            pageControl.bottomAnchor.constraint(equalTo: moveButton.topAnchor, constant: -62),
             pageControl.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             pageControl.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
             pageControl.heightAnchor.constraint(equalToConstant: 12)
         ])
         
         NSLayoutConstraint.activate([
-            moveButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            moveButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            moveButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            moveButton.heightAnchor.constraint(equalToConstant: 80)
+            descriptionLabel.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: -40),
+            descriptionLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            descriptionLabel.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 48)
         ])
+        
+        NSLayoutConstraint.activate([
+            titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -18),
+            titleLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            titleLabel.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
+            titleLabel.heightAnchor.constraint(equalToConstant: 24)
+        ])
+        
+        NSLayoutConstraint.activate([
+            onboardingScrollView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -30),
+            onboardingScrollView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            onboardingScrollView.widthAnchor.constraint(equalToConstant: 390),
+            onboardingScrollView.heightAnchor.constraint(equalToConstant: 300)
+        ])
+        
+        for i in 0..<imageList.count {
+            let imageView = UIImageView()
+            let xPos = onboardingScrollView.frame.width * CGFloat(i)
+            imageView.frame = CGRect(x: xPos, y: 0, width: 390, height: 300)
+            imageView.image = UIImage(named: imageList[i]) ?? UIImage()
+            imageView.contentMode = .scaleAspectFit
+            onboardingScrollView.addSubview(imageView)
+            onboardingScrollView.contentSize.width = imageView.frame.width * CGFloat(i + 1)
+        }
     }
     
     private func setUpStyle() {

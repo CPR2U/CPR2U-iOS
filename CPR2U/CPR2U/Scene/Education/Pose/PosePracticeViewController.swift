@@ -187,8 +187,6 @@ final class PosePracticeViewController: UIViewController {
         cameraFeedManager.delegate = self
     }
     
-    /// Call this method when there's change in pose estimation model config, including changing model
-    /// or updating runtime config.
     private func updateModel() {
         queue.async {
             do {
@@ -229,6 +227,7 @@ final class PosePracticeViewController: UIViewController {
         }.store(in: &cancellables)
         
         quitButton.tapPublisher.sink { [weak self] in
+            self?.audioPlayer.stop()
             self?.setUpOrientation(as: .portrait)
             self?.dismiss(animated: true)
         }.store(in: &cancellables)
