@@ -46,7 +46,7 @@ final class PosePracticeViewController: UIViewController {
     }()
     private let soundSwitch: UISwitch = {
         let sSwitch = UISwitch()
-        sSwitch.tintColor = .mainRed
+        sSwitch.onTintColor = .mainRed
         sSwitch.isOn = true
         return sSwitch
     }()
