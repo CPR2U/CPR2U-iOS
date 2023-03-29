@@ -5,8 +5,8 @@
 //  Created by 황정현 on 2023/03/01.
 //
 
-//import Firebase
-//import FirebaseMessaging
+import Firebase
+import FirebaseMessaging
 import GoogleMaps
 import UIKit
 import UserNotifications
@@ -27,16 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForRemoteNotifications()
         
         // MARK: FCM Setting
-//        FirebaseApp.configure()
-//        Messaging.messaging().delegate = self
-//
-//        UNUserNotificationCenter.current().delegate = self
-//
-//        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//        UNUserNotificationCenter.current().requestAuthorization(
-//            options: authOptions,
-//            completionHandler: {_, _ in })
-//        application.registerForRemoteNotifications()
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+
+        UNUserNotificationCenter.current().delegate = self
+
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in })
+        application.registerForRemoteNotifications()
         
         // MARK: Google Maps Setting
         GMSServices.provideAPIKey(URLs.mapsAPIKey)
@@ -59,9 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceTokenString = deviceToken.map { String(format: "%02x", $0) }.joined()
-//        DeviceTokenManager.deviceToken = deviceTokenString
-        DeviceTokenManager.deviceToken = "test"
-//        Messaging.messaging().apnsToken = deviceToken
+        DeviceTokenManager.deviceToken = deviceTokenString
+        Messaging.messaging().apnsToken = deviceToken
+        print(deviceTokenString)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -87,13 +87,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-//extension AppDelegate: MessagingDelegate {
-//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-//        guard let fcmToken = fcmToken else { return }
-//        let dataDict:[String: String] = ["token": fcmToken]
-//        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-//    }
-//}
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        guard let fcmToken = fcmToken else { return }
+        let dataDict:[String: String] = ["token": fcmToken]
+        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+        print(fcmToken)
+    }
+}
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     

@@ -155,8 +155,7 @@ final class CallMainViewController: UIViewController {
         output.isCalled.sink { isCalled in
             if isCalled {
                 Task {
-                    let testInfo = CallerLocationInfo(latitude: 125.5, longitude: 33.5, full_address: "jijiji")
-                    try await viewModel.callDispatcher(callerLocationInfo: testInfo)
+                    try await viewModel.callDispatcher()
                     let vc = DispatchWaitViewController(viewModel: viewModel)
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true)
