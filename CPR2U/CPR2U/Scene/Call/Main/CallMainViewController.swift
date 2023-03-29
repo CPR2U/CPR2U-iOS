@@ -16,6 +16,12 @@ final class CallMainViewController: UIViewController {
         return view
     }()
     
+    private lazy var userLocationMarker: GMSMarker = {
+        let marker = GMSMarker()
+        return marker
+    }()
+    private var callerLocationMarkers: [GMSMarker] = []
+    
     private lazy var timeCounterView = {
         let view = TimeCounterView(viewModel: viewModel)
         return view
@@ -38,15 +44,17 @@ final class CallMainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind(viewModel: viewModel)
-        setUpLocation()
         setUpConstraints()
+        setUpUserLocation()
+        setUpCallerLocation()
         setUpStyle()
         setUpAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setUpLocation()
+        setUpUserLocation()
+        setUpCallerLocation()
     }
 
     private func setUpConstraints() {
@@ -97,7 +105,7 @@ final class CallMainViewController: UIViewController {
         
     }
     
-    private func setUpLocation() {
+    private func setUpUserLocation() {
         // MARK: Location
         let location = viewModel.getLocation()
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
@@ -115,11 +123,30 @@ final class CallMainViewController: UIViewController {
             
             viewModel.setLocationAddress(str: address)
         }
-
-        // MARK: Marker
-        let marker = GMSMarker()
-        marker.position = location
-        marker.map = mapView
+//        // MARK: User Location Marker
+        userLocationMarker.position = location
+        userLocationMarker.map = mapView
+    }
+    
+    private func setUpCallerLocation() {
+            
+        Task {
+            if !callerLocationMarkers.isEmpty {
+                callerLocationMarkers.forEach({ $0.map = nil })
+                callerLocationMarkers = []
+            }
+            
+            guard let callerList = try await self.viewModel.receiveCallerList() else { return }
+            
+            for caller in callerList.call_list {
+                let coor = CLLocationCoordinate2D(latitude: caller.latitude, longitude: caller.longitude)
+                print(coor)
+                let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2DMake(coor.latitude, coor.longitude)
+                marker.map = mapView
+                callerLocationMarkers.append(marker)
+            }
+        }
     }
     
     private func bind(viewModel: CallViewModel) {

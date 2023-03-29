@@ -192,7 +192,7 @@ final class ApproachNoticeView: UIView {
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                if counter == 300 {
+                if counter == 301 {
                     viewModel.timer?.connect().cancel()
                 } else {
                     timeLabel.text = counter.numberAsTime()
