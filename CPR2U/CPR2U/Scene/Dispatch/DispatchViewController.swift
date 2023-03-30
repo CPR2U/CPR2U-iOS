@@ -51,7 +51,6 @@ final class DispatchViewController: UIViewController {
     }()
     
     private lazy var dispatchTimerView: DispatchTimerView = {
-        
         let view = DispatchTimerView(calledTime: Date())
         view.layer.borderColor = UIColor(rgb: 0x938C8C).cgColor
         view.layer.cornerRadius = 16
@@ -68,6 +67,17 @@ final class DispatchViewController: UIViewController {
         button.layer.cornerRadius = 27.5
         button.setTitle("DISPATCH", for: .normal)
         return button
+    }()
+    
+    private let reportLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textColor = .mainBlack
+        label.textAlignment = .right
+        label.text = "Wrong Report? Report"
+        label.isHidden = true
+        label.isUserInteractionEnabled = true
+        return label
     }()
     
     private let manager = DispatchManager(service: APIManager())
@@ -92,6 +102,7 @@ final class DispatchViewController: UIViewController {
         setUpStyle()
         setUpComponent()
         bind()
+        setUpAction()
         setupSheet()
     }
     
@@ -107,8 +118,8 @@ final class DispatchViewController: UIViewController {
             callerLocationNoticeView,
             stackView,
             dispatchTimerView,
-            dispatchButton
-            
+            dispatchButton,
+            reportLabel
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -170,6 +181,13 @@ final class DispatchViewController: UIViewController {
             dispatchButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space8),
             dispatchButton.heightAnchor.constraint(equalToConstant: 55)
         ])
+        
+        NSLayoutConstraint.activate([
+            reportLabel.topAnchor.constraint(equalTo: dispatchButton.bottomAnchor, constant: make.space12),
+            reportLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space8),
+            reportLabel.trailingAnchor.constraint(equalTo: dispatchButton.trailingAnchor),
+            reportLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
     }
     
     private func setUpStyle() {
@@ -198,6 +216,7 @@ final class DispatchViewController: UIViewController {
                         isModalInPresentation = true
                         dispatchButton.setTitle("ARRIVED", for: .normal)
                         stackView.isHidden = true
+                        reportLabel.isHidden = false
                         timerAppear()
                         dispatchTimerView.setTimer()
                         isDispatched = true
@@ -221,5 +240,17 @@ final class DispatchViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {
             self.dispatchTimerView.isHidden = false
         })
+    }
+    
+    private func setUpAction() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapReportButton))
+        reportLabel.addGestureRecognizer(gesture)
+    }
+    
+    @objc func didTapReportButton() {
+        guard let dispatchId = dispatchId else { return }
+        let vc = ReportViewController(dispatchId: dispatchId, manager: manager)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }
