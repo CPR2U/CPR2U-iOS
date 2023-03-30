@@ -138,17 +138,22 @@ enum PressDepthStatus: String {
     }
 }
 
+struct CertificateStatus {
+    let status: AngelStatus
+    let leftDay: Int?
+}
+
 enum AngelStatus: Int {
     case acquired
     case expired
     case unacquired
 
-    func certificationImageName() -> String {
+    func certificationImageName(_ isBig: Bool = false) -> String {
         switch self {
         case .acquired:
-            return "heart_person"
+            return isBig == true ? "heart_person_big" : "heart_person"
         case .expired, .unacquired:
-            return "person"
+            return isBig == true ? "person_big" : "person"
         }
     }
     
@@ -201,11 +206,6 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         let isLectureCompleted: CurrentValueSubject<Bool, Never>
         let isQuizCompleted: CurrentValueSubject<Bool, Never>
         let isPostureCompleted: CurrentValueSubject<Bool, Never>
-    }
-    
-    struct CertificateStatus {
-        let status: AngelStatus
-        let leftDay: Int?
     }
     
     struct Output {
