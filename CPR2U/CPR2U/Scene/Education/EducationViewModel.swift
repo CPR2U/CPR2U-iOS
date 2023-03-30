@@ -102,10 +102,10 @@ enum PressDepthStatus: String {
     case wrong = "Wrong"
     
     // 압박 깊이
-    // 45 이상    : 15
-    // 30 - 45   : 33
-    // 15 - 30   : 15
-    // 0  - 15.  : 5
+    // 30 이상    : 15
+    // 18 - 30   : 33
+    // 5 - 18   : 15
+    // 0  - 5.  : 5
     var score: Int {
         switch self {
         case .deep:
@@ -137,6 +137,7 @@ enum PressDepthStatus: String {
         }
     }
 }
+
 enum AngelStatus: Int {
     case acquired
     case expired
