@@ -46,7 +46,7 @@ final class PosePracticeResultViewController: UIViewController {
         return view
     }()
     
-    private let finalResultView = AccuracyResultView()
+    private let finalResultView = ScoreResultView()
     
     private let quitButton: UIButton = {
         let button = UIButton()
@@ -76,6 +76,7 @@ final class PosePracticeResultViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         bind(viewModel: viewModel)
+        setUpText()
     }
     
     private func setUpConstraints() {
@@ -152,4 +153,14 @@ final class PosePracticeResultViewController: UIViewController {
         }.store(in: &cancellables)
     }
 
+    private func setUpText() {
+        let result = viewModel.judgePostureResult()
+        compressRateResultView.setResultLabelText(as: result.compResult.rawValue)
+        compressRateResultView.setDescriptionLabelText(as: result.compResult.description)
+        armAngleResultView.setResultLabelText(as: result.angleResult.rawValue)
+        armAngleResultView.setDescriptionLabelText(as: result.angleResult.description)
+        
+        let score = result.compResult.score + result.angleResult.score
+        finalResultView.setUpScore(score: score)
+    }
 }

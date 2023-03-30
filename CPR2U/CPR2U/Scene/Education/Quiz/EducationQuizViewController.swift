@@ -12,8 +12,17 @@ final class EducationQuizViewController: UIViewController {
     
     private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "When you find someone who has fallen, you have to compress his chest instantly.")
     
-    private lazy var oxChoiceView = OXQuizChoiceView(viewModel: viewModel)
-    private lazy var multiChoiceView = MultiQuizChoiceView(viewModel: viewModel)
+    private lazy var oxChoiceView: OXQuizChoiceView = {
+        let view = OXQuizChoiceView(viewModel: viewModel)
+        view.alpha = 0
+        return view
+    }()
+    
+    private lazy var multiChoiceView: MultiQuizChoiceView = {
+        let view = MultiQuizChoiceView(viewModel: viewModel)
+        view.alpha = 0
+        return view
+    }()
     
     private lazy var noticeView = CustomNoticeView(noticeAs: .pf)
     
