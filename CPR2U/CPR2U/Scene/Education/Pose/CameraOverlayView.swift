@@ -25,6 +25,15 @@ import os
 /// Custom view to visualize the pose estimation result on top of the input image.
 class CameraOverlayView: UIImageView {
 
+    private var maxHeight: CGFloat = 0
+    private var minHeight: CGFloat = 0
+    private var beforeWrist: CGFloat = 0
+    private var increased: Bool = true
+    private var wristList: [CGFloat] = []
+
+    var correct = 0
+    var nonCorrect = 0
+    
     required init() {
         super.init(frame: CGRect.zero)
         
@@ -37,8 +46,7 @@ class CameraOverlayView: UIImageView {
     
   /// Visualization configs
   private enum Config {
-    static let dot = (radius: CGFloat(10), color: UIColor.orange)
-    static let line = (width: CGFloat(5.0), color: UIColor.orange)
+    static let dot = (radius: CGFloat(5), color: UIColor.orange)
   }
 
   /// List of lines connecting each part to be visualized.
@@ -74,10 +82,11 @@ class CameraOverlayView: UIImageView {
       self.context = context
     }
     guard let strokes = strokes(from: person) else { return }
+      
+    measureCprScore(person: person)
+      
     image.draw(at: .zero)
     context.setLineWidth(Config.dot.radius)
-    drawDots(at: context, dots: strokes.dots)
-    drawLines(at: context, lines: strokes.lines)
     context.setStrokeColor(UIColor.blue.cgColor)
     context.strokePath()
       guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else { fatalError() }
@@ -101,18 +110,6 @@ class CameraOverlayView: UIImageView {
     }
   }
 
-  /// Draw the lines (i.e. conneting the keypoints).
-  ///
-  /// - Parameters:
-  ///     - context: The context to be drawn on.
-  ///     - lines: The list of lines to be drawn.
-  private func drawLines(at context: CGContext, lines: [Line]) {
-    for line in lines {
-      context.move(to: CGPoint(x: line.from.x, y: line.from.y))
-      context.addLine(to: CGPoint(x: line.to.x, y: line.to.y))
-    }
-  }
-
   /// Generate a list of strokes to draw in order to visualize the pose estimation result.
   ///
   /// - Parameters:
@@ -122,11 +119,14 @@ class CameraOverlayView: UIImageView {
     // MARK: Visualization of detection result
     var bodyPartToDotMap: [BodyPart: CGPoint] = [:]
     for (index, part) in BodyPart.allCases.enumerated() {
-      let position = CGPoint(
-        x: person.keyPoints[index].coordinate.x,
-        y: person.keyPoints[index].coordinate.y)
-      bodyPartToDotMap[part] = position
-      strokes.dots.append(position)
+        if part == .rightAnkle {
+            
+        }
+        let position = CGPoint(
+          x: person.keyPoints[index].coordinate.x,
+          y: person.keyPoints[index].coordinate.y)
+        bodyPartToDotMap[part] = position
+        strokes.dots.append(position)
     }
 
     do {
@@ -148,6 +148,66 @@ class CameraOverlayView: UIImageView {
     }
     return strokes
   }
+    
+    private func measureCprScore(person: Person) {
+        var xShoulder: CGFloat = 0
+        var yShoulder: CGFloat = 0
+        var xElbow: CGFloat = 0
+        var yElbow: CGFloat = 0
+        var xWrist: CGFloat = 0
+        var yWrist: CGFloat = 0
+        
+        // person이 갖고 있는 관절 데이터들에서 어깨, 팔꿈치, 손목 데이터 추출 (현재 임시로 왼쪽 관절만 추출한 상태)
+        person.keyPoints.forEach( { point in
+            if point.bodyPart == .leftShoulder {
+                xShoulder = point.coordinate.x
+                yShoulder = point.coordinate.y
+            } else if point.bodyPart == .leftElbow {
+                xElbow = point.coordinate.x
+                yElbow = point.coordinate.y
+            } else if point.bodyPart == .leftWrist {
+                xWrist = point.coordinate.x
+                yWrist = point.coordinate.y
+            }
+        })
+        
+        // 일직선 판별
+        var isCorrect = xShoulder - xElbow < 20 && xElbow - xWrist < 20
+        if (isCorrect) {
+            correct += 1
+        } else {
+            nonCorrect += 1
+        }
+        
+        // 손목의 높이가 상승 곡선에서 꼭짓점을 찍고 하강하는 경우
+        if (increased && beforeWrist > yWrist + 1) {
+            increased = false
+            maxHeight = yWrist
+        }
+        // 손목의 높이가 하강 곡선에서 꼭짓점을 찍고 상승하는 경우
+        else if (!increased && beforeWrist < yWrist - 1) {
+            increased = true
+            minHeight = yWrist
+            
+            // wristList에 ${손목의 최대 높이 - 손목의 최소 높이}를 저장
+            wristList.append(maxHeight - minHeight)
+            // wristList에 저장된 깊이 값으로 CPR 깊이가 적절한지 확인한다.
+            // wristList에 저장된 값의 개수로 CPR 속도(2분 동안 CPR한 횟수)가 적절한지 확인한다.
+            //  가슴압박 속도는 분당 100~120회, 깊이는 5~6㎝로 빠르고 깊게 30회 압박
+            // 2분 -> 200~240회 : 추후 1분당 평균 내는것도 나쁘지 않을듯
+        }
+
+        beforeWrist = yWrist
+    }
+    
+    func getCompressionTotalCount() -> Int {
+        return wristList.count
+    }
+    
+    func getArmAngleRate() -> (correct: Int, nonCorrect: Int) {
+        return (correct, nonCorrect)
+    }
+    
 }
 
 /// The strokes to be drawn in order to visualize a pose estimation result.
