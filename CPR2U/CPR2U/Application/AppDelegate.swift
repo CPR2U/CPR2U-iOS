@@ -59,9 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceTokenString = deviceToken.map { String(format: "%02x", $0) }.joined()
-        DeviceTokenManager.deviceToken = deviceTokenString
         Messaging.messaging().apnsToken = deviceToken
-        print(deviceTokenString)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -92,7 +90,7 @@ extension AppDelegate: MessagingDelegate {
         guard let fcmToken = fcmToken else { return }
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        print(fcmToken)
+        DeviceTokenManager.deviceToken = fcmToken
     }
 }
 

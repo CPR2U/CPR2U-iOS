@@ -70,7 +70,9 @@ final class DispatchViewController: UIViewController {
         return button
     }()
     
+    private let manager = DispatchManager(service: APIManager())
     private let callerInfo: CallerCompactInfo
+    private var dispatchId: Int?
     private var isDispatched: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
@@ -181,14 +183,26 @@ final class DispatchViewController: UIViewController {
     private func bind() {
         dispatchButton.tapPublisher.sink { [self] in
             if isDispatched {
-                dismiss(animated: true)
+                Task {
+                    guard let dispatchId = dispatchId else { return }
+                    let result = try await manager.dispatchEnd(dispatchId: dispatchId)
+                    if result.success {
+                        dismiss(animated: true)
+                    }
+                }
             } else {
-                isModalInPresentation = true
-                dispatchButton.setTitle("ARRIVED", for: .normal)
-                stackView.isHidden = true
-                timerAppear()
-                dispatchTimerView.setTimer()
-                isDispatched = true
+                Task {
+                    let result = try await manager.dispatchAccept(cprCallId: callerInfo.callerId)
+                    if result.success {
+                        dispatchId = result.data?.dispatch_id
+                        isModalInPresentation = true
+                        dispatchButton.setTitle("ARRIVED", for: .normal)
+                        stackView.isHidden = true
+                        timerAppear()
+                        dispatchTimerView.setTimer()
+                        isDispatched = true
+                    }
+                }
             }
         }.store(in: &cancellables)
     }
