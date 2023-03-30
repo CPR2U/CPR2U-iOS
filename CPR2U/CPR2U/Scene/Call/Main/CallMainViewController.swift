@@ -48,6 +48,7 @@ final class CallMainViewController: UIViewController {
         setUpUserLocation()
         setUpCallerLocation()
         setUpStyle()
+        setUpDelegate()
         setUpAction()
     }
     
@@ -98,6 +99,10 @@ final class CallMainViewController: UIViewController {
         view.backgroundColor = .lightGray
     }
     
+    private func setUpDelegate() {
+        mapView.delegate = self
+    }
+    
     private func setUpAction() {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(didPressCallButton))
         recognizer.minimumPressDuration = 0.0
@@ -123,9 +128,9 @@ final class CallMainViewController: UIViewController {
             
             viewModel.setLocationAddress(str: address)
         }
-//        // MARK: User Location Marker
-        userLocationMarker.position = location
-        userLocationMarker.map = mapView
+
+        // MARK: User Location Marker
+        mapView.isMyLocationEnabled = true
     }
     
     private func setUpCallerLocation() {
@@ -142,6 +147,7 @@ final class CallMainViewController: UIViewController {
                 let coor = CLLocationCoordinate2D(latitude: caller.latitude, longitude: caller.longitude)
                 print(coor)
                 let marker = GMSMarker()
+                marker.title = String(caller.cpr_call_id)
                 marker.position = CLLocationCoordinate2DMake(coor.latitude, coor.longitude)
                 marker.map = mapView
                 callerLocationMarkers.append(marker)
@@ -188,5 +194,17 @@ final class CallMainViewController: UIViewController {
             timeCounterView.cancelTimeCount()
         }
     }
-    
+}
+
+extension CallMainViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool
+    {
+        guard let callId = Int(marker.title ?? "0") else { return false }
+        guard let target = viewModel.callerList?.value.call_list.filter{$0.cpr_call_id == callId}.first else { return false }
+        
+        let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
+        let navigationController = UINavigationController(rootViewController: DispatchViewController(callerInfo: callerInfo))
+            present(navigationController, animated: true, completion: nil)
+        return true
+    }
 }

@@ -54,6 +54,7 @@
 		3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD429CF4A0E009B0545 /* CallViewModel.swift */; };
 		3A396BD929CF644A009B0545 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD829CF644A009B0545 /* Int+.swift */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
+		3A52C73229D5F31D005C6E40 /* DispatchTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A52C73129D5F31D005C6E40 /* DispatchTimerView.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
 		3A5C391329C0948F00378015 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C391229C0948F00378015 /* Quiz.swift */; };
@@ -64,7 +65,6 @@
 		3A70257329D42DB300225F56 /* AddressSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70257229D42DB300225F56 /* AddressSettingView.swift */; };
 		3A70257A29D4731B00225F56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A70257929D4731B00225F56 /* GoogleService-Info.plist */; };
 		3A70257B29D475CB00225F56 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
-		3A70257E29D482CD00225F56 /* DispatchSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70257D29D482CD00225F56 /* DispatchSheetPresentationController.swift */; };
 		3A70258529D4C12100225F56 /* CPR_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A70258429D4C12100225F56 /* CPR_Sound.mp3 */; };
 		3A70258929D5BD9A00225F56 /* DispatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258829D5BD9A00225F56 /* DispatchViewController.swift */; };
 		3A70258B29D5BFA300225F56 /* DispatchDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */; };
@@ -72,6 +72,7 @@
 		3A70259029D5CAF300225F56 /* DispatchEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */; };
 		3A70259229D5CAFE00225F56 /* DispatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259129D5CAFE00225F56 /* DispatchManager.swift */; };
 		3A70259429D5CC6100225F56 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259329D5CC6100225F56 /* Dispatch.swift */; };
+		3A70259629D5E07700225F56 /* DispatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259529D5E07700225F56 /* DispatchViewModel.swift */; };
 		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
 		3A91C2D129D0396E00028003 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D029D0396E00028003 /* CallManager.swift */; };
@@ -157,6 +158,7 @@
 		3A396BD429CF4A0E009B0545 /* CallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewModel.swift; sourceTree = "<group>"; };
 		3A396BD829CF644A009B0545 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		3A52C73129D5F31D005C6E40 /* DispatchTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchTimerView.swift; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		3A70255D29D0869200225F56 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
@@ -165,7 +167,6 @@
 		3A70256E29D4293E00225F56 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3A70257229D42DB300225F56 /* AddressSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSettingView.swift; sourceTree = "<group>"; };
 		3A70257929D4731B00225F56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3A70257D29D482CD00225F56 /* DispatchSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchSheetPresentationController.swift; sourceTree = "<group>"; };
 		3A70258429D4C12100225F56 /* CPR_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CPR_Sound.mp3; sourceTree = "<group>"; };
 		3A70258829D5BD9A00225F56 /* DispatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchViewController.swift; sourceTree = "<group>"; };
 		3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchDescriptionView.swift; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 		3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchEndPoint.swift; sourceTree = "<group>"; };
 		3A70259129D5CAFE00225F56 /* DispatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchManager.swift; sourceTree = "<group>"; };
 		3A70259329D5CC6100225F56 /* Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
+		3A70259529D5E07700225F56 /* DispatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchViewModel.swift; sourceTree = "<group>"; };
 		3A91C2CB29D0392B00028003 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
 		3A91C2D029D0396E00028003 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
@@ -512,7 +514,7 @@
 			children = (
 				3A70258829D5BD9A00225F56 /* DispatchViewController.swift */,
 				3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */,
-				3A70257D29D482CD00225F56 /* DispatchSheetPresentationController.swift */,
+				3A52C73129D5F31D005C6E40 /* DispatchTimerView.swift */,
 			);
 			path = Dispatch;
 			sourceTree = "<group>";
@@ -539,6 +541,7 @@
 			children = (
 				3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */,
 				3A70259129D5CAFE00225F56 /* DispatchManager.swift */,
+				3A70259529D5E07700225F56 /* DispatchViewModel.swift */,
 			);
 			path = Dispatch;
 			sourceTree = "<group>";
@@ -826,7 +829,7 @@
 				3A70256F29D4293E00225F56 /* Address.swift in Sources */,
 				3A396BCC29CF204F009B0545 /* EmergencyDescriptionView.swift in Sources */,
 				3A396BD929CF644A009B0545 /* Int+.swift in Sources */,
-				3A70257E29D482CD00225F56 /* DispatchSheetPresentationController.swift in Sources */,
+				3A52C73229D5F31D005C6E40 /* DispatchTimerView.swift in Sources */,
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */,
@@ -852,6 +855,7 @@
 				3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */,
+				3A70259629D5E07700225F56 /* DispatchViewModel.swift in Sources */,
 				3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,

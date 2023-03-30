@@ -7,10 +7,17 @@
 
 import Combine
 import CombineCocoa
+import GoogleMaps
 import UIKit
 
-final class DispatchViewController: UIViewController {
+struct CallerCompactInfo {
+    let callerId: Int
+    let latitude: Double
+    let longitude: Double
+    let callerAddress: String
+}
 
+final class DispatchViewController: UIViewController {
     private let callerLocationNoticeView = CurrentLocationNoticeView()
     
     private let stackView: UIStackView = {
@@ -43,6 +50,16 @@ final class DispatchViewController: UIViewController {
         return view
     }()
     
+    private lazy var dispatchTimerView: DispatchTimerView = {
+        
+        let view = DispatchTimerView(calledTime: Date())
+        view.layer.borderColor = UIColor(rgb: 0x938C8C).cgColor
+        view.layer.cornerRadius = 16
+        view.layer.borderWidth = 1
+        view.isHidden = true
+        return view
+    }()
+    
     private let dispatchButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont(weight: .bold, size: 18)
@@ -53,9 +70,12 @@ final class DispatchViewController: UIViewController {
         return button
     }()
     
+    private let callerInfo: CallerCompactInfo
+    private var isDispatched: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
-    init (callId: Int) {
+    init (callerInfo: CallerCompactInfo) {
+        self.callerInfo = callerInfo
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -68,10 +88,15 @@ final class DispatchViewController: UIViewController {
 
         setUpConstraints()
         setUpStyle()
+        setUpComponent()
         bind()
         setupSheet()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        dispatchTimerView.cancelTimer()
+    }
     private func setUpConstraints() {
         let make = Constraints.shared
         let safeArea = view.safeAreaLayoutGuide
@@ -79,6 +104,7 @@ final class DispatchViewController: UIViewController {
         [
             callerLocationNoticeView,
             stackView,
+            dispatchTimerView,
             dispatchButton
             
         ].forEach({
@@ -99,6 +125,13 @@ final class DispatchViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space8),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space8),
             stackView.heightAnchor.constraint(equalToConstant: 108)
+        ])
+        
+        NSLayoutConstraint.activate([
+            dispatchTimerView.topAnchor.constraint(equalTo: callerLocationNoticeView.bottomAnchor, constant: make.space8),
+            dispatchTimerView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space8),
+            dispatchTimerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space8),
+            dispatchTimerView.heightAnchor.constraint(equalToConstant: 108)
         ])
         
         [
@@ -135,25 +168,44 @@ final class DispatchViewController: UIViewController {
             dispatchButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space8),
             dispatchButton.heightAnchor.constraint(equalToConstant: 55)
         ])
-        
     }
     
     private func setUpStyle() {
         view.backgroundColor = .white
     }
+    
+    private func setUpComponent() {
+        callerLocationNoticeView.setUpLocationLabelText(as: callerInfo.callerAddress)
+    }
+    
     private func bind() {
-        dispatchButton.tapPublisher.sink {
-            
+        dispatchButton.tapPublisher.sink { [self] in
+            if isDispatched {
+                dismiss(animated: true)
+            } else {
+                isModalInPresentation = true
+                dispatchButton.setTitle("ARRIVED", for: .normal)
+                stackView.isHidden = true
+                timerAppear()
+                dispatchTimerView.setTimer()
+                isDispatched = true
+            }
         }.store(in: &cancellables)
     }
     
     private func setupSheet() {
-        isModalInPresentation = true
+        
         if let sheet = sheetPresentationController {
             sheet.detents = [.custom { _ in return 300 }]
             sheet.selectedDetentIdentifier = .medium
             sheet.prefersGrabberVisible = true
             sheet.preferredCornerRadius = 18
         }
+    }
+    
+    private func timerAppear() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.dispatchTimerView.isHidden = false
+        })
     }
 }
