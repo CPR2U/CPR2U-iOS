@@ -209,11 +209,14 @@ final class PosePracticeViewController: UIViewController {
             .sink { [self] counter in
                 if counter > 5 {
                     timeLabel.text = (count - counter - 5).numberAsTime()
-                    if counter == 125 {
+                    if counter == 20 {
+                        
                         cameraFeedManager.stopRunning()
+                        print("COMPRESS RATE", overlayView.getCompressionTotalCount())
                         print("Correct \(overlayView.correct)")
                         print("NON-Correct \(overlayView.nonCorrect)")
-                        viewModel.setPostureResult(compCount: overlayView.getCompressionTotalCount(), armAngleCount: overlayView.getArmAngleRate())
+                        print("PRESS DEPTH", overlayView.getAveragePressDepth())
+                        viewModel.setPostureResult(compCount: overlayView.getCompressionTotalCount(), armAngleCount: overlayView.getArmAngleRate(), pressDepth: overlayView.getAveragePressDepth())
                         Task {
                             usleep(1000000)
                             let vc = PosePracticeResultViewController(viewModel: viewModel)
