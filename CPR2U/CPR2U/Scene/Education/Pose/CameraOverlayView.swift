@@ -87,6 +87,7 @@ class CameraOverlayView: UIImageView {
       
     image.draw(at: .zero)
     context.setLineWidth(Config.dot.radius)
+    drawDots(at: context, dots: strokes.dots)
     context.setStrokeColor(UIColor.blue.cgColor)
     context.strokePath()
       guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else { fatalError() }
@@ -172,7 +173,7 @@ class CameraOverlayView: UIImageView {
         })
         
         // 일직선 판별
-        var isCorrect = xShoulder - xElbow < 20 && xElbow - xWrist < 20
+        var isCorrect = xShoulder - xElbow < 10 && xElbow - xWrist < 10
         if (isCorrect) {
             correct += 1
         } else {
@@ -190,7 +191,11 @@ class CameraOverlayView: UIImageView {
             minHeight = yWrist
             
             // wristList에 ${손목의 최대 높이 - 손목의 최소 높이}를 저장
-            wristList.append(maxHeight - minHeight)
+            
+            let num = maxHeight > minHeight ? maxHeight - minHeight : minHeight - maxHeight
+            wristList.append(num)
+            print(wristList.last)
+            
             // wristList에 저장된 깊이 값으로 CPR 깊이가 적절한지 확인한다.
             // wristList에 저장된 값의 개수로 CPR 속도(2분 동안 CPR한 횟수)가 적절한지 확인한다.
             //  가슴압박 속도는 분당 100~120회, 깊이는 5~6㎝로 빠르고 깊게 30회 압박
@@ -206,6 +211,12 @@ class CameraOverlayView: UIImageView {
     
     func getArmAngleRate() -> (correct: Int, nonCorrect: Int) {
         return (correct, nonCorrect)
+    }
+    
+    func getAveragePressDepth() -> CGFloat {
+        let total = wristList.reduce(0){$0 + $1}
+        let len = CGFloat(wristList.count)
+        return total/len
     }
     
 }
