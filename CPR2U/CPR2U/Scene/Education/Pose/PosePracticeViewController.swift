@@ -238,7 +238,7 @@ final class PosePracticeViewController: UIViewController {
     }
     
     private func playSound() {
-        guard let url = Bundle.main.url(forResource: "CPR_Sound", withExtension: "mp3") else { return }
+        guard let url = Bundle.main.url(forResource: "CPR_Posture_Sound", withExtension: "mp3") else { return }
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
         } catch (let error) {

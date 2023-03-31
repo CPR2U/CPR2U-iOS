@@ -5,6 +5,7 @@
 //  Created by 황정현 on 2023/03/25.
 //
 
+import AVFoundation
 import Combine
 import UIKit
 
@@ -27,6 +28,7 @@ final class DispatchWaitViewController: UIViewController {
     private let emergencyDescriptionView = EmergencyDescriptionView()
 
     private let viewModel: CallViewModel
+    private var audioPlayer: AVAudioPlayer!
     
     init(viewModel: CallViewModel) {
         self.viewModel = viewModel
@@ -42,11 +44,13 @@ final class DispatchWaitViewController: UIViewController {
 
         setUpConstraints()
         setUpStyle()
+        playSound()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         viewModel.cancelTimer()
+        audioPlayer.stop()
     }
     
     private func setUpConstraints() {
@@ -81,5 +85,16 @@ final class DispatchWaitViewController: UIViewController {
     
     private func setUpStyle() {
         view.backgroundColor = .mainRed
+    }
+    
+    private func playSound() {
+        guard let url = Bundle.main.url(forResource: "CPR_Sound", withExtension: "mp3") else { return }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer.numberOfLoops = -1
+        } catch (let error) {
+            print(error)
+        }
+        audioPlayer?.play()
     }
 }
