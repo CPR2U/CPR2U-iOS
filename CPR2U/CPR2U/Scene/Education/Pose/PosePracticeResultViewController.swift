@@ -159,8 +159,9 @@ final class PosePracticeResultViewController: UIViewController {
         compressRateResultView.setDescriptionLabelText(as: result.compResult.description)
         armAngleResultView.setResultLabelText(as: result.angleResult.rawValue)
         armAngleResultView.setDescriptionLabelText(as: result.angleResult.description)
-        
-        let score = result.compResult.score + result.angleResult.score
+        pressDepthResultView.setResultLabelText(as: result.pressDepth.rawValue)
+        pressDepthResultView.setDescriptionLabelText(as: result.pressDepth.description)
+        let score = result.compResult.score + result.angleResult.score + result.pressDepth.score + 1
         finalResultView.setUpScore(score: score)
     }
 }

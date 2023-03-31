@@ -14,12 +14,12 @@ enum CompressionRateStatus: String {
     case adequate = "Adequate"
     case fast = "Fast"
     case tooFast = "Too Fast"
-    case wrong
+    case wrong = "Wrong"
     
     // 압박 속도
-    // 190-250 : 50점
-    // 170-270 : 35점
-    // 150-290 : 20점
+    // 190-250 : 33점
+    // 170-270 : 22점
+    // 150-290 : 11점
     var score: Int {
         switch self {
         case .adequate:
@@ -59,9 +59,9 @@ enum AngleStatus: String {
     
     // 팔 각도
     // CORRECT : NON-CORRECT
-    // 7:3     : 50점
-    // 6:4     : 35점
-    // 5:5     : 20점
+    // 7:3     : 33점
+    // 6:4     : 22점
+    // 5:5     : 11점
     // 나머지    : 5점
     var score: Int {
         switch self {
@@ -79,7 +79,7 @@ enum AngleStatus: String {
     var description: String {
         switch self {
         case .adequate:
-            return "Good job! Very Nice Angle!"
+            return "Good job! Very Nice angle!"
         case .almost:
             return "Almost there. Try again"
         case .notGood:
@@ -90,17 +90,70 @@ enum AngleStatus: String {
     }
 }
 
+// 45... : 15
+// 30...45 : 33
+// 15...30 : 15
+// 0...15 : 5
+enum PressDepthStatus: String {
+    case deep = "Deep"
+    case adequate = "Adequate"
+    case shallow = "Slightly Shallow"
+    case tooShallow = "Too Shallow"
+    case wrong = "Wrong"
+    
+    // 압박 깊이
+    // 30 이상    : 15
+    // 18 - 30   : 33
+    // 5 - 18   : 15
+    // 0  - 5.  : 5
+    var score: Int {
+        switch self {
+        case .deep:
+            return 15
+        case .adequate:
+            return 33
+        case .shallow:
+            return 15
+        case .tooShallow:
+            return 5
+        case .wrong:
+            return 0
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .deep:
+            return "Press slight"
+        case .adequate:
+            return "Good job! Very adequate!"
+        case .shallow:
+            return "Press little deeper"
+        case .tooShallow:
+            return "It's too shallow. Press deeply"
+        case .wrong:
+            return "Something went wrong. Try Again"
+            
+        }
+    }
+}
+
+struct CertificateStatus {
+    let status: AngelStatus
+    let leftDay: Int?
+}
+
 enum AngelStatus: Int {
     case acquired
     case expired
     case unacquired
 
-    func certificationImageName() -> String {
+    func certificationImageName(_ isBig: Bool = false) -> String {
         switch self {
         case .acquired:
-            return "heart_person"
+            return isBig == true ? "heart_person_big" : "heart_person"
         case .expired, .unacquired:
-            return "person"
+            return isBig == true ? "person_big" : "person"
         }
     }
     
@@ -118,7 +171,7 @@ enum AngelStatus: Int {
 
 enum TimerType: Int {
     case lecture = 5 //3001
-    case posture = 130
+    case posture = 10 // 130
     case other = 0
 }
 
@@ -136,6 +189,7 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
     
     private var compressionRate: Int?
     private var angleRate: (correct: Int?, nonCorrect: Int?)
+    private var pressDepthRate: CGFloat?
     
     init() {
         eduManager = EducationManager(service: APIManager())
@@ -152,11 +206,6 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         let isLectureCompleted: CurrentValueSubject<Bool, Never>
         let isQuizCompleted: CurrentValueSubject<Bool, Never>
         let isPostureCompleted: CurrentValueSubject<Bool, Never>
-    }
-    
-    struct CertificateStatus {
-        let status: AngelStatus
-        let leftDay: Int?
     }
     
     struct Output {
@@ -306,8 +355,9 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         }
     }
     
-    func judgePostureResult() -> (compResult: CompressionRateStatus, angleResult: AngleStatus){
-        guard let compRate = compressionRate else { return (CompressionRateStatus.wrong, AngleStatus.bad) }
+    func judgePostureResult() -> (compResult: CompressionRateStatus, angleResult: AngleStatus, pressDepth: PressDepthStatus) {
+        guard let compRate = compressionRate, let correct = angleRate.correct, let nonCorrect = angleRate.nonCorrect, let pressRate = pressDepthRate else { return (CompressionRateStatus.wrong, AngleStatus.bad, PressDepthStatus.shallow) }
+        
         var compResult: CompressionRateStatus = .adequate
         switch compRate {
         case ...170:
@@ -325,7 +375,7 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         }
         
         let angleRate = angleRate
-        guard let correct = angleRate.correct, let nonCorrect = angleRate.nonCorrect else { return (CompressionRateStatus.wrong, AngleStatus.bad) }
+        
         var angleResult: AngleStatus = .adequate
         let totalAngleCount = Double(correct + nonCorrect)
                 
@@ -341,16 +391,33 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         }
         
         print(totalAngleCount)
-        if totalAngleCount < 100 {
+        if totalAngleCount < 1000 {
             angleResult = .bad
         }
-        return (compResult, angleResult)
+        
+        var pressDepthResult: PressDepthStatus = .wrong
+        
+        switch pressRate {
+        case 30.0... :
+            pressDepthResult = .deep
+        case 18.0..<30.0:
+            pressDepthResult = .adequate
+        case 5.0..<18.0:
+            pressDepthResult = .shallow
+        case 0.0..<5.0:
+            pressDepthResult = .tooShallow
+        default:
+            pressDepthResult = .wrong
+        }
+        
+        return (compResult, angleResult, pressDepthResult)
     }
     
-    func setPostureResult(compCount: Int, armAngleCount: (correct: Int, nonCorrect: Int)) {
+    func setPostureResult(compCount: Int, armAngleCount: (correct: Int, nonCorrect: Int), pressDepth: CGFloat) {
         compressionRate = compCount
         angleRate.correct = armAngleCount.correct
         angleRate.nonCorrect = armAngleCount.nonCorrect
+        pressDepthRate = pressDepth
         
     }
 }
