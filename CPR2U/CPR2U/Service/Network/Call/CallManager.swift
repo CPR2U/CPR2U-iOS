@@ -11,10 +11,11 @@ protocol CallService {
     func getCallerList() async throws -> (success: Bool, data: CallerListInfo?)
     func callDispatcher(callerLocationInfo: CallerLocationInfo) async throws -> (success: Bool, data: CallResult?)
     func situationEnd(callId: Int) async throws -> (success: Bool, data: CallEndResult?)
+    func countDispatcher(callId: Int) async throws -> (success: Bool, data: DispatcherCountResult?)
 }
 
 struct CallManager: CallService {
-    
+
     private let service: Requestable
     
     init(service: Requestable) {
@@ -42,5 +43,10 @@ struct CallManager: CallService {
         return try await self.service.request(request)
     }
     
-    
+    func countDispatcher(callId: Int) async throws -> (success: Bool, data: DispatcherCountResult?) {
+        let request = CallEndPoint
+            .countDispatcher(callId: callId)
+            .createRequest()
+        return try await self.service.request(request)
+    }
 }

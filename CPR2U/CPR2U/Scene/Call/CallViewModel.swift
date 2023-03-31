@@ -95,6 +95,17 @@ final class CallViewModel: OutputOnlyViewModelType {
         }
     }
     
+    func countDispatcher() async throws -> Int? {
+        guard let callId = callId else { return nil }
+        
+        let result = Task { () -> Int? in
+            let callResult = try await callManager.countDispatcher(callId: callId)
+            return callResult.data?.number_of_angels
+        }
+        
+        return try await result.value
+    }
+    
     private func updateCallId(callId: Int) {
         self.callId = callId
     }
