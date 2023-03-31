@@ -63,6 +63,9 @@
 		3A70256F29D4293E00225F56 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256E29D4293E00225F56 /* Address.swift */; };
 		3A70257329D42DB300225F56 /* AddressSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70257229D42DB300225F56 /* AddressSettingView.swift */; };
 		3A70258529D4C12100225F56 /* CPR_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A70258429D4C12100225F56 /* CPR_Sound.mp3 */; };
+		3A8C31A129D6042B004A4B84 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31A029D6042B004A4B84 /* MypageViewController.swift */; };
+		3A8C31A429D6062E004A4B84 /* MypageStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */; };
+		3A8C31AE29D6C9FC004A4B84 /* MypageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31AD29D6C9FC004A4B84 /* MypageTableViewCell.swift */; };
 		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
 		3A91C2D129D0396E00028003 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D029D0396E00028003 /* CallManager.swift */; };
@@ -156,6 +159,9 @@
 		3A70256E29D4293E00225F56 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3A70257229D42DB300225F56 /* AddressSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSettingView.swift; sourceTree = "<group>"; };
 		3A70258429D4C12100225F56 /* CPR_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CPR_Sound.mp3; sourceTree = "<group>"; };
+		3A8C31A029D6042B004A4B84 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
+		3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageStatusView.swift; sourceTree = "<group>"; };
+		3A8C31AD29D6C9FC004A4B84 /* MypageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTableViewCell.swift; sourceTree = "<group>"; };
 		3A91C2CB29D0392B00028003 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
 		3A91C2D029D0396E00028003 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
@@ -227,6 +233,7 @@
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3ADE725029B9D53E00EEE19C /* Education */,
 				3A396BC429CF1487009B0545 /* Call */,
+				3A8C319F29D603EA004A4B84 /* Mypage */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -503,6 +510,16 @@
 			path = Sound;
 			sourceTree = "<group>";
 		};
+		3A8C319F29D603EA004A4B84 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				3A8C31A029D6042B004A4B84 /* MypageViewController.swift */,
+				3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */,
+				3A8C31AD29D6C9FC004A4B84 /* MypageTableViewCell.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
 		3A91C2CD29D0395700028003 /* Call */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,6 +782,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */,
+				3A8C31A429D6062E004A4B84 /* MypageStatusView.swift in Sources */,
 				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
 				3A396BD329CF3301009B0545 /* TimeCounterView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
@@ -801,6 +819,7 @@
 				3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */,
 				3AA636D529B358D0006BB5EF /* SMSCodeVertificationViewController.swift in Sources */,
 				3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */,
+				3A8C31AE29D6C9FC004A4B84 /* MypageTableViewCell.swift in Sources */,
 				3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */,
 				3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
@@ -825,6 +844,7 @@
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
 				3A22BF5029BCCE07004411BE /* AuthEndPoint.swift in Sources */,
 				3A396BB529CB1F31009B0545 /* EducationEndPoint.swift in Sources */,
+				3A8C31A129D6042B004A4B84 /* MypageViewController.swift in Sources */,
 				3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */,
 				3A396BA129C9E906009B0545 /* AutoLoginViewController.swift in Sources */,
 				3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */,
