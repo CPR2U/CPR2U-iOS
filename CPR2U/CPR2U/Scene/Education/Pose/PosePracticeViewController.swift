@@ -214,6 +214,7 @@ final class PosePracticeViewController: UIViewController {
                         viewModel.setPostureResult(compCount: overlayView.getCompressionTotalCount(), armAngleCount: overlayView.getArmAngleRate(), pressDepth: overlayView.getAveragePressDepth())
                         Task {
                             usleep(1000000)
+                            audioPlayer.stop()
                             let vc = PosePracticeResultViewController(viewModel: viewModel)
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(vc, animated: true)
@@ -287,6 +288,6 @@ extension PosePracticeViewController: CameraFeedManagerDelegate {
     }
     
     private func setUpText() {
-        viewModel.judgePostureResult()
+        _ = viewModel.judgePostureResult()
     }
 }
