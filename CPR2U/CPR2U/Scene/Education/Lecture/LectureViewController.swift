@@ -89,9 +89,8 @@ final class LectureViewController: UIViewController {
     
     private func loadWebPage() {
         Task {
-            //            guard let url = try await viewModel.getLecture() else { return }
-            //            guard let stringToURL = URL(string: url) else { return }
-            guard let stringToURL = URL(string: "http://naver.com") else { return }
+            guard let url = try await viewModel.getLecture() else { return }
+            guard let stringToURL = URL(string: url) else { return }
             let URLToRequest = URLRequest(url: stringToURL)
             webView.load(URLToRequest)
         }

@@ -87,7 +87,6 @@ class CameraOverlayView: UIImageView {
       
     image.draw(at: .zero)
     context.setLineWidth(Config.dot.radius)
-    drawDots(at: context, dots: strokes.dots)
     context.setStrokeColor(UIColor.blue.cgColor)
     context.strokePath()
       guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else { fatalError() }

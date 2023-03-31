@@ -61,6 +61,8 @@ final class PosePracticeResultViewController: UIViewController {
     private let viewModel: EducationViewModel
     private var cancellables = Set<AnyCancellable>()
     
+    private var score: Int = 0
+    
     init(viewModel: EducationViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -146,7 +148,7 @@ final class PosePracticeResultViewController: UIViewController {
         quitButton.tapPublisher.sink { [weak self] _ in
             self?.setUpOrientation(as: .portrait)
             Task {
-                try await viewModel.savePosturePracticeResult(score: 90)
+                try await viewModel.savePosturePracticeResult(score: self?.score ?? 0)
                 let rootVC = TabBarViewController(0)
                 await self?.view.window?.setRootViewController(rootVC)
             }
@@ -161,7 +163,7 @@ final class PosePracticeResultViewController: UIViewController {
         armAngleResultView.setDescriptionLabelText(as: result.angleResult.description)
         pressDepthResultView.setResultLabelText(as: result.pressDepth.rawValue)
         pressDepthResultView.setDescriptionLabelText(as: result.pressDepth.description)
-        let score = result.compResult.score + result.angleResult.score + result.pressDepth.score + 1
+        score = result.compResult.score + result.angleResult.score + result.pressDepth.score + 1
         finalResultView.setUpScore(score: score)
     }
 }
