@@ -34,7 +34,7 @@ final class AuthViewModel: ViewModelType {
     
     func getPhoneNumber() -> String {
         guard let str = phoneNumberString else { return "" }
-        return str
+        return "+82 \(str)"
     }
     
     func getSMSCode() -> String {
