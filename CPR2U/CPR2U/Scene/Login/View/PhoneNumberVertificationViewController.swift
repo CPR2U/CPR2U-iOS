@@ -19,7 +19,11 @@ final class PhoneNumberVerificationViewController: UIViewController {
     private let phoneNumberNationLabel = UILabel()
     private let phoneNumberTextField = UITextField()
     
-    private let sendButton = UIButton()
+    private let sendButton: UIButton = {
+        let button = UIButton()
+        button.isEnabled = false
+        return button
+    }()
     
     private var sendButtonBottomConstraints = NSLayoutConstraint()
     
