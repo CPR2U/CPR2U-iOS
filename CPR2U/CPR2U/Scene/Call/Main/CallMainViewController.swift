@@ -203,7 +203,7 @@ extension CallMainViewController: GMSMapViewDelegate {
         guard let target = viewModel.callerList?.value.call_list.filter{$0.cpr_call_id == callId}.first else { return false }
         
         let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
-        let navigationController = UINavigationController(rootViewController: DispatchViewController(callerInfo: callerInfo))
+        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: viewModel.getLocation(), callerInfo: callerInfo))
             present(navigationController, animated: true, completion: nil)
         return true
     }

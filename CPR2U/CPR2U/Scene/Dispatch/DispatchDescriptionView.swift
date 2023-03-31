@@ -80,4 +80,8 @@ class DispatchDescriptionView: UIView {
         imageView.contentMode = .scaleAspectFit
         titleLabel.text =  type.rawValue
     }
+    
+    func setUpDescription(text: String) {
+        descriptionLabel.text = text
+    }
 }

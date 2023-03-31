@@ -82,11 +82,13 @@ final class DispatchViewController: UIViewController {
     
     private let manager = DispatchManager(service: APIManager())
     private let callerInfo: CallerCompactInfo
+    private let userLocation: CLLocationCoordinate2D
     private var dispatchId: Int?
     private var isDispatched: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
-    init (callerInfo: CallerCompactInfo) {
+    init (userLocation: CLLocationCoordinate2D, callerInfo: CallerCompactInfo) {
+        self.userLocation = userLocation
         self.callerInfo = callerInfo
         super.init(nibName: nil, bundle: nil)
     }
@@ -104,6 +106,7 @@ final class DispatchViewController: UIViewController {
         bind()
         setUpAction()
         setupSheet()
+        calculateDurationNDistance()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -252,5 +255,33 @@ final class DispatchViewController: UIViewController {
         let vc = ReportViewController(dispatchId: dispatchId, manager: manager)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+    }
+}
+
+extension DispatchViewController {
+    func calculateDurationNDistance() {
+        let callerLocation = CLLocationCoordinate2D(latitude: callerInfo.latitude, longitude: callerInfo.longitude)
+        let rawDistance = GMSGeometryDistance(userLocation, callerLocation)
+        
+        let floorDistance = floor(rawDistance)
+        var duration: Int = 0
+        var distanceStr = ""
+        if floorDistance < 100 {
+            duration = 1
+        } else {
+            duration = Int(ceil(Float(rawDistance/100)))
+            if floorDistance < 1000 {
+            distanceStr = "\(floorDistance)m"
+            } else {
+                let distance: Double = rawDistance/1000
+                distanceStr = String(format: "%.2f", distance) + "km"
+            }
+        }
+        
+        print("RAW: \(rawDistance)")
+        print("FLOOR: \(floorDistance)")
+        print(distanceStr)
+        durationView.setUpDescription(text:  "\(duration)m")
+        distanceView.setUpDescription(text: distanceStr)
     }
 }

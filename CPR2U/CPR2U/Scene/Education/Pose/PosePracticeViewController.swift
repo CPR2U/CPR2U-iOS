@@ -209,7 +209,7 @@ final class PosePracticeViewController: UIViewController {
             .sink { [self] counter in
                 if counter > 5 {
                     timeLabel.text = (count - counter - 5).numberAsTime()
-                    if counter == 125 {
+                    if counter == 10 {
                         cameraFeedManager.stopRunning()
                         print("Correct \(overlayView.correct)")
                         print("NON-Correct \(overlayView.nonCorrect)")
