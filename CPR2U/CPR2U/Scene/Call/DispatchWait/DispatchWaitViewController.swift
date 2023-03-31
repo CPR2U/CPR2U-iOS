@@ -8,7 +8,6 @@
 import Combine
 import UIKit
 
-
 final class DispatchWaitViewController: UIViewController {
 
     private let mainLabel: UILabel = {

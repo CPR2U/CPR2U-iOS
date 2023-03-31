@@ -54,6 +54,7 @@
 		3A396BD529CF4A0E009B0545 /* CallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD429CF4A0E009B0545 /* CallViewModel.swift */; };
 		3A396BD929CF644A009B0545 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396BD829CF644A009B0545 /* Int+.swift */; };
 		3A50F39329BF51F800DC1E29 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50F39229BF51F800DC1E29 /* UIButton+.swift */; };
+		3A52C73229D5F31D005C6E40 /* DispatchTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A52C73129D5F31D005C6E40 /* DispatchTimerView.swift */; };
 		3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5C390D29C0844700378015 /* CombineCocoa */; };
 		3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C390F29C08C8900378015 /* QuizViewModel.swift */; };
 		3A5C391329C0948F00378015 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C391229C0948F00378015 /* Quiz.swift */; };
@@ -63,8 +64,15 @@
 		3A70256F29D4293E00225F56 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256E29D4293E00225F56 /* Address.swift */; };
 		3A70257329D42DB300225F56 /* AddressSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70257229D42DB300225F56 /* AddressSettingView.swift */; };
 		3A70258529D4C12100225F56 /* CPR_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A70258429D4C12100225F56 /* CPR_Sound.mp3 */; };
+		3A70258929D5BD9A00225F56 /* DispatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258829D5BD9A00225F56 /* DispatchViewController.swift */; };
+		3A70258B29D5BFA300225F56 /* DispatchDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */; };
+		3A70259029D5CAF300225F56 /* DispatchEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */; };
+		3A70259229D5CAFE00225F56 /* DispatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259129D5CAFE00225F56 /* DispatchManager.swift */; };
+		3A70259429D5CC6100225F56 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259329D5CC6100225F56 /* Dispatch.swift */; };
+		3A70259629D5E07700225F56 /* DispatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259529D5E07700225F56 /* DispatchViewModel.swift */; };
 		3A8C31A129D6042B004A4B84 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31A029D6042B004A4B84 /* MypageViewController.swift */; };
 		3A8C31A429D6062E004A4B84 /* MypageStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */; };
+		3A8C31AB29D62FF1004A4B84 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31AA29D62FF1004A4B84 /* ReportViewController.swift */; };
 		3A8C31AE29D6C9FC004A4B84 /* MypageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31AD29D6C9FC004A4B84 /* MypageTableViewCell.swift */; };
 		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
@@ -151,6 +159,7 @@
 		3A396BD429CF4A0E009B0545 /* CallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewModel.swift; sourceTree = "<group>"; };
 		3A396BD829CF644A009B0545 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3A50F39229BF51F800DC1E29 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		3A52C73129D5F31D005C6E40 /* DispatchTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchTimerView.swift; sourceTree = "<group>"; };
 		3A5C390F29C08C8900378015 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		3A5C391229C0948F00378015 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		3A70255D29D0869200225F56 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
@@ -158,9 +167,17 @@
 		3A70256C29D4293800225F56 /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
 		3A70256E29D4293E00225F56 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3A70257229D42DB300225F56 /* AddressSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSettingView.swift; sourceTree = "<group>"; };
+		3A70257929D4731B00225F56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A70258429D4C12100225F56 /* CPR_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CPR_Sound.mp3; sourceTree = "<group>"; };
+		3A70258829D5BD9A00225F56 /* DispatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchViewController.swift; sourceTree = "<group>"; };
+		3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchDescriptionView.swift; sourceTree = "<group>"; };
+		3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchEndPoint.swift; sourceTree = "<group>"; };
+		3A70259129D5CAFE00225F56 /* DispatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchManager.swift; sourceTree = "<group>"; };
+		3A70259329D5CC6100225F56 /* Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
+		3A70259529D5E07700225F56 /* DispatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchViewModel.swift; sourceTree = "<group>"; };
 		3A8C31A029D6042B004A4B84 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageStatusView.swift; sourceTree = "<group>"; };
+		3A8C31AA29D62FF1004A4B84 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		3A8C31AD29D6C9FC004A4B84 /* MypageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTableViewCell.swift; sourceTree = "<group>"; };
 		3A91C2CB29D0392B00028003 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
@@ -233,6 +250,7 @@
 				3AA636DE29B37E04006BB5EF /* Login */,
 				3ADE725029B9D53E00EEE19C /* Education */,
 				3A396BC429CF1487009B0545 /* Call */,
+				3A70257C29D47A3200225F56 /* Dispatch */,
 				3A8C319F29D603EA004A4B84 /* Mypage */,
 			);
 			path = Scene;
@@ -291,6 +309,7 @@
 				3A22BF4E29BCCDF7004411BE /* Auth */,
 				3A396BB329CB1F0A009B0545 /* Education */,
 				3A91C2CD29D0395700028003 /* Call */,
+				3A70258E29D5CAE400225F56 /* Dispatch */,
 				3A70256929D4291400225F56 /* Address */,
 			);
 			path = Network;
@@ -343,6 +362,7 @@
 				3A396BB829CB2686009B0545 /* Education.swift */,
 				3A91C2CB29D0392B00028003 /* Call.swift */,
 				3A70256E29D4293E00225F56 /* Address.swift */,
+				3A70259329D5CC6100225F56 /* Dispatch.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -493,6 +513,17 @@
 			path = Address;
 			sourceTree = "<group>";
 		};
+		3A70257C29D47A3200225F56 /* Dispatch */ = {
+			isa = PBXGroup;
+			children = (
+				3A70258829D5BD9A00225F56 /* DispatchViewController.swift */,
+				3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */,
+				3A52C73129D5F31D005C6E40 /* DispatchTimerView.swift */,
+				3A8C31AA29D62FF1004A4B84 /* ReportViewController.swift */,
+			);
+			path = Dispatch;
+			sourceTree = "<group>";
+		};
 		3A70258029D498B100225F56 /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,6 +539,16 @@
 				3A70258429D4C12100225F56 /* CPR_Sound.mp3 */,
 			);
 			path = Sound;
+			sourceTree = "<group>";
+		};
+		3A70258E29D5CAE400225F56 /* Dispatch */ = {
+			isa = PBXGroup;
+			children = (
+				3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */,
+				3A70259129D5CAFE00225F56 /* DispatchManager.swift */,
+				3A70259529D5E07700225F56 /* DispatchViewModel.swift */,
+			);
+			path = Dispatch;
 			sourceTree = "<group>";
 		};
 		3A8C319F29D603EA004A4B84 /* Mypage */ = {
@@ -563,6 +604,7 @@
 				3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */,
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
 				3A396BAC29CA138A009B0545 /* Private.plist */,
+				3A70257929D4731B00225F56 /* GoogleService-Info.plist */,
 			);
 			path = CPR2U;
 			sourceTree = "<group>";
@@ -781,6 +823,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A70259229D5CAFE00225F56 /* DispatchManager.swift in Sources */,
 				3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */,
 				3A8C31A429D6062E004A4B84 /* MypageStatusView.swift in Sources */,
 				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
@@ -791,6 +834,7 @@
 				3A324CDB29C60E8F00165E2E /* PoseConfig.swift in Sources */,
 				3A396BCA29CF16DF009B0545 /* ApproachNoticeView.swift in Sources */,
 				3A396BA329C9EDAB009B0545 /* UserDefaultsManager.swift in Sources */,
+				3A70258929D5BD9A00225F56 /* DispatchViewController.swift in Sources */,
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
 				3A70255E29D0869200225F56 /* MapManager.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
@@ -799,6 +843,7 @@
 				3A70256F29D4293E00225F56 /* Address.swift in Sources */,
 				3A396BCC29CF204F009B0545 /* EmergencyDescriptionView.swift in Sources */,
 				3A396BD929CF644A009B0545 /* Int+.swift in Sources */,
+				3A52C73229D5F31D005C6E40 /* DispatchTimerView.swift in Sources */,
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */,
@@ -806,6 +851,7 @@
 				3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */,
 				3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */,
 				3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */,
+				3A70259029D5CAF300225F56 /* DispatchEndPoint.swift in Sources */,
 				3A396BB929CB2686009B0545 /* Education.swift in Sources */,
 				3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */,
 				3AA636ED29B5E816006BB5EF /* AuthViewModel.swift in Sources */,
@@ -824,6 +870,7 @@
 				3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */,
+				3A70259629D5E07700225F56 /* DispatchViewModel.swift in Sources */,
 				3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
@@ -833,6 +880,7 @@
 				3A91C2CC29D0392B00028003 /* Call.swift in Sources */,
 				3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */,
 				3A396BA529CA0646009B0545 /* UIWindow+.swift in Sources */,
+				3A8C31AB29D62FF1004A4B84 /* ReportViewController.swift in Sources */,
 				3A5C391329C0948F00378015 /* Quiz.swift in Sources */,
 				3ADE726C29BB536300EEE19C /* PracticeExplainViewController.swift in Sources */,
 				3A396BC629CF14AB009B0545 /* CallMainViewController.swift in Sources */,
@@ -852,7 +900,9 @@
 				3A324CE329C6103800165E2E /* CGSize+TFLite.swift in Sources */,
 				3A91C2D129D0396E00028003 /* CallManager.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
+				3A70259429D5CC6100225F56 /* Dispatch.swift in Sources */,
 				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
+				3A70258B29D5BFA300225F56 /* DispatchDescriptionView.swift in Sources */,
 				3A70256B29D4292E00225F56 /* AddressEndPoint.swift in Sources */,
 				3A324CE129C60EAC00165E2E /* PoseEstimator.swift in Sources */,
 				3ADE727629BB78BF00EEE19C /* ScoreResultView.swift in Sources */,

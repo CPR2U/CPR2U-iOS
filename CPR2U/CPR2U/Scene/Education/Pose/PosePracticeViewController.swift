@@ -209,8 +209,7 @@ final class PosePracticeViewController: UIViewController {
             .sink { [self] counter in
                 if counter > 5 {
                     timeLabel.text = (count - counter - 5).numberAsTime()
-                    if counter == 20 {
-                        
+                    if counter == 125 {                        
                         cameraFeedManager.stopRunning()
                         print("COMPRESS RATE", overlayView.getCompressionTotalCount())
                         print("Correct \(overlayView.correct)")
