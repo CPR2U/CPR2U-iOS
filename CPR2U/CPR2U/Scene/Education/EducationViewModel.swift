@@ -23,11 +23,11 @@ enum CompressionRateStatus: String {
     var score: Int {
         switch self {
         case .adequate:
-            return 50
+            return 33
         case .slow, .fast:
-            return 35
+            return 22
         case .tooSlow, .tooFast:
-            return 20
+            return 11
         case .wrong:
             return 0
         }
@@ -66,11 +66,11 @@ enum AngleStatus: String {
     var score: Int {
         switch self {
         case .adequate:
-            return 50
+            return 33
         case .almost:
-            return 35
+            return 22
         case .notGood:
-            return 20
+            return 11
         case .bad:
             return 5
         }
@@ -90,10 +90,6 @@ enum AngleStatus: String {
     }
 }
 
-// 45... : 15
-// 30...45 : 33
-// 15...30 : 15
-// 0...15 : 5
 enum PressDepthStatus: String {
     case deep = "Deep"
     case adequate = "Adequate"
@@ -170,8 +166,8 @@ enum AngelStatus: Int {
 }
 
 enum TimerType: Int {
-    case lecture = 5 //3001
-    case posture = 10 // 130
+    case lecture = 3001
+    case posture = 130
     case other = 0
 }
 

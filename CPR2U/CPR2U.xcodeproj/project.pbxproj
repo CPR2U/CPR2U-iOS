@@ -63,7 +63,7 @@
 		3A70256D29D4293800225F56 /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256C29D4293800225F56 /* AddressManager.swift */; };
 		3A70256F29D4293E00225F56 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256E29D4293E00225F56 /* Address.swift */; };
 		3A70257329D42DB300225F56 /* AddressSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70257229D42DB300225F56 /* AddressSettingView.swift */; };
-		3A70258529D4C12100225F56 /* CPR_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A70258429D4C12100225F56 /* CPR_Sound.mp3 */; };
+		3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A70258429D4C12100225F56 /* CPR_Posture_Sound.mp3 */; };
 		3A70258929D5BD9A00225F56 /* DispatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258829D5BD9A00225F56 /* DispatchViewController.swift */; };
 		3A70258B29D5BFA300225F56 /* DispatchDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */; };
 		3A70259029D5CAF300225F56 /* DispatchEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */; };
@@ -74,6 +74,7 @@
 		3A8C31A429D6062E004A4B84 /* MypageStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */; };
 		3A8C31AB29D62FF1004A4B84 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31AA29D62FF1004A4B84 /* ReportViewController.swift */; };
 		3A8C31AE29D6C9FC004A4B84 /* MypageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31AD29D6C9FC004A4B84 /* MypageTableViewCell.swift */; };
+		3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C31B729D6FAAB004A4B84 /* CPR_Sound.mp3 */; };
 		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
 		3A91C2D129D0396E00028003 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D029D0396E00028003 /* CallManager.swift */; };
@@ -168,7 +169,7 @@
 		3A70256E29D4293E00225F56 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3A70257229D42DB300225F56 /* AddressSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSettingView.swift; sourceTree = "<group>"; };
 		3A70257929D4731B00225F56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3A70258429D4C12100225F56 /* CPR_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CPR_Sound.mp3; sourceTree = "<group>"; };
+		3A70258429D4C12100225F56 /* CPR_Posture_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CPR_Posture_Sound.mp3; sourceTree = "<group>"; };
 		3A70258829D5BD9A00225F56 /* DispatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchViewController.swift; sourceTree = "<group>"; };
 		3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchDescriptionView.swift; sourceTree = "<group>"; };
 		3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchEndPoint.swift; sourceTree = "<group>"; };
@@ -179,6 +180,7 @@
 		3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageStatusView.swift; sourceTree = "<group>"; };
 		3A8C31AA29D62FF1004A4B84 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		3A8C31AD29D6C9FC004A4B84 /* MypageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTableViewCell.swift; sourceTree = "<group>"; };
+		3A8C31B729D6FAAB004A4B84 /* CPR_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CPR_Sound.mp3; sourceTree = "<group>"; };
 		3A91C2CB29D0392B00028003 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
 		3A91C2D029D0396E00028003 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
@@ -536,7 +538,8 @@
 		3A70258129D498C900225F56 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				3A70258429D4C12100225F56 /* CPR_Sound.mp3 */,
+				3A8C31B729D6FAAB004A4B84 /* CPR_Sound.mp3 */,
+				3A70258429D4C12100225F56 /* CPR_Posture_Sound.mp3 */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -765,7 +768,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A70258529D4C12100225F56 /* CPR_Sound.mp3 in Resources */,
+				3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */,
+				3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,

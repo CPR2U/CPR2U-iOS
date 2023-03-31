@@ -209,15 +209,12 @@ final class PosePracticeViewController: UIViewController {
             .sink { [self] counter in
                 if counter > 5 {
                     timeLabel.text = (count - counter - 5).numberAsTime()
-                    if counter == 125 {                        
+                    if counter == count - 5 {
                         cameraFeedManager.stopRunning()
-                        print("COMPRESS RATE", overlayView.getCompressionTotalCount())
-                        print("Correct \(overlayView.correct)")
-                        print("NON-Correct \(overlayView.nonCorrect)")
-                        print("PRESS DEPTH", overlayView.getAveragePressDepth())
                         viewModel.setPostureResult(compCount: overlayView.getCompressionTotalCount(), armAngleCount: overlayView.getArmAngleRate(), pressDepth: overlayView.getAveragePressDepth())
                         Task {
                             usleep(1000000)
+                            audioPlayer.stop()
                             let vc = PosePracticeResultViewController(viewModel: viewModel)
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(vc, animated: true)
@@ -241,7 +238,7 @@ final class PosePracticeViewController: UIViewController {
     }
     
     private func playSound() {
-        guard let url = Bundle.main.url(forResource: "CPR_Sound", withExtension: "mp3") else { return }
+        guard let url = Bundle.main.url(forResource: "CPR_Posture_Sound", withExtension: "mp3") else { return }
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
         } catch (let error) {
@@ -291,6 +288,6 @@ extension PosePracticeViewController: CameraFeedManagerDelegate {
     }
     
     private func setUpText() {
-        viewModel.judgePostureResult()
+        _ = viewModel.judgePostureResult()
     }
 }
