@@ -10,7 +10,8 @@ import Foundation
 enum CallEndPoint {
     case getCallerList
     case callDispatcher(callerLocationInfo: CallerLocationInfo)
-    case situationEnd(callId: Int)    
+    case situationEnd(callId: Int)
+    case countDispatcher(callId: Int)
 }
 
 extension CallEndPoint: EndPoint {
@@ -19,7 +20,7 @@ extension CallEndPoint: EndPoint {
         switch self {
         case .callDispatcher, .situationEnd:
             return .POST
-        case .getCallerList:
+        case .getCallerList, .countDispatcher:
             return .GET
         }
     }
@@ -30,7 +31,7 @@ extension CallEndPoint: EndPoint {
             return nil
         case .callDispatcher(let callerLocationInfo):
             return callerLocationInfo.encode()
-        case .situationEnd:
+        case .situationEnd, .countDispatcher:
             return nil
         }
     }
@@ -44,6 +45,8 @@ extension CallEndPoint: EndPoint {
             return "\(baseURL)/call"
         case .situationEnd(let callId):
             return "\(baseURL)/call/end/\(callId)"
+        case .countDispatcher(let callId):
+            return "\(baseURL)/call/\(callId)"
         }
     }
     
@@ -58,6 +61,8 @@ extension CallEndPoint: EndPoint {
             headers["Content-Type"] = "application/json"
             return NetworkRequest(url: getURL(path: baseURL), httpMethod: method, headers: headers, requestBody: body)
         case .situationEnd:
+            return NetworkRequest(url: getURL(path: baseURL), httpMethod: method, headers: headers)
+        case .countDispatcher:
             return NetworkRequest(url: getURL(path: baseURL), httpMethod: method, headers: headers)
         }
     }

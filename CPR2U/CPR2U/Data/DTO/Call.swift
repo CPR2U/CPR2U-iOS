@@ -26,3 +26,7 @@ struct CallResult: Codable {
 }
 
 struct CallEndResult:Codable { }
+
+struct DispatcherCountResult: Codable {
+    let number_of_angels: Int
+}

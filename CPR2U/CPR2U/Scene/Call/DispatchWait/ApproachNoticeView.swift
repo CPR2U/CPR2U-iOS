@@ -192,6 +192,14 @@ final class ApproachNoticeView: UIView {
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
+                
+                if counter % 15 == 0 {
+                    Task {
+                        let dispatcherNumber = try await viewModel.countDispatcher()
+                        peopleCountLabel.text = "\(dispatcherNumber ?? 0)"
+                    }
+                    
+                }
                 if counter == 301 {
                     viewModel.timer?.connect().cancel()
                 } else {
