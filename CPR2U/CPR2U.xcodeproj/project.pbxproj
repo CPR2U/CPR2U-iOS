@@ -74,8 +74,6 @@
 		3A8C31A429D6062E004A4B84 /* MypageStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */; };
 		3A8C31AB29D62FF1004A4B84 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31AA29D62FF1004A4B84 /* ReportViewController.swift */; };
 		3A8C31AE29D6C9FC004A4B84 /* MypageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31AD29D6C9FC004A4B84 /* MypageTableViewCell.swift */; };
-		3A8C31B329D6F254004A4B84 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
-		3A8C31B429D6F258004A4B84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A70257929D4731B00225F56 /* GoogleService-Info.plist */; };
 		3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A8C31B729D6FAAB004A4B84 /* CPR_Sound.mp3 */; };
 		3A91C2CC29D0392B00028003 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CB29D0392B00028003 /* Call.swift */; };
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
@@ -770,9 +768,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A8C31B429D6F258004A4B84 /* GoogleService-Info.plist in Resources */,
 				3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */,
-				3A8C31B329D6F254004A4B84 /* Private.plist in Resources */,
 				3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
