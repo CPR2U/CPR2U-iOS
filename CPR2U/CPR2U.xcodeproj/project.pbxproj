@@ -19,8 +19,8 @@
 		3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6429BE01AB004411BE /* EndPoint.swift */; };
 		3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6629BE05D9004411BE /* Encodable+.swift */; };
 		3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6829BE0A87004411BE /* Requestable.swift */; };
-		3A2FF4C22A0CDFDB001F6132 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
-		3A2FF4C32A0CDFE0001F6132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A70257929D4731B00225F56 /* GoogleService-Info.plist */; };
+		3A2FF4C02A0CC9D2001F6132 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
+		3A2FF4C12A0CC9D8001F6132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A70257929D4731B00225F56 /* GoogleService-Info.plist */; };
 		3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */; };
 		3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */; };
 		3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3A324CD629C60E6400165E2E /* movenet_thunder.tflite */; };
@@ -764,8 +764,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A2FF4C32A0CDFE0001F6132 /* GoogleService-Info.plist in Resources */,
-				3A2FF4C22A0CDFDB001F6132 /* Private.plist in Resources */,
+				3A2FF4C12A0CC9D8001F6132 /* GoogleService-Info.plist in Resources */,
+				3A2FF4C02A0CC9D2001F6132 /* Private.plist in Resources */,
 				3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */,
 				3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
