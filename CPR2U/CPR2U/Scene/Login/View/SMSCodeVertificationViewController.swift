@@ -9,6 +9,7 @@ import Combine
 import CombineCocoa
 import UIKit
 
+// TODO: UI/UX Question
 final class SMSCodeVerificationViewController: UIViewController {
     private let authManager = AuthManager(service: APIManager())
     

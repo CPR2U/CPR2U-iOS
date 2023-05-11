@@ -47,17 +47,52 @@ final class NicknameVerificationViewController: UIViewController {
 
     private let signManager = AuthManager(service: APIManager())
     
-    var phoneNumberString: String?
+    private let instructionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 24)
+        label.textColor = .mainBlack
+        return label
+    }()
     
-    private let instructionLabel = UILabel()
-    private let descriptionLabel = UILabel()
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textColor = .mainBlack
+        return label
+    }()
     
-    private let nicknameView = UIView()
-    private let nicknameTextField = UITextField()
+    private let nicknameView: UIView = {
+        let view = UIView()
+        view.layer.borderColor = UIColor(rgb:0xF2F2F2).cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 6
+        return view
+    }()
     
-    private let irregularNoticeLabel = UILabel()
+    private let nicknameTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .clear
+        textField.textColor = .mainBlack
+        textField.font = UIFont(weight: .regular, size: 16)
+        return textField
+    }()
     
-    private let continueButton = UIButton()
+    private let irregularNoticeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textAlignment = .left
+        label.textColor = .mainRed
+        return label
+    }()
+    
+    private let continueButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont(weight: .bold, size: 16)
+        button.setTitleColor(.mainWhite, for: .normal)
+        button.backgroundColor = .mainRed
+        button.layer.cornerRadius = 27.5
+        return button
+    }()
     
     private var continueButtonBottomConstraints = NSLayoutConstraint()
     
@@ -73,7 +108,6 @@ final class NicknameVerificationViewController: UIViewController {
     
     init(viewModel: AuthViewModel) {
         self.viewModel = viewModel
-        self.phoneNumberString = viewModel.getPhoneNumber()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -94,11 +128,7 @@ final class NicknameVerificationViewController: UIViewController {
     }
     
     private func setUpConstraints() {
-        
-        let space4: CGFloat = 4
-        let space8: CGFloat = 8
-        let space16: CGFloat = 16
-        
+        let make = Constraints.shared
         let safeArea = view.safeAreaLayoutGuide
         
         [
@@ -116,81 +146,57 @@ final class NicknameVerificationViewController: UIViewController {
         nicknameTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            instructionLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: space16),
-            instructionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            instructionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            instructionLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: make.space16),
+            instructionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            instructionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             instructionLabel.heightAnchor.constraint(equalToConstant: 32)
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: space4),
-            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: space16),
+            descriptionLabel.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: make.space4),
+            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: make.space16),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 28)
         ])
 
         NSLayoutConstraint.activate([
-            nicknameView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: space8),
-            nicknameView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            nicknameView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            nicknameView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: make.space8),
+            nicknameView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            nicknameView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             nicknameView.heightAnchor.constraint(equalToConstant: 48)
         ])
         
         NSLayoutConstraint.activate([
             nicknameTextField.topAnchor.constraint(equalTo: nicknameView.topAnchor),
-            nicknameTextField.leadingAnchor.constraint(equalTo: nicknameView.leadingAnchor, constant: space16),
+            nicknameTextField.leadingAnchor.constraint(equalTo: nicknameView.leadingAnchor, constant: make.space16),
             nicknameTextField.trailingAnchor.constraint(equalTo: nicknameView.trailingAnchor),
             nicknameTextField.heightAnchor.constraint(equalTo: nicknameView.heightAnchor)
         ])
 
         NSLayoutConstraint.activate([
-            irregularNoticeLabel.topAnchor.constraint(equalTo: nicknameTextField.bottomAnchor, constant: space8),
-            irregularNoticeLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
+            irregularNoticeLabel.topAnchor.constraint(equalTo: nicknameTextField.bottomAnchor, constant: make.space8),
+            irregularNoticeLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
             irregularNoticeLabel.widthAnchor.constraint(equalToConstant: 300),
             irregularNoticeLabel.heightAnchor.constraint(equalToConstant: 16),
         ])
         
-        continueButtonBottomConstraints = continueButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16)
+        continueButtonBottomConstraints = continueButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -make.space16)
         NSLayoutConstraint.activate([
-            continueButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            continueButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            continueButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            continueButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             continueButtonBottomConstraints,
             continueButton.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
     private func setUpStyle() {
-        
         view.backgroundColor = .white
-        
-        instructionLabel.font = UIFont(weight: .bold, size: 24)
-        instructionLabel.textColor = .mainBlack
-        descriptionLabel.font = UIFont(weight: .regular, size: 14)
-        descriptionLabel.textColor = .mainBlack
-        
-        nicknameView.layer.borderColor = UIColor(rgb:0xF2F2F2).cgColor
-        nicknameView.layer.borderWidth = 1
-        nicknameView.layer.cornerRadius = 6
-        
-        nicknameTextField.backgroundColor = .clear
-        nicknameTextField.textColor = .mainBlack
-        nicknameTextField.font = UIFont(weight: .regular, size: 16)
-        
-        irregularNoticeLabel.font = UIFont(weight: .regular, size: 14)
-        irregularNoticeLabel.textAlignment = .left
-        irregularNoticeLabel.textColor = .mainRed
-        
-        continueButton.titleLabel?.font = UIFont(weight: .bold, size: 16)
-        continueButton.setTitleColor(.mainWhite, for: .normal)
-        continueButton.backgroundColor = .mainRed
-        continueButton.layer.cornerRadius = 27.5
     }
     
     private func setUpText() {
         instructionLabel.text = "Enter your Nickname"
         descriptionLabel.text = "People can recognize you by your nickname"
         continueButton.setTitle("CONTINUE", for: .normal)
-        
         nicknameTextField.placeholder = "Nickname*"
     }
     

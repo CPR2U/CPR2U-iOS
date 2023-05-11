@@ -14,14 +14,7 @@ enum LoginPhase {
     case Nickname
 }
 
-protocol ViewModelType {
-    associatedtype Input
-    associatedtype Output
-
-    func transform(loginPhase: LoginPhase, input: Input) -> Output
-}
-
-final class AuthViewModel: ViewModelType {
+final class AuthViewModel: AuthViewModelType {
 
     private let authManager: AuthManager
     private var phoneNumberString: String?

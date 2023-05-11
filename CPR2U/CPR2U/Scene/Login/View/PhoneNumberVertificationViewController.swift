@@ -10,17 +10,59 @@ import CombineCocoa
 import UIKit
 
 final class PhoneNumberVerificationViewController: UIViewController {
-
-    private let instructionLabel = UILabel()
-    private let descriptionLabel = UILabel()
     
-    private let phoneNumberView = UIView()
-    private let phoneNumberNationView = UIView()
-    private let phoneNumberNationLabel = UILabel()
-    private let phoneNumberTextField = UITextField()
+    private let instructionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 24)
+        label.textColor = .mainBlack
+        return label
+    }()
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textColor = .mainBlack
+        return label
+    }()
+    
+    private let phoneNumberView: UIView = {
+        let view = UIView()
+        view.layer.borderColor = UIColor(rgb:0xF2F2F2).cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 6
+        return view
+    }()
+    
+    private let phoneNumberNationView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 6
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        view.backgroundColor = UIColor(rgb:0xF2F2F2)
+        return view
+    }()
+    
+    private let phoneNumberNationLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 15)
+        label.textAlignment = .center
+        label.textColor = .mainBlack
+        return label
+    }()
+    
+    private let phoneNumberTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .clear
+        textField.textColor = .mainBlack
+        textField.font = UIFont(weight: .regular, size: 16)
+        return textField
+    }()
     
     private let sendButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = UIFont(weight: .bold, size: 16)
+        button.setTitleColor(.mainBlack, for: .normal)
+        button.backgroundColor = .mainLightGray
+        button.layer.cornerRadius = 27.5
         button.isEnabled = false
         return button
     }()
@@ -50,11 +92,7 @@ final class PhoneNumberVerificationViewController: UIViewController {
     }
     
     private func setUpConstraints() {
-        
-        let space4: CGFloat = 4
-        let space8: CGFloat = 8
-        let space16: CGFloat = 16
-        
+        let make = Constraints.shared
         let safeArea = view.safeAreaLayoutGuide
         
         [
@@ -76,23 +114,23 @@ final class PhoneNumberVerificationViewController: UIViewController {
         })
         
         NSLayoutConstraint.activate([
-            instructionLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: space16),
-            instructionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            instructionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            instructionLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: make.space16),
+            instructionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            instructionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             instructionLabel.heightAnchor.constraint(equalToConstant: 32)
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: space4),
-            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: space16),
+            descriptionLabel.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: make.space4),
+            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: make.space16),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 28)
         ])
 
         NSLayoutConstraint.activate([
-            phoneNumberView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: space8),
-            phoneNumberView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            phoneNumberView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            phoneNumberView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: make.space8),
+            phoneNumberView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            phoneNumberView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             phoneNumberView.heightAnchor.constraint(equalToConstant: 48)
         ])
         
@@ -114,50 +152,22 @@ final class PhoneNumberVerificationViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             phoneNumberTextField.topAnchor.constraint(equalTo: phoneNumberView.topAnchor),
-            phoneNumberTextField.leadingAnchor.constraint(equalTo: phoneNumberNationView.trailingAnchor, constant: space16),
+            phoneNumberTextField.leadingAnchor.constraint(equalTo: phoneNumberNationView.trailingAnchor, constant: make.space16),
             phoneNumberTextField.trailingAnchor.constraint(equalTo: phoneNumberView.trailingAnchor),
             phoneNumberTextField.heightAnchor.constraint(equalTo: phoneNumberView.heightAnchor)
         ])
 
-        sendButtonBottomConstraints = sendButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16)
+        sendButtonBottomConstraints = sendButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -make.space16)
         NSLayoutConstraint.activate([
-            sendButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            sendButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            sendButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            sendButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             sendButtonBottomConstraints,
             sendButton.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
     private func setUpStyle() {
-        
         view.backgroundColor = .white
-        
-        instructionLabel.font = UIFont(weight: .bold, size: 24)
-        instructionLabel.textColor = .mainBlack
-        descriptionLabel.font = UIFont(weight: .regular, size: 14)
-        descriptionLabel.textColor = .mainBlack
-        
-        phoneNumberNationView.clipsToBounds = true
-        phoneNumberNationView.layer.cornerRadius = 6
-        phoneNumberNationView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        phoneNumberNationView.backgroundColor = UIColor(rgb:0xF2F2F2)
-        
-        phoneNumberNationLabel.font = UIFont(weight: .regular, size: 15)
-        phoneNumberNationLabel.textAlignment = .center
-        phoneNumberNationLabel.textColor = .mainBlack
-        
-        phoneNumberView.layer.borderColor = UIColor(rgb:0xF2F2F2).cgColor
-        phoneNumberView.layer.borderWidth = 1
-        phoneNumberView.layer.cornerRadius = 6
-        
-        phoneNumberTextField.backgroundColor = .clear
-        phoneNumberTextField.textColor = .mainBlack
-        phoneNumberTextField.font = UIFont(weight: .regular, size: 16)
-        
-        sendButton.titleLabel?.font = UIFont(weight: .bold, size: 16)
-        sendButton.setTitleColor(.mainBlack, for: .normal)
-        sendButton.backgroundColor = .mainLightGray
-        sendButton.layer.cornerRadius = 27.5
     }
     
     private func setUpText() {
@@ -214,7 +224,7 @@ final class PhoneNumberVerificationViewController: UIViewController {
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
-        sendButtonBottomConstraints.constant = -16
+        sendButtonBottomConstraints.constant = -Constraints.shared.space16
         view.layoutIfNeeded()
     }
 }
