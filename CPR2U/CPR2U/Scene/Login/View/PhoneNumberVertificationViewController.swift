@@ -186,7 +186,7 @@ final class PhoneNumberVerificationViewController: UIViewController {
         let output = viewModel.transform(loginPhase: LoginPhase.PhoneNumber, input: input)
 
         output
-            .buttonIsValid
+            .buttonIsValid?
             .sink(receiveValue: { [weak self] state in
                 self?.sendButton.isEnabled = state
                 self?.sendButton.setTitleColor(state ? .mainWhite : .mainBlack, for: .normal)

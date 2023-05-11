@@ -133,17 +133,23 @@ final class AuthViewModel: ViewModelType {
     }
     
     struct Input {
-        let verifier: AnyPublisher<String, Never>
+        let verifier: AnyPublisher<String?, Never>
     }
 
     struct Output {
-        let buttonIsValid: AnyPublisher<Bool, Never>
+        let buttonIsValid: AnyPublisher<Bool, Never>?
     }
 
     func transform(loginPhase: LoginPhase, input: Input) -> Output {
-        let buttonStatePublisher = input.verifier.map { verifier in
-            verifier.count > 0
+
+        let buttonStatePublisher = input.verifier.map { text in
+            if let length = text?.count {
+                return length > 0
+            } else {
+                return false
+            }
         }.eraseToAnyPublisher()
+
         return Output(buttonIsValid: buttonStatePublisher)
     }
 }

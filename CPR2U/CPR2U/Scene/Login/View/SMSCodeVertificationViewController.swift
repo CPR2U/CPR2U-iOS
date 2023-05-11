@@ -91,7 +91,6 @@ final class SMSCodeVerificationViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpLayerName()
-        setUpDelegate()
         setUpKeyboard()
         bind(viewModel: viewModel)
     }
@@ -197,12 +196,6 @@ final class SMSCodeVerificationViewController: UIViewController {
         }
     }
     
-    private func setUpDelegate() {
-        [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4].forEach({
-            $0.smsCodeTextField.delegate = self
-        })
-    }
-    
     private func setUpKeyboard() {
         smsCodeInputView1.smsCodeTextField.becomeFirstResponder()
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -214,14 +207,26 @@ final class SMSCodeVerificationViewController: UIViewController {
         let smsCodeViews = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
         
         for index in 0...3 {
+            
+            smsCodeViews[index].smsCodeTextField.controlEventPublisher(for: .editingDidBegin).sink {
+                let textField = smsCodeViews[index].smsCodeTextField
+                textField.text = ""
+                guard let textFieldLayerName = textField.layer.name else { return }
+                guard let index = Int(textFieldLayerName) else { return }
+                self.smsCodeCheckArr[index] = false
+            }
+            .store(in: &cancellables)
+            
             smsCodeViews[index].smsCodeTextField.textPublisher.sink {
-                if $0.count == 1 {
+                
+                guard let textLength = $0?.count else { return }
+                if textLength == 1 {
                     if index != 3 {
                         smsCodeViews[(index+1)].smsCodeTextField.becomeFirstResponder()
                         smsCodeViews[(index+1)].smsCodeTextField.text = ""
                     }
                     self.smsCodeCheckArr[index] = true
-                } else if $0.count > 1 && index == 3 {
+                } else if textLength > 1 && index == 3 {
                     smsCodeViews[(index)].smsCodeTextField.text?.removeFirst()
                 }
             }
@@ -260,16 +265,6 @@ final class SMSCodeVerificationViewController: UIViewController {
     @objc private func keyboardWillHide(_ notification: Notification) {
         confirmButtonBottomConstraints.constant = -16
         view.layoutIfNeeded()
-    }
-}
-
-extension SMSCodeVerificationViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.text = ""
-        guard let textFieldLayerName = textField.layer.name else { return }
-        guard let index = Int(textFieldLayerName) else { return }
-        self.smsCodeCheckArr[index] = false
-        
     }
 }
 

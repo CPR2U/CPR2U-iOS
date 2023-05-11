@@ -19,6 +19,8 @@
 		3A22BF6529BE01AB004411BE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6429BE01AB004411BE /* EndPoint.swift */; };
 		3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6629BE05D9004411BE /* Encodable+.swift */; };
 		3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6829BE0A87004411BE /* Requestable.swift */; };
+		3A2FF4C22A0CDFDB001F6132 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
+		3A2FF4C32A0CDFE0001F6132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A70257929D4731B00225F56 /* GoogleService-Info.plist */; };
 		3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */; };
 		3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */; };
 		3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3A324CD629C60E6400165E2E /* movenet_thunder.tflite */; };
@@ -69,7 +71,6 @@
 		3A70259029D5CAF300225F56 /* DispatchEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */; };
 		3A70259229D5CAFE00225F56 /* DispatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259129D5CAFE00225F56 /* DispatchManager.swift */; };
 		3A70259429D5CC6100225F56 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259329D5CC6100225F56 /* Dispatch.swift */; };
-		3A70259629D5E07700225F56 /* DispatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70259529D5E07700225F56 /* DispatchViewModel.swift */; };
 		3A8C31A129D6042B004A4B84 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31A029D6042B004A4B84 /* MypageViewController.swift */; };
 		3A8C31A429D6062E004A4B84 /* MypageStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */; };
 		3A8C31AB29D62FF1004A4B84 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C31AA29D62FF1004A4B84 /* ReportViewController.swift */; };
@@ -93,7 +94,6 @@
 		3AA636D929B36C76006BB5EF /* NicknameVertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */; };
 		3AA636ED29B5E816006BB5EF /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636EC29B5E816006BB5EF /* AuthViewModel.swift */; };
 		3AA636F129B5F1C8006BB5EF /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F029B5F1C8006BB5EF /* UIControl+.swift */; };
-		3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F229B5F20D006BB5EF /* UITextField+.swift */; };
 		3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636F429B61D67006BB5EF /* UIViewController+.swift */; };
 		3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE724E29B9D4AB00EEE19C /* Constraints.swift */; };
 		3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */; };
@@ -175,7 +175,6 @@
 		3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchEndPoint.swift; sourceTree = "<group>"; };
 		3A70259129D5CAFE00225F56 /* DispatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchManager.swift; sourceTree = "<group>"; };
 		3A70259329D5CC6100225F56 /* Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
-		3A70259529D5E07700225F56 /* DispatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchViewModel.swift; sourceTree = "<group>"; };
 		3A8C31A029D6042B004A4B84 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		3A8C31A329D6062E004A4B84 /* MypageStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageStatusView.swift; sourceTree = "<group>"; };
 		3A8C31AA29D62FF1004A4B84 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
@@ -201,7 +200,6 @@
 		3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameVertificationViewController.swift; sourceTree = "<group>"; };
 		3AA636EC29B5E816006BB5EF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		3AA636F029B5F1C8006BB5EF /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
-		3AA636F229B5F20D006BB5EF /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		3AA636F429B61D67006BB5EF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		3ADE724E29B9D4AB00EEE19C /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		3ADE725129B9D55100EEE19C /* EducationMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationMainViewController.swift; sourceTree = "<group>"; };
@@ -282,7 +280,6 @@
 		3A22BF3E29BC8C62004411BE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				3AA636F229B5F20D006BB5EF /* UITextField+.swift */,
 				3AA636C129B07C5F006BB5EF /* UIColor+.swift */,
 				3AA636D229B24D72006BB5EF /* UIFont+.swift */,
 				3AA636F029B5F1C8006BB5EF /* UIControl+.swift */,
@@ -549,7 +546,6 @@
 			children = (
 				3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */,
 				3A70259129D5CAFE00225F56 /* DispatchManager.swift */,
-				3A70259529D5E07700225F56 /* DispatchViewModel.swift */,
 			);
 			path = Dispatch;
 			sourceTree = "<group>";
@@ -768,6 +764,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A2FF4C32A0CDFE0001F6132 /* GoogleService-Info.plist in Resources */,
+				3A2FF4C22A0CDFDB001F6132 /* Private.plist in Resources */,
 				3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */,
 				3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
@@ -851,7 +849,6 @@
 				3ADE726229BB047300EEE19C /* QuizChoiceView.swift in Sources */,
 				3AA636F529B61D67006BB5EF /* UIViewController+.swift in Sources */,
 				3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */,
-				3AA636F329B5F20D006BB5EF /* UITextField+.swift in Sources */,
 				3A5C391029C08C8900378015 /* QuizViewModel.swift in Sources */,
 				3ADE726629BB04C900EEE19C /* QuizQuestionView.swift in Sources */,
 				3A22BF5529BCEAC8004411BE /* NetworkResponse.swift in Sources */,
@@ -874,7 +871,6 @@
 				3A396BAA29CA0A07009B0545 /* TabBarViewController.swift in Sources */,
 				3AA636D729B35CA3006BB5EF /* SMSCodeInputView.swift in Sources */,
 				3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */,
-				3A70259629D5E07700225F56 /* DispatchViewModel.swift in Sources */,
 				3A22BF5729BCEBA2004411BE /* APIError.swift in Sources */,
 				3ADE725429B9D69D00EEE19C /* CertificateStatusView.swift in Sources */,
 				3ADE726E29BB59C000EEE19C /* PosePracticeViewController.swift in Sources */,
