@@ -620,6 +620,7 @@
 		3AA636DE29B37E04006BB5EF /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3AA636EC29B5E816006BB5EF /* AuthViewModel.swift */,
 				3AA636DF29B37E21006BB5EF /* View */,
 			);
 			path = Login;
@@ -632,7 +633,6 @@
 				3AA636D429B358D0006BB5EF /* SMSCodeVertificationViewController.swift */,
 				3AA636D829B36C76006BB5EF /* NicknameVertificationViewController.swift */,
 				3AA636D629B35CA3006BB5EF /* SMSCodeInputView.swift */,
-				3AA636EC29B5E816006BB5EF /* AuthViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
