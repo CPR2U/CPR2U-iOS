@@ -28,6 +28,8 @@ jobs:
         </dict>
         </plist>
         ' >> ./CPR2U/CPR2U/Private.plist
+        echo '
+        ' >> ./CPR2U/CPR2U/GoogleService-Info.plist
         
     - name: Build Xcode
       run: |
