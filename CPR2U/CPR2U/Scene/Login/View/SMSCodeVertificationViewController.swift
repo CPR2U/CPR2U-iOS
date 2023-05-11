@@ -17,7 +17,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 24)
         label.textColor = .mainBlack
-        label.text = "Enter Code"
+        label.text = "code_ins_txt".localized()
         return label
     }()
     
@@ -25,7 +25,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont(weight: .regular, size: 14)
         label.textColor = .mainBlack
-        label.text = "An SMS code was sent to"
+        label.text = "code_des_txt".localized()
         return label
     }()
     
@@ -48,7 +48,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         label.font = UIFont(weight: .regular, size: 14)
         label.textAlignment = .right
         label.textColor = .mainRed
-        label.text = "Not receiveing the code?"
+        label.text = "code_resend_ins_txt".localized()
         return label
     }()
     
@@ -59,7 +59,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         button.backgroundColor = .mainLightGray
         button.layer.cornerRadius = 27.5
         button.isUserInteractionEnabled = false
-        button.setTitle("CONFIRM", for: .normal)
+        button.setTitle("confirm".localized(), for: .normal)
         return button
     }()
     

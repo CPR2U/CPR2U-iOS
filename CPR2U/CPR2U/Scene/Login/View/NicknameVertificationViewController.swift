@@ -21,9 +21,10 @@ enum NicknameStatus {
         var str: String
         switch self {
         case .specialCharacters:
-            str = "Nickname cannot contain special characters"
+            str = "nickname_special_character".localized()
         case .unavailable:
-            str = "\'\(name)' is Unavailable"
+            let localizedStr = String(format: "%s_nickname_unavailable".localized(), name)
+            str = localizedStr
         case .available:
             str = ""
         case .none:
@@ -51,6 +52,7 @@ final class NicknameVerificationViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 24)
         label.textColor = .mainBlack
+        label.text = "nickname_ins_txt".localized()
         return label
     }()
     
@@ -58,6 +60,7 @@ final class NicknameVerificationViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont(weight: .regular, size: 14)
         label.textColor = .mainBlack
+        label.text = "nickname_des_txt".localized()
         return label
     }()
     
@@ -74,6 +77,7 @@ final class NicknameVerificationViewController: UIViewController {
         textField.backgroundColor = .clear
         textField.textColor = .mainBlack
         textField.font = UIFont(weight: .regular, size: 16)
+        textField.placeholder = "nickname_phdr".localized()
         return textField
     }()
     
@@ -88,6 +92,7 @@ final class NicknameVerificationViewController: UIViewController {
     private let continueButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont(weight: .bold, size: 16)
+        button.setTitle("continue".localized(), for: .normal)
         button.setTitleColor(.mainWhite, for: .normal)
         button.backgroundColor = .mainRed
         button.layer.cornerRadius = 27.5
@@ -121,7 +126,6 @@ final class NicknameVerificationViewController: UIViewController {
 
         setUpConstraints()
         setUpStyle()
-        setUpText()
         setUpAction()
         setUpKeyboard()
         bind(viewModel: viewModel)
@@ -191,13 +195,6 @@ final class NicknameVerificationViewController: UIViewController {
     
     private func setUpStyle() {
         view.backgroundColor = .white
-    }
-    
-    private func setUpText() {
-        instructionLabel.text = "Enter your Nickname"
-        descriptionLabel.text = "People can recognize you by your nickname"
-        continueButton.setTitle("CONTINUE", for: .normal)
-        nicknameTextField.placeholder = "Nickname*"
     }
     
     private func setUpAction() {

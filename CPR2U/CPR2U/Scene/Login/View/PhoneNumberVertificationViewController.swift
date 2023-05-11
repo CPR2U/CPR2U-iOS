@@ -10,17 +10,18 @@ import CombineCocoa
 import UIKit
 
 final class PhoneNumberVerificationViewController: UIViewController {
-    
     private let instructionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 24)
         label.textColor = .mainBlack
+        label.text = "pn_ins_txt".localized()
         return label
     }()
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .regular, size: 14)
         label.textColor = .mainBlack
+        label.text = "pn_des_txt".localized()
         return label
     }()
     
@@ -46,6 +47,7 @@ final class PhoneNumberVerificationViewController: UIViewController {
         label.font = UIFont(weight: .regular, size: 15)
         label.textAlignment = .center
         label.textColor = .mainBlack
+        label.text = "nation_code".localized()
         return label
     }()
     
@@ -54,12 +56,14 @@ final class PhoneNumberVerificationViewController: UIViewController {
         textField.backgroundColor = .clear
         textField.textColor = .mainBlack
         textField.font = UIFont(weight: .regular, size: 16)
+        textField.placeholder = "pn_phdr".localized()
         return textField
     }()
     
     private let sendButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont(weight: .bold, size: 16)
+        button.setTitle("send".localized(), for: .normal)
         button.setTitleColor(.mainBlack, for: .normal)
         button.backgroundColor = .mainLightGray
         button.layer.cornerRadius = 27.5
@@ -86,7 +90,6 @@ final class PhoneNumberVerificationViewController: UIViewController {
 
         setUpConstraints()
         setUpStyle()
-        setUpText()
         setUpKeyboard()
         bind(to: viewModel)
     }
@@ -170,16 +173,6 @@ final class PhoneNumberVerificationViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    private func setUpText() {
-        instructionLabel.text = "Enter your number"
-        descriptionLabel.text = "We will send a code to verify your mobile number"
-        
-        phoneNumberNationLabel.text = "+ 82"
-        
-        phoneNumberTextField.placeholder = "PhoneNumber*"
-        sendButton.setTitle("SEND", for: .normal)
-    }
-
     private func setUpKeyboard() {
         phoneNumberTextField.becomeFirstResponder()
         phoneNumberTextField.keyboardType = .numberPad

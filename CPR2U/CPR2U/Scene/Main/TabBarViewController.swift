@@ -31,9 +31,9 @@ final class TabBarViewController: UITabBarController {
         let callVC = CallMainViewController(viewModel: CallViewModel())
         let mypageVC = MypageViewController(viewModel: EducationViewModel())
         
-        educationVC.title = "Education"
-        callVC.title = "Call"
-        mypageVC.title = "Profile"
+        educationVC.title = "edu_tab_t".localized()
+        callVC.title = "call_tab_t".localized()
+        mypageVC.title = "mypage_tab_t".localized()
         
         educationVC.tabBarItem.image = UIImage.init(systemName: "book")
         callVC.tabBarItem.image = UIImage.init(systemName: "bell")

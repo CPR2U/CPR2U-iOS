@@ -20,14 +20,20 @@ final class SMSCodeInputView: UIView {
             }
         }
     }
-    var smsCodeTextField = UITextField()
+    var smsCodeTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = UIFont(weight: .regular, size: 29)
+        textField.textColor = UIColor(rgb: 0xAC6767)
+        textField.textAlignment = .center
+        textField.keyboardType = .numberPad
+        return textField
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setUpConstraints()
         setUpStyle()
-        setUpKeyboard()
         
     }
     
@@ -53,14 +59,6 @@ final class SMSCodeInputView: UIView {
         self.layer.cornerRadius = 5
         self.layer.borderColor = UIColor.mainBlack.cgColor
         self.layer.borderWidth = 0
-        
-        smsCodeTextField.font = UIFont(weight: .regular, size: 29)
-        smsCodeTextField.textColor = UIColor(rgb: 0xAC6767)
-        smsCodeTextField.textAlignment = .center
-    }
-    
-    func setUpKeyboard() {
-        smsCodeTextField.keyboardType = .numberPad
     }
     
 }

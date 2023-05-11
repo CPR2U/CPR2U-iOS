@@ -21,6 +21,8 @@
 		3A22BF6929BE0A87004411BE /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF6829BE0A87004411BE /* Requestable.swift */; };
 		3A2FF4C02A0CC9D2001F6132 /* Private.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A396BAC29CA138A009B0545 /* Private.plist */; };
 		3A2FF4C12A0CC9D8001F6132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A70257929D4731B00225F56 /* GoogleService-Info.plist */; };
+		3A2FF4C62A0D0EDF001F6132 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A2FF4C82A0D0EDF001F6132 /* Localizable.strings */; };
+		3A2FF4CA2A0D1890001F6132 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2FF4C92A0D1890001F6132 /* String+.swift */; };
 		3A324CD029C4BCCF00165E2E /* OXQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */; };
 		3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */; };
 		3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3A324CD629C60E6400165E2E /* movenet_thunder.tflite */; };
@@ -124,6 +126,8 @@
 		3A22BF6429BE01AB004411BE /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		3A22BF6629BE05D9004411BE /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		3A22BF6829BE0A87004411BE /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
+		3A2FF4C72A0D0EDF001F6132 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3A2FF4C92A0D1890001F6132 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		3A324CCF29C4BCCF00165E2E /* OXQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXQuizChoiceView.swift; sourceTree = "<group>"; };
 		3A324CD129C4BCE000165E2E /* MultiQuizChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiQuizChoiceView.swift; sourceTree = "<group>"; };
 		3A324CD629C60E6400165E2E /* movenet_thunder.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = movenet_thunder.tflite; sourceTree = "<group>"; };
@@ -289,6 +293,7 @@
 				3A396B9229C97E31009B0545 /* UIView+.swift */,
 				3A396BA429CA0646009B0545 /* UIWindow+.swift */,
 				3A396BD829CF644A009B0545 /* Int+.swift */,
+				3A2FF4C92A0D1890001F6132 /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -604,6 +609,7 @@
 				3AA636BB29AE5057006BB5EF /* Info.plist */,
 				3A396BAC29CA138A009B0545 /* Private.plist */,
 				3A70257929D4731B00225F56 /* GoogleService-Info.plist */,
+				3A2FF4C82A0D0EDF001F6132 /* Localizable.strings */,
 			);
 			path = CPR2U;
 			sourceTree = "<group>";
@@ -769,6 +775,7 @@
 				3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */,
 				3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
+				3A2FF4C62A0D0EDF001F6132 /* Localizable.strings in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
 				3AA636BA29AE5057006BB5EF /* LaunchScreen.storyboard in Resources */,
@@ -900,6 +907,7 @@
 				3A324CE329C6103800165E2E /* CGSize+TFLite.swift in Sources */,
 				3A91C2D129D0396E00028003 /* CallManager.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
+				3A2FF4CA2A0D1890001F6132 /* String+.swift in Sources */,
 				3A70259429D5CC6100225F56 /* Dispatch.swift in Sources */,
 				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
 				3A70258B29D5BFA300225F56 /* DispatchDescriptionView.swift in Sources */,
@@ -921,6 +929,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3A2FF4C82A0D0EDF001F6132 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A2FF4C72A0D0EDF001F6132 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		3AA636B829AE5057006BB5EF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
