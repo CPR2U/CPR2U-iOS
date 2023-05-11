@@ -42,7 +42,7 @@ final class SMSCodeInputView: UIView {
         NSLayoutConstraint.activate([
             smsCodeTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             smsCodeTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            smsCodeTextField.widthAnchor.constraint(equalToConstant: 16),
+            smsCodeTextField.widthAnchor.constraint(equalToConstant: 64),
             smsCodeTextField.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
