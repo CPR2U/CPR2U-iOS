@@ -98,17 +98,14 @@ final class SMSCodeVerificationViewController: UIViewController {
     
     private func setUpConstraints() {
         
-        let space4: CGFloat = 4
-        let space8: CGFloat = 8
-        let space16: CGFloat = 16
-        
+        let make = Constraints.shared
         let safeArea = view.safeAreaLayoutGuide
         
         let smsCodeInputStackView   = UIStackView()
         smsCodeInputStackView.axis  = NSLayoutConstraint.Axis.horizontal
         smsCodeInputStackView.distribution  = UIStackView.Distribution.equalSpacing
         smsCodeInputStackView.alignment = UIStackView.Alignment.center
-        smsCodeInputStackView.spacing   = 12
+        smsCodeInputStackView.spacing   = make.space12
         
         [
             instructionLabel,
@@ -123,23 +120,23 @@ final class SMSCodeVerificationViewController: UIViewController {
         })
         
         NSLayoutConstraint.activate([
-            instructionLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: space16),
-            instructionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            instructionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            instructionLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: make.space16),
+            instructionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            instructionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             instructionLabel.heightAnchor.constraint(equalToConstant: 32)
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: space4),
-            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: space16),
+            descriptionLabel.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: make.space4),
+            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: make.space16),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
         
         NSLayoutConstraint.activate([
-            phoneNumberLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: space4),
-            phoneNumberLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            phoneNumberLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            phoneNumberLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: make.space4),
+            phoneNumberLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            phoneNumberLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             phoneNumberLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
         
@@ -147,9 +144,9 @@ final class SMSCodeVerificationViewController: UIViewController {
         smsCodeInputStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            smsCodeInputStackView.topAnchor.constraint(equalTo: phoneNumberLabel.bottomAnchor, constant: space16),
-            smsCodeInputStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            smsCodeInputStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            smsCodeInputStackView.topAnchor.constraint(equalTo: phoneNumberLabel.bottomAnchor, constant: make.space16),
+            smsCodeInputStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            smsCodeInputStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             smsCodeInputStackView.heightAnchor.constraint(equalToConstant: 54)
         ])
         
@@ -170,17 +167,17 @@ final class SMSCodeVerificationViewController: UIViewController {
         })
         
         NSLayoutConstraint.activate([
-            codeResendLabel.topAnchor.constraint(equalTo: smsCodeInputStackView.bottomAnchor, constant: space8),
-            codeResendLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            codeResendLabel.topAnchor.constraint(equalTo: smsCodeInputStackView.bottomAnchor, constant: make.space8),
+            codeResendLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             codeResendLabel.widthAnchor.constraint(equalToConstant: 300),
             codeResendLabel.heightAnchor.constraint(equalToConstant: 24),
             
         ])
         
-        confirmButtonBottomConstraints = confirmButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -space16)
+        confirmButtonBottomConstraints = confirmButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -make.space16)
         NSLayoutConstraint.activate([
-            confirmButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: space16),
-            confirmButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -space16),
+            confirmButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
+            confirmButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             confirmButtonBottomConstraints,
             confirmButton.heightAnchor.constraint(equalToConstant: 55)
         ])
@@ -264,7 +261,7 @@ final class SMSCodeVerificationViewController: UIViewController {
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
-        confirmButtonBottomConstraints.constant = -16
+        confirmButtonBottomConstraints.constant = Constraints.shared.space16
         view.layoutIfNeeded()
     }
 }
