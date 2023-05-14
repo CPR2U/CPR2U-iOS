@@ -1,0 +1,49 @@
+/* 
+  Localizable.strings
+  CPR2U
+
+  Created by 황정현 on 2023/05/11.
+  
+*/
+
+/*
+key의 길이가 길어지는 것을 방지하기 위해 아래의 규칙에 의거하여 key 이름을 지정합니다.
+education: edu
+call: call
+mypage: mpg
+tab: tab
+t: title
+txt: text
+ins: instruction
+des: description
+pn: phone number
+phdr: placeholder
+*/
+
+// Common
+"send" = "SEND";
+"confirm" = "CONFIRM";
+"continue" = "CONTINUE";
+
+// TabBarView
+"edu_tab_t" = "Education";
+"call_tab_t" = "Call";
+"mypage_tab_t" = "Profile";
+
+//PhoneNumberVC
+"nation_code" = "+ 82";
+"pn_ins_txt" = "Enter your number";
+"pn_des_txt" = "We will send a code to verify your mobile number";
+"pn_phdr" = "PhoneNumber*";
+
+//SMSCodeVerificationVC
+"code_ins_txt"= "Enter Code";
+"code_des_txt"= "An SMS code was sent to";
+"code_resend_ins_txt" = "Not receiveing the code?";
+
+//NicknameVerificationVC
+"nickname_special_character" = "Nickname cannot contain special characters";
+"%s_nickname_unavailable" = "%s is Unavailable";
+"nickname_ins_txt" = "Enter your Nickname";
+"nickname_des_txt" = "People can recognize you by your nickname";
+"nickname_phdr" = "Nickname*";
