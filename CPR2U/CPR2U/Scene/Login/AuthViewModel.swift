@@ -15,42 +15,70 @@ enum LoginPhase {
 }
 
 final class AuthViewModel: AuthViewModelType {
-
     private let authManager: AuthManager
-    private var phoneNumberString: String?
-    private var smsCode: String?
-    private var nickname: String?
+    
+    private var _phoneNumber: String?
+    private var _smsCode: String?
+    private var _nickname: String?
+    
+    var phoneNumber: String {
+        get {
+            guard let str = _phoneNumber else { return "" }
+            return "+82 \(str)"
+        }
+        set(value) {
+            _phoneNumber = value
+        }
+    }
+    var smsCode: String {
+        get {
+            guard let str = _smsCode else { return "" }
+            return str
+        }
+        set(value) {
+            _smsCode = value
+        }
+    }
+    var nickname: String {
+        get {
+            guard let str = _nickname else { return "" }
+            return str
+        }
+        set(value) {
+            _nickname = value
+        }
+    }
     
     init() {
         authManager = AuthManager(service: APIManager())
     }
     
-    func getPhoneNumber() -> String {
-        guard let str = phoneNumberString else { return "" }
-        return "+82 \(str)"
-    }
-    
-    func getSMSCode() -> String {
-        guard let str = smsCode else { return "" }
-        return str
-    }
-    
-    func getNickname() -> String {
-        guard let str = nickname else { return "" }
-        return str
-    }
-    
-    func setPhoneNumber(number: String) {
-        phoneNumberString = number
-    }
-    
-    func setSMSCode(number: String) {
-        smsCode = number
-    }
-    
-    func setNickname(name: String) {
-        nickname = name
-    }
+//    func getPhoneNumber() -> String {
+//        guard let str = phoneNumberString else { return "" }
+//        return "+82 \(str)"
+//    }
+//
+//    func getSMSCode() -> String {
+//        guard let str = smsCode else { return "" }
+//        return str
+//    }
+//
+//    func getNickname() -> String {
+//        guard let str = nickname else { return "" }
+//        return str
+//    }
+//
+//    func setPhoneNumber(number: String) {
+//        phoneNumberString = number
+//    }
+//
+//    func setSMSCode(number: String) {
+//        smsCode = number
+//    }
+//
+//    func setNickname(name: String) {
+//        nickname = name
+//    }
     
     func autoLogin() async throws -> Bool {
         let refreshToken = UserDefaultsManager.refreshToken
@@ -89,10 +117,13 @@ final class AuthViewModel: AuthViewModelType {
     
     func userVerify() async throws -> Bool {
         let result = Task { () -> Bool in
-            guard let phoneNumber = phoneNumberString else { return false }
-            let authResult = try await authManager.signIn(phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
-            
-            return authResult.success
+            if phoneNumber == "" {
+                return false
+            } else {
+                let authResult = try await authManager.signIn(phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
+                
+                return authResult.success
+            }
         }
         return try await result.value
     }
@@ -112,15 +143,18 @@ final class AuthViewModel: AuthViewModelType {
     
     func signUp() async throws -> Bool {
         let taskResult = Task { () -> Bool in
-            guard let phoneNumber = phoneNumberString, let nickname = nickname else { return false }
-            let authResult = try await authManager.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
-            if authResult.success == true {
-                guard let data = authResult.data else { return false }
-                UserDefaultsManager.accessToken = data.access_token
-                UserDefaultsManager.refreshToken = data.refresh_token
-                print("USER TOKEN UPDATE")
+            if phoneNumber == "" && nickname == "" {
+                return false
+            } else {
+                let authResult = try await authManager.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
+                if authResult.success == true {
+                    guard let data = authResult.data else { return false }
+                    UserDefaultsManager.accessToken = data.access_token
+                    UserDefaultsManager.refreshToken = data.refresh_token
+                    print("USER TOKEN UPDATE")
+                }
+                return authResult.success
             }
-            return authResult.success
         }
         return try await taskResult.value
     }

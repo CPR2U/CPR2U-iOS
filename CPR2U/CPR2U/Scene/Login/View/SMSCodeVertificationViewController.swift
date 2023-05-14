@@ -34,7 +34,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         label.font = UIFont(weight: .bold, size: 16)
         label.textAlignment = .left
         label.textColor = .mainBlack
-        label.text = self.viewModel.getPhoneNumber()
+        label.text = self.viewModel.phoneNumber
         return label
     }()
     
@@ -274,6 +274,6 @@ extension SMSCodeVerificationViewController {
         let userInput = [smsCodeInputView1, smsCodeInputView2, smsCodeInputView3, smsCodeInputView4]
             .compactMap{$0.smsCodeTextField.text}
             .reduce("") { return $0 + $1 }
-        return userInput == viewModel.getSMSCode()
+        return userInput == viewModel.smsCode
     }
 }

@@ -224,8 +224,8 @@ final class PhoneNumberVerificationViewController: UIViewController {
 
 extension PhoneNumberVerificationViewController {
     func navigateToSMSCodeVerificationPage(phoneNumberString: String, smsCode: String) {
-        viewModel.setPhoneNumber(number: phoneNumberString)
-        viewModel.setSMSCode(number: smsCode)
+        viewModel.phoneNumber = phoneNumberString
+        viewModel.smsCode = smsCode
         self.navigationController?.pushViewController(SMSCodeVerificationViewController(viewModel: viewModel), animated: true)
     }
 }

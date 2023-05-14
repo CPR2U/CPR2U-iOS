@@ -243,7 +243,7 @@ final class NicknameVerificationViewController: UIViewController {
                 if (self?.nicknameStatus != .specialCharacters) {
                     let nicknameStatus = try await self?.viewModel.nicknameVerify(userInput: userInput)
                     if nicknameStatus == .available {
-                        self?.viewModel.setNickname(name: userInput)
+                        viewModel.nickname = userInput
                         let signUpResult = try await self?.viewModel.signUp()
                         if signUpResult == true {
                             self?.dismiss(animated: true)
