@@ -41,7 +41,7 @@ final class SMSCodeInputView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpConstraints() {
+    private func setUpConstraints() {
         
         self.addSubview(smsCodeTextField)
         smsCodeTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ final class SMSCodeInputView: UIView {
         ])
     }
     
-    func setUpStyle() {
+    private func setUpStyle() {
         self.backgroundColor = UIColor(rgb: 0xFBD6D6)
         
         self.layer.cornerRadius = 5

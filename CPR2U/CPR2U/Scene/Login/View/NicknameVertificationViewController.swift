@@ -198,7 +198,31 @@ final class NicknameVerificationViewController: UIViewController {
     }
     
     private func setUpAction() {
-        nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        nicknameTextField.textPublisher.sink { [weak self] text in
+            guard let text else { return }
+            
+            if text.count > 20 {
+                self?.nicknameTextField.text?.removeLast()
+            }
+            
+            let strArr = Array(text)
+            let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]$"
+            
+            if strArr.count > 0 {
+                if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
+                    for index in 0..<strArr.count {
+                        let checkString = regex.matches(in: String(strArr[index]), options: [], range: NSRange(location: 0, length: 1))
+                        if checkString.count == 0 {
+                            self?.nicknameStatus = .specialCharacters
+                            return
+                        }
+                    }
+                }
+                self?.nicknameStatus = .none
+            } else {
+                self?.nicknameStatus = .none
+            }
+        }.store(in: &cancellables)
     }
     
     private func setUpKeyboard() {
@@ -206,33 +230,6 @@ final class NicknameVerificationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         hideKeyboardWhenTappedAround()
-    }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let str = textField.text else { return }
-        
-        if str.count > 20 {
-            textField.text?.removeLast()
-        }
-        
-        let strArr = Array(str)
-        let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]$"
-        
-        if strArr.count > 0 {
-            if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
-                for index in 0..<strArr.count {
-                    let checkString = regex.matches(in: String(strArr[index]), options: [], range: NSRange(location: 0, length: 1))
-                    if checkString.count == 0 {
-                        nicknameStatus = .specialCharacters
-                        return
-                    }
-                }
-            }
-            nicknameStatus = .none
-        } else {
-            nicknameStatus = .none
-        }
-       
     }
     
     private func bind(viewModel: AuthViewModel) {
@@ -272,7 +269,7 @@ final class NicknameVerificationViewController: UIViewController {
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
-        continueButtonBottomConstraints.constant = -16
+        continueButtonBottomConstraints.constant = -Constraints.shared.space16
         view.layoutIfNeeded()
     }
 }
