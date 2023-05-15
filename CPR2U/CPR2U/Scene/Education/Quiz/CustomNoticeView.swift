@@ -167,7 +167,7 @@ class CustomNoticeView: UIView {
             guard let image = UIImage(named: "fail_heart.png") else { return }
             setImage(uiImage: image)
             
-            let localizedStr = String(format: "fail_des_txt_%@", quizResultString)
+            let localizedStr = String(format: "fail_des_txt_%@".localized(), quizResultString)
             setTitle(title: localizedStr)
             setSubTitle(subTitle: "fail_ann_txt".localized())
         }

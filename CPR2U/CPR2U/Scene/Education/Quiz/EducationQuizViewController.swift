@@ -69,10 +69,6 @@ final class EducationQuizViewController: UIViewController {
         setUpAction()
         setUpDelegate()
         
-        Task {
-            try await viewModel.receiveQuizList()
-            updateQuiz(quiz: viewModel.currentQuiz())
-        }
         bind(to: viewModel)
     }
     
@@ -163,6 +159,14 @@ final class EducationQuizViewController: UIViewController {
 
 extension EducationQuizViewController {
     private func bind(to viewModel: QuizViewModel) {
+        
+        viewModel.$quiz
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] quiz in
+                guard let quiz = quiz else { return }
+                self?.updateQuiz(quiz: quiz)
+            }.store(in: &cancellables)
+        
         viewModel.selectedAnswerIndex.sink { index in
                 if (index != -1) {
                     viewModel.isSelected()
@@ -180,14 +184,14 @@ extension EducationQuizViewController {
         
         output.isCorrect?.sink { [weak self] isCorrect in
             
-            guard let currentQuiz = self?.viewModel.currentQuiz() else { return }
+            guard let currentQuiz = self?.viewModel.quiz else { return }
             self?.answerLabel.isHidden = false
             self?.answerDescriptionLabel.isHidden = false
             self?.answerLabel.text = isCorrect ? "Correct!" : "Wrong!"
             self?.answerDescriptionLabel.text = currentQuiz.answerDescription
             self?.submitButton.setTitle("Next", for: .normal)
 
-            guard let answerIndex = self?.viewModel.currentQuiz().answerIndex, let quizType = self?.viewModel.currentQuiz().questionType else {
+            guard let answerIndex = self?.viewModel.quiz?.answerIndex, let quizType = self?.viewModel.quiz?.questionType else {
                 return }
             
             switch quizType {
@@ -199,17 +203,6 @@ extension EducationQuizViewController {
                 self?.multiChoiceView.interactionEnabled(to: false)
             }
             
-        }.store(in: &cancellables)
-        
-        output.quiz?.sink { quiz in
-            self.updateQuiz(quiz: quiz)
-            
-            switch quiz.questionType {
-            case .ox:
-                self.oxChoiceView.interactionEnabled(to: true)
-            case .multi:
-                self.multiChoiceView.interactionEnabled(to: true)
-            }
         }.store(in: &cancellables)
         
         output.isQuizEnd.sink { [weak self] isQuizEnd in
@@ -239,9 +232,11 @@ extension EducationQuizViewController {
         case .ox:
             updateChoiceView(current: multiChoiceView, as: oxChoiceView)
             oxChoiceView.setUpText()
+            oxChoiceView.interactionEnabled(to: true)
         case .multi:
             updateChoiceView(current: oxChoiceView, as: multiChoiceView)
             multiChoiceView.setUpText(quiz.answerList)
+            multiChoiceView.interactionEnabled(to: true)
         }
         
         oxChoiceView.resetChoiceButtonConstraint()

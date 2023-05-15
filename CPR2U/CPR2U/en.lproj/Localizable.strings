@@ -71,7 +71,7 @@ phdr: placeholder
 "congratu_txt" = "Congratulation!";
 "get_cert_des_txt" = "You have got CPR Angel Certificate!";
 "success_ann_txt" = "You are perfect!";
-"fail_des_txt_%@" = "Failed @a";
+"fail_des_txt_%@" = "Failed %@";
 "fail_ann_txt" = "Try Again";
 
 // Education
