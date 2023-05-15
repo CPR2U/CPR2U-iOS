@@ -124,7 +124,6 @@ final class CertificateStatusView: UIView {
     }
     
     func setUpGreetingLabel(nickname: String) {
-        print(nickname)
         let localizedStr = String(format: "%@_greeting_txt".localized(), nickname)
         greetingLabel.text = localizedStr
     }
