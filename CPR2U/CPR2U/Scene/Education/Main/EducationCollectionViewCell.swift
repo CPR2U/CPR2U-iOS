@@ -41,7 +41,6 @@ final class EducationCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpConstraints() {
-        
         let make = Constraints.shared
         
         [
@@ -79,18 +78,14 @@ final class EducationCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 20
     }
     
-    func setUpEducationNameLabel(as str: String) {
-        educationNameLabel.text = str
-    }
-    
-    func setUpDescriptionLabel(as str: String) {
-        descriptionLabel.text = str
-    }
-    
     func setUpStatus(isCompleted: Bool) {
-        statusLabel.text = isCompleted == true ? "Completed" : "Not Completed"
+        statusLabel.text = isCompleted == true ? "completed".localized() : "completed_not".localized()
         statusLabel.textColor = isCompleted == true ? .mainRed : .mainDarkGray
         self.backgroundColor = isCompleted  == true ? .mainLightRed : .mainLightGray
     }
 
+    func setUpLabelText(name: String, description: String) {
+        educationNameLabel.text = name
+        descriptionLabel.text = description
+    }
 }

@@ -97,7 +97,7 @@ final class EducationMainViewController: UIViewController {
     private func setUpStyle() {
         guard let navBar = self.navigationController?.navigationBar else { return }
         navBar.prefersLargeTitles = true
-        navBar.topItem?.title = "Education"
+        navBar.topItem?.title = "edu_tab_t".localized()
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed]
         self.navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -144,22 +144,22 @@ final class EducationMainViewController: UIViewController {
 
 extension EducationMainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.educationName().count
+        return viewModel.educationCourse.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EducationCollectionViewCell", for: indexPath) as! EducationCollectionViewCell
         
-        cell.setUpEducationNameLabel(as: viewModel.educationName()[indexPath.row])
-        cell.setUpDescriptionLabel(as: viewModel.educationDescription()[indexPath.row])
-        cell.setUpStatus(isCompleted: viewModel.educationStatus()[indexPath.row].value)
+        let course = viewModel.educationCourse[indexPath.row]
+        cell.setUpLabelText(name: course.info.name, description: course.info.description)
+        cell.setUpStatus(isCompleted: viewModel.educationCourse[indexPath.row].isCompleted.value)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
-        let isCompleted = index != 0 ? viewModel.educationStatus()[index - 1].value : true
+        let isCompleted = index != 0 ? viewModel.educationCourse[index - 1].isCompleted.value : true
         if isCompleted == true {
             navigateTo(index: index)
         } else {

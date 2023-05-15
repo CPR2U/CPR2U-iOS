@@ -30,6 +30,7 @@ final class AuthViewModel: AuthViewModelType {
             _phoneNumber = value
         }
     }
+    
     var smsCode: String {
         get {
             guard let str = _smsCode else { return "" }
@@ -39,6 +40,7 @@ final class AuthViewModel: AuthViewModelType {
             _smsCode = value
         }
     }
+    
     var nickname: String {
         get {
             guard let str = _nickname else { return "" }
@@ -52,33 +54,6 @@ final class AuthViewModel: AuthViewModelType {
     init() {
         authManager = AuthManager(service: APIManager())
     }
-    
-//    func getPhoneNumber() -> String {
-//        guard let str = phoneNumberString else { return "" }
-//        return "+82 \(str)"
-//    }
-//
-//    func getSMSCode() -> String {
-//        guard let str = smsCode else { return "" }
-//        return str
-//    }
-//
-//    func getNickname() -> String {
-//        guard let str = nickname else { return "" }
-//        return str
-//    }
-//
-//    func setPhoneNumber(number: String) {
-//        phoneNumberString = number
-//    }
-//
-//    func setSMSCode(number: String) {
-//        smsCode = number
-//    }
-//
-//    func setNickname(name: String) {
-//        nickname = name
-//    }
     
     func autoLogin() async throws -> Bool {
         let refreshToken = UserDefaultsManager.refreshToken

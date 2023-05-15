@@ -144,10 +144,10 @@ final class MypageStatusView: UIView {
         var statusText: String = ""
         var leftDay: Int = 0
         if let day = certificate.leftDay {
-            statusText = "\(certificate.status.certificationStatus()) (D-\(day))"
+            statusText = "\(certificate.status.getStatus()) (D-\(day))"
             leftDay = day
         } else {
-            statusText = "\(certificate.status.certificationStatus())"
+            statusText = "\(certificate.status.getStatus())"
         }
         
         angelStatusImageView.image = UIImage(named: imgName)
@@ -160,6 +160,8 @@ final class MypageStatusView: UIView {
     }
     
     func setUpGreetingLabel(nickname: String) {
-        nicknameLabel.text = "Hi \(nickname)\nYour Certification Status is"
+        
+        let localizedStr = String(format:         "%@_greet_des_txt".localized(), nickname)
+        nicknameLabel.text = localizedStr
     }
 }

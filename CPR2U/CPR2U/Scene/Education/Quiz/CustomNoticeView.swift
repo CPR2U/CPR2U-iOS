@@ -68,7 +68,7 @@ class CustomNoticeView: UIView {
         button.backgroundColor = .mainRed
         button.titleLabel?.font = UIFont(weight: .bold, size: 17)
         button.setTitleColor(.mainWhite, for: .normal)
-        button.setTitle("CONFIRM", for: .normal)
+        button.setTitle("confirm".localized(), for: .normal)
         return button
     }()
     private let appearAnimDuration: CGFloat = 0.4
@@ -151,23 +151,25 @@ class CustomNoticeView: UIView {
     }
     
     func setCertificateNotice() {
-        setTitle(title: "Congratulation!")
+        setTitle(title: "congratu_txt".localized())
         guard let image = UIImage(named: "certificate_big.png") else { return }
         setImage(uiImage: image)
-        setSubTitle(subTitle: "You have got CPR Angel Certificate!")
+        setSubTitle(subTitle: "get_cert_des_txt".localized())
     }
     
     func setPFResultNotice(isPass: Bool, quizResultString: String = ""){
         if isPass {
             guard let image = UIImage(named: "success_heart.png") else { return }
             setImage(uiImage: image)
-            setTitle(title: "Congratulation!")
-            setSubTitle(subTitle: "You are perfect!")
+            setTitle(title: "congratu_txt".localized())
+            setSubTitle(subTitle: "success_ann_txt".localized())
         } else {
             guard let image = UIImage(named: "fail_heart.png") else { return }
             setImage(uiImage: image)
-            setTitle(title: "Failed \(quizResultString)")
-            setSubTitle(subTitle: "Try Again")
+            
+            let localizedStr = String(format: "fail_des_txt_%@".localized(), quizResultString)
+            setTitle(title: localizedStr)
+            setSubTitle(subTitle: "fail_ann_txt".localized())
         }
         
     }

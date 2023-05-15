@@ -8,11 +8,33 @@
 import UIKit
 
 final class EvaluationResultView: UIView {
-
     private let evaluationTargetImageView = UIImageView()
-    private let titleLabel = UILabel()
-    private let resultLabel = UILabel()
-    private let descriptionLabel = UILabel()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 20)
+        label.textColor = .mainBlack
+        label.textAlignment = .left
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        return label
+    }()
+    private let resultLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 14)
+        label.textColor = .mainBlack
+        label.textAlignment = .left
+        return label
+    }()
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .regular, size: 14)
+        label.textColor = .mainBlack
+        label.textAlignment = .left
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.numberOfLines = 3
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,23 +94,6 @@ final class EvaluationResultView: UIView {
         self.layer.borderColor = UIColor.mainRed.cgColor
         self.layer.borderWidth = 1
         self.backgroundColor = .mainLightRed.withAlphaComponent(0.05)
-        
-        [
-            titleLabel, resultLabel, descriptionLabel
-        ].forEach({
-            $0.textColor = .mainBlack
-            $0.textAlignment = .left
-        })
-        titleLabel.font = UIFont(weight: .bold, size: 20)
-        resultLabel.font = UIFont(weight: .bold, size: 14)
-        descriptionLabel.font = UIFont(weight: .regular, size: 14)
-        
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.minimumScaleFactor = 0.5
-        
-        descriptionLabel.adjustsFontSizeToFitWidth = true
-        descriptionLabel.minimumScaleFactor = 0.5
-        descriptionLabel.numberOfLines = 3
     }
     
     func setImage(imgName systemName: String) {

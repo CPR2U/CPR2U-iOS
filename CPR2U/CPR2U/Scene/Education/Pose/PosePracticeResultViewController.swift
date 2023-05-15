@@ -54,7 +54,7 @@ final class PosePracticeResultViewController: UIViewController {
         button.layer.cornerRadius = 19
         button.titleLabel?.font = UIFont(weight: .bold, size: 17)
         button.setTitleColor(.mainWhite, for: .normal)
-        button.setTitle("QUIT", for: .normal)
+        button.setTitle("quit".localized(), for: .normal)
         return button
     }()
     
@@ -148,7 +148,7 @@ final class PosePracticeResultViewController: UIViewController {
         quitButton.tapPublisher.sink { [weak self] _ in
             self?.setUpOrientation(as: .portrait)
             Task {
-                try await viewModel.savePosturePracticeResult(score: self?.score ?? 0)
+                _ = try await viewModel.savePosturePracticeResult(score: self?.score ?? 0)
                 let rootVC = TabBarViewController(0)
                 await self?.view.window?.setRootViewController(rootVC)
             }

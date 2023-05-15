@@ -16,34 +16,85 @@ t: title
 txt: text
 ins: instruction
 des: description
+ann: annotation
+warn: warning
 pn: phone number
 phdr: placeholder
+
 */
 
 // Common
 "send" = "SEND";
 "confirm" = "CONFIRM";
 "continue" = "CONTINUE";
+"cancel" = "CANCEL";
+"quit" = "QUIT";
+"completed" = "Completed";
+"completed_not" = "Not Completed";
+"%@_greeting_txt" = "Hi %@";
+"%@_greet_des_txt" = "Hi %@ nYour Certification Status is";
 
 // TabBarView
 "edu_tab_t" = "Education";
 "call_tab_t" = "Call";
 "mypage_tab_t" = "Profile";
 
-//PhoneNumberVC
+// Angel Status
+"cert_status_ann_txt" = "Certificate Status: ";
+"angel_progress_ann_text" = "CPR Angel Certification Progress";
+"acq_status" = "ACQUIRED";
+"exp_status" = "EXPIRED";
+"unacq_status" = "UNACQUIRED";
+
+// PhoneNumberVC
 "nation_code" = "+ 82";
 "pn_ins_txt" = "Enter your number";
 "pn_des_txt" = "We will send a code to verify your mobile number";
 "pn_phdr" = "PhoneNumber*";
 
-//SMSCodeVerificationVC
+// SMSCodeVerificationVC
 "code_ins_txt"= "Enter Code";
 "code_des_txt"= "An SMS code was sent to";
 "code_resend_ins_txt" = "Not receiveing the code?";
 
-//NicknameVerificationVC
+// NicknameVerificationVC
 "nickname_special_character" = "Nickname cannot contain special characters";
-"%s_nickname_unavailable" = "%s is Unavailable";
+"%@_nickname_unavailable" = "%@ is Unavailable";
 "nickname_ins_txt" = "Enter your Nickname";
 "nickname_des_txt" = "People can recognize you by your nickname";
 "nickname_phdr" = "Nickname*";
+
+// Address Setting
+"address_des_txt"= "Select your address for\nCPR Angel activities";
+
+// NoticeV
+"congratu_txt" = "Congratulation!";
+"get_cert_des_txt" = "You have got CPR Angel Certificate!";
+"success_ann_txt" = "You are perfect!";
+"fail_des_txt_%@" = "Failed %@";
+"fail_ann_txt" = "Try Again";
+
+// Education
+"course_lec" = "Lecture";
+"course_quiz" = "Quiz";
+"course_pose" = "Pose Practice";
+"course_lec_des" = "Video lecture for CPR angel certificate";
+"course_quiz_des" = "Let’s check your CPR study";
+"course_pose_des" = "Posture practice to get CPR angel certificate";
+
+// Education - Quiz
+"quiz_exit" = "Quiz Exit";
+"quiz_exit_warn_txt" = "All progress will be lost";
+
+// Education - Pose
+"score" = "Score";
+"pass" = "PASSED!";
+"fail" = "FAILED...";
+"pe_title_txt_1" = "Prepare tools";
+"pe_title_txt_2" = "Prepare tools";
+"pe_title_txt_3" = "Draw an angry man";
+"pe_title_txt_4" = "Ready";
+"pe_des_txt_1" = "If you do not have a CPR mannequin,\nplease prepare a plastic bottle, pillow, etc.";
+"pe_des_txt_2" = "Put the plastic bottle inside the clothes\nyou don't wear and wrap it up.";
+"pe_des_txt_3" = "Draw an angry man on your clothes or pillow\nusing tape or pen.";
+"pe_des_txt_4" = "Please press the location marked in red!";
