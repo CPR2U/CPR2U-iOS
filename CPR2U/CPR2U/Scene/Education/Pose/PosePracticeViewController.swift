@@ -57,7 +57,7 @@ final class PosePracticeViewController: UIViewController {
         button.layer.cornerRadius = 19
         button.titleLabel?.font = UIFont(weight: .bold, size: 17)
         button.setTitleColor(.mainWhite, for: .normal)
-        button.setTitle("QUIT", for: .normal)
+        button.setTitle("quit".localized(), for: .normal)
         return button
     }()
     

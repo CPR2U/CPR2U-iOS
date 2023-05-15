@@ -28,6 +28,7 @@ phdr: placeholder
 "confirm" = "CONFIRM";
 "continue" = "CONTINUE";
 "cancel" = "CANCEL";
+"quit" = "QUIT";
 "completed" = "Completed";
 "completed_not" = "Not Completed";
 "%@_greeting_txt" = "Hi %@";
@@ -85,8 +86,10 @@ phdr: placeholder
 "quiz_exit" = "Quiz Exit";
 "quiz_exit_warn_txt" = "All progress will be lost";
 
-
 // Education - Pose
+"score" = "Score";
+"pass" = "PASSED!";
+"fail" = "FAILED...";
 "pe_title_txt_1" = "Prepare tools";
 "pe_title_txt_2" = "Prepare tools";
 "pe_title_txt_3" = "Draw an angry man";

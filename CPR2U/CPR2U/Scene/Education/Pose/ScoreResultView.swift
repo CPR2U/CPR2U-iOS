@@ -15,7 +15,7 @@ final class ScoreResultView: UIView {
         label.font = UIFont(weight: .bold, size: 24)
         label.textColor = .mainBlack
         label.textAlignment = .center
-        label.text = "Score"
+        label.text = "score".localized()
         return label
     }()
     
@@ -104,9 +104,9 @@ final class ScoreResultView: UIView {
         scoreLabel.text = "\(score)"
         
         if score >= 80 {
-            descriptionLabel.text = "PASSED!"
+            descriptionLabel.text = "pass".localized()
         } else {
-            descriptionLabel.text = "FAILED..."
+            descriptionLabel.text = "fail".localized()
         }
     }
 }
