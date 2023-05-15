@@ -10,6 +10,7 @@ import CombineCocoa
 import UIKit
 
 // TODO: 추후 CustomNoticeView 상속 받아서 사용하는 형태로 변경하기
+// 추후 로그인/회원가입 시퀀스에 포함될 가능성이 존재
 final class AddressSettingView: UIView {
     
     private lazy var shadowView: UIView = {
@@ -39,7 +40,7 @@ final class AddressSettingView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 2
         label.textColor = .mainBlack
-        label.text = "Select your address for\nCPR Angel activities"
+        label.text = "address_des_txt".localized()
         return label
     }()
     
@@ -69,7 +70,7 @@ final class AddressSettingView: UIView {
         button.backgroundColor = .mainRed
         button.titleLabel?.font = UIFont(weight: .bold, size: 17)
         button.setTitleColor(.mainWhite, for: .normal)
-        button.setTitle("CONFIRM", for: .normal)
+        button.setTitle("confirm".localized(), for: .normal)
         return button
     }()
     
@@ -160,7 +161,6 @@ final class AddressSettingView: UIView {
                 addressList = list
                 setUpPickerView()
             }
-            
         }
     }
     

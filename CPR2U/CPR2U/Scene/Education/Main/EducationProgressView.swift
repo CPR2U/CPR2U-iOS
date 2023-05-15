@@ -14,7 +14,7 @@ final class EducationProgressView: UIView {
         let color = UIColor(rgb: 0x767676)
         label.font = UIFont(weight: .regular, size: 11)
         label.textColor = color
-        label.text = "CPR Angel Certification Progress"
+        label.text = "angel_progress_ann_text".localized()
         return label
     }()
     
