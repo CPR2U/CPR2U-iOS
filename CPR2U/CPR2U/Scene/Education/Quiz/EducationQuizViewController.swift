@@ -10,7 +10,7 @@ import Combine
 
 final class EducationQuizViewController: UIViewController {
     
-    private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "When you find someone who has fallen, you have to compress his chest instantly.")
+    private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "")
     
     private lazy var oxChoiceView: OXQuizChoiceView = {
         let view = OXQuizChoiceView(viewModel: viewModel)
@@ -52,7 +52,7 @@ final class EducationQuizViewController: UIViewController {
         button.backgroundColor = .mainLightRed
         button.setTitleColor(.mainBlack, for: .normal)
         button.titleLabel?.font = UIFont(weight: .bold, size: 20)
-        button.setTitle("Confirm", for: .normal)
+        button.setTitle("confirm".localized(), for: .normal)
         return button
     }()
     
@@ -66,7 +66,9 @@ final class EducationQuizViewController: UIViewController {
         
         setUpConstraints()
         setUpStyle()
+        setUpAction()
         setUpDelegate()
+        
         Task {
             try await viewModel.receiveQuizList()
             updateQuiz(quiz: viewModel.currentQuiz())
@@ -143,9 +145,15 @@ final class EducationQuizViewController: UIViewController {
     private func setUpStyle() {
         view.backgroundColor = .white
         
-        navigationController?.navigationBar.topItem?.title = "Quiz"
-        let closeItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonTapped))
+        navigationController?.navigationBar.topItem?.title = "course_quiz".localized()
+        let closeItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: nil)
         navigationItem.leftBarButtonItem = closeItem
+    }
+    
+    private func setUpAction() {
+        navigationItem.leftBarButtonItem?.tapPublisher.sink { [weak self] in
+            self?.closeQuiz()
+        }.store(in: &cancellables)
     }
     
     private func setUpDelegate() {
@@ -153,7 +161,6 @@ final class EducationQuizViewController: UIViewController {
     }
 }
 
-// MARK: ViewModel Binding
 extension EducationQuizViewController {
     private func bind(to viewModel: QuizViewModel) {
         viewModel.selectedAnswerIndex.sink { index in
@@ -242,7 +249,7 @@ extension EducationQuizViewController {
         
         [answerLabel, answerDescriptionLabel].forEach{ $0.isHidden = true }
         answerDescriptionLabel.text = quiz.answerDescription
-        submitButton.setTitle("Confirm", for: .normal)
+        submitButton.setTitle("confirm".localized(), for: .normal)
     }
     
     private func updateChoiceView(current: QuizChoiceView, as will: QuizChoiceView) {
@@ -251,18 +258,15 @@ extension EducationQuizViewController {
         will.alpha = 1.0
         will.isUserInteractionEnabled = true
     }
-}
-
-// MARK: Objc Function
-extension EducationQuizViewController {
-    @objc private func closeButtonTapped() {
-        let alert = UIAlertController(title: "Quiz Exit", message: "All progress will be lost", preferredStyle: .alert)
+    
+    private func closeQuiz() {
+        let alert = UIAlertController(title: "quiz_exit".localized(), message: "quiz_exit_warn_txt".localized(), preferredStyle: .alert)
         
-        let confirm = UIAlertAction(title: "Confirm", style: .destructive, handler: { _ in
+        let confirm = UIAlertAction(title: "confirm".localized(), style: .destructive, handler: { _ in
             self.dismiss(animated: true)
         })
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
         [confirm, cancel].forEach {
             alert.addAction($0)
         }
