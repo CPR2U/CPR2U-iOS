@@ -8,6 +8,7 @@
 import Combine
 import UIKit
 
+// Tensorflow 관련 수치 Notation은  추후 Refactoring 시 재검토 예정
 enum CompressionRateStatus: String {
     case tooSlow = "Too Slow"
     case slow = "Slow"
@@ -153,31 +154,68 @@ enum AngelStatus: Int {
         }
     }
     
-    func certificationStatus() -> String {
+    func getStatus() -> String {
         switch self {
         case .acquired:
-            return "ACQUIRED"
+            return "acq_status".localized()
         case .expired:
-            return "EXPIRED"
+            return "exp_status".localized()
         case .unacquired:
-            return "UNACQUIRED"
+            return "unacq_status".localized()
         }
     }
 }
 
 enum TimerType: Int {
-    case lecture = 3001
+    case lecture = 5//3001
     case posture = 130
     case other = 0
 }
 
+enum EducationCourseInfo: String {
+    case lecture = "course_lec"
+    case quiz = "course_quiz"
+    case pose = "course_pose"
+    
+    var name: String {
+        return self.rawValue.localized()
+    }
+    
+    var description: String {
+        switch self {
+        case .lecture:
+            return "course_lec_des".localized()
+        case .quiz:
+            return "course_quiz_des".localized()
+        case .pose:
+            return "course_pose_des".localized()
+        }
+    }
+}
+struct EducationCourse {
+    var info: EducationCourseInfo
+    var isCompleted = CurrentValueSubject<Bool,Never>(false)
+    
+    init(course: EducationCourseInfo) {
+        self.info = course
+    }
+}
+
 final class EducationViewModel: AsyncOutputOnlyViewModelType {
-    
     private let eduManager: EducationManager
+
+    private let _educationCourse: [EducationCourse] = [
+        EducationCourse(course: .lecture),
+        EducationCourse(course: .quiz),
+        EducationCourse(course: .pose)
+    ]
+
+    var educationCourse: [EducationCourse] {
+        get {
+            return _educationCourse
+        }
+    }
     
-    private let eduName: [String] = ["Lecture" , "Quiz", "Pose Practice"]
-    private let eduDescription: [String] = ["Video lecture for CPR angel certificate", "Let’s check your CPR study", "Posture practice to get CPR angel certificate"]
-    private var eduStatusArr:[CurrentValueSubject<Bool,Never>] = [CurrentValueSubject(false), CurrentValueSubject(false), CurrentValueSubject(false)]
     private var input: Input?
     
     private var currentTimerType = TimerType.other
@@ -208,18 +246,6 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         let nickname: CurrentValueSubject<String, Never>?
         let certificateStatus: CurrentValueSubject<CertificateStatus, Never>?
         let progressPercent: CurrentValueSubject<Float, Never>?
-    }
-    
-    func educationName() -> [String] {
-        return eduName
-    }
-    
-    func educationDescription() -> [String] {
-        return eduDescription
-    }
-    
-    func educationStatus() -> [CurrentValueSubject<Bool, Never>] {
-        return eduStatusArr
     }
     
     func timeLimit() -> Int {
@@ -283,8 +309,8 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
             let isPostureCompleted = data.is_posture_completed == 2
             
             let isCompleted = [isLectureCompleted, isQuizCompleted, isPostureCompleted]
-            for i in 0..<eduStatusArr.count {
-                eduStatusArr[i].send(isCompleted[i])
+            for i in 0..<_educationCourse.count {
+                _educationCourse[i].isCompleted.send(isCompleted[i])
             }
             return Input(nickname: CurrentValueSubject(data.nickname), angelStatus: CurrentValueSubject(data.angel_status), progressPercent: CurrentValueSubject(progressPercent), leftDay: CurrentValueSubject(data.days_left_until_expiration), isLectureCompleted: CurrentValueSubject(isLectureCompleted), isQuizCompleted: CurrentValueSubject(isQuizCompleted), isPostureCompleted: CurrentValueSubject(isPostureCompleted))
         }
@@ -344,9 +370,9 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
             self?.input?.isPostureCompleted.send(isPostureCompleted)
             
             let isCompleted = [isLectureCompleted, isQuizCompleted, isPostureCompleted]
-            guard let count = self?.eduStatusArr.count else { return }
+            guard let count = self?._educationCourse.count else { return }
             for i in 0..<count {
-                self?.eduStatusArr[i].send(isCompleted[i])
+                self?.educationCourse[i].isCompleted.send(isCompleted[i])
             }
         }
     }
@@ -369,9 +395,6 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         default:
             compResult = .wrong
         }
-        
-        let angleRate = angleRate
-        
         var angleResult: AngleStatus = .adequate
         let totalAngleCount = Double(correct + nonCorrect)
                 
