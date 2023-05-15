@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class QuizViewModel: OutputOnlyViewModelType {
+final class QuizViewModel: OutputOnlyViewModelType {
     private var eduManager: EducationManager
     private var quizList: [Quiz] = []
     private var currentQuizIndex: Int = 0
@@ -87,6 +87,7 @@ class QuizViewModel: OutputOnlyViewModelType {
     }
     
     func receiveQuizList() async throws {
+        
         let result = Task { () -> [QuizInfo]? in
             let eduResult = try await eduManager.getQuizList()
             return eduResult.data
