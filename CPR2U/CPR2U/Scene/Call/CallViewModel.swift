@@ -11,6 +11,8 @@ import GoogleMaps
 
 final class CallViewModel: OutputOnlyViewModelType {
     @Published private(set)var callerListInfo: CallerListInfo?
+    @Published private(set)var dispatcherCount: Int?
+    
     private var callManager: CallManager
     
     private var mapManager: MapManager
@@ -88,15 +90,13 @@ final class CallViewModel: OutputOnlyViewModelType {
         }
     }
     
-    func countDispatcher() async throws -> Int? {
-        guard let callId = callId else { return nil }
+    func countDispatcher() {
+        guard let callId = callId else { return }
         
-        let result = Task { () -> Int? in
+        Task {
             let callResult = try await callManager.countDispatcher(callId: callId)
-            return callResult.data?.number_of_angels
+            dispatcherCount = callResult.data?.number_of_angels
         }
-        
-        return try await result.value
     }
     
     private func updateCallId(callId: Int) {

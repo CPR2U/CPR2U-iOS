@@ -184,6 +184,12 @@ final class ApproachNoticeView: UIView {
                 self.parentViewController().dismiss(animated: true)
             }
         }.store(in: &cancellables)
+        
+        viewModel.$dispatcherCount
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] count in
+                self?.peopleCountLabel.text = "\(count ?? 0)"
+            }.store(in: &cancellables)
     }
     
     private func setTimer() {
@@ -192,11 +198,9 @@ final class ApproachNoticeView: UIView {
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                
                 if counter % 15 == 0 {
                     Task {
-                        let dispatcherNumber = try await viewModel.countDispatcher()
-                        peopleCountLabel.text = "\(dispatcherNumber ?? 0)"
+                        viewModel.countDispatcher()
                     }
                     
                 }
