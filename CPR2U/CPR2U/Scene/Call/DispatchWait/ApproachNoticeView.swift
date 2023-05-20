@@ -30,7 +30,7 @@ final class ApproachNoticeView: UIView {
         label.font = UIFont(weight: .bold, size: 20)
         label.textColor = .black
         label.textAlignment = .left
-        label.text = "Approaching"
+        label.text = "approch_des_txt".localized()
         return label
     }()
     
@@ -55,7 +55,7 @@ final class ApproachNoticeView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .mainRed
         button.layer.cornerRadius = 27.5
-        button.setTitle("SITUATION ENDED", for: .normal)
+        button.setTitle("siuation_end_des_txt".localized(), for: .normal)
         return button
     }()
     
