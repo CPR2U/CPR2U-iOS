@@ -24,7 +24,7 @@ final class AuthViewModel: AuthViewModelType {
     var phoneNumber: String {
         get {
             guard let str = _phoneNumber else { return "" }
-            return "+82 \(str)"
+            return str
         }
         set(value) {
             _phoneNumber = value

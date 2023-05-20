@@ -34,7 +34,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         label.font = UIFont(weight: .bold, size: 16)
         label.textAlignment = .left
         label.textColor = .mainBlack
-        label.text = self.viewModel.phoneNumber
+        label.text = "+82 \(self.viewModel.phoneNumber)"
         return label
     }()
     
@@ -49,6 +49,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         label.textAlignment = .right
         label.textColor = .mainRed
         label.text = "code_resend_ins_txt".localized()
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -91,6 +92,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         
         setUpConstraints()
         setUpStyle()
+        setUpAction()
         setUpLayerName()
         setUpKeyboard()
         bind(viewModel: viewModel)
@@ -247,6 +249,18 @@ final class SMSCodeVerificationViewController: UIViewController {
                 } else {
                     print("인증코드 오류")
                 }
+            }
+        }.store(in: &cancellables)
+    }
+    
+    private func setUpAction() {
+        let tapGesture = UITapGestureRecognizer()
+        
+        codeResendLabel.addGestureRecognizer(tapGesture)
+        tapGesture.tapPublisher.sink { [weak self] _ in
+            Task {
+                guard let phoneNumber = self?.viewModel.phoneNumber else { return }
+                _ = try await self?.viewModel.phoneNumberVerify(phoneNumber: phoneNumber)
             }
         }.store(in: &cancellables)
     }
