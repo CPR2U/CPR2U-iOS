@@ -98,3 +98,9 @@ phdr: placeholder
 "pe_des_txt_2" = "Put the plastic bottle inside the clothes\nyou don't wear and wrap it up.";
 "pe_des_txt_3" = "Draw an angry man on your clothes or pillow\nusing tape or pen.";
 "pe_des_txt_4" = "Please press the location marked in red!";
+
+// Dispatch
+"approch_des_txt" = "Approaching";
+"siuation_end_des_txt" = "SITUATION ENDED";
+"call_ins_txt" = "Call 911";
+"call_des_txt" = "Calling 911 is the first priority. Ask the people around you to report or perform CPR after reporting. If the report is false, you will be restricted from using the app.";

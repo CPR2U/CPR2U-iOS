@@ -16,7 +16,7 @@ final class DispatchWaitViewController: UIViewController {
         label.font = UIFont(weight: .bold, size: 64)
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "Call"
+        label.text = "call_tab_t".localized()
         return label
     }()
     

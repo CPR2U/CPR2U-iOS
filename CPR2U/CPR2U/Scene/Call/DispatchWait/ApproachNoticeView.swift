@@ -30,7 +30,7 @@ final class ApproachNoticeView: UIView {
         label.font = UIFont(weight: .bold, size: 20)
         label.textColor = .black
         label.textAlignment = .left
-        label.text = "Approaching"
+        label.text = "approch_des_txt".localized()
         return label
     }()
     
@@ -55,7 +55,7 @@ final class ApproachNoticeView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .mainRed
         button.layer.cornerRadius = 27.5
-        button.setTitle("SITUATION ENDED", for: .normal)
+        button.setTitle("siuation_end_des_txt".localized(), for: .normal)
         return button
     }()
     
@@ -184,6 +184,12 @@ final class ApproachNoticeView: UIView {
                 self.parentViewController().dismiss(animated: true)
             }
         }.store(in: &cancellables)
+        
+        viewModel.$dispatcherCount
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] count in
+                self?.peopleCountLabel.text = "\(count ?? 0)"
+            }.store(in: &cancellables)
     }
     
     private func setTimer() {
@@ -192,13 +198,10 @@ final class ApproachNoticeView: UIView {
             .autoconnect()
             .scan(0) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                
                 if counter % 15 == 0 {
                     Task {
-                        let dispatcherNumber = try await viewModel.countDispatcher()
-                        peopleCountLabel.text = "\(dispatcherNumber ?? 0)"
+                        viewModel.countDispatcher()
                     }
-                    
                 }
                 if counter == 301 {
                     viewModel.timer?.connect().cancel()
