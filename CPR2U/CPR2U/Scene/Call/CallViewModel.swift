@@ -10,13 +10,13 @@ import Foundation
 import GoogleMaps
 
 final class CallViewModel: OutputOnlyViewModelType {
+    @Published private(set)var callerListInfo: CallerListInfo?
     private var callManager: CallManager
     
     private var mapManager: MapManager
     private var currentLocation: CLLocationCoordinate2D?
     
     private var currentLocationAddress = CurrentValueSubject<String, Never>("Unable")
-    var callerList: CurrentValueSubject<CallerListInfo, Never>?
     
     private var callId: Int?
     private let iscalled = CurrentValueSubject<Bool, Never>(false)
@@ -26,20 +26,17 @@ final class CallViewModel: OutputOnlyViewModelType {
     init() {
         callManager = CallManager(service: APIManager())
         mapManager = MapManager()
-        Task {
-            try await receiveCallerList()
-        }
+        receiveCallerList()
         setLocation()
     }
     
     struct Output {
         let isCalled: CurrentValueSubject<Bool, Never>
         let currentLocationAddress: CurrentValueSubject<String, Never>?
-        let callerList: CurrentValueSubject<CallerListInfo, Never>?
     }
     
     func transform() -> Output {
-        return Output(isCalled: iscalled, currentLocationAddress: currentLocationAddress, callerList: callerList)
+        return Output(isCalled: iscalled, currentLocationAddress: currentLocationAddress)
     }
     
     func isCallSucceed() {
@@ -64,16 +61,13 @@ final class CallViewModel: OutputOnlyViewModelType {
         currentLocationAddress.send(str)
     }
     
-    func receiveCallerList() async throws -> CallerListInfo? {
-        let result = Task { () -> CallerListInfo? in
+    func receiveCallerList() {
+        Task {
             let callResult = try await callManager.getCallerList()
             
-            guard let list = callResult.data else { return nil }
-            callerList = CurrentValueSubject(list)
-            print(callerList)
-            return list
+            guard let list = callResult.data else { return }
+            callerListInfo = list
         }
-        return try await result.value
     }
     
     func callDispatcher() async throws {

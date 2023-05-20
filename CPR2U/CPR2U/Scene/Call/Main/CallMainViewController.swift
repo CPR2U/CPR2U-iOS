@@ -138,24 +138,27 @@ final class CallMainViewController: UIViewController {
     }
     
     private func setUpCallerLocation() {
-            
         Task {
             if !callerLocationMarkers.isEmpty {
                 callerLocationMarkers.forEach({ $0.map = nil })
                 callerLocationMarkers = []
             }
             
-            guard let callerList = try await self.viewModel.receiveCallerList() else { return }
+            viewModel.$callerListInfo
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] callerList in
+                    guard let callerList = callerList else { return }
+                    for caller in callerList.call_list {
+                        let coor = CLLocationCoordinate2D(latitude: caller.latitude, longitude: caller.longitude)
+                        print(coor)
+                        let marker = GMSMarker()
+                        marker.title = String(caller.cpr_call_id)
+                        marker.position = CLLocationCoordinate2DMake(coor.latitude, coor.longitude)
+                        marker.map = self?.mapView
+                        self?.callerLocationMarkers.append(marker)
+                    }
+                }.store(in: &cancellables)
             
-            for caller in callerList.call_list {
-                let coor = CLLocationCoordinate2D(latitude: caller.latitude, longitude: caller.longitude)
-                print(coor)
-                let marker = GMSMarker()
-                marker.title = String(caller.cpr_call_id)
-                marker.position = CLLocationCoordinate2DMake(coor.latitude, coor.longitude)
-                marker.map = mapView
-                callerLocationMarkers.append(marker)
-            }
         }
     }
     
@@ -178,17 +181,9 @@ final class CallMainViewController: UIViewController {
         output.currentLocationAddress?.sink { address in
             self.currentLocationNoticeView.setUpLocationLabelText(as: address)
         }.store(in: &cancellables)
-        
-        output.callerList?.sink { list in
-            print(list)
-            if list.angel_status == "ACQUIRED" && !list.is_patient {
-                print(list.call_list)
-            }
-            
-        }.store(in: &cancellables)
     }
     
-    @objc func didPressCallButton(_ sender: UILongPressGestureRecognizer) {
+    private func didPressCallButton(_ sender: UILongPressGestureRecognizer) {
         let state = sender.state
         if state == .began {
             callButton.progressAnimation()
@@ -204,7 +199,7 @@ extension CallMainViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool
     {
         guard let callId = Int(marker.title ?? "0") else { return false }
-        guard let target = viewModel.callerList?.value.call_list.filter{$0.cpr_call_id == callId}.first else { return false }
+        guard let target = viewModel.callerListInfo?.call_list.filter({$0.cpr_call_id == callId}).first else { return false }
         
         let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
         let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: viewModel.getLocation(), callerInfo: callerInfo))
