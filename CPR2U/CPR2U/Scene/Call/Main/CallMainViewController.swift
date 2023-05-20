@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CombineCocoa
 import GoogleMaps
 import UIKit
 
@@ -104,9 +105,12 @@ final class CallMainViewController: UIViewController {
     }
     
     private func setUpAction() {
-        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(didPressCallButton))
-        recognizer.minimumPressDuration = 0.0
-        callButton.addGestureRecognizer(recognizer)
+        let longPress = UILongPressGestureRecognizer()
+        longPress.minimumPressDuration = 0.0
+        callButton.addGestureRecognizer(longPress)
+        longPress.longPressPublisher.sink { [weak self] recognizer in
+            self?.didPressCallButton(recognizer)
+        }.store(in: &cancellables)
         
     }
     
