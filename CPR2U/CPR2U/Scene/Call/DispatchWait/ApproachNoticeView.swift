@@ -202,7 +202,6 @@ final class ApproachNoticeView: UIView {
                     Task {
                         viewModel.countDispatcher()
                     }
-                    
                 }
                 if counter == 301 {
                     viewModel.timer?.connect().cancel()
