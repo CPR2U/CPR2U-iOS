@@ -65,7 +65,7 @@ final class DispatchViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .mainRed
         button.layer.cornerRadius = 27.5
-        button.setTitle("DISPATCH", for: .normal)
+        button.setTitle("dispatch_tab_t".localized(), for: .normal)
         return button
     }()
     
@@ -74,7 +74,7 @@ final class DispatchViewController: UIViewController {
         label.font = UIFont(weight: .regular, size: 14)
         label.textColor = .mainBlack
         label.textAlignment = .right
-        label.text = "Wrong Report? Report"
+        label.text = "report_title_txt".localized()
         label.isHidden = true
         label.isUserInteractionEnabled = true
         return label
@@ -217,7 +217,7 @@ final class DispatchViewController: UIViewController {
                     if result.success {
                         dispatchId = result.data?.dispatch_id
                         isModalInPresentation = true
-                        dispatchButton.setTitle("ARRIVED", for: .normal)
+                        dispatchButton.setTitle("arrive_des_txt".localized(), for: .normal)
                         stackView.isHidden = true
                         reportLabel.isHidden = false
                         timerAppear()
@@ -230,7 +230,6 @@ final class DispatchViewController: UIViewController {
     }
     
     private func setupSheet() {
-        
         if let sheet = sheetPresentationController {
             sheet.detents = [.custom { _ in return 300 }]
             sheet.selectedDetentIdentifier = .medium
@@ -278,9 +277,6 @@ extension DispatchViewController {
             }
         }
         
-        print("RAW: \(rawDistance)")
-        print("FLOOR: \(floorDistance)")
-        print(distanceStr)
         durationView.setUpDescription(text:  "\(duration)m")
         distanceView.setUpDescription(text: distanceStr)
     }
