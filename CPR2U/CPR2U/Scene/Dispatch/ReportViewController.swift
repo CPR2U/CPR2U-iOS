@@ -18,7 +18,7 @@ final class ReportViewController: UIViewController {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
         label.textColor = .mainBlack
-        label.text = "What are you trying to report?"
+        label.text = "report_ins_txt".localized()
         return label
     }()
     
@@ -27,11 +27,11 @@ final class ReportViewController: UIViewController {
         label.font = UIFont(weight: .regular, size: 14)
         label.textAlignment = .left
         label.textColor = .mainBlack
-        label.text = "Your report will be treated anonymously."
+        label.text = "report_des_txt".localized()
         return label
     }()
     
-    private let placeHolder = "Content*"
+    private let placeHolder = "report_phdr".localized()
     private let reportTextView: UITextView = {
         let view = UITextView()
         view.layer.cornerRadius = 6
@@ -51,7 +51,7 @@ final class ReportViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .mainRed
         button.layer.cornerRadius = 27.5
-        button.setTitle("SUBMIT", for: .normal)
+        button.setTitle("submit".localized(), for: .normal)
         return button
     }()
     
@@ -173,7 +173,7 @@ extension ReportViewController: UITextViewDelegate {
             textView.textColor = .black
         }
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = placeHolder

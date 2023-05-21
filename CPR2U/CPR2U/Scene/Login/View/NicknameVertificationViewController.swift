@@ -23,7 +23,7 @@ enum NicknameStatus {
         case .specialCharacters:
             str = "nickname_special_character".localized()
         case .unavailable:
-            let localizedStr = String(format: "%s_nickname_unavailable".localized(), name)
+            let localizedStr = String(format: "%@_nickname_unavailable".localized(), name)
             str = localizedStr
         case .available:
             str = ""
