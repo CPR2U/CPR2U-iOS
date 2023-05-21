@@ -245,11 +245,14 @@ final class DispatchViewController: UIViewController {
     }
     
     private func setUpAction() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapReportButton))
-        reportLabel.addGestureRecognizer(gesture)
+        let tapGesture = UITapGestureRecognizer()
+        reportLabel.addGestureRecognizer(tapGesture)
+        tapGesture.tapPublisher.sink { [weak self] _ in
+            self?.didTapReportButton()
+        }.store(in: &cancellables)
     }
     
-    @objc func didTapReportButton() {
+    private func didTapReportButton() {
         guard let dispatchId = dispatchId else { return }
         let vc = ReportViewController(dispatchId: dispatchId, manager: manager)
         vc.modalPresentationStyle = .fullScreen
