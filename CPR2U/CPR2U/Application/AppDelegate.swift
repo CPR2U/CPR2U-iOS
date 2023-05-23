@@ -24,13 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        registerForRemoteNotifications()
-        
         // MARK: FCM Setting
         FirebaseApp.configure()
-        Messaging.messaging().delegate = self
 
         UNUserNotificationCenter.current().delegate = self
+        Messaging.messaging().delegate = self
 
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
@@ -64,25 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
     }
-    
-    private func registerForRemoteNotifications() {
-        
-        // 1. 푸시 center (유저에게 권한 요청 용도)
-        let center = UNUserNotificationCenter.current()
-        center.delegate = self // push처리에 대한 delegate - UNUserNotificationCenterDelegate
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        center.requestAuthorization(options: options) { (granted, error) in
-            
-            guard granted else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                // 2. APNs에 디바이스 토큰 등록
-                UIApplication.shared.registerForRemoteNotifications()
-            }
-        }
-    }
 }
 
 extension AppDelegate: MessagingDelegate {
@@ -91,6 +70,7 @@ extension AppDelegate: MessagingDelegate {
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         DeviceTokenManager.deviceToken = fcmToken
+
     }
 }
 
