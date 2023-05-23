@@ -139,8 +139,6 @@ final class AuthViewModel: AuthViewModelType {
             let authResult = try await authManager.logOut()
             if authResult.success == true {
                 guard let data = authResult.data else { return false }
-                UserDefaultsManager.accessToken = ""
-                UserDefaultsManager.refreshToken = ""
             }
             return authResult.success
         }
