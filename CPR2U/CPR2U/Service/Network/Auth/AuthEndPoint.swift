@@ -13,13 +13,14 @@ enum AuthEndPoint {
     case signIn (phoneNumber: String, deviceToken: String)
     case signUp (nickname: String, phoneNumber: String, deviceToken: String)
     case autoLogin (refreshToken: String)
+    case logOut
 }
 
 extension AuthEndPoint: EndPoint {
     
     var method: HttpMethod {
         switch self {
-        case .phoneNumberVerify, .signIn, .signUp, .autoLogin:
+        case .phoneNumberVerify, .signIn, .signUp, .autoLogin, .logOut:
             return .POST
         case .nicknameVerify:
             return .GET
@@ -39,6 +40,8 @@ extension AuthEndPoint: EndPoint {
             params = ["nickname" : nickname, "phone_number" : phoneNumber, "device_token" : deviceToken ]
         case .autoLogin(let refreshToken) :
             params = ["refresh_token" : refreshToken]
+        case .logOut :
+            params = [:]
         }
         
         return params.encode()
@@ -57,6 +60,8 @@ extension AuthEndPoint: EndPoint {
             return "\(baseURL)/auth/signup"
         case .autoLogin:
             return "\(baseURL)/auth/auto-login"
+        case .logOut:
+            return "\(baseURL)/auth/logout"
         }
     }
     
@@ -97,6 +102,9 @@ extension AuthEndPoint: EndPoint {
                                   httpMethod: method,
                                   headers: headers,
                                   requestBody: body)
+        case .logOut:
+            let headers: [String: String] = [:]
+            return NetworkRequest(url: getURL(path: baseURL), httpMethod: method, headers: headers)
         }
     }
 }

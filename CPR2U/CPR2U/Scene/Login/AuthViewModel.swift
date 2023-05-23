@@ -134,6 +134,19 @@ final class AuthViewModel: AuthViewModelType {
         return try await taskResult.value
     }
     
+    func logOut() async throws -> Bool {
+        let taskResult = Task { () -> Bool in
+            let authResult = try await authManager.logOut()
+            if authResult.success == true {
+                guard let data = authResult.data else { return false }
+                UserDefaultsManager.accessToken = ""
+                UserDefaultsManager.refreshToken = ""
+            }
+            return authResult.success
+        }
+        return try await taskResult.value
+    }
+    
     struct Input {
         let verifier: AnyPublisher<String?, Never>
     }
