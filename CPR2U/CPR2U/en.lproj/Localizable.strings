@@ -28,6 +28,7 @@ phdr: placeholder
 "confirm" = "CONFIRM";
 "continue" = "CONTINUE";
 "cancel" = "CANCEL";
+"submit" = "SUBMIT";
 "quit" = "QUIT";
 "completed" = "Completed";
 "completed_not" = "Not Completed";
@@ -99,8 +100,16 @@ phdr: placeholder
 "pe_des_txt_3" = "Draw an angry man on your clothes or pillow\nusing tape or pen.";
 "pe_des_txt_4" = "Please press the location marked in red!";
 
-// Dispatch
+// Call
 "approch_des_txt" = "Approaching";
 "siuation_end_des_txt" = "SITUATION ENDED";
 "call_ins_txt" = "Call 911";
 "call_des_txt" = "Calling 911 is the first priority. Ask the people around you to report or perform CPR after reporting. If the report is false, you will be restricted from using the app.";
+
+// Dispatch
+"dispatch_tab_t" = "DISPATCH";
+"arrive_des_txt" = "ARRIVED";
+"report_title_txt" = "Wrong Report? Report";
+"report_ins_txt" = "What are you trying to report?";
+"report_des_txt" = "Your report will be treated anonymously.";
+"report_phdr" = "Content*";
