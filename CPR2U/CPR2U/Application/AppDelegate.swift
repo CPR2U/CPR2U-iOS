@@ -82,10 +82,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .badge, .sound])
     }
-    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        NotificationCenter.default.post(name: Notification.Name("ShowCallerPage"), object: nil, userInfo: userInfo)
+        }
+
     // push를 탭한 경우 처리
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let url = response.notification.request.content.userInfo
+        let userInfo = response.notification.request.content.userInfo
+        print(response.notification)
+        print("userInfo: ", userInfo["type"] as! String)
+        NotificationCenter.default.post(name: Notification.Name("ShowCallerPage"), object: nil, userInfo: userInfo)
     }
 }
 

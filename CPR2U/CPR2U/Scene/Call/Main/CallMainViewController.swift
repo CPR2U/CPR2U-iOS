@@ -44,6 +44,7 @@ final class CallMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         bind(viewModel: viewModel)
         setUpConstraints()
         setUpUserLocation()
@@ -51,6 +52,21 @@ final class CallMainViewController: UIViewController {
         setUpStyle()
         setUpDelegate()
         setUpAction()
+        NotificationCenter.default.addObserver(self, selector: #selector(showCallerPage), name: NSNotification.Name("ShowCallerPage"), object: nil)
+        
+        viewModel.$callerListInfo
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] callerListInfo in
+                guard let callerListInfo = callerListInfo else { return }
+                if callerListInfo.call_list.count > 0 {
+                    let callId = callerListInfo.call_list[0].cpr_call_id
+                    guard let self = self else { return }
+                    guard let target = callerListInfo.call_list.filter({$0.cpr_call_id == callId}).first else { return }
+                    let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
+                    let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo))
+                    present(navigationController, animated: true)
+                }
+            }.store(in: &cancellables)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -193,6 +209,25 @@ final class CallMainViewController: UIViewController {
             timeCounterView.cancelTimeCount()
         }
     }
+    
+    @objc func showCallerPage(_ notification:Notification) {
+            if let userInfo = notification.userInfo {
+                let type = userInfo["type"] as! String
+                if type == "1" {
+                    let callId = Int(userInfo["call"] as! String)
+                    viewModel.receiveCallerList()
+                    viewModel.$callerListInfo
+                        .receive(on: DispatchQueue.main)
+                        .sink { [weak self] callerListInfo in
+                            guard let self = self else { return }
+                            guard let target = callerListInfo?.call_list.filter({$0.cpr_call_id == callId}).first else { return }
+                            let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
+                            let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo))
+                            present(navigationController, animated: true)
+                        }.store(in: &cancellables)
+                }
+            }
+        }
 }
 
 extension CallMainViewController: GMSMapViewDelegate {
