@@ -164,8 +164,6 @@ extension MypageViewController: UITableViewDelegate, UITableViewDataSource {
                         await window.setRootViewController(AutoLoginViewController(), animated: true)
                         UserDefaultsManager.accessToken = ""
                         UserDefaultsManager.refreshToken = ""
-                    } else {
-                        print("hihihihi")
                     }
                 }
                 self.dismiss(animated: true)
