@@ -54,7 +54,7 @@ final class PosePracticeCountDownView: UIView {
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            stackView.widthAnchor.constraint(equalToConstant: 240),
+            stackView.widthAnchor.constraint(equalTo: self.widthAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 150),
         ])
         
@@ -67,13 +67,13 @@ final class PosePracticeCountDownView: UIView {
         })
         
         NSLayoutConstraint.activate([
-            descriptionLabel.widthAnchor.constraint(equalToConstant: 240),
+            descriptionLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 42),
         ])
         
         NSLayoutConstraint.activate([
             timeLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: make.space8),
-            timeLabel.widthAnchor.constraint(equalToConstant: 240),
+            timeLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor),
             timeLabel.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
