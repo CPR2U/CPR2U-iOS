@@ -112,6 +112,7 @@
 		3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */; };
 		3ADE727629BB78BF00EEE19C /* ScoreResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727529BB78BF00EEE19C /* ScoreResultView.swift */; };
 		3AF695292A1DFE03001CA915 /* AddressVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF695282A1DFE03001CA915 /* AddressVerificationViewController.swift */; };
+		3AF6952B2A1E3C44001CA915 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6952A2A1E3C44001CA915 /* UITextField+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,6 +222,7 @@
 		3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResultView.swift; sourceTree = "<group>"; };
 		3ADE727529BB78BF00EEE19C /* ScoreResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreResultView.swift; sourceTree = "<group>"; };
 		3AF695282A1DFE03001CA915 /* AddressVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressVerificationViewController.swift; sourceTree = "<group>"; };
+		3AF6952A2A1E3C44001CA915 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		8603206BC53B2CC2028A3EFB /* Pods-CPR2U.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.release.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.release.xcconfig"; sourceTree = "<group>"; };
 		EDF82C0EF3B44D7FED6D1535 /* Pods_CPR2U.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPR2U.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -296,6 +298,7 @@
 				3A396BA429CA0646009B0545 /* UIWindow+.swift */,
 				3A396BD829CF644A009B0545 /* Int+.swift */,
 				3A2FF4C92A0D1890001F6132 /* String+.swift */,
+				3AF6952A2A1E3C44001CA915 /* UITextField+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				3A324CDD29C60E9800165E2E /* MoveNet.swift in Sources */,
 				3A70255E29D0869200225F56 /* MapManager.swift in Sources */,
 				3ADE725229B9D55100EEE19C /* EducationMainViewController.swift in Sources */,
+				3AF6952B2A1E3C44001CA915 /* UITextField+.swift in Sources */,
 				3A396BC329CCA563009B0545 /* LectureViewController.swift in Sources */,
 				3A396BB729CB1F38009B0545 /* EducationManager.swift in Sources */,
 				3A70256F29D4293E00225F56 /* Address.swift in Sources */,

@@ -26,6 +26,32 @@ final class AddressVerificationViewController: UIViewController {
         return label
     }()
     
+    private lazy var mainAddressTextField: TextField = {
+        let textField = TextField()
+        textField.font = UIFont(weight: .regular, size: 16)
+        textField.textColor = UIColor(rgb: 0xC1C1C1)
+        textField.textAlignment = .left
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 6
+        textField.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        textField.tintColor = .clear
+        textField.text = "시/도"
+        return textField
+    }()
+    
+    private lazy var subAddressTextField: TextField = {
+        let textField = TextField()
+        textField.font = UIFont(weight: .regular, size: 16)
+        textField.textColor = UIColor(rgb: 0xC1C1C1)
+        textField.textAlignment = .left
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 6
+        textField.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        textField.tintColor = .clear
+        textField.text = "구/군"
+        return textField
+    }()
+    
     private let continueButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont(weight: .bold, size: 16)
@@ -36,6 +62,11 @@ final class AddressVerificationViewController: UIViewController {
         return button
     }()
     
+    private var addressList: [AddressListResult] = []
+    private var mainAddressIndex: Int?
+    private var addressId: Int?
+    
+    private let addressManager = AddressManager(service: APIManager())
     private var viewModel: AuthViewModel
     private var cancellables = Set<AnyCancellable>()
     
@@ -54,6 +85,10 @@ final class AddressVerificationViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         bind(viewModel: viewModel)
+        
+        Task {
+            setUpAddreessList()
+        }
     }
     
     private func setUpConstraints() {
@@ -63,6 +98,8 @@ final class AddressVerificationViewController: UIViewController {
         [
             instructionLabel,
             descriptionLabel,
+            mainAddressTextField,
+            subAddressTextField,
             continueButton
         ].forEach({
             view.addSubview($0)
@@ -81,6 +118,20 @@ final class AddressVerificationViewController: UIViewController {
             descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
             descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: make.space16),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 28)
+        ])
+        
+        NSLayoutConstraint.activate([
+            mainAddressTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 32),
+            mainAddressTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: make.space16),
+            mainAddressTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -make.space16),
+            mainAddressTextField.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        NSLayoutConstraint.activate([
+            subAddressTextField.topAnchor.constraint(equalTo: mainAddressTextField.bottomAnchor, constant: make.space8),
+            subAddressTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: make.space16),
+            subAddressTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -make.space16),
+            subAddressTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([
@@ -110,5 +161,110 @@ final class AddressVerificationViewController: UIViewController {
                 }
             }
         }.store(in: &cancellables)
+    }
+    
+    private func setUpAddreessList() {
+        // MARK: API 수정 요함
+//        Task {
+//            let result = try await addressManager.getAddressList()
+//            if result.success == true {
+//                guard let list = result.data else { return }
+//                addressList = list
+//                setUpPickerView()
+//            }
+//        }
+    }
+    
+    private func setUpPickerView() {
+        let mainPickerView = UIPickerView()
+        mainPickerView.layer.name = "mainPickerView"
+        let subPickerView = UIPickerView()
+        subPickerView.layer.name = "subPickerView"
+        
+        [mainPickerView, subPickerView].forEach({
+            $0.delegate = self
+            $0.dataSource = self
+        })
+        
+        [mainAddressTextField, subAddressTextField].forEach({
+            let toolBar = UIToolbar()
+            toolBar.sizeToFit()
+            let button = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(self.didSelectButtonTapped))
+            toolBar.setItems([button], animated: true)
+            toolBar.isUserInteractionEnabled = true
+            $0.inputAccessoryView = toolBar
+        })
+        
+        mainAddressTextField.inputView = mainPickerView
+        subAddressTextField.inputView = subPickerView
+    }
+    
+    private func setUpAction() {
+        continueButton.tapPublisher.sink {
+            Task {
+                guard let id = self.addressId else {
+                    return }
+                // MARK: 주소 설정 관련 로직부가 Auth에 편입될 예정
+//                try await self.addressManager.setUserAddress(id: id)
+            }
+        }.store(in: &cancellables)
+    }
+    
+    @objc func didSelectButtonTapped() {
+        mainAddressTextField.endEditing(true)
+        subAddressTextField.endEditing(true)
+    }
+}
+
+extension AddressVerificationViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if pickerView.layer.name == "mainPickerView" {
+            return 1
+        } else if pickerView.layer.name == "subPickerView" {
+            return 1
+        }
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.layer.name == "mainPickerView" {
+            return addressList.count
+        } else if pickerView.layer.name == "subPickerView" {
+            guard let index = mainAddressIndex else { return 0 }
+            return addressList[index].gugun_list.count
+        }
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView.layer.name == "mainPickerView" {
+            return addressList[row].sido
+        } else if pickerView.layer.name == "subPickerView" {
+            guard let index = mainAddressIndex else { return "" }
+            return addressList[index].gugun_list[row].gugun
+        }
+        return nil
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.layer.name == "mainPickerView" {
+            mainAddressTextField.text = addressList[row].sido
+            mainAddressTextField.textColor = .mainBlack
+            if addressList[row].sido == "세종특별자치시" {
+                addressId = addressList[row].gugun_list[0].id
+                subAddressTextField.isHidden = true
+            } else {
+                addressId = nil
+                subAddressTextField.text = "구/군"
+                subAddressTextField.textColor = UIColor(rgb: 0xC1C1C1)
+                subAddressTextField.isHidden = false
+            }
+            mainAddressIndex = row
+        } else if pickerView.layer.name == "subPickerView" {
+            guard let index = mainAddressIndex else { return }
+            subAddressTextField.text = addressList[index].gugun_list[row].gugun
+            subAddressTextField.textColor = .mainBlack
+            addressId = addressList[index].gugun_list[row].id
+        }
     }
 }
