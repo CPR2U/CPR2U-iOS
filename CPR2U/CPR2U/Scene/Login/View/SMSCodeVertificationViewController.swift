@@ -236,6 +236,7 @@ final class SMSCodeVerificationViewController: UIViewController {
         confirmButton.tapPublisher.sink { [self] in
             Task {
                 if smsCodeVerify() {
+                    // MARK: 회원가입 관련 userVerify 메소드는 NicknameVC에서 호출 예정
                     let isUser = try await viewModel.userVerify()
                     print("USER CHECK: ", isUser)
                     if isUser {
