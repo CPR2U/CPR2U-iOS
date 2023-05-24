@@ -100,6 +100,7 @@ phdr: placeholder
 "pe_des_txt_3" = "Draw an angry man on your clothes or pillow\nusing tape or pen.";
 "pe_des_txt_4" = "Please press the location marked in red!";
 "pe_ins_txt" = "Please assume the position";
+"pe_count_des_txt" = "Time Until Posture Measurement Begins";
 
 // Call
 "approch_des_txt" = "Approaching";
