@@ -44,6 +44,7 @@ final class PosePracticeResultViewController: UIViewController {
     private let compressRateResultView: EvaluationResultView = {
         let view = EvaluationResultView()
         view.setImage(imgName: "ruler")
+        view.setResultImageView(isSuccess: false)
         view.setTitle(title: "Compression Rate")
         view.setResultLabelText(as: "0.5 per 1 time")
         view.setDescriptionLabelText(as: "It’s too fast. Little bit Slower")
@@ -53,24 +54,17 @@ final class PosePracticeResultViewController: UIViewController {
     private let pressDepthResultView: EvaluationResultView = {
         let view = EvaluationResultView()
         view.setImage(imgName: "ruler")
+        view.setResultImageView(isSuccess: true)
         view.setTitle(title: "Press Depth")
         view.setResultLabelText(as: "Slightly shallow")
         view.setDescriptionLabelText(as: "Press little deeper")
         return view
     }()
     
-    private let handLocationResultView: EvaluationResultView = {
-        let view = EvaluationResultView()
-        view.setImage(imgName: "ruler")
-        view.setTitle(title: "Hand Location")
-        view.setResultLabelText(as: "Adequate")
-        view.setDescriptionLabelText(as: "Nice Location!")
-        return view
-    }()
-    
     private let armAngleResultView: EvaluationResultView = {
         let view = EvaluationResultView()
         view.setImage(imgName: "ruler")
+        view.setResultImageView(isSuccess: true)
         view.setTitle(title: "Arm Angle")
         view.setResultLabelText(as: "Adequate")
         view.setDescriptionLabelText(as: "Nice Angle!")
@@ -124,25 +118,20 @@ final class PosePracticeResultViewController: UIViewController {
         scoreStackView.alignment = UIStackView.Alignment.center
         scoreStackView.spacing   = 100
         
+        let resultStackView = UIStackView()
+        resultStackView.axis = NSLayoutConstraint.Axis.horizontal
+        resultStackView.distribution = UIStackView.Distribution.equalSpacing
+        resultStackView.alignment = UIStackView.Alignment.center
+        resultStackView.spacing = 110
+        
         [
             resultLabel,
             scoreStackView,
-//            compressRateResultView,
-//            pressDepthResultView,
-//            handLocationResultView,
-//            armAngleResultView,
-//            finalResultView,
+            resultStackView,
             quitButton
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-        })
-        
-        let evaluationResultViewArr = [compressRateResultView, pressDepthResultView, handLocationResultView, armAngleResultView,]
-        
-        evaluationResultViewArr.forEach({
-            $0.widthAnchor.constraint(equalToConstant: 255).isActive = true
-            $0.heightAnchor.constraint(equalToConstant: 150).isActive = true
         })
         
         NSLayoutConstraint.activate([
@@ -153,9 +142,17 @@ final class PosePracticeResultViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            scoreStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            scoreStackView.topAnchor.constraint(equalTo: resultLabel.bottomAnchor),
+            scoreStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90),
+            scoreStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -90),
+            scoreStackView.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: make.space8),
             scoreStackView.heightAnchor.constraint(equalToConstant: 108)
+        ])
+        
+        NSLayoutConstraint.activate([
+            resultStackView.leadingAnchor.constraint(equalTo: scoreStackView.leadingAnchor),
+            resultStackView.trailingAnchor.constraint(equalTo: scoreStackView.trailingAnchor),
+            resultStackView.topAnchor.constraint(equalTo: scoreStackView.bottomAnchor, constant: make.space8),
+            resultStackView.heightAnchor.constraint(equalToConstant: 128)
         ])
         
         [
@@ -178,25 +175,30 @@ final class PosePracticeResultViewController: UIViewController {
             scoreDescriptionLabel.heightAnchor.constraint(equalToConstant: 72)
         ])
         
-//        NSLayoutConstraint.activate([
-//            compressRateResultView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: make.space24),
-//            compressRateResultView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16)
-//        ])
-//
-//        NSLayoutConstraint.activate([
-//            pressDepthResultView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -make.space24),
-//            pressDepthResultView.leadingAnchor.constraint(equalTo: compressRateResultView.leadingAnchor),
-//        ])
-//
-//        NSLayoutConstraint.activate([
-//            handLocationResultView.topAnchor.constraint(equalTo: compressRateResultView.topAnchor),
-//            handLocationResultView.leadingAnchor.constraint(equalTo: compressRateResultView.trailingAnchor, constant: make.space16)
-//        ])
-//
-//        NSLayoutConstraint.activate([
-//            armAngleResultView.bottomAnchor.constraint(equalTo: pressDepthResultView.bottomAnchor),
-//            armAngleResultView.leadingAnchor.constraint(equalTo: compressRateResultView.trailingAnchor, constant: make.space16)
-//        ])
+        let evaluationResultViewArr = [
+            armAngleResultView,
+            compressRateResultView,
+            pressDepthResultView
+        ]
+        
+        evaluationResultViewArr.forEach({
+            resultStackView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.widthAnchor.constraint(equalToConstant: 196).isActive = true
+            $0.heightAnchor.constraint(equalToConstant: 196).isActive = true
+        })
+        
+        NSLayoutConstraint.activate([
+            armAngleResultView.leadingAnchor.constraint(equalTo: resultStackView.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            compressRateResultView.centerXAnchor.constraint(equalTo: resultStackView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            pressDepthResultView.trailingAnchor.constraint(equalTo: resultStackView.trailingAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             quitButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
@@ -204,14 +206,6 @@ final class PosePracticeResultViewController: UIViewController {
             quitButton.widthAnchor.constraint(equalToConstant: 206),
             quitButton.heightAnchor.constraint(equalToConstant: 48)
         ])
-        
-//        NSLayoutConstraint.activate([
-//            finalResultView.topAnchor.constraint(equalTo: handLocationResultView.topAnchor),
-//            finalResultView.bottomAnchor.constraint(equalTo: quitButton.topAnchor, constant: -make.space12),
-//            finalResultView.leadingAnchor.constraint(equalTo: quitButton.leadingAnchor),
-//            finalResultView.trailingAnchor.constraint(equalTo: quitButton.trailingAnchor)
-//
-//        ])
     }
     
     private func setUpStyle() {
