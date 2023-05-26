@@ -30,6 +30,7 @@ final class EvaluationResultView: UIView {
         label.font = UIFont(weight: .regular, size: 14)
         label.textColor = .mainWhite
         label.textAlignment = .center
+        label.numberOfLines = 2
         return label
     }()
     
@@ -111,8 +112,8 @@ final class EvaluationResultView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.widthAnchor.constraint(equalToConstant: 200),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 21)
+            descriptionLabel.widthAnchor.constraint(equalToConstant: 180),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     

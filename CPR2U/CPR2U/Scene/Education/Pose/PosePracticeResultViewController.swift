@@ -238,7 +238,7 @@ final class PosePracticeResultViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            pageControl.bottomAnchor.constraint(equalTo: quitButton.topAnchor, constant: -20),
+            pageControl.bottomAnchor.constraint(equalTo: quitButton.topAnchor, constant: -make.space12),
             pageControl.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             pageControl.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
             pageControl.heightAnchor.constraint(equalToConstant: 12)
