@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // https://stackoverflow.com/questions/28938660/how-to-lock-orientation-of-one-view-controller-to-portrait-mode-only-in-swift
     var orientationLock = UIInterfaceOrientationMask.portrait
+    var isNotificationHandled = false
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
@@ -80,8 +81,18 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
+        if !isNotificationHandled {
+            // 알림을 처리하는 로직을 실행
+            // 예: 표시 옵션 설정, 사용자에게 알림을 표시하는 등
+            completionHandler([.banner, .badge, .sound])
+            isNotificationHandled = true
+        } else {
+            // 이미 처리된 알림인 경우, 두 번째 호출이므로 아무 작업을 수행하지 않음
+            completionHandler([])
+            isNotificationHandled = false
+        }
     }
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         NotificationCenter.default.post(name: Notification.Name("ShowCallerPage"), object: nil, userInfo: userInfo)
         }
