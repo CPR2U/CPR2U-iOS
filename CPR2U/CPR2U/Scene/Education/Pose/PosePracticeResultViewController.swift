@@ -11,6 +11,24 @@ import UIKit
 
 final class PosePracticeResultViewController: UIViewController {
     
+    private lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.numberOfPages = 2
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = .mainLightGray
+        pageControl.currentPageIndicatorTintColor = .black
+        return pageControl
+    }()
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.frame = CGRect(x: 0, y: 0, width: 844, height: 390)
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        return scrollView
+    }()
+    
     private let resultLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 28)
@@ -18,6 +36,15 @@ final class PosePracticeResultViewController: UIViewController {
         label.textColor = .mainWhite
         label.text = "your_result_txt".localized()
         return label
+    }()
+    
+    private lazy var scoreStackView: UIStackView = {
+       let view = UIStackView()
+        view.axis = NSLayoutConstraint.Axis.horizontal
+        view.distribution = UIStackView.Distribution.equalSpacing
+        view.alignment = UIStackView.Alignment.center
+        view.spacing = 100
+        return view
     }()
     
     private lazy var scoreLabel: UILabel = {
@@ -39,6 +66,14 @@ final class PosePracticeResultViewController: UIViewController {
         label.textColor = .mainWhite
         label.text = "Congratulations!\nYou passed the CPR posture test." // TEST
         return label
+    }()
+    
+    private lazy var resultStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = NSLayoutConstraint.Axis.horizontal
+        view.distribution = UIStackView.Distribution.fillEqually
+        view.spacing = 110
+        return view
     }()
     
     private let compressRateResultView: EvaluationResultView = {
@@ -83,9 +118,14 @@ final class PosePracticeResultViewController: UIViewController {
         return button
     }()
     
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let viewModel: EducationViewModel
     private var cancellables = Set<AnyCancellable>()
-    
     private var score: Int = 0
     
     init(viewModel: EducationViewModel) {
@@ -102,6 +142,7 @@ final class PosePracticeResultViewController: UIViewController {
 
         setUpConstraints()
         setUpStyle()
+        setUpDelegate()
         bind(viewModel: viewModel)
         setUpText()
         
@@ -112,46 +153,44 @@ final class PosePracticeResultViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         let make = Constraints.shared
         
-        let scoreStackView = UIStackView()
-        scoreStackView.axis  = NSLayoutConstraint.Axis.horizontal
-        scoreStackView.distribution  = UIStackView.Distribution.equalSpacing
-        scoreStackView.alignment = UIStackView.Alignment.center
-        scoreStackView.spacing   = 100
-        
-        let resultStackView = UIStackView()
-        resultStackView.axis = NSLayoutConstraint.Axis.horizontal
-        resultStackView.distribution = UIStackView.Distribution.equalSpacing
-        resultStackView.alignment = UIStackView.Alignment.center
-        resultStackView.spacing = 110
-        
         [
             resultLabel,
-            scoreStackView,
-            resultStackView,
+            pageControl,
+            scrollView,
             quitButton
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         
+        [
+            scoreStackView,
+            resultStackView,
+        ].forEach({
+            scrollView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        })
+        
         NSLayoutConstraint.activate([
-            resultLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: make.space16),
+            resultLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: make.space24),
             resultLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             resultLabel.widthAnchor.constraint(equalToConstant: 200),
             resultLabel.heightAnchor.constraint(equalToConstant: 36)
         ])
         
+        scrollView.contentSize.height = scrollView.frame.height
+        
         NSLayoutConstraint.activate([
-            scoreStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90),
-            scoreStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -90),
-            scoreStackView.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: make.space8),
+            scoreStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 95),
+            scoreStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerXAnchor, constant: -95),
+            scoreStackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -make.space8),
             scoreStackView.heightAnchor.constraint(equalToConstant: 108)
         ])
         
         NSLayoutConstraint.activate([
-            resultStackView.leadingAnchor.constraint(equalTo: scoreStackView.leadingAnchor),
-            resultStackView.trailingAnchor.constraint(equalTo: scoreStackView.trailingAnchor),
-            resultStackView.topAnchor.constraint(equalTo: scoreStackView.bottomAnchor, constant: make.space8),
+            resultStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerXAnchor, constant: 38),
+            resultStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -38),
+            resultStackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -make.space24),
             resultStackView.heightAnchor.constraint(equalToConstant: 128)
         ])
         
@@ -159,18 +198,16 @@ final class PosePracticeResultViewController: UIViewController {
             scoreLabel,
             scoreDescriptionLabel
         ].forEach({
-            scoreStackView.addSubview($0)
+            scoreStackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         
         NSLayoutConstraint.activate([
-            scoreLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 92),
             scoreLabel.widthAnchor.constraint(equalToConstant: 158),
             scoreLabel.heightAnchor.constraint(equalToConstant: 108)
         ])
         
         NSLayoutConstraint.activate([
-            scoreDescriptionLabel.leadingAnchor.constraint(equalTo: scoreLabel.trailingAnchor, constant: 100),
             scoreDescriptionLabel.widthAnchor.constraint(equalToConstant: 396),
             scoreDescriptionLabel.heightAnchor.constraint(equalToConstant: 72)
         ])
@@ -185,7 +222,7 @@ final class PosePracticeResultViewController: UIViewController {
             resultStackView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.widthAnchor.constraint(equalToConstant: 196).isActive = true
-            $0.heightAnchor.constraint(equalToConstant: 196).isActive = true
+            $0.heightAnchor.constraint(equalToConstant: 128).isActive = true
         })
         
         NSLayoutConstraint.activate([
@@ -201,7 +238,21 @@ final class PosePracticeResultViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            quitButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: quitButton.topAnchor, constant: -20),
+            pageControl.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            pageControl.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
+            pageControl.heightAnchor.constraint(equalToConstant: 12)
+        ])
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            quitButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -make.space16),
             quitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             quitButton.widthAnchor.constraint(equalToConstant: 206),
             quitButton.heightAnchor.constraint(equalToConstant: 48)
@@ -212,6 +263,10 @@ final class PosePracticeResultViewController: UIViewController {
         view.backgroundColor = .mainRed
     }
     
+    private func setUpDelegate() {
+        scrollView.delegate = self
+    }
+
     private func bind(viewModel: EducationViewModel) {
         quitButton.tapPublisher.sink { [weak self] _ in
             self?.setUpOrientation(as: .portrait)
@@ -257,4 +312,16 @@ final class PosePracticeResultViewController: UIViewController {
         
         return attributedString
     }
+    
+    private func setPageControlSelectedPage(currentPage:Int) {
+        pageControl.currentPage = currentPage
+    }
+}
+
+extension PosePracticeResultViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let value = scrollView.contentOffset.x/scrollView.frame.size.width
+        setPageControlSelectedPage(currentPage: Int(round(value)))
+    }
+    
 }

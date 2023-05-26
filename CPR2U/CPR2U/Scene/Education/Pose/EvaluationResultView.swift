@@ -14,8 +14,6 @@ final class EvaluationResultView: UIView {
         label.font = UIFont(weight: .bold, size: 16)
         label.textColor = .mainWhite
         label.textAlignment = .center
-//        label.adjustsFontSizeToFitWidth = true
-//        label.minimumScaleFactor = 0.5
         return label
     }()
     
@@ -32,8 +30,6 @@ final class EvaluationResultView: UIView {
         label.font = UIFont(weight: .regular, size: 14)
         label.textColor = .mainWhite
         label.textAlignment = .center
-//        label.adjustsFontSizeToFitWidth = true
-//        label.minimumScaleFactor = 0.5
         return label
     }()
     
@@ -41,7 +37,6 @@ final class EvaluationResultView: UIView {
         super.init(frame: frame)
         
         setUpConstraints()
-//        setUpStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -51,24 +46,30 @@ final class EvaluationResultView: UIView {
     private func setUpConstraints() {
         let make = Constraints.shared
         
-        let stackView = UIStackView()
-        stackView.axis = NSLayoutConstraint.Axis.vertical
-        stackView.distribution  = UIStackView.Distribution.equalSpacing
-        stackView.alignment = UIStackView.Alignment.top
-        stackView.spacing   = make.space12
-        
-        let titleStackView = UIStackView()
+        let titleStackView = UIStackView(arrangedSubviews: [
+            evaluationTargetImageView,
+            titleLabel
+        ])
         titleStackView.axis = NSLayoutConstraint.Axis.horizontal
-        titleStackView.distribution  = UIStackView.Distribution.equalSpacing
-        titleStackView.alignment = UIStackView.Alignment.center
-        titleStackView.spacing   = make.space12
+        titleStackView.distribution = .equalSpacing
+        titleStackView.alignment = .center
+        titleStackView.spacing   = make.space8
+        
+        let stackView = UIStackView(arrangedSubviews: [
+            titleStackView,
+            descriptionImageView,
+            resultLabel,
+            descriptionLabel
+        ])
+        stackView.axis = NSLayoutConstraint.Axis.vertical
+        stackView.distribution = .equalSpacing
+        stackView.alignment = UIStackView.Alignment.center
+        stackView.spacing   = make.space8
         
         self.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
@@ -79,14 +80,10 @@ final class EvaluationResultView: UIView {
             resultLabel,
             descriptionLabel
         ].forEach({
-            stackView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         
         NSLayoutConstraint.activate([
-            titleStackView.topAnchor.constraint(equalTo: stackView.topAnchor),
-            titleStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            titleStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             titleStackView.heightAnchor.constraint(equalToConstant: 28)
         ])
         
@@ -94,42 +91,26 @@ final class EvaluationResultView: UIView {
             evaluationTargetImageView,
             titleLabel
         ].forEach({
-            titleStackView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         
         
         NSLayoutConstraint.activate([
-            evaluationTargetImageView.topAnchor.constraint(equalTo: titleStackView.topAnchor),
-            evaluationTargetImageView.leadingAnchor.constraint(equalTo: titleStackView.leadingAnchor),
             evaluationTargetImageView.widthAnchor.constraint(equalToConstant: 28),
             evaluationTargetImageView.heightAnchor.constraint(equalToConstant: 28)
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: evaluationTargetImageView.trailingAnchor, constant: make.space4),
-            titleLabel.trailingAnchor.constraint(equalTo: titleStackView.trailingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: evaluationTargetImageView.topAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 28)
-        ])
-        
-        NSLayoutConstraint.activate([
-            descriptionImageView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: make.space8),
-            descriptionImageView.centerXAnchor.constraint(equalTo: titleStackView.centerXAnchor),
             descriptionImageView.widthAnchor.constraint(equalToConstant: 48),
             descriptionImageView.heightAnchor.constraint(equalToConstant: 48)
         ])
         
         NSLayoutConstraint.activate([
-            resultLabel.topAnchor.constraint(equalTo: descriptionImageView.bottomAnchor, constant: make.space8),
-            resultLabel.centerXAnchor.constraint(equalTo: descriptionImageView.centerXAnchor),
             resultLabel.widthAnchor.constraint(equalToConstant: 200),
             resultLabel.heightAnchor.constraint(equalToConstant: 21)
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: resultLabel.bottomAnchor),
-            descriptionLabel.centerXAnchor.constraint(equalTo: resultLabel.centerXAnchor),
             descriptionLabel.widthAnchor.constraint(equalToConstant: 200),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 21)
         ])
