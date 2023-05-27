@@ -111,6 +111,8 @@
 		3ADE727029BB630F00EEE19C /* PosePracticeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */; };
 		3ADE727229BB64D400EEE19C /* EvaluationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */; };
 		3ADE727629BB78BF00EEE19C /* ScoreResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE727529BB78BF00EEE19C /* ScoreResultView.swift */; };
+		3AF695252A1DD54E001CA915 /* PoseAvailabilityCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF695242A1DD54E001CA915 /* PoseAvailabilityCheckView.swift */; };
+		3AF695272A1DD567001CA915 /* PosePracticeCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF695262A1DD567001CA915 /* PosePracticeCountDownView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -219,6 +221,8 @@
 		3ADE726F29BB630F00EEE19C /* PosePracticeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeResultViewController.swift; sourceTree = "<group>"; };
 		3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResultView.swift; sourceTree = "<group>"; };
 		3ADE727529BB78BF00EEE19C /* ScoreResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreResultView.swift; sourceTree = "<group>"; };
+		3AF695242A1DD54E001CA915 /* PoseAvailabilityCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseAvailabilityCheckView.swift; sourceTree = "<group>"; };
+		3AF695262A1DD567001CA915 /* PosePracticeCountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeCountDownView.swift; sourceTree = "<group>"; };
 		8603206BC53B2CC2028A3EFB /* Pods-CPR2U.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.release.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.release.xcconfig"; sourceTree = "<group>"; };
 		EDF82C0EF3B44D7FED6D1535 /* Pods_CPR2U.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPR2U.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -690,6 +694,8 @@
 				3ADE727129BB64D400EEE19C /* EvaluationResultView.swift */,
 				3ADE727529BB78BF00EEE19C /* ScoreResultView.swift */,
 				3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */,
+				3AF695242A1DD54E001CA915 /* PoseAvailabilityCheckView.swift */,
+				3AF695262A1DD567001CA915 /* PosePracticeCountDownView.swift */,
 			);
 			path = Pose;
 			sourceTree = "<group>";
@@ -837,6 +843,7 @@
 				3A8C31A429D6062E004A4B84 /* MypageStatusView.swift in Sources */,
 				3ADE725629B9EA3200EEE19C /* EducationProgressView.swift in Sources */,
 				3A396BD329CF3301009B0545 /* TimeCounterView.swift in Sources */,
+				3AF695252A1DD54E001CA915 /* PoseAvailabilityCheckView.swift in Sources */,
 				3ADE726029BB03A100EEE19C /* EducationQuizViewController.swift in Sources */,
 				3A22BF5D29BCF159004411BE /* Auth.swift in Sources */,
 				3A91C2D329D03FCC00028003 /* CallerLocationInfo.swift in Sources */,
@@ -897,6 +904,7 @@
 				3ADE724F29B9D4AB00EEE19C /* Constraints.swift in Sources */,
 				3A324CE529C6104400165E2E /* CVPixelBuffer+TFLite.swift in Sources */,
 				3AA636C229B07C5F006BB5EF /* UIColor+.swift in Sources */,
+				3AF695272A1DD567001CA915 /* PosePracticeCountDownView.swift in Sources */,
 				3A22BF5029BCCE07004411BE /* AuthEndPoint.swift in Sources */,
 				3A396BB529CB1F31009B0545 /* EducationEndPoint.swift in Sources */,
 				3A8C31A129D6042B004A4B84 /* MypageViewController.swift in Sources */,
