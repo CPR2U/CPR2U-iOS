@@ -68,8 +68,10 @@ phdr: placeholder
 "nickname_des_txt" = "People can recognize you by your nickname";
 "nickname_phdr" = "Nickname*";
 
-// Address Setting
-"address_des_txt"= "Select your address for\nCPR Angel activities";
+// AddressVerificationVC
+//"address_des_txt"= "Select your address for\nCPR Angel activities";
+"address_ins_txt" = "Select your Address";
+"address_des_txt" = "Select your address for CPR Angel activities";
 
 // NoticeV
 "congratu_txt" = "Congratulation!";
@@ -91,7 +93,7 @@ phdr: placeholder
 "quiz_exit_warn_txt" = "All progress will be lost";
 
 // Education - Pose
-"score" = "Score";
+"your_result_txt" = "YOUR RESULT";
 "pass" = "PASSED!";
 "fail" = "FAILED...";
 "pe_title_txt_1" = "Prepare tools";
@@ -102,6 +104,8 @@ phdr: placeholder
 "pe_des_txt_2" = "Put the plastic bottle inside the clothes\nyou don't wear and wrap it up.";
 "pe_des_txt_3" = "Draw an angry man on your clothes or pillow\nusing tape or pen.";
 "pe_des_txt_4" = "Please press the location marked in red!";
+"pe_ins_txt" = "Please assume the position";
+"pe_count_des_txt" = "Time Until Posture Measurement Begins";
 
 // Call
 "approch_des_txt" = "Approaching";

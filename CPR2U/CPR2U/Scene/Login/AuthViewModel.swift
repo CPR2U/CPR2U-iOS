@@ -20,6 +20,7 @@ final class AuthViewModel: AuthViewModelType {
     private var _phoneNumber: String?
     private var _smsCode: String?
     private var _nickname: String?
+    private var _addressId: Int?
     
     var phoneNumber: String {
         get {
@@ -48,6 +49,16 @@ final class AuthViewModel: AuthViewModelType {
         }
         set(value) {
             _nickname = value
+        }
+    }
+    
+    var addressId: Int {
+        get {
+            guard let value = _addressId else { return -1 }
+            return value
+        }
+        set(value) {
+            _addressId = value
         }
     }
     
@@ -118,10 +129,10 @@ final class AuthViewModel: AuthViewModelType {
     
     func signUp() async throws -> Bool {
         let taskResult = Task { () -> Bool in
-            if phoneNumber == "" && nickname == "" {
+            if phoneNumber == "" || nickname == "" || addressId == -1 {
                 return false
             } else {
-                let authResult = try await authManager.signUp(nickname: nickname, phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
+                let authResult = try await authManager.signUp(nickname: nickname, phoneNumber: phoneNumber, addressId: addressId, deviceToken: DeviceTokenManager.deviceToken)
                 if authResult.success == true {
                     guard let data = authResult.data else { return false }
                     UserDefaultsManager.accessToken = data.access_token
@@ -129,6 +140,18 @@ final class AuthViewModel: AuthViewModelType {
                     print("USER TOKEN UPDATE")
                 }
                 return authResult.success
+            }
+        }
+        return try await taskResult.value
+    }
+    
+    func getAddressList() async throws -> [AddressListResult]? {
+        let taskResult = Task { () -> [AddressListResult]? in
+            let authResult = try await authManager.getAddressList()
+            if authResult.success == true {
+                return authResult.data
+            } else {
+                return nil
             }
         }
         return try await taskResult.value
