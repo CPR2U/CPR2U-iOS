@@ -65,8 +65,10 @@ phdr: placeholder
 "nickname_des_txt" = "People can recognize you by your nickname";
 "nickname_phdr" = "Nickname*";
 
-// Address Setting
-"address_des_txt"= "Select your address for\nCPR Angel activities";
+// AddressVerificationVC
+//"address_des_txt"= "Select your address for\nCPR Angel activities";
+"address_ins_txt" = "Select your Address";
+"address_des_txt" = "Select your address for CPR Angel activities";
 
 // NoticeV
 "congratu_txt" = "Congratulation!";
