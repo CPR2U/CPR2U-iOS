@@ -66,7 +66,6 @@
 		3A70256B29D4292E00225F56 /* AddressEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256A29D4292E00225F56 /* AddressEndPoint.swift */; };
 		3A70256D29D4293800225F56 /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256C29D4293800225F56 /* AddressManager.swift */; };
 		3A70256F29D4293E00225F56 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256E29D4293E00225F56 /* Address.swift */; };
-		3A70257329D42DB300225F56 /* AddressSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70257229D42DB300225F56 /* AddressSettingView.swift */; };
 		3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A70258429D4C12100225F56 /* CPR_Posture_Sound.mp3 */; };
 		3A70258929D5BD9A00225F56 /* DispatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258829D5BD9A00225F56 /* DispatchViewController.swift */; };
 		3A70258B29D5BFA300225F56 /* DispatchDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */; };
@@ -173,7 +172,6 @@
 		3A70256A29D4292E00225F56 /* AddressEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressEndPoint.swift; sourceTree = "<group>"; };
 		3A70256C29D4293800225F56 /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
 		3A70256E29D4293E00225F56 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		3A70257229D42DB300225F56 /* AddressSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSettingView.swift; sourceTree = "<group>"; };
 		3A70257929D4731B00225F56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A70258429D4C12100225F56 /* CPR_Posture_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CPR_Posture_Sound.mp3; sourceTree = "<group>"; };
 		3A70258829D5BD9A00225F56 /* DispatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchViewController.swift; sourceTree = "<group>"; };
@@ -668,7 +666,6 @@
 				3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */,
 				3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */,
 				3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */,
-				3A70257229D42DB300225F56 /* AddressSettingView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -929,7 +926,6 @@
 				3A324CD229C4BCE000165E2E /* MultiQuizChoiceView.swift in Sources */,
 				3A324CEA29C6111200165E2E /* CameraFeedManager.swift in Sources */,
 				3A396BD129CF2BA2009B0545 /* CallCircleView.swift in Sources */,
-				3A70257329D42DB300225F56 /* AddressSettingView.swift in Sources */,
 				3A22BF6729BE05D9004411BE /* Encodable+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -244,18 +244,7 @@ final class NicknameVerificationViewController: UIViewController {
                     let nicknameStatus = try await self.viewModel.nicknameVerify(userInput: userInput)
                     if nicknameStatus == .available {
                         viewModel.nickname = userInput
-                        // MARK: NEW CODE
                         self.navigationController?.pushViewController(AddressVerificationViewController(viewModel: viewModel), animated: true)
-                        // MARK: 기존 코드
-//                        let signUpResult = try await self.viewModel.signUp()
-//                        if signUpResult == true {
-//                            self?.dismiss(animated: true)
-//                            let vc = TabBarViewController()
-//                            guard let window = self?.view.window else { return }
-//                            await window.setRootViewController(vc, animated: true)
-//                        } else {
-//                            print("에러")
-//                        }
                     } else {
                         nicknameStatus.changeNoticeLabel(noticeLabel: self.irregularNoticeLabel, nickname: userInput)
                     }
