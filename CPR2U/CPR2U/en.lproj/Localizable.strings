@@ -88,7 +88,7 @@ phdr: placeholder
 "quiz_exit_warn_txt" = "All progress will be lost";
 
 // Education - Pose
-"score" = "Score";
+"your_result_txt" = "YOUR RESULT";
 "pass" = "PASSED!";
 "fail" = "FAILED...";
 "pe_title_txt_1" = "Prepare tools";
