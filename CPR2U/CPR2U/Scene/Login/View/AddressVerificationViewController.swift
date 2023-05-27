@@ -164,15 +164,11 @@ final class AddressVerificationViewController: UIViewController {
     }
     
     private func setUpAddreessList() {
-        // MARK: API 수정 요함
-//        Task {
-//            let result = try await addressManager.getAddressList()
-//            if result.success == true {
-//                guard let list = result.data else { return }
-//                addressList = list
-//                setUpPickerView()
-//            }
-//        }
+        Task {
+            guard let data = try await viewModel.getAddressList() else { return }
+            addressList = data
+            setUpPickerView()
+        }
     }
     
     private func setUpPickerView() {
@@ -201,11 +197,17 @@ final class AddressVerificationViewController: UIViewController {
     
     private func setUpAction() {
         continueButton.tapPublisher.sink {
-            Task {
-                guard let id = self.addressId else {
-                    return }
-                // MARK: 주소 설정 관련 로직부가 Auth에 편입될 예정
-//                try await self.addressManager.setUserAddress(id: id)
+            Task { [weak self] in
+                guard let self = self else { return }
+                let signUpResult = try await self.viewModel.signUp()
+                if signUpResult == true {
+                    self.dismiss(animated: true)
+                    let vc = TabBarViewController()
+                    guard let window = self.view.window else { return }
+                    await window.setRootViewController(vc, animated: true)
+                } else {
+                    print("에러")
+                }
             }
         }.store(in: &cancellables)
     }
@@ -251,8 +253,9 @@ extension AddressVerificationViewController: UIPickerViewDelegate, UIPickerViewD
             mainAddressTextField.text = addressList[row].sido
             mainAddressTextField.textColor = .mainBlack
             if addressList[row].sido == "세종특별자치시" {
-                addressId = addressList[row].gugun_list[0].id
+                viewModel.addressId = addressList[row].gugun_list[0].id
                 subAddressTextField.isHidden = true
+                print("ADDRESS ID IS \(viewModel.addressId)")
             } else {
                 addressId = nil
                 subAddressTextField.text = "구/군"
@@ -264,7 +267,8 @@ extension AddressVerificationViewController: UIPickerViewDelegate, UIPickerViewD
             guard let index = mainAddressIndex else { return }
             subAddressTextField.text = addressList[index].gugun_list[row].gugun
             subAddressTextField.textColor = .mainBlack
-            addressId = addressList[index].gugun_list[row].id
+            viewModel.addressId = addressList[index].gugun_list[row].id
+            print("ADDRESS ID IS \(viewModel.addressId)")
         }
     }
 }
