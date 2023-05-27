@@ -160,9 +160,6 @@ final class AuthViewModel: AuthViewModelType {
     func logOut() async throws -> Bool {
         let taskResult = Task { () -> Bool in
             let authResult = try await authManager.logOut()
-            if authResult.success == true {
-                guard let data = authResult.data else { return false }
-            }
             return authResult.success
         }
         return try await taskResult.value

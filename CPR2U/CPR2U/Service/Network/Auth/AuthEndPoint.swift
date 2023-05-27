@@ -56,9 +56,8 @@ extension AuthEndPoint: EndPoint {
             params = ["refresh_token" : AnyEncodable(refreshToken)]
         case .getAddressList:
             return nil
-            params = ["refresh_token" : refreshToken]
         case .logOut :
-            params = [:]
+            return nil
         }
         
         return params.encode()
@@ -122,7 +121,8 @@ extension AuthEndPoint: EndPoint {
                                   headers: headers,
                                   requestBody: body)
         case .logOut:
-            let headers: [String: String] = [:]
+            var headers: [String: String] = [:]
+            headers["Authorization"] = UserDefaultsManager.accessToken
             return NetworkRequest(url: getURL(path: baseURL), httpMethod: method, headers: headers)
         case .getAddressList:
             return NetworkRequest(url: getURL(path: baseURL),
