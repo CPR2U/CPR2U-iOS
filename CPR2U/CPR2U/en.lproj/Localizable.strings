@@ -30,6 +30,9 @@ phdr: placeholder
 "cancel" = "CANCEL";
 "submit" = "SUBMIT";
 "quit" = "QUIT";
+"logout" = "LOGOUT";
+"yes" = "YES";
+"no" = "NO";
 "completed" = "Completed";
 "completed_not" = "Not Completed";
 "%@_greeting_txt" = "Hi %@";
@@ -117,3 +120,6 @@ phdr: placeholder
 "report_ins_txt" = "What are you trying to report?";
 "report_des_txt" = "Your report will be treated anonymously.";
 "report_phdr" = "Content*";
+
+// Auth
+"logout_des_txt" = "Are you sure you want to Logout?";

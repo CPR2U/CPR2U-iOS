@@ -13,6 +13,7 @@ protocol AuthService {
     func signIn(phoneNumber: String, deviceToken: String) async throws -> (success: Bool, data: SignInResult?)
     func signUp(nickname: String, phoneNumber: String, addressId: Int, deviceToken: String) async throws -> (success: Bool, data: SignUpResult?)
     func autoLogin(refreshToken: String) async throws -> (success: Bool, data: AutoLoginResult?)
+    func logOut() async throws -> (success: Bool, data: LogOutResult?)
     func getAddressList() async throws -> (success: Bool, data: [AddressListResult]?)
 }
 
@@ -62,6 +63,13 @@ struct AuthManager: AuthService {
     func getAddressList() async throws -> (success: Bool, data: [AddressListResult]?) {
         let request = AuthEndPoint
             .getAddressList
+            .createRequest()
+        return try await self.service.request(request)
+    }
+    
+    func logOut() async throws -> (success: Bool, data: LogOutResult?) {
+        let request = AuthEndPoint
+            .logOut
             .createRequest()
         return try await self.service.request(request)
     }
