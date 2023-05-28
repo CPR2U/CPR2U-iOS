@@ -168,7 +168,10 @@ extension MypageViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             })
-            let cancel = UIAlertAction(title: "no".localized(), style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "no".localized(), style: .cancel, handler: { [weak self] _ in
+                guard let indexPath = self?.tableView.indexPathForSelectedRow else { return }
+                self?.tableView.deselectRow(at: indexPath, animated: true)
+            })
             
             [confirm, cancel].forEach {
                 alert.addAction($0)

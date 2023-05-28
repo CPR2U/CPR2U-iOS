@@ -84,7 +84,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         if !isNotificationHandled {
             // 알림을 처리하는 로직을 실행
             // 예: 표시 옵션 설정, 사용자에게 알림을 표시하는 등
-            completionHandler([.banner, .badge, .sound])
+            completionHandler([.banner, .sound])
             isNotificationHandled = true
         } else {
             // 이미 처리된 알림인 경우, 두 번째 호출이므로 아무 작업을 수행하지 않음
