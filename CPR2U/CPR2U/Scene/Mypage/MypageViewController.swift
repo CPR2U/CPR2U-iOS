@@ -11,7 +11,7 @@ import UIKit
 final class MypageViewController: UIViewController {
 
     private lazy var mypageStatusView: MypageStatusView = {
-        let view = MypageStatusView(viewModel: viewModel)
+        let view = MypageStatusView(viewModel: eduViewModel)
         return view
     }()
 
@@ -26,13 +26,15 @@ final class MypageViewController: UIViewController {
     
     private var statusViewBottomAnchor: NSLayoutConstraint?
     
-    private var viewModel: EducationViewModel
+    private var authViewModel: AuthViewModel
+    private var eduViewModel: EducationViewModel
     private var cancellables = Set<AnyCancellable>()
     
     let sectionHeader = ["History", "etc", ""]
     var cellDataSource = [["Dispatch History", "Call History"], ["Developer Information", "Liscence"], ["Logout"]]
-    init(viewModel: EducationViewModel) {
-        self.viewModel = viewModel
+    init(authViewModel: AuthViewModel, eduViewModel: EducationViewModel) {
+        self.authViewModel = authViewModel
+        self.eduViewModel = eduViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -46,7 +48,7 @@ final class MypageViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         setUpTableView()
-        bind(viewModel: viewModel)
+        bind(viewModel: eduViewModel)
     }
     
     private func setUpConstraints() {
@@ -68,8 +70,8 @@ final class MypageViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: mypageStatusView.bottomAnchor),
-            tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.widthAnchor.constraint(equalToConstant: 358),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.heightAnchor.constraint(equalToConstant: 390)
         ])
     }
@@ -143,5 +145,35 @@ extension MypageViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             return cell
+        }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 && indexPath.row == 0 { // logout button
+            showLogOutAlert()
+        }
+    }
+        
+        func showLogOutAlert() {
+            let alert = UIAlertController(title: "logout".localized(), message: "logout_des_txt".localized(), preferredStyle: .alert)
+            
+            let confirm = UIAlertAction(title: "yes".localized(), style: .destructive, handler: { _ in
+                Task { [weak self] in
+                    let isSuccess = try await self?.authViewModel.logOut()
+                    if isSuccess == true {
+                        guard let window = self?.view.window else { return }
+                        await window.setRootViewController(AutoLoginViewController(), animated: true)
+                        UserDefaultsManager.accessToken = ""
+                        UserDefaultsManager.refreshToken = ""
+                        self?.dismiss(animated: true)
+                    }
+                }
+            })
+            let cancel = UIAlertAction(title: "no".localized(), style: .cancel, handler: nil)
+            
+            [confirm, cancel].forEach {
+                alert.addAction($0)
+            }
+            
+            present(alert, animated: true, completion: nil)
         }
 }

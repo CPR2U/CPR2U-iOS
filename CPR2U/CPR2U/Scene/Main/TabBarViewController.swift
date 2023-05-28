@@ -29,7 +29,7 @@ final class TabBarViewController: UITabBarController {
         
         let educationVC = EducationMainViewController(viewModel: EducationViewModel())
         let callVC = CallMainViewController(viewModel: CallViewModel())
-        let mypageVC = MypageViewController(viewModel: EducationViewModel())
+        let mypageVC = MypageViewController(authViewModel: AuthViewModel(), eduViewModel: EducationViewModel())
         
         educationVC.title = "edu_tab_t".localized()
         callVC.title = "call_tab_t".localized()

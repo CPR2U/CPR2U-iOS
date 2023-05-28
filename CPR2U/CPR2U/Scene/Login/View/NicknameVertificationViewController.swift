@@ -48,6 +48,7 @@ final class NicknameVerificationViewController: UIViewController {
 
     private let signManager = AuthManager(service: APIManager())
     
+    // MARK: 기존 회원인 경우와 기존 회원이 아닌 경우를 나누어서 처리가 이루어져야함
     private let instructionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 24)
@@ -56,6 +57,7 @@ final class NicknameVerificationViewController: UIViewController {
         return label
     }()
     
+    // MARK: 기존 회원인 경우와 기존 회원이 아닌 경우를 나누어서 처리가 이루어져야함
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .regular, size: 14)
@@ -233,26 +235,18 @@ final class NicknameVerificationViewController: UIViewController {
     }
     
     private func bind(viewModel: AuthViewModel) {
+        // MARK: 기존 회원인 경우와 기존 회원이 아닌 경우를 나누어서 처리할 예정
         continueButton.tapPublisher.sink { [weak self] in
             guard let userInput = self?.nicknameTextField.text else { return }
             Task {
-                guard userInput.count > 0 else { return }
-                if (self?.nicknameStatus != .specialCharacters) {
-                    let nicknameStatus = try await self?.viewModel.nicknameVerify(userInput: userInput)
+                guard let self = self, userInput.count > 0 else { return }
+                if (self.nicknameStatus != .specialCharacters) {
+                    let nicknameStatus = try await self.viewModel.nicknameVerify(userInput: userInput)
                     if nicknameStatus == .available {
                         viewModel.nickname = userInput
-                        let signUpResult = try await self?.viewModel.signUp()
-                        if signUpResult == true {
-                            self?.dismiss(animated: true)
-                            let vc = TabBarViewController()
-                            guard let window = self?.view.window else { return }
-                            await window.setRootViewController(vc, animated: true)
-                        } else {
-                            print("에러")
-                        }
+                        self.navigationController?.pushViewController(AddressVerificationViewController(viewModel: viewModel), animated: true)
                     } else {
-                        guard let label = self?.irregularNoticeLabel else { return }
-                        nicknameStatus?.changeNoticeLabel(noticeLabel: label, nickname: userInput)
+                        nicknameStatus.changeNoticeLabel(noticeLabel: self.irregularNoticeLabel, nickname: userInput)
                     }
                 }
             }
