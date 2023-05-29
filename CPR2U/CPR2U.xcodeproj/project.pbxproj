@@ -723,7 +723,6 @@
 				3AA636A729AE5055006BB5EF /* Frameworks */,
 				3AA636A829AE5055006BB5EF /* Resources */,
 				59C2C471D36B615BE19C5723 /* [CP] Copy Pods Resources */,
-				3AF695192A1CDB25001CA915 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
