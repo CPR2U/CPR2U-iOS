@@ -67,6 +67,6 @@ final class EmergencyDescriptionView: UIView {
     
     private func setUpStyle() {
         backgroundColor = .white
-        self.layer.cornerRadius = 8
+        self.layer.cornerRadius = 28
     }
 }
