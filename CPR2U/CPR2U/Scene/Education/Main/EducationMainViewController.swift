@@ -15,7 +15,18 @@ protocol EducationMainViewControllerDelegate: AnyObject {
 final class EducationMainViewController: UIViewController {
 
     private var certificateStatusView = CertificateStatusView()
+    
+    private let annotationLabel: UILabel = {
+        let label = UILabel()
+        let color = UIColor(rgb: 0x767676)
+        label.font = UIFont(weight: .regular, size: 12)
+        label.textColor = color
+        label.text = "angel_progress_ann_txt".localized()
+        return label
+    }()
+    
     private let progressView = EducationProgressView()
+    
     let educationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private let viewModel: EducationViewModel
@@ -47,6 +58,7 @@ final class EducationMainViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         let make = Constraints.shared
         [
+            annotationLabel,
             certificateStatusView,
             progressView,
             educationCollectionView,
@@ -64,14 +76,21 @@ final class EducationMainViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            progressView.topAnchor.constraint(equalTo: certificateStatusView.bottomAnchor, constant: make.space6),
+            annotationLabel.topAnchor.constraint(equalTo: certificateStatusView.bottomAnchor, constant: make.space16),
+            annotationLabel.leadingAnchor.constraint(equalTo: certificateStatusView.leadingAnchor),
+            annotationLabel.widthAnchor.constraint(equalToConstant: 200),
+            annotationLabel.heightAnchor.constraint(equalToConstant: 14)
+        ])
+        
+        NSLayoutConstraint.activate([
+            progressView.topAnchor.constraint(equalTo: annotationLabel.bottomAnchor, constant: 28),
             progressView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
             progressView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
             progressView.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         NSLayoutConstraint.activate([
-            educationCollectionView.topAnchor.constraint(equalTo: progressView.bottomAnchor),
+            educationCollectionView.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 32),
             educationCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             educationCollectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             educationCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
@@ -117,9 +136,12 @@ final class EducationMainViewController: UIViewController {
                 self.certificateStatusView.setUpGreetingLabel(nickname: nickname)
             }.store(in: &cancellables)
             
-            output.progressPercent?.sink { progress in
-                self.progressView.setUpProgress(as: progress)
-            }.store(in: &cancellables)
+            viewModel.$educationCourse
+                .receive(on: DispatchQueue.main)
+                .sink { educationCourse in
+                    let courseStatus = educationCourse.map({ $0.courseStatus.value})
+                    self.progressView.setUpComponent(status: courseStatus)
+                }.store(in: &cancellables)
             
             DispatchQueue.main.async {
                 self.setUpCollectionView()
@@ -139,15 +161,20 @@ extension EducationMainViewController: UICollectionViewDataSource {
         
         let course = viewModel.educationCourse[indexPath.row]
         cell.setUpLabelText(name: course.info.name, description: course.info.description)
-        cell.setUpStatus(isCompleted: viewModel.educationCourse[indexPath.row].isCompleted.value)
+        
+        viewModel.$educationCourse
+            .receive(on: DispatchQueue.main)
+            .sink { educationCourse in
+                cell.setUpComponent(timeValue: educationCourse[indexPath.row].info.timeValue, status: educationCourse[indexPath.row].courseStatus.value)
+            }.store(in: &cancellables)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
-        let isCompleted = index != 0 ? viewModel.educationCourse[index - 1].isCompleted.value : true
-        if isCompleted == true {
+        let isCompleted = index != 0 ? viewModel.educationCourse[index - 1].courseStatus.value : .completed
+        if isCompleted == .completed {
             navigateTo(index: index)
         } else {
             view.showToastMessage(type: .education)

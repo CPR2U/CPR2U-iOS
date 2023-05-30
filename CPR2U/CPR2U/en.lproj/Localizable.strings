@@ -33,8 +33,9 @@ phdr: placeholder
 "logout" = "LOGOUT";
 "yes" = "YES";
 "no" = "NO";
-"completed" = "Completed";
+"completed" = "COMPLETED!";
 "completed_not" = "Not Completed";
+"open_not" = "Not Opened";
 "%@_greeting_txt" = "Hi %@";
 "%@_greet_des_txt" = "Hi %@ nYour Certification Status is";
 
@@ -45,7 +46,7 @@ phdr: placeholder
 
 // Angel Status
 "cert_status_ann_txt" = "Certificate Status: ";
-"angel_progress_ann_text" = "CPR Angel Certification Progress";
+"angel_progress_ann_txt" = "CPR Angel Certification Progress";
 "acq_status" = "ACQUIRED";
 "exp_status" = "EXPIRED";
 "unacq_status" = "UNACQUIRED";
@@ -75,7 +76,7 @@ phdr: placeholder
 
 // NoticeV
 "congratu_txt" = "Congratulation!";
-"get_cert_des_txt" = "You have got CPR Angel Certificate!";
+"get_cert_des_txt" = "You have got CPR Angel Certificate!\nNow you're a CPR Angel and can help someone in cardiac arrest.";
 "success_ann_txt" = "You are perfect!";
 "fail_des_txt_%@" = "Failed %@";
 "fail_ann_txt" = "Try Again";
@@ -87,6 +88,7 @@ phdr: placeholder
 "course_lec_des" = "Video lecture for CPR angel certificate";
 "course_quiz_des" = "Let’s check your CPR study";
 "course_pose_des" = "Posture practice to get CPR angel certificate";
+"taken_%dtime_des_txt" = "Takes about %d minutes";
 
 // Education - Quiz
 "quiz_exit" = "Quiz Exit";

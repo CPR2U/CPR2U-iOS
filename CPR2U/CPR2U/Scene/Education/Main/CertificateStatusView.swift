@@ -94,15 +94,14 @@ final class CertificateStatusView: UIView {
     
     private func setUpStyle() {
         self.layer.cornerRadius = 16
-        self.layer.borderColor = UIColor.mainRed.cgColor
-        self.layer.borderWidth = 1
         self.backgroundColor = .mainWhite
     }
     
     func setUpStatus(as status: AngelStatus, leftDay: Int?) {
         
         let imgName = status.certificationImageName()
-        certificateImage.image = UIImage(named: imgName)
+        certificateImage.image = UIImage(named: imgName)?.withRenderingMode(.alwaysTemplate)
+        certificateImage.tintColor = .mainRed
         
         var statusString: String
         if let leftDayString = leftDay {

@@ -97,8 +97,8 @@ class CustomNoticeView: UIView {
         NSLayoutConstraint.activate([
             noticeView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             noticeView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            noticeView.widthAnchor.constraint(equalToConstant: 313),
-            noticeView.heightAnchor.constraint(equalToConstant: 308)
+            noticeView.widthAnchor.constraint(equalToConstant: 314),
+            noticeView.heightAnchor.constraint(equalToConstant: 300)
         ])
         
         [
