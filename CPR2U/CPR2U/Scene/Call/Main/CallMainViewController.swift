@@ -27,7 +27,7 @@ final class CallMainViewController: UIViewController {
         let view = TimeCounterView(viewModel: viewModel)
         return view
     }()
-    private let currentLocationNoticeView = CurrentLocationNoticeView()
+    private let currentLocationNoticeView = CurrentLocationNoticeView(locationInfo: .originLocation)
     private let callButton = CallCircleView()
     
     private let viewModel: CallViewModel
@@ -51,6 +51,10 @@ final class CallMainViewController: UIViewController {
         setUpStyle()
         setUpDelegate()
         setUpAction()
+        
+        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: CLLocationCoordinate2D(latitude: 2.2, longitude: 3.3), callerInfo: CallerInfo(latitude: 2.1, longitude: 2.2, cpr_call_id: 0, full_address: "청파동 어딘가", called_at: "2023-05-31 08:09:30")))
+    
+            present(navigationController, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +88,7 @@ final class CallMainViewController: UIViewController {
             currentLocationNoticeView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: make.space16),
             currentLocationNoticeView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
             currentLocationNoticeView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
-            currentLocationNoticeView.heightAnchor.constraint(equalToConstant: 50)
+            currentLocationNoticeView.heightAnchor.constraint(equalToConstant: 42)
         ])
         
         NSLayoutConstraint.activate([
@@ -201,7 +205,7 @@ extension CallMainViewController: GMSMapViewDelegate {
         guard let callId = Int(marker.title ?? "0") else { return false }
         guard let target = viewModel.callerListInfo?.call_list.filter({$0.cpr_call_id == callId}).first else { return false }
         
-        let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
+        let callerInfo = CallerInfo(latitude: target.latitude, longitude: target.longitude, cpr_call_id: target.cpr_call_id, full_address: target.full_address, called_at: target.called_at)
         let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: viewModel.getLocation(), callerInfo: callerInfo))
             present(navigationController, animated: true, completion: nil)
         return true

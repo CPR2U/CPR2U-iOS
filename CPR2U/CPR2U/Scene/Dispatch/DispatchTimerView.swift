@@ -18,11 +18,19 @@ class DispatchTimerView: UIView {
         return view
     }()
     
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(weight: .bold, size: 16)
+        label.textAlignment = .left
+        label.textColor = .mainRed
+        label.text = "elapsed_time_txt".localized()
+        return label
+    }()
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(weight: .bold, size: 48)
         label.textColor = .mainRed
-        label.textAlignment = .right
+        label.textAlignment = .center
         label.text = "00:00"
         return label
     }()
@@ -43,53 +51,69 @@ class DispatchTimerView: UIView {
     
     private func setUpConstraints() {
 
-        let timeStackView   = UIStackView()
-        timeStackView.axis  = NSLayoutConstraint.Axis.horizontal
-        timeStackView.distribution  = UIStackView.Distribution.equalSpacing
+        let timeLabelStackView = UIStackView(arrangedSubviews: [
+            timeImageView,
+            descriptionLabel
+        ])
+        
+        timeLabelStackView.axis  = NSLayoutConstraint.Axis.horizontal
+        timeLabelStackView.alignment = UIStackView.Alignment.center
+        
+        timeLabelStackView.spacing   = 4
+        
+        NSLayoutConstraint.activate([
+            timeImageView.widthAnchor.constraint(equalToConstant: 16),
+            timeImageView.heightAnchor.constraint(equalToConstant: 16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 24)
+        ])
+        descriptionLabel.sizeToFit()
+        
+        let timeStackView = UIStackView()
+        timeStackView.axis  = NSLayoutConstraint.Axis.vertical
         timeStackView.alignment = UIStackView.Alignment.center
         timeStackView.spacing   = 8
-
         self.addSubview(timeStackView)
         timeStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        [
+            timeLabelStackView,
+            timeLabel
+        ].forEach({
+            timeStackView.addArrangedSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        })
+        
+        NSLayoutConstraint.activate([
+            timeLabel.widthAnchor.constraint(equalToConstant: 182),
+            timeLabel.heightAnchor.constraint(equalToConstant: 50)
+        ])
         
         NSLayoutConstraint.activate([
             timeStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             timeStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            timeStackView.widthAnchor.constraint(equalToConstant: 182),
-            timeStackView.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        [
-            timeImageView,
-            timeLabel
-        ].forEach({
-            timeStackView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.centerYAnchor.constraint(equalTo: timeStackView.centerYAnchor).isActive = true
-        })
-        
-        NSLayoutConstraint.activate([
-            timeImageView.leadingAnchor.constraint(equalTo: timeStackView.leadingAnchor),
-            timeImageView.widthAnchor.constraint(equalToConstant: 50),
-            timeImageView.heightAnchor.constraint(equalToConstant: 50)
+            timeStackView.heightAnchor.constraint(equalToConstant: 80)
         ])
         
         NSLayoutConstraint.activate([
-            timeLabel.trailingAnchor.constraint(equalTo: timeStackView.trailingAnchor),
-            timeLabel.widthAnchor.constraint(equalToConstant: 182),
-            timeLabel.heightAnchor.constraint(equalToConstant: 50)
+            timeLabelStackView.centerXAnchor.constraint(equalTo: timeStackView.centerXAnchor),
+            timeLabelStackView.heightAnchor.constraint(equalToConstant: 24)
         ])
+        timeLabelStackView.sizeToFit()
+        
     }
     
     private func setUpStyle() {
-        backgroundColor = .white
+        backgroundColor = UIColor(rgb: 0xF5F5F5)
     }
     
-    func setTimer() {
+    func setTimer(startTime: Int) {
         timer = Timer.publish(every: 1,tolerance: 0.9, on: .main, in: .default)
         timer?
             .autoconnect()
-            .scan(0) { counter, _ in counter + 1 }
+            .scan(startTime) { counter, _ in counter + 1 }
             .sink { [self] counter in
                 if counter == 301 {
                     timer?.connect().cancel()
@@ -102,5 +126,9 @@ class DispatchTimerView: UIView {
     func cancelTimer() {
         timer?.connect().cancel()
         timer = nil
+    }
+    
+    func setUpTimerText(startTime: Int) {
+        timeLabel.text = startTime.numberAsTime()
     }
 }
