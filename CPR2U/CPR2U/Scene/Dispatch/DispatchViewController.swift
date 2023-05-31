@@ -42,7 +42,7 @@ final class DispatchViewController: UIViewController {
     }()
     
     private lazy var dispatchTimerView: DispatchTimerView = {
-        let view = DispatchTimerView(calledTime: Date())
+        let view = DispatchTimerView(callerInfo: callerInfo, calledTime: Date())
         view.layer.borderColor = UIColor(rgb: 0x938C8C).cgColor
         view.layer.cornerRadius = 16
         view.layer.borderWidth = 1
@@ -146,8 +146,8 @@ final class DispatchViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             dispatchTimerView.topAnchor.constraint(equalTo: callerLocationNoticeView.bottomAnchor, constant: make.space16),
-            dispatchTimerView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space8),
-            dispatchTimerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space8),
+            dispatchTimerView.leadingAnchor.constraint(equalTo: callerLocationNoticeView.leadingAnchor),
+            dispatchTimerView.trailingAnchor.constraint(equalTo: callerLocationNoticeView.trailingAnchor),
             dispatchTimerView.heightAnchor.constraint(equalToConstant: 108)
         ])
         dispatchTimerView.sizeToFit()
@@ -253,7 +253,7 @@ extension DispatchViewController {
     func calculateDistance() {
         let callerLocation = CLLocationCoordinate2D(latitude: callerInfo.latitude, longitude: callerInfo.longitude)
         let rawDistance = GMSGeometryDistance(userLocation, callerLocation)
-        let floorDistance = floor(rawDistance)
+        let floorDistance = calculateDistanceFromCurrentLocation()
         var distanceStr = ""
         if floorDistance < 1000 {
         distanceStr = "\(floorDistance)m"
@@ -262,6 +262,12 @@ extension DispatchViewController {
             distanceStr = String(format: "%.2f", distance) + "km"
         }
         distanceView.setUpDescription(text: distanceStr)
+    }
+    
+    func calculateDistanceFromCurrentLocation() -> CLLocationDistance {
+        let callerLocation = CLLocationCoordinate2D(latitude: callerInfo.latitude, longitude: callerInfo.longitude)
+        let rawDistance = GMSGeometryDistance(userLocation, callerLocation)
+        return floor(rawDistance)
     }
     func calculateTime(dateStr: String) {
         let dateFormatter = DateFormatter()
@@ -290,33 +296,34 @@ extension DispatchViewController {
     
     private func acceptDispatch() {
         
-//        let data = DispatchInfo(latitude: 0.0, longitude: 0.0, dispatch_id: 101, full_address: "ejfiejie", called_at: "ejifjwiefw")
-//        dispatchId = data.dispatch_id
-//        isModalInPresentation = true
-//        dispatchButton.isHidden = true
-//        dispatchDescriptionLabel.isHidden = false
-//        stackView.isHidden = true
-//        reportLabel.isHidden = false
-//        timerAppear()
-//        let elapsedTime = "2023-05-31 20:34:30".elapsedTime()
-//        dispatchTimerView.setUpTimerText(startTime: elapsedTime)
-//        dispatchTimerView.setTimer(startTime: "2023-05-31 20:34:30".elapsedTime())
-//        isDispatched = true
+        // MARK: TEST CODE
+        let data = DispatchInfo(latitude: 0.0, longitude: 0.0, dispatch_id: 101, full_address: "ejfiejie", called_at: "ejifjwiefw")
+        dispatchId = data.dispatch_id
+        isModalInPresentation = true
+        dispatchButton.isHidden = true
+        dispatchDescriptionLabel.isHidden = false
+        stackView.isHidden = true
+        reportLabel.isHidden = false
+        timerAppear()
+        let elapsedTime = "2023-05-31 22:09:30".elapsedTime()
+        dispatchTimerView.setUpTimerText(startTime: elapsedTime)
+        dispatchTimerView.setTimer(startTime: "2023-05-31 22:09:30".elapsedTime())
+        isDispatched = true
 
-        Task {
-            let result = try await manager.dispatchAccept(cprCallId: callerInfo.cpr_call_id)
-            if result.success {
-                guard let data = result.data else { return }
-                dispatchId = data.dispatch_id
-                isModalInPresentation = true
-                dispatchButton.isHidden = true
-                dispatchDescriptionLabel.isHidden = false
-                stackView.isHidden = true
-                reportLabel.isHidden = false
-                timerAppear()
-                dispatchTimerView.setTimer(startTime: data.called_at.elapsedTime())
-                isDispatched = true
-            }
-        }
+//        Task {
+//            let result = try await manager.dispatchAccept(cprCallId: callerInfo.cpr_call_id)
+//            if result.success {
+//                guard let data = result.data else { return }
+//                dispatchId = data.dispatch_id
+//                isModalInPresentation = true
+//                dispatchButton.isHidden = true
+//                dispatchDescriptionLabel.isHidden = false
+//                stackView.isHidden = true
+//                reportLabel.isHidden = false
+//                timerAppear()
+//                dispatchTimerView.setTimer(startTime: data.called_at.elapsedTime())
+//                isDispatched = true
+//            }
+//        }
     }
 }

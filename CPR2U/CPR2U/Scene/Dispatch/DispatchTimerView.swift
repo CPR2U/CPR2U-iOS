@@ -6,11 +6,13 @@
 //
 
 import Combine
+import GoogleMaps
 import UIKit
 
 class DispatchTimerView: UIView {
 
-    private let calledTime: Date?
+    private var calledTime: Date?
+    private var callerInfo: CallerInfo?
     
     private let timeImageView: UIImageView = {
         let view = UIImageView()
@@ -36,11 +38,17 @@ class DispatchTimerView: UIView {
     }()
     
     private var timer: Timer.TimerPublisher?
+    
+    private var manager = MapManager()
     private var cancellables = Set<AnyCancellable>()
 
-    init(calledTime: Date) {
-        self.calledTime = calledTime
+    init(callerInfo: CallerInfo, calledTime: Date) {
         super.init(frame: CGRect.zero)
+        self.calledTime = calledTime
+//        self.callerInfo = callerInfo // Origin
+//        self.callerInfo = CallerInfo(latitude: 37.545885, longitude: 126.967606, cpr_call_id: 0, full_address: "dhud", called_at: "djidji") // TEST CODE
+        self.callerInfo = CallerInfo(latitude: 37.544251, longitude: 126.966137, cpr_call_id: 0, full_address: "dhud", called_at: "djidji") // TEST CODE
+        
         setUpConstraints()
         setUpStyle()
     }
@@ -115,9 +123,16 @@ class DispatchTimerView: UIView {
             .autoconnect()
             .scan(startTime) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                if counter == 301 {
+                if counter > 1501 {
                     timer?.connect().cancel()
                 } else {
+                    let userLocation = manager.setLocation()
+                    guard let callerInfo = callerInfo else { return }
+                    let distance = calculateDistanceFromCurrentLocation(callerInfo: callerInfo, userLocation: userLocation)
+                    if distance < 50 {
+                        cancelTimer()
+                        // MARK: ALERT 띄우기
+                    }
                     timeLabel.text = counter.numberAsTime()
                 }
             }.store(in: &cancellables)
@@ -130,5 +145,11 @@ class DispatchTimerView: UIView {
     
     func setUpTimerText(startTime: Int) {
         timeLabel.text = startTime.numberAsTime()
+    }
+    
+    func calculateDistanceFromCurrentLocation(callerInfo: CallerInfo, userLocation: CLLocationCoordinate2D) -> CLLocationDistance {
+        let callerLocation = CLLocationCoordinate2D(latitude: callerInfo.latitude, longitude: callerInfo.longitude)
+        let rawDistance = GMSGeometryDistance(userLocation, callerLocation)
+        return floor(rawDistance)
     }
 }
