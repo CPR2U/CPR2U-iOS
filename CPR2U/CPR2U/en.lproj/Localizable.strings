@@ -33,8 +33,10 @@ phdr: placeholder
 "logout" = "LOGOUT";
 "yes" = "YES";
 "no" = "NO";
-"completed" = "Completed";
+"got_it" = "GOT IT";
+"completed" = "COMPLETED!";
 "completed_not" = "Not Completed";
+"open_not" = "Not Opened";
 "%@_greeting_txt" = "Hi %@";
 "%@_greet_des_txt" = "Hi %@ nYour Certification Status is";
 
@@ -45,7 +47,7 @@ phdr: placeholder
 
 // Angel Status
 "cert_status_ann_txt" = "Certificate Status: ";
-"angel_progress_ann_text" = "CPR Angel Certification Progress";
+"angel_progress_ann_txt" = "CPR Angel Certification Progress";
 "acq_status" = "ACQUIRED";
 "exp_status" = "EXPIRED";
 "unacq_status" = "UNACQUIRED";
@@ -74,11 +76,21 @@ phdr: placeholder
 "address_des_txt" = "Select your address for CPR Angel activities";
 
 // NoticeV
-"congratu_txt" = "Congratulation!";
-"get_cert_des_txt" = "You have got CPR Angel Certificate!";
-"success_ann_txt" = "You are perfect!";
-"fail_des_txt_%@" = "Failed %@";
-"fail_ann_txt" = "Try Again";
+// - titleLabels
+//case quizFail
+//case quizPass
+//case certificate
+//case dispatchComplete
+"lecture_pass_title_txt" = "Lecture Complete!";
+"quiz_fail_title_txt_%@" = "Quiz Failed: %@";
+"quiz_pass_title_txt" = "Quiz Passed!";
+"certificate_title_txt" = "Congratulations!";
+"dispatchComplete_title_txt" = "Completed!";
+"lecture_pass_des_txt" = "You have completed the Lecture!\nYou are one step closer to becoming\na CPR Angel!";
+"quiz_fail_des_txt" = "You did not complete the Quiz.\nPlease try again.";
+"quiz_pass_des_txt" = "You have completed the Quiz!\nYou are one step closer to becoming\na CPR Angel!";
+"certificate_des_txt" = "You have got CPR Angel Certificate!\nNow you're a CPR Angel and can help\nsomeone in cardiac arrest.";
+"dispatchComplete_des_txt" = "You have arrived in the emergency.\nPlease help the caller!";
 
 // Education
 "course_lec" = "Lecture";
@@ -87,6 +99,7 @@ phdr: placeholder
 "course_lec_des" = "Video lecture for CPR angel certificate";
 "course_quiz_des" = "Let’s check your CPR study";
 "course_pose_des" = "Posture practice to get CPR angel certificate";
+"taken_%dtime_des_txt" = "Takes about %d minutes";
 
 // Education - Quiz
 "quiz_exit" = "Quiz Exit";
@@ -108,15 +121,22 @@ phdr: placeholder
 "pe_count_des_txt" = "Time Until Posture Measurement Begins";
 
 // Call
-"approch_des_txt" = "Approaching";
+"approch_des_txt" = "Your call has been\nsent to the CPR Angels\nnear you.";
+"angel_approach_notice_default_txt" = "Calling CPR Angels...";
+"angel_approach_notice_%dmatched_txt" = "%d CPR Angels Matched!\nIt’s coming this way.";
 "siuation_end_des_txt" = "SITUATION ENDED";
 "call_ins_txt" = "Call 911";
 "call_des_txt" = "Calling 911 is the first priority. Ask the people around you to report or perform CPR after reporting. If the report is false, you will be restricted from using the app.";
 
 // Dispatch
+"elapsed_time_txt" = "Elapsed Time";
+"patient_loc_txt" = "Patient Location";
+"dispatch_ins_txt" = "Shall we start out?";
+"dispatch_alert_txt" = "If you arrive within 5 minutes,\nthe patient's survival rate increases.";
+"dispatch_des_txt" = "When you arrive at your destination,\ndispatch ends automatically.";
 "dispatch_tab_t" = "DISPATCH";
 "arrive_des_txt" = "ARRIVED";
-"report_title_txt" = "Wrong Report? Report";
+"report_title_txt" = "Is there any problem? Report us";
 "report_ins_txt" = "What are you trying to report?";
 "report_des_txt" = "Your report will be treated anonymously.";
 "report_phdr" = "Content*";

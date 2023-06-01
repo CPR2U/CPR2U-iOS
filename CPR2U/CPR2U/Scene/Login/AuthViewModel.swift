@@ -88,7 +88,7 @@ final class AuthViewModel: AuthViewModelType {
         let taskResult = Task { () -> String? in
             var result: SMSCodeResult?
             do {
-                (_, result) = try await authManager.phoneNumberVerify(phoneNumber: phoneNumber)
+                (_, result) = try await authManager.phoneNumberVerify(phoneNumber: "+82\(phoneNumber)")
             } catch (let error) {
                 print(error)
             }
@@ -107,7 +107,9 @@ final class AuthViewModel: AuthViewModelType {
                 return false
             } else {
                 let authResult = try await authManager.signIn(phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
-                
+                guard let data = authResult.data else { return false }
+                UserDefaultsManager.accessToken = data.access_token
+                UserDefaultsManager.refreshToken = data.refresh_token
                 return authResult.success
             }
         }

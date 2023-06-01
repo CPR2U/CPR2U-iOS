@@ -270,7 +270,7 @@ final class PosePracticeViewController: UIViewController {
     
     private func setUpAction() {
         soundSwitch.isOnPublisher.sink { isOn in
-            self.audioPlayer.volume = isOn ? 1 : 0
+            self.audioPlayer?.volume = isOn ? 1 : 0
         }.store(in: &cancellables)
         
         quitButton.tapPublisher.sink { [weak self] in

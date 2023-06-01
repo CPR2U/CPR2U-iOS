@@ -10,21 +10,22 @@ import Combine
 
 final class EducationQuizViewController: UIViewController {
     
+    private var isPassed: Bool = false
     private lazy var questionView = QuizQuestionView(questionNumber: 1, question: "")
     
     private lazy var oxChoiceView: OXQuizChoiceView = {
-        let view = OXQuizChoiceView(viewModel: viewModel)
+        let view = OXQuizChoiceView(viewModel: quizViewModel)
         view.alpha = 0
         return view
     }()
     
     private lazy var multiChoiceView: MultiQuizChoiceView = {
-        let view = MultiQuizChoiceView(viewModel: viewModel)
+        let view = MultiQuizChoiceView(viewModel: quizViewModel)
         view.alpha = 0
         return view
     }()
     
-    private lazy var noticeView = CustomNoticeView(noticeAs: .pf)
+    private lazy var noticeView = CustomNoticeView(noticeAs: .quizPass)
     
     private lazy var answerLabel: UILabel =  {
         let label = UILabel()
@@ -56,11 +57,20 @@ final class EducationQuizViewController: UIViewController {
         return button
     }()
     
-    private let viewModel = QuizViewModel()
+    private var eduViewModel: EducationViewModel?
+    private let quizViewModel = QuizViewModel()
     private var cancellables = Set<AnyCancellable>()
     
     weak var delegate: EducationMainViewControllerDelegate?
     
+    init(eduViewModel: EducationViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.eduViewModel = eduViewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,7 +79,7 @@ final class EducationQuizViewController: UIViewController {
         setUpAction()
         setUpDelegate()
         
-        bind(to: viewModel)
+        bind(to: quizViewModel)
     }
     
     private func setUpConstraints() {
@@ -180,18 +190,18 @@ extension EducationQuizViewController {
     }
     
     private func nextQuiz() {
-        let output = viewModel.transform()
+        let output = quizViewModel.transform()
         
         output.isCorrect?.sink { [weak self] isCorrect in
             
-            guard let currentQuiz = self?.viewModel.quiz else { return }
+            guard let currentQuiz = self?.quizViewModel.quiz else { return }
             self?.answerLabel.isHidden = false
             self?.answerDescriptionLabel.isHidden = false
             self?.answerLabel.text = isCorrect ? "Correct!" : "Wrong!"
             self?.answerDescriptionLabel.text = currentQuiz.answerDescription
             self?.submitButton.setTitle("Next", for: .normal)
 
-            guard let answerIndex = self?.viewModel.quiz?.answerIndex, let quizType = self?.viewModel.quiz?.questionType else {
+            guard let answerIndex = self?.quizViewModel.quiz?.answerIndex, let quizType = self?.quizViewModel.quiz?.questionType else {
                 return }
             
             switch quizType {
@@ -206,18 +216,21 @@ extension EducationQuizViewController {
         }.store(in: &cancellables)
         
         output.isQuizEnd.sink { [weak self] isQuizEnd in
-            guard let isQuizAllCorrect = self?.viewModel.isQuizAllCorrect() else { return }
-            guard let quizResultString = self?.viewModel.quizResultString() else { return }
+            guard let isQuizAllCorrect = self?.quizViewModel.isQuizAllCorrect() else { return }
+            guard let quizResultString = self?.quizViewModel.quizResultString() else { return }
+            
+            self?.isPassed = isQuizAllCorrect
             
             if isQuizEnd {
+                self?.noticeView.setUpQuizResult(isPassed: isQuizAllCorrect, score: quizResultString)
                 if isQuizAllCorrect {
                     Task {
-                        try await self?.viewModel.saveQuizResult()
-                        self?.noticeView.setPFResultNotice(isPass: true)
-                        self?.noticeView.noticeAppear()
+                        guard let isSucceed = try await self?.eduViewModel?.saveQuizResult() else { return }
+                        if isSucceed {
+                            self?.noticeView.noticeAppear()
+                        }
                     }
                 } else {
-                    self?.noticeView.setPFResultNotice(isPass: false, quizResultString: quizResultString)
                     self?.noticeView.noticeAppear()
                 }
             }
@@ -225,7 +238,7 @@ extension EducationQuizViewController {
     }
     
     private func updateQuiz(quiz: Quiz) {
-        viewModel.updateSelectedAnswerIndex(index: -1)
+        quizViewModel.updateSelectedAnswerIndex(index: -1)
         questionView.setUpText(questionNumber: quiz.questionNumber, question: quiz.question)
         
         switch quiz.questionType {
@@ -273,6 +286,6 @@ extension EducationQuizViewController {
 // MARK: Delegate
 extension EducationQuizViewController: CustomNoticeViewDelegate {
     func dismissQuizViewController() {
-        delegate?.updateUserEducationStatus()
+        delegate?.updateUserEducationStatus(isPassed: isPassed)
     }
 }
