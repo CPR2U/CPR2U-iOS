@@ -51,7 +51,6 @@ final class EducationMainViewController: UIViewController {
         setUpConstraints()
         setUpStyle()
         bind(to: viewModel)
-        noticeView.setCertificateNotice()
     }
     
     private func setUpConstraints() {

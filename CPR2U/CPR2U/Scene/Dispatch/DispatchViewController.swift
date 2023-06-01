@@ -11,6 +11,7 @@ import GoogleMaps
 import UIKit
 
 final class DispatchViewController: UIViewController {
+    
     private let callerLocationNoticeView = CurrentLocationNoticeView(locationInfo: .targetLocation)
     
     private let stackView: UIStackView = {
@@ -41,8 +42,8 @@ final class DispatchViewController: UIViewController {
         return view
     }()
     
-    private lazy var dispatchTimerView: DispatchTimerView = {
-        let view = DispatchTimerView(callerInfo: callerInfo, calledTime: Date())
+    lazy var dispatchTimerView: DispatchTimerView = {
+        let view = DispatchTimerView(callerInfo: callerInfo, calledTime: Date(), viewModel: viewModel)
         view.layer.borderColor = UIColor(rgb: 0x938C8C).cgColor
         view.layer.cornerRadius = 16
         view.layer.borderWidth = 1
@@ -69,27 +70,19 @@ final class DispatchViewController: UIViewController {
         return button
     }()
     
-    private let reportLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(weight: .regular, size: 14)
-        label.textColor = .mainBlack
-        label.textAlignment = .right
-        label.text = "report_title_txt".localized()
-        label.isHidden = true
-        label.isUserInteractionEnabled = true
-        return label
-    }()
-    
-    private let manager = DispatchManager(service: APIManager())
+    private let viewModel: CallViewModel
     private let callerInfo: CallerInfo
     private let userLocation: CLLocationCoordinate2D
     private var dispatchId: Int?
     private var isDispatched: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
-    init (userLocation: CLLocationCoordinate2D, callerInfo: CallerInfo) {
+    var noticeView: CustomNoticeView?
+    
+    init (userLocation: CLLocationCoordinate2D, callerInfo: CallerInfo, viewModel: CallViewModel) {
         self.userLocation = userLocation
         self.callerInfo = callerInfo
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -104,7 +97,6 @@ final class DispatchViewController: UIViewController {
         setUpStyle()
         setUpComponent()
         bind()
-        //        setUpAction()
         setupSheet()
         calculateDistance()
         calculateTime(dateStr: callerInfo.called_at)
@@ -204,11 +196,14 @@ final class DispatchViewController: UIViewController {
     private func bind() {
         dispatchButton.tapPublisher.sink { [self] in
             if isDispatched {
+                guard let dispatchId = dispatchId else { return }
                 Task {
-                    guard let dispatchId = dispatchId else { return }
-                    let result = try await manager.dispatchEnd(dispatchId: dispatchId)
-                    if result.success {
+                    let isSucceed = try await viewModel.dispatchEnd(dispatchId: dispatchId)
+                    if isSucceed  {
+                        print("DISMISS!!!")
                         dismiss(animated: true)
+                    } else {
+                        print("CAN'T DISMISS")
                     }
                 }
             } else {
@@ -232,21 +227,6 @@ final class DispatchViewController: UIViewController {
             self.dispatchTimerView.isHidden = false
         })
     }
-    
-    //    private func setUpAction() {
-    //        let tapGesture = UITapGestureRecognizer()
-    //        reportLabel.addGestureRecognizer(tapGesture)
-    //        tapGesture.tapPublisher.sink { [weak self] _ in
-    //            self?.didTapReportButton()
-    //        }.store(in: &cancellables)
-    //    }
-    
-    private func didTapReportButton() {
-        guard let dispatchId = dispatchId else { return }
-        let vc = ReportViewController(dispatchId: dispatchId, manager: manager)
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
-    }
 }
 
 extension DispatchViewController {
@@ -269,6 +249,7 @@ extension DispatchViewController {
         let rawDistance = GMSGeometryDistance(userLocation, callerLocation)
         return floor(rawDistance)
     }
+    
     func calculateTime(dateStr: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss"
@@ -297,33 +278,36 @@ extension DispatchViewController {
     private func acceptDispatch() {
         
         // MARK: TEST CODE
-        let data = DispatchInfo(latitude: 0.0, longitude: 0.0, dispatch_id: 101, full_address: "ejfiejie", called_at: "ejifjwiefw")
-        dispatchId = data.dispatch_id
-        isModalInPresentation = true
-        dispatchButton.isHidden = true
-        dispatchDescriptionLabel.isHidden = false
-        stackView.isHidden = true
-        reportLabel.isHidden = false
-        timerAppear()
-        let elapsedTime = "2023-05-31 22:09:30".elapsedTime()
-        dispatchTimerView.setUpTimerText(startTime: elapsedTime)
-        dispatchTimerView.setTimer(startTime: "2023-05-31 22:09:30".elapsedTime())
-        isDispatched = true
+//        let data = DispatchInfo(latitude: 0.0, longitude: 0.0, dispatch_id: 101, full_address: "ejfiejie", called_at: "ejifjwiefw")
+//        dispatchId = data.dispatch_id
+//        isModalInPresentation = true
+//        dispatchButton.isHidden = true
+//        dispatchDescriptionLabel.isHidden = false
+//        stackView.isHidden = true
+//        timerAppear()
+//        let elapsedTime = "2023-06-01 16:26:30".elapsedTime()
+//        dispatchTimerView.setUpTimerText(startTime: elapsedTime)
+//        dispatchTimerView.setTimer(startTime: "2023-06-01 16:26:30".elapsedTime())
+//        isDispatched = true
+//        guard let dispatchId = dispatchId else { return }
+//        dispatchTimerView.setDispatchComponent(dispatchId: dispatchId)
 
-//        Task {
-//            let result = try await manager.dispatchAccept(cprCallId: callerInfo.cpr_call_id)
-//            if result.success {
-//                guard let data = result.data else { return }
-//                dispatchId = data.dispatch_id
-//                isModalInPresentation = true
-//                dispatchButton.isHidden = true
-//                dispatchDescriptionLabel.isHidden = false
-//                stackView.isHidden = true
-//                reportLabel.isHidden = false
-//                timerAppear()
-//                dispatchTimerView.setTimer(startTime: data.called_at.elapsedTime())
-//                isDispatched = true
-//            }
-//        }
+        Task {
+            let result = try await viewModel.dispatchAccept(cprCallId: callerInfo.cpr_call_id)
+            if result.0 {
+                guard let data = result.1 else { return }
+                let dispatchId = data.dispatch_id
+                print("########", dispatchId)
+                isModalInPresentation = true
+                dispatchButton.isHidden = true
+                dispatchDescriptionLabel.isHidden = false
+                stackView.isHidden = true
+                timerAppear()
+                dispatchTimerView.setUpTimerText(startTime: data.called_at.elapsedTime())
+                dispatchTimerView.setTimer(startTime: data.called_at.elapsedTime())
+                isDispatched = true
+                dispatchTimerView.setDispatchComponent(dispatchId: dispatchId)
+            }
+        }
     }
 }

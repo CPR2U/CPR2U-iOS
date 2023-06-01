@@ -107,5 +107,7 @@ final class EducationProgressView: UIView {
         
         lecToQuizLine.backgroundColor = status[1].courseViewColor
         quizToPoseLine.backgroundColor = status[2].courseViewColor
+        
+        self.layoutIfNeeded()
     }
 }

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ic_fail_heart.png",
+      "filename" : "heart_fail.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

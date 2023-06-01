@@ -9,8 +9,16 @@ import Combine
 import GoogleMaps
 import UIKit
 
-class DispatchTimerView: UIView {
+protocol DispatchTimerViewDelegate: AnyObject {
+    func noticeAppear(dispatchId: Int)
+}
 
+class DispatchTimerView: UIView {
+    
+    weak var delegate: DispatchTimerViewDelegate?
+    
+    private var dispatchId: Int?
+    
     private var calledTime: Date?
     private var callerInfo: CallerInfo?
     
@@ -40,15 +48,16 @@ class DispatchTimerView: UIView {
     private var timer: Timer.TimerPublisher?
     
     private var manager = MapManager()
+    private var viewModel: CallViewModel?
     private var cancellables = Set<AnyCancellable>()
 
-    init(callerInfo: CallerInfo, calledTime: Date) {
+    init(callerInfo: CallerInfo, calledTime: Date, viewModel: CallViewModel) {
         super.init(frame: CGRect.zero)
         self.calledTime = calledTime
-//        self.callerInfo = callerInfo // Origin
+        self.callerInfo = callerInfo // ORIGIN
 //        self.callerInfo = CallerInfo(latitude: 37.545885, longitude: 126.967606, cpr_call_id: 0, full_address: "dhud", called_at: "djidji") // TEST CODE
-        self.callerInfo = CallerInfo(latitude: 37.544251, longitude: 126.966137, cpr_call_id: 0, full_address: "dhud", called_at: "djidji") // TEST CODE
-        
+//        self.callerInfo = CallerInfo(latitude: 37.544251, longitude: 126.966137, cpr_call_id: 0, full_address: "dhud", called_at: "djidji") // TEST CODE
+        self.viewModel = viewModel
         setUpConstraints()
         setUpStyle()
     }
@@ -123,15 +132,19 @@ class DispatchTimerView: UIView {
             .autoconnect()
             .scan(startTime) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                if counter > 1501 {
+//                if counter > 1501 {
+                if counter > 50000 {
                     timer?.connect().cancel()
                 } else {
                     let userLocation = manager.setLocation()
                     guard let callerInfo = callerInfo else { return }
                     let distance = calculateDistanceFromCurrentLocation(callerInfo: callerInfo, userLocation: userLocation)
-                    if distance < 50 {
+//                    if distance < 70 { // ORIGIN
+                    if distance < 200 {
+                        guard let dispatchId = dispatchId else { return }
+                        delegate?.noticeAppear(dispatchId: dispatchId)
                         cancelTimer()
-                        // MARK: ALERT 띄우기
+                        parentViewController().dismiss(animated: true)
                     }
                     timeLabel.text = counter.numberAsTime()
                 }
@@ -145,6 +158,10 @@ class DispatchTimerView: UIView {
     
     func setUpTimerText(startTime: Int) {
         timeLabel.text = startTime.numberAsTime()
+    }
+    
+    func setDispatchComponent(dispatchId: Int) {
+        self.dispatchId = dispatchId
     }
     
     func calculateDistanceFromCurrentLocation(callerInfo: CallerInfo, userLocation: CLLocationCoordinate2D) -> CLLocationDistance {

@@ -14,6 +14,7 @@ final class CallViewModel: OutputOnlyViewModelType {
     @Published private(set)var dispatcherCount: Int?
     
     private var callManager: CallManager
+    private var dispatchManager: DispatchManager
     
     private var mapManager: MapManager
     private var currentLocation: CLLocationCoordinate2D?
@@ -22,12 +23,14 @@ final class CallViewModel: OutputOnlyViewModelType {
     
     private var callId: Int?
     private let iscalled = CurrentValueSubject<Bool, Never>(false)
+    private let isDispatchEnd = CurrentValueSubject<Bool, Never>(false)
     
     var timer: Timer.TimerPublisher?
     
     init() {
         callManager = CallManager(service: APIManager())
         mapManager = MapManager()
+        dispatchManager = DispatchManager(service: APIManager())
         receiveCallerList()
         setLocation()
     }
@@ -101,5 +104,36 @@ final class CallViewModel: OutputOnlyViewModelType {
     
     private func updateCallId(callId: Int) {
         self.callId = callId
+    }
+    
+    func dispatchEnd(dispatchId: Int) async throws -> Bool {
+        let taskResult = Task { () -> Bool in
+            let result = try await dispatchManager.dispatchEnd(dispatchId: dispatchId)
+            return result.success
+        }
+        return try await taskResult.value
+    }
+    
+    func updateDispatchEnd() {
+        isDispatchEnd.send(true)
+        
+    }
+    
+    func getDispatchEnd() -> CurrentValueSubject<Bool, Never> {
+        return isDispatchEnd
+    }
+    func dispatchAccept(cprCallId: Int) async throws -> (Bool, DispatchInfo?) {
+        let taskResult = Task { () -> (Bool, DispatchInfo?)  in
+            let result = try await dispatchManager.dispatchAccept(cprCallId: cprCallId)
+            return (result.success, result.data)
+        }
+        return try await taskResult.value
+    }
+    func userReport(reportInfo: ReportInfo) async throws -> Bool {
+        let taskResult = Task { () -> Bool in
+            let result = try await dispatchManager.userReport(reportInfo: reportInfo)
+            return result.success
+        }
+        return try await taskResult.value
     }
 }

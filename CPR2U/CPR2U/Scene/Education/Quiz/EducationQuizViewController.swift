@@ -24,7 +24,7 @@ final class EducationQuizViewController: UIViewController {
         return view
     }()
     
-    private lazy var noticeView = CustomNoticeView(noticeAs: .pf)
+    private lazy var noticeView = CustomNoticeView(noticeAs: .quizPass)
     
     private lazy var answerLabel: UILabel =  {
         let label = UILabel()
@@ -210,14 +210,13 @@ extension EducationQuizViewController {
             guard let quizResultString = self?.viewModel.quizResultString() else { return }
             
             if isQuizEnd {
+                self?.noticeView.setUpQuizResult(isPassed: isQuizAllCorrect, score: quizResultString)
                 if isQuizAllCorrect {
                     Task {
                         try await self?.viewModel.saveQuizResult()
-                        self?.noticeView.setPFResultNotice(isPass: true)
                         self?.noticeView.noticeAppear()
                     }
                 } else {
-                    self?.noticeView.setPFResultNotice(isPass: false, quizResultString: quizResultString)
                     self?.noticeView.noticeAppear()
                 }
             }

@@ -33,6 +33,7 @@ phdr: placeholder
 "logout" = "LOGOUT";
 "yes" = "YES";
 "no" = "NO";
+"got_it" = "GOT IT";
 "completed" = "COMPLETED!";
 "completed_not" = "Not Completed";
 "open_not" = "Not Opened";
@@ -75,11 +76,21 @@ phdr: placeholder
 "address_des_txt" = "Select your address for CPR Angel activities";
 
 // NoticeV
-"congratu_txt" = "Congratulation!";
-"get_cert_des_txt" = "You have got CPR Angel Certificate!\nNow you're a CPR Angel and can help someone in cardiac arrest.";
-"success_ann_txt" = "You are perfect!";
-"fail_des_txt_%@" = "Failed %@";
-"fail_ann_txt" = "Try Again";
+// - titleLabels
+//case quizFail
+//case quizPass
+//case certificate
+//case dispatchComplete
+"lecture_pass_title_txt" = "Lecture Complete!";
+"quiz_fail_title_txt_%@" = "Quiz Failed: %@";
+"quiz_pass_title_txt" = "Quiz Passed!";
+"certificate_title_txt" = "Congratulations!";
+"dispatchComplete_title_txt" = "Completed!";
+"lecture_pass_des_txt" = "You have completed the Lecture!\nYou are one step closer to becoming\na CPR Angel!";
+"quiz_fail_des_txt" = "You did not complete the Quiz.\nPlease try again.";
+"quiz_pass_des_txt" = "You have completed the Quiz!\nYou are one step closer to becoming\na CPR Angel!";
+"certificate_des_txt" = "You have got CPR Angel Certificate!\nNow you're a CPR Angel and can help\nsomeone in cardiac arrest.";
+"dispatchComplete_des_txt" = "You have arrived in the emergency.\nPlease help the caller!";
 
 // Education
 "course_lec" = "Lecture";
@@ -125,7 +136,7 @@ phdr: placeholder
 "dispatch_des_txt" = "When you arrive at your destination,\ndispatch ends automatically.";
 "dispatch_tab_t" = "DISPATCH";
 "arrive_des_txt" = "ARRIVED";
-"report_title_txt" = "Wrong Report? Report";
+"report_title_txt" = "Is there any problem? Report us";
 "report_ins_txt" = "What are you trying to report?";
 "report_des_txt" = "Your report will be treated anonymously.";
 "report_phdr" = "Content*";

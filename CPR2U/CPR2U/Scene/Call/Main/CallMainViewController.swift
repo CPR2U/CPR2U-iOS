@@ -30,6 +30,12 @@ final class CallMainViewController: UIViewController {
     private let currentLocationNoticeView = CurrentLocationNoticeView(locationInfo: .originLocation)
     private let callButton = CallCircleView()
     
+    private lazy var dispatchEndNoticeView: CustomNoticeView = {
+        let view = CustomNoticeView(noticeAs: .dispatchComplete)
+        view.setUpAction(callVC: self, viewModel: viewModel)
+        return view
+    }()
+    
     private let viewModel: CallViewModel
     private var cancellables = Set<AnyCancellable>()
     
@@ -52,9 +58,13 @@ final class CallMainViewController: UIViewController {
         setUpDelegate()
         setUpAction()
         
-        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: CLLocationCoordinate2D(latitude: 2.2, longitude: 3.3), callerInfo: CallerInfo(latitude: 2.1, longitude: 2.2, cpr_call_id: 0, full_address: "청파동 어딘가", called_at: "2023-05-31 08:09:30")))
-    
-            present(navigationController, animated: true, completion: nil)
+        
+        // TEST
+//        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: CLLocationCoordinate2D(latitude: 2.2, longitude: 3.3), callerInfo: CallerInfo(latitude: 2.1, longitude: 2.2, cpr_call_id: 0, full_address: "청파동 어딘가", called_at: "2023-05-31 08:09:30"), viewModel: CallViewModel()))
+//        let vc = navigationController.topViewController as? DispatchViewController
+//        vc?.dispatchTimerView.delegate = self
+//        present(navigationController, animated: true, completion: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +81,8 @@ final class CallMainViewController: UIViewController {
             mapView,
             timeCounterView,
             currentLocationNoticeView,
-            callButton
+            callButton,
+            dispatchEndNoticeView
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -96,6 +107,13 @@ final class CallMainViewController: UIViewController {
             callButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             callButton.widthAnchor.constraint(equalToConstant: 80),
             callButton.heightAnchor.constraint(equalToConstant: 80)
+        ])
+
+        NSLayoutConstraint.activate([
+            dispatchEndNoticeView.topAnchor.constraint(equalTo: view.topAnchor),
+            dispatchEndNoticeView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            dispatchEndNoticeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dispatchEndNoticeView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
     }
@@ -206,8 +224,23 @@ extension CallMainViewController: GMSMapViewDelegate {
         guard let target = viewModel.callerListInfo?.call_list.filter({$0.cpr_call_id == callId}).first else { return false }
         
         let callerInfo = CallerInfo(latitude: target.latitude, longitude: target.longitude, cpr_call_id: target.cpr_call_id, full_address: target.full_address, called_at: target.called_at)
-        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: viewModel.getLocation(), callerInfo: callerInfo))
-            present(navigationController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: viewModel.getLocation(), callerInfo: callerInfo, viewModel: viewModel))
+        let vc = navigationController.topViewController as? DispatchViewController
+        vc?.dispatchTimerView.delegate = self
+        present(navigationController, animated: true, completion: nil)
         return true
+    }
+}
+
+extension CallMainViewController: DispatchTimerViewDelegate {
+    func noticeAppear(dispatchId: Int) {
+        dispatchEndNoticeView.setUpDispatchComponent(dispatchId: dispatchId)
+        dispatchEndNoticeView.noticeAppear()
+    }
+}
+
+extension CallMainViewController: ReportViewControllerDelegate {
+    func noticeDisappear() {
+        dispatchEndNoticeView.noticeHide()
     }
 }

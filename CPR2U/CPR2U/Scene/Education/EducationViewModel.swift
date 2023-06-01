@@ -168,7 +168,7 @@ enum AngelStatus: Int {
 
 enum TimerType: Int {
     case lecture = 5//3001
-    case posture = 130
+    case posture = 15 //130
     case other = 0
 }
 
