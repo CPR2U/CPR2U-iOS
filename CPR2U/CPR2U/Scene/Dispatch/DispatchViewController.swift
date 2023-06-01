@@ -276,22 +276,6 @@ extension DispatchViewController {
     }
     
     private func acceptDispatch() {
-        
-        // MARK: TEST CODE
-//        let data = DispatchInfo(latitude: 0.0, longitude: 0.0, dispatch_id: 101, full_address: "ejfiejie", called_at: "ejifjwiefw")
-//        dispatchId = data.dispatch_id
-//        isModalInPresentation = true
-//        dispatchButton.isHidden = true
-//        dispatchDescriptionLabel.isHidden = false
-//        stackView.isHidden = true
-//        timerAppear()
-//        let elapsedTime = "2023-06-01 16:26:30".elapsedTime()
-//        dispatchTimerView.setUpTimerText(startTime: elapsedTime)
-//        dispatchTimerView.setTimer(startTime: "2023-06-01 16:26:30".elapsedTime())
-//        isDispatched = true
-//        guard let dispatchId = dispatchId else { return }
-//        dispatchTimerView.setDispatchComponent(dispatchId: dispatchId)
-
         Task {
             let result = try await viewModel.dispatchAccept(cprCallId: callerInfo.cpr_call_id)
             if result.0 {

@@ -56,15 +56,7 @@ final class CallMainViewController: UIViewController {
         setUpCallerLocation()
         setUpStyle()
         setUpDelegate()
-        setUpAction()
-        
-        
-        // TEST
-//        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: CLLocationCoordinate2D(latitude: 2.2, longitude: 3.3), callerInfo: CallerInfo(latitude: 2.1, longitude: 2.2, cpr_call_id: 0, full_address: "청파동 어딘가", called_at: "2023-05-31 08:09:30"), viewModel: CallViewModel()))
-//        let vc = navigationController.topViewController as? DispatchViewController
-//        vc?.dispatchTimerView.delegate = self
-//        present(navigationController, animated: true, completion: nil)
-        
+        setUpAction()   
     }
     
     override func viewWillAppear(_ animated: Bool) {

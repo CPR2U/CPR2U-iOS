@@ -54,9 +54,7 @@ class DispatchTimerView: UIView {
     init(callerInfo: CallerInfo, calledTime: Date, viewModel: CallViewModel) {
         super.init(frame: CGRect.zero)
         self.calledTime = calledTime
-        self.callerInfo = callerInfo // ORIGIN
-//        self.callerInfo = CallerInfo(latitude: 37.545885, longitude: 126.967606, cpr_call_id: 0, full_address: "dhud", called_at: "djidji") // TEST CODE
-//        self.callerInfo = CallerInfo(latitude: 37.544251, longitude: 126.966137, cpr_call_id: 0, full_address: "dhud", called_at: "djidji") // TEST CODE
+        self.callerInfo = callerInfo
         self.viewModel = viewModel
         setUpConstraints()
         setUpStyle()
