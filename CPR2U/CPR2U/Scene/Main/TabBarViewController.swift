@@ -20,7 +20,7 @@ final class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        NotificationCenter.default.addObserver(self, selector: #selector(showCallerPage), name: NSNotification.Name("ShowCallerPage"), object: nil)
         setUpTabBar()
     }
 
@@ -53,4 +53,16 @@ final class TabBarViewController: UITabBarController {
         
         setViewControllers([navigationEdu, navigationCall, navigationMypage], animated: false)
     }
+    
+    @objc func showCallerPage(_ notification:Notification) {
+        if let userInfo = notification.userInfo {
+            guard let type = userInfo["type"] as? String else { return }
+            if type == "1" {
+                if self.selectedIndex != 1 {
+                    self.selectedIndex = 1
+                }
+            }
+        }
+    }
+
 }

@@ -107,7 +107,9 @@ final class AuthViewModel: AuthViewModelType {
                 return false
             } else {
                 let authResult = try await authManager.signIn(phoneNumber: phoneNumber, deviceToken: DeviceTokenManager.deviceToken)
-                
+                guard let data = authResult.data else { return false }
+                UserDefaultsManager.accessToken = data.access_token
+                UserDefaultsManager.refreshToken = data.refresh_token
                 return authResult.success
             }
         }
