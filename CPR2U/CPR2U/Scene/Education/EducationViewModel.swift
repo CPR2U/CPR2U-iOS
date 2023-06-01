@@ -214,11 +214,7 @@ struct EducationCourse {
 
 final class EducationViewModel: AsyncOutputOnlyViewModelType {
     private let eduManager: EducationManager
-    
-//    private let _educationCourse: [EducationCourse] = [
-//
-//    ]
-    
+
     @Published private(set) var educationCourse: [EducationCourse] = [
         EducationCourse(course: .lecture),
         EducationCourse(course: .quiz),
@@ -359,6 +355,16 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         return try await result.value
     }
     
+    func saveQuizResult() async throws -> Bool {
+        let result = Task {
+            let eduResult = try await eduManager.saveQuizResult(score: 100)
+            let userInfo = try await receiveEducationStatus()
+            updateInput(data: userInfo)
+            return eduResult.success
+        }
+        return try await result.value
+    }
+    
     func getLecture() async throws -> String? {
         let result = Task { () -> String? in
             let eduResult = try await eduManager.getLecture()
@@ -466,6 +472,5 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         angleRate.correct = armAngleCount.correct
         angleRate.nonCorrect = armAngleCount.nonCorrect
         pressDepthRate = pressDepth
-        
     }
 }

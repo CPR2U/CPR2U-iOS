@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 protocol EducationMainViewControllerDelegate: AnyObject {
-    func updateUserEducationStatus()
+    func updateUserEducationStatus(isPassed: Bool?)
 }
 
 final class EducationMainViewController: UIViewController {
@@ -211,7 +211,7 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
             vc = LectureViewController(viewModel: viewModel)
             navigationController?.pushViewController(vc, animated: true)
         } else if index == 1 {
-            let temp = EducationQuizViewController()
+            let temp = EducationQuizViewController(eduViewModel: viewModel)
             temp.delegate = self
             vc = UINavigationController(rootViewController: temp)
             vc.modalPresentationStyle = .overFullScreen
@@ -224,14 +224,18 @@ extension EducationMainViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension EducationMainViewController: EducationMainViewControllerDelegate {
-    func updateUserEducationStatus() {
+    
+    func updateUserEducationStatus(isPassed: Bool?) {
         Task {
-            let userInfo = try await viewModel.receiveEducationStatus()
-            viewModel.updateInput(data: userInfo)
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.educationCollectionView.reloadData()
-                self?.dismiss(animated: true)
+            if let isPassed = isPassed {
+                if isPassed {
+                    _ = try await viewModel.saveQuizResult()
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.progressView.layoutIfNeeded()
+                    self?.educationCollectionView.reloadData()
+                    self?.dismiss(animated: true)
+                }
             }
         }
     }
