@@ -68,8 +68,8 @@ final class CallMainViewController: UIViewController {
                     let callId = callerListInfo.call_list[0].cpr_call_id
                     guard let self = self else { return }
                     guard let target = callerListInfo.call_list.filter({$0.cpr_call_id == callId}).first else { return }
-                    let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
-                    let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo))
+                    let callerInfo = CallerInfo(latitude: target.latitude, longitude: target.longitude, cpr_call_id: target.cpr_call_id, full_address: target.full_address, called_at: target.called_at)
+                    let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo, viewModel: viewModel))
                     present(navigationController, animated: true)
                 }
             }.store(in: &cancellables)
@@ -235,8 +235,8 @@ final class CallMainViewController: UIViewController {
                         guard let self = self else { return }
                         let callId = Int(userInfo["call"] as! String)
                         guard let target = callerListInfo?.call_list.filter({$0.cpr_call_id == callId}).first else { return }
-                        let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
-                        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo))
+                        let callerInfo = CallerInfo(latitude: target.latitude, longitude: target.longitude, cpr_call_id: target.cpr_call_id, full_address: target.full_address, called_at: target.called_at)
+                        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo, viewModel: viewModel))
                         self.present(navigationController, animated: true)
                     }.store(in: &cancellables)
             }
