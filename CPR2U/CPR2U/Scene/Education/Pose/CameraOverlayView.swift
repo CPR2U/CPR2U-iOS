@@ -149,7 +149,7 @@ class CameraOverlayView: UIImageView {
     return strokes
   }
     
-    private func measureCprScore(person: Person) {
+    func measureCprScore(person: Person) {
         var xShoulder: CGFloat = 0
         var yShoulder: CGFloat = 0
         var xElbow: CGFloat = 0
@@ -218,6 +218,82 @@ class CameraOverlayView: UIImageView {
         return total/len
     }
     
+    func measureIsPreparing(person: Person) -> Bool {
+        var shoulderLeft: CGPoint!
+        var shoulderRight: CGPoint!
+        
+        var elbowLeft: CGPoint!
+        var elbowRight: CGPoint!
+        
+        var wristLeft: CGPoint!
+        var wristRight: CGPoint!
+        
+        var hipLeft: CGPoint!
+        var hipRight: CGPoint!
+        
+        var kneeLeft: CGPoint!
+        var kneeRight: CGPoint!
+        
+        var ankleLeft: CGPoint!
+        var ankleRight: CGPoint!
+        
+        for point in person.keyPoints {
+            switch point.bodyPart {
+            case .leftShoulder:
+                shoulderLeft = point.coordinate
+            case .rightShoulder:
+                shoulderRight = point.coordinate
+            case .leftElbow:
+                elbowLeft = point.coordinate
+            case .rightElbow:
+                elbowRight = point.coordinate
+            case .leftWrist:
+                wristLeft = point.coordinate
+            case .rightWrist:
+                wristRight = point.coordinate
+            case .leftHip:
+                hipLeft = point.coordinate
+            case .rightHip:
+                hipRight = point.coordinate
+            case .leftKnee:
+                kneeLeft = point.coordinate
+            case .rightKnee:
+                kneeRight = point.coordinate
+            case .leftAnkle:
+                ankleLeft = point.coordinate
+            case .rightAnkle:
+                ankleRight = point.coordinate
+            default:
+                break
+            }
+        }
+        
+        let value: CGFloat = 20
+        
+        let isElbowLeftVertical = abs(shoulderLeft.x - elbowLeft.x) < value && abs(elbowLeft.x - wristLeft.x) < value
+        && wristLeft.y > elbowLeft.y && elbowLeft.y > shoulderLeft.y
+        let isElbowRightVertical = abs(shoulderRight.x - elbowRight.x) < value && abs(elbowRight.x - wristRight.x) < value
+        && wristRight.y > elbowRight.y && elbowRight.y > shoulderRight.y
+        
+        let isBodyLeftVertical = shoulderLeft.x < hipLeft.x && shoulderLeft.y < hipLeft.y
+        let isBodyRightVertical = shoulderRight.x < hipRight.x && shoulderRight.y < hipRight.y
+        
+        let isBodyLeftSeated = hipLeft.x > kneeLeft.x && kneeLeft.x < ankleLeft.x && hipLeft.x < ankleLeft.x
+        && hipLeft.y < kneeLeft.y && hipLeft.y < ankleLeft.y && abs(ankleLeft.y - kneeLeft.y) < value
+        let isBodyRightSeated = hipRight.x > kneeRight.x && kneeRight.x < ankleRight.x && hipRight.x < ankleRight.x
+        && hipRight.y < kneeRight.y && hipRight.y < ankleRight.y && abs(ankleRight.y - kneeRight.y) < value
+        
+        let isElbowVertical = isElbowLeftVertical && isElbowRightVertical
+        let isBodyVertical = isBodyLeftVertical && isBodyRightVertical
+        let isBodySeated = isBodyLeftSeated && isBodyRightSeated
+        
+        if !isElbowVertical || !isBodyVertical || !isBodySeated {
+            return false
+        }
+        
+        return true
+    }
+
 }
 
 /// The strokes to be drawn in order to visualize a pose estimation result.
