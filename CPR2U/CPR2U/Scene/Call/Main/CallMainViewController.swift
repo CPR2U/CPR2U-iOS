@@ -27,8 +27,14 @@ final class CallMainViewController: UIViewController {
         let view = TimeCounterView(viewModel: viewModel)
         return view
     }()
-    private let currentLocationNoticeView = CurrentLocationNoticeView()
+    private let currentLocationNoticeView = CurrentLocationNoticeView(locationInfo: .originLocation)
     private let callButton = CallCircleView()
+    
+    private lazy var dispatchEndNoticeView: CustomNoticeView = {
+        let view = CustomNoticeView(noticeAs: .dispatchComplete)
+        view.setUpAction(callVC: self, viewModel: viewModel)
+        return view
+    }()
     
     private let viewModel: CallViewModel
     private var cancellables = Set<AnyCancellable>()
@@ -62,8 +68,8 @@ final class CallMainViewController: UIViewController {
                     let callId = callerListInfo.call_list[0].cpr_call_id
                     guard let self = self else { return }
                     guard let target = callerListInfo.call_list.filter({$0.cpr_call_id == callId}).first else { return }
-                    let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
-                    let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo))
+                    let callerInfo = CallerInfo(latitude: target.latitude, longitude: target.longitude, cpr_call_id: target.cpr_call_id, full_address: target.full_address, called_at: target.called_at)
+                    let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo, viewModel: viewModel))
                     present(navigationController, animated: true)
                 }
             }.store(in: &cancellables)
@@ -83,7 +89,8 @@ final class CallMainViewController: UIViewController {
             mapView,
             timeCounterView,
             currentLocationNoticeView,
-            callButton
+            callButton,
+            dispatchEndNoticeView
         ].forEach({
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +107,7 @@ final class CallMainViewController: UIViewController {
             currentLocationNoticeView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: make.space16),
             currentLocationNoticeView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: make.space16),
             currentLocationNoticeView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -make.space16),
-            currentLocationNoticeView.heightAnchor.constraint(equalToConstant: 50)
+            currentLocationNoticeView.heightAnchor.constraint(equalToConstant: 42)
         ])
         
         NSLayoutConstraint.activate([
@@ -108,6 +115,13 @@ final class CallMainViewController: UIViewController {
             callButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             callButton.widthAnchor.constraint(equalToConstant: 80),
             callButton.heightAnchor.constraint(equalToConstant: 80)
+        ])
+
+        NSLayoutConstraint.activate([
+            dispatchEndNoticeView.topAnchor.constraint(equalTo: view.topAnchor),
+            dispatchEndNoticeView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            dispatchEndNoticeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dispatchEndNoticeView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
     }
@@ -221,8 +235,8 @@ final class CallMainViewController: UIViewController {
                         guard let self = self else { return }
                         let callId = Int(userInfo["call"] as! String)
                         guard let target = callerListInfo?.call_list.filter({$0.cpr_call_id == callId}).first else { return }
-                        let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
-                        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo))
+                        let callerInfo = CallerInfo(latitude: target.latitude, longitude: target.longitude, cpr_call_id: target.cpr_call_id, full_address: target.full_address, called_at: target.called_at)
+                        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: self.viewModel.getLocation(), callerInfo: callerInfo, viewModel: viewModel))
                         self.present(navigationController, animated: true)
                     }.store(in: &cancellables)
             }
@@ -236,9 +250,24 @@ extension CallMainViewController: GMSMapViewDelegate {
         guard let callId = Int(marker.title ?? "0") else { return false }
         guard let target = viewModel.callerListInfo?.call_list.filter({$0.cpr_call_id == callId}).first else { return false }
         
-        let callerInfo = CallerCompactInfo(callerId: target.cpr_call_id, latitude: target.latitude, longitude: target.longitude, callerAddress: target.full_address)
-        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: viewModel.getLocation(), callerInfo: callerInfo))
-            present(navigationController, animated: true, completion: nil)
+        let callerInfo = CallerInfo(latitude: target.latitude, longitude: target.longitude, cpr_call_id: target.cpr_call_id, full_address: target.full_address, called_at: target.called_at)
+        let navigationController = UINavigationController(rootViewController: DispatchViewController(userLocation: viewModel.getLocation(), callerInfo: callerInfo, viewModel: viewModel))
+        let vc = navigationController.topViewController as? DispatchViewController
+        vc?.dispatchTimerView.delegate = self
+        present(navigationController, animated: true, completion: nil)
         return true
+    }
+}
+
+extension CallMainViewController: DispatchTimerViewDelegate {
+    func noticeAppear(dispatchId: Int) {
+        dispatchEndNoticeView.setUpDispatchComponent(dispatchId: dispatchId)
+        dispatchEndNoticeView.noticeAppear()
+    }
+}
+
+extension CallMainViewController: ReportViewControllerDelegate {
+    func noticeDisappear() {
+        dispatchEndNoticeView.noticeHide()
     }
 }

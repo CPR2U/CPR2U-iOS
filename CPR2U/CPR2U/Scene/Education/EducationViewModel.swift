@@ -144,7 +144,7 @@ enum AngelStatus: Int {
     case acquired
     case expired
     case unacquired
-
+    
     func certificationImageName(_ isBig: Bool = false) -> String {
         switch self {
         case .acquired:
@@ -168,7 +168,7 @@ enum AngelStatus: Int {
 
 enum TimerType: Int {
     case lecture = 5//3001
-    case posture = 130
+    case posture = 15 //130
     case other = 0
 }
 
@@ -191,10 +191,21 @@ enum EducationCourseInfo: String {
             return "course_pose_des".localized()
         }
     }
+    
+    var timeValue: Int {
+        switch self {
+        case .lecture:
+            return 50
+        case .quiz:
+            return 5
+        case .pose:
+            return 3
+        }
+    }
 }
 struct EducationCourse {
     var info: EducationCourseInfo
-    var isCompleted = CurrentValueSubject<Bool,Never>(false)
+    var courseStatus = CurrentValueSubject<CourseStatus,Never>(.locked)
     
     init(course: EducationCourseInfo) {
         self.info = course
@@ -204,17 +215,11 @@ struct EducationCourse {
 final class EducationViewModel: AsyncOutputOnlyViewModelType {
     private let eduManager: EducationManager
 
-    private let _educationCourse: [EducationCourse] = [
+    @Published private(set) var educationCourse: [EducationCourse] = [
         EducationCourse(course: .lecture),
         EducationCourse(course: .quiz),
         EducationCourse(course: .pose)
     ]
-
-    var educationCourse: [EducationCourse] {
-        get {
-            return _educationCourse
-        }
-    }
     
     private var input: Input?
     
@@ -237,9 +242,6 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         let angelStatus: CurrentValueSubject<Int, Never>
         let progressPercent: CurrentValueSubject<Float, Never>
         let leftDay: CurrentValueSubject<Int?, Never>
-        let isLectureCompleted: CurrentValueSubject<Bool, Never>
-        let isQuizCompleted: CurrentValueSubject<Bool, Never>
-        let isPostureCompleted: CurrentValueSubject<Bool, Never>
     }
     
     struct Output {
@@ -266,7 +268,7 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
                 guard let leftDayNum = input?.leftDay.value else {
                     return CurrentValueSubject(CertificateStatus(status: status, leftDay: nil))
                 }
-     
+                
                 return CurrentValueSubject(CertificateStatus(status: status, leftDay: leftDayNum))
                 
             }()
@@ -302,19 +304,34 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         let result = Task { () -> Input? in
             let eduResult = try await self.eduManager.getEducationProgress()
             guard let data = eduResult.data else { return nil }
-        
-            let progressPercent = Float(data.progress_percent)
-            let isLectureCompleted = data.is_lecture_completed == 2
-            let isQuizCompleted = data.is_quiz_completed == 2
-            let isPostureCompleted = data.is_posture_completed == 2
             
-            let isCompleted = [isLectureCompleted, isQuizCompleted, isPostureCompleted]
-            for i in 0..<_educationCourse.count {
-                _educationCourse[i].isCompleted.send(isCompleted[i])
+            let progressPercent = Float(data.progress_percent)
+            
+            let completedStatusArr = [
+                data.is_lecture_completed,
+                data.is_quiz_completed,
+                data.is_posture_completed
+            ]
+            
+            for idx in 0..<completedStatusArr.count {
+                if completedStatusArr[idx] == 2 {
+                    educationCourse[idx].courseStatus.send(.completed)
+                } else {
+                    educationCourse[idx].courseStatus.send(.now)
+                    if idx+1 <= completedStatusArr.count - 1 {
+                        for i in idx+1..<completedStatusArr.count {
+                            educationCourse[i].courseStatus.send(.locked)
+                        }
+                        break
+                    }
+                }
             }
-            return Input(nickname: CurrentValueSubject(data.nickname), angelStatus: CurrentValueSubject(data.angel_status), progressPercent: CurrentValueSubject(progressPercent), leftDay: CurrentValueSubject(data.days_left_until_expiration), isLectureCompleted: CurrentValueSubject(isLectureCompleted), isQuizCompleted: CurrentValueSubject(isQuizCompleted), isPostureCompleted: CurrentValueSubject(isPostureCompleted))
+            
+            for i in 0..<completedStatusArr.count {
+                print("idx: \(i) \(educationCourse[i].courseStatus.value)")
+            }
+            return Input(nickname: CurrentValueSubject(data.nickname), angelStatus: CurrentValueSubject(data.angel_status), progressPercent: CurrentValueSubject(progressPercent), leftDay: CurrentValueSubject(data.days_left_until_expiration))
         }
-        
         return try await result.value
     }
     
@@ -331,6 +348,16 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
     func savePosturePracticeResult(score: Int) async throws -> Bool {
         let result = Task {
             let eduResult = try await eduManager.savePosturePracticeResult(score: score)
+            let userInfo = try await receiveEducationStatus()
+            updateInput(data: userInfo)
+            return eduResult.success
+        }
+        return try await result.value
+    }
+    
+    func saveQuizResult() async throws -> Bool {
+        let result = Task {
+            let eduResult = try await eduManager.saveQuizResult(score: 100)
             let userInfo = try await receiveEducationStatus()
             updateInput(data: userInfo)
             return eduResult.success
@@ -356,23 +383,31 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
     
     func updateInput(data: UserInfo?) {
         let progressPercent = Float(data?.progress_percent ?? 0)
-        let isLectureCompleted = data?.is_lecture_completed == 2
-        let isQuizCompleted = data?.is_quiz_completed == 2
-        let isPostureCompleted = data?.is_posture_completed == 2
-    
+        
         DispatchQueue.main.async { [weak self] in
             self?.input?.nickname.send(data?.nickname ?? "")
             self?.input?.angelStatus.send(data?.angel_status ?? 0)
             self?.input?.progressPercent.send(progressPercent)
             self?.input?.leftDay.send(data?.days_left_until_expiration ?? nil)
-            self?.input?.isLectureCompleted.send(isLectureCompleted)
-            self?.input?.isQuizCompleted.send(isQuizCompleted)
-            self?.input?.isPostureCompleted.send(isPostureCompleted)
             
-            let isCompleted = [isLectureCompleted, isQuizCompleted, isPostureCompleted]
-            guard let count = self?._educationCourse.count else { return }
-            for i in 0..<count {
-                self?.educationCourse[i].isCompleted.send(isCompleted[i])
+            let completedStatusArr = [
+                data?.is_lecture_completed,
+                data?.is_quiz_completed,
+                data?.is_posture_completed
+            ]
+            
+            for idx in 0..<completedStatusArr.count {
+                if completedStatusArr[idx] == 2 {
+                    self?.educationCourse[idx].courseStatus.send(.completed)
+                } else {
+                    self?.educationCourse[idx].courseStatus.send(.now)
+                    if idx+1 <= completedStatusArr.count - 1 {
+                        for i in idx+1..<completedStatusArr.count {
+                            self?.educationCourse[i].courseStatus.send(.locked)
+                        }
+                        break
+                    }
+                }
             }
         }
     }
@@ -397,7 +432,7 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         }
         var angleResult: AngleStatus = .adequate
         let totalAngleCount = Double(correct + nonCorrect)
-                
+        
         switch Double(correct) {
         case Double(totalAngleCount) * 0.7...totalAngleCount:
             angleResult = .adequate
@@ -437,6 +472,5 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         angleRate.correct = armAngleCount.correct
         angleRate.nonCorrect = armAngleCount.nonCorrect
         pressDepthRate = pressDepth
-        
     }
 }

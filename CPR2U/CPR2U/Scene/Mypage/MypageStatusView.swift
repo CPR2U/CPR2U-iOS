@@ -133,8 +133,6 @@ final class MypageStatusView: UIView {
     
     private func setUpStyle() {
         self.layer.cornerRadius = 16
-        self.layer.borderColor = UIColor.mainRed.cgColor
-        self.layer.borderWidth = 1
         self.backgroundColor = .mainWhite
     }
     

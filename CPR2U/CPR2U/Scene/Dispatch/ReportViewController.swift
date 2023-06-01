@@ -9,7 +9,12 @@ import Combine
 import CombineCocoa
 import UIKit
 
+protocol ReportViewControllerDelegate: AnyObject {
+    func noticeDisappear()
+}
 final class ReportViewController: UIViewController {
+    
+    weak var delegate: ReportViewControllerDelegate?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -56,12 +61,12 @@ final class ReportViewController: UIViewController {
     }()
     
     private let dispatchId: Int
-    private let manager: DispatchManager
+    private let viewModel: CallViewModel
     private var cancellables = Set<AnyCancellable>()
     
-    init(dispatchId: Int, manager: DispatchManager) {
+    init(dispatchId: Int, viewModel: CallViewModel) {
         self.dispatchId = dispatchId
-        self.manager = manager
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -136,9 +141,10 @@ final class ReportViewController: UIViewController {
         submitButton.tapPublisher.sink { [self] in
             Task {
                 let reportInfo = ReportInfo(content: reportTextView.text, dispatch_id: dispatchId)
-                let result = try await manager.userReport(reportInfo: reportInfo)
-                if result.success {
+                let isSucceed = try await viewModel.userReport(reportInfo: reportInfo)
+                if isSucceed {
                     dismiss(animated: true)
+                    delegate?.noticeDisappear()
                 }
                 
             }

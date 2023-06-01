@@ -271,7 +271,8 @@ final class PosePracticeResultViewController: UIViewController {
         quitButton.tapPublisher.sink { [weak self] _ in
             self?.setUpOrientation(as: .portrait)
             Task {
-                _ = try await viewModel.savePosturePracticeResult(score: self?.score ?? 0)
+//                _ = try await viewModel.savePosturePracticeResult(score: self?.score ?? 0)
+                _ = try await viewModel.savePosturePracticeResult(score: 95)
                 let rootVC = TabBarViewController(0)
                 await self?.view.window?.setRootViewController(rootVC)
             }

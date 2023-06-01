@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24CEFDC9C69B23440E07EF1C /* Pods_CPR2U.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF82C0EF3B44D7FED6D1535 /* Pods_CPR2U.framework */; };
+		02108CE8345894DF17CAB194 /* Pods_CPR2U.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C053A4CB61D3AF4E05B5A2 /* Pods_CPR2U.framework */; };
 		3A22BF4329BC9122004411BE /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4229BC9122004411BE /* URLs.swift */; };
 		3A22BF5029BCCE07004411BE /* AuthEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF4F29BCCE07004411BE /* AuthEndPoint.swift */; };
 		3A22BF5229BCD6B8004411BE /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22BF5129BCD6B8004411BE /* AuthManager.swift */; };
@@ -35,6 +35,7 @@
 		3A324CE729C6104D00165E2E /* Data+TFLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE629C6104D00165E2E /* Data+TFLite.swift */; };
 		3A324CEA29C6111200165E2E /* CameraFeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CE929C6111200165E2E /* CameraFeedManager.swift */; };
 		3A324CEC29C611AB00165E2E /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */; };
+		3A36AB512A263A8F001BE444 /* StatusCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A36AB502A263A8F001BE444 /* StatusCircleView.swift */; };
 		3A396B8F29C89DA3009B0545 /* EducationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */; };
 		3A396B9129C8A87D009B0545 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9029C8A87D009B0545 /* ViewModelProtocol.swift */; };
 		3A396B9329C97E31009B0545 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A396B9229C97E31009B0545 /* UIView+.swift */; };
@@ -117,7 +118,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B9F1310FB54413A2CCE87FD /* Pods-CPR2U.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.debug.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.debug.xcconfig"; sourceTree = "<group>"; };
+		322A1B8B76D737CA33C5BB8F /* Pods-CPR2U.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.release.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.release.xcconfig"; sourceTree = "<group>"; };
 		3A22BF4229BC9122004411BE /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		3A22BF4F29BCCE07004411BE /* AuthEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEndPoint.swift; sourceTree = "<group>"; };
 		3A22BF5129BCD6B8004411BE /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -143,6 +144,7 @@
 		3A324CE629C6104D00165E2E /* Data+TFLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+TFLite.swift"; sourceTree = "<group>"; };
 		3A324CE929C6111200165E2E /* CameraFeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeedManager.swift; sourceTree = "<group>"; };
 		3A324CEB29C611AB00165E2E /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
+		3A36AB502A263A8F001BE444 /* StatusCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCircleView.swift; sourceTree = "<group>"; };
 		3A396B8E29C89DA3009B0545 /* EducationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationViewModel.swift; sourceTree = "<group>"; };
 		3A396B9029C8A87D009B0545 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		3A396B9229C97E31009B0545 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -225,8 +227,8 @@
 		3AF695262A1DD567001CA915 /* PosePracticeCountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePracticeCountDownView.swift; sourceTree = "<group>"; };
 		3AF695282A1DFE03001CA915 /* AddressVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressVerificationViewController.swift; sourceTree = "<group>"; };
 		3AF6952A2A1E3C44001CA915 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
-		8603206BC53B2CC2028A3EFB /* Pods-CPR2U.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.release.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.release.xcconfig"; sourceTree = "<group>"; };
-		EDF82C0EF3B44D7FED6D1535 /* Pods_CPR2U.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPR2U.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E55296996EBDD8450721680 /* Pods-CPR2U.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPR2U.debug.xcconfig"; path = "Target Support Files/Pods-CPR2U/Pods-CPR2U.debug.xcconfig"; sourceTree = "<group>"; };
+		A3C053A4CB61D3AF4E05B5A2 /* Pods_CPR2U.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPR2U.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,7 +238,7 @@
 			files = (
 				3A396B9B29C9D395009B0545 /* FirebaseMessaging in Frameworks */,
 				3A5C390E29C0844700378015 /* CombineCocoa in Frameworks */,
-				24CEFDC9C69B23440E07EF1C /* Pods_CPR2U.framework in Frameworks */,
+				02108CE8345894DF17CAB194 /* Pods_CPR2U.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,8 +248,8 @@
 		16C861399981B0664D00A6AF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2B9F1310FB54413A2CCE87FD /* Pods-CPR2U.debug.xcconfig */,
-				8603206BC53B2CC2028A3EFB /* Pods-CPR2U.release.xcconfig */,
+				9E55296996EBDD8450721680 /* Pods-CPR2U.debug.xcconfig */,
+				322A1B8B76D737CA33C5BB8F /* Pods-CPR2U.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -587,7 +589,7 @@
 				3AA636AC29AE5055006BB5EF /* CPR2U */,
 				3AA636AB29AE5055006BB5EF /* Products */,
 				16C861399981B0664D00A6AF /* Pods */,
-				A7D4AB3E214BA6052EC3FA37 /* Frameworks */,
+				FCD2D0EE2775B9F31DE32B99 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -670,6 +672,7 @@
 				3ADE725329B9D69D00EEE19C /* CertificateStatusView.swift */,
 				3ADE725529B9EA3200EEE19C /* EducationProgressView.swift */,
 				3ADE725929BA333D00EEE19C /* EducationCollectionViewCell.swift */,
+				3A36AB502A263A8F001BE444 /* StatusCircleView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -703,10 +706,10 @@
 			path = Pose;
 			sourceTree = "<group>";
 		};
-		A7D4AB3E214BA6052EC3FA37 /* Frameworks */ = {
+		FCD2D0EE2775B9F31DE32B99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EDF82C0EF3B44D7FED6D1535 /* Pods_CPR2U.framework */,
+				A3C053A4CB61D3AF4E05B5A2 /* Pods_CPR2U.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -718,11 +721,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AA636BE29AE5057006BB5EF /* Build configuration list for PBXNativeTarget "CPR2U" */;
 			buildPhases = (
-				379DD7D0D7CA53D856B6005F /* [CP] Check Pods Manifest.lock */,
+				7B0D1DA42150E3288153902D /* [CP] Check Pods Manifest.lock */,
 				3AA636A629AE5055006BB5EF /* Sources */,
 				3AA636A729AE5055006BB5EF /* Frameworks */,
 				3AA636A829AE5055006BB5EF /* Resources */,
-				59C2C471D36B615BE19C5723 /* [CP] Copy Pods Resources */,
+				84A63088F34A862DBA6F668B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -795,7 +798,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		379DD7D0D7CA53D856B6005F /* [CP] Check Pods Manifest.lock */ = {
+		7B0D1DA42150E3288153902D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -817,7 +820,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		59C2C471D36B615BE19C5723 /* [CP] Copy Pods Resources */ = {
+		84A63088F34A862DBA6F668B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -919,6 +922,7 @@
 				3A324CE329C6103800165E2E /* CGSize+TFLite.swift in Sources */,
 				3A91C2D129D0396E00028003 /* CallManager.swift in Sources */,
 				3AA636D329B24D72006BB5EF /* UIFont+.swift in Sources */,
+				3A36AB512A263A8F001BE444 /* StatusCircleView.swift in Sources */,
 				3A2FF4CA2A0D1890001F6132 /* String+.swift in Sources */,
 				3A70259429D5CC6100225F56 /* Dispatch.swift in Sources */,
 				3A22BF6129BDFF3B004411BE /* HttpMethod.swift in Sources */,
@@ -1076,7 +1080,7 @@
 		};
 		3AA636BF29AE5057006BB5EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B9F1310FB54413A2CCE87FD /* Pods-CPR2U.debug.xcconfig */;
+			baseConfigurationReference = 9E55296996EBDD8450721680 /* Pods-CPR2U.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1108,7 +1112,7 @@
 		};
 		3AA636C029AE5057006BB5EF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8603206BC53B2CC2028A3EFB /* Pods-CPR2U.release.xcconfig */;
+			baseConfigurationReference = 322A1B8B76D737CA33C5BB8F /* Pods-CPR2U.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
