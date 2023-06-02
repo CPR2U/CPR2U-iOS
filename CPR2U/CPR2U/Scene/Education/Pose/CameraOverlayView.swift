@@ -246,11 +246,8 @@ class CameraOverlayView: UIImageView {
     }
     
     
-    func getCprRateResult() -> Double {
-        pressCount = wristList.count
-        let minutes = 60.0 * 2.0
-        // Per second basis
-        return Double(pressCount) / minutes
+    func getCprRateResult() -> Int {
+        return pressCount / 2
     }
     
     func getArmAngleResult() -> (correct: Int, nonCorrect: Int) {
@@ -307,7 +304,7 @@ class CameraOverlayView: UIImageView {
             }
         }
         
-        let value: CGFloat = 20
+        let value: CGFloat = 25
         
         let isElbowLeftVertical = abs(shoulderLeft.x - elbowLeft.x) < value && abs(elbowLeft.x - wristLeft.x) < value
         && wristLeft.y > elbowLeft.y && elbowLeft.y > shoulderLeft.y

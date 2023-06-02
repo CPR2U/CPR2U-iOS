@@ -21,20 +21,20 @@ enum AngleStatus: String {
     
     // 팔 각도
     // CORRECT : NON-CORRECT
-    // 7:3     : 33점
-    // 6:4     : 22점
-    // 5:5     : 11점
-    // 나머지    : 5점
+    // 7:3     : 40점
+    // 6:4     : 25점
+    // 5:5     : 10점
+    // 나머지    : 0점
     var score: Int {
         switch self {
         case .adequate:
-            return 33
+            return 40
         case .almost:
-            return 22
+            return 25
         case .notGood:
-            return 11
+            return 10
         case .bad:
-            return 5
+            return 0
         }
     }
     
@@ -122,10 +122,10 @@ enum PressDepthStatus: String {
     case wrong = "Wrong"
     
     // 압박 깊이 : 20%
-    // 30 이상    : 15
-    // 18 - 30   : 33
-    // 5 - 18   : 15
-    // 0  - 5.  : 5
+    // 30 이상    : 10
+    // 18 - 30   : 20
+    // 5 - 18   : 10
+    // 0  - 5.  : 0
     var score: Int {
         switch self {
         case .deep:
@@ -193,8 +193,8 @@ enum AngelStatus: Int {
 }
 
 enum TimerType: Int {
-    case lecture = 5//3001
-    case posture = 126
+    case lecture = 120
+    case posture =  126
     case other = 0
 }
 
@@ -252,7 +252,7 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
     private var currentTimerType = TimerType.other
     var timer = Timer.publish(every: 1, on: .current, in: .common)
     
-    private var compressionRate: Double?
+    private var compressionRate: Int?
     private var angleRate: (correct: Int?, nonCorrect: Int?)
     private var pressDepthRate: CGFloat?
     
@@ -492,7 +492,7 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         return (compResult, angleResult, pressDepthResult)
     }
     
-    func setPostureResult(compCount: Double, armAngleCount: (correct: Int, nonCorrect: Int), pressDepth: CGFloat) {
+    func setPostureResult(compCount: Int, armAngleCount: (correct: Int, nonCorrect: Int), pressDepth: CGFloat) {
         compressionRate = compCount
         angleRate.correct = armAngleCount.correct
         angleRate.nonCorrect = armAngleCount.nonCorrect
