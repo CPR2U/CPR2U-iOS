@@ -67,7 +67,6 @@
 		3A70256B29D4292E00225F56 /* AddressEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256A29D4292E00225F56 /* AddressEndPoint.swift */; };
 		3A70256D29D4293800225F56 /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256C29D4293800225F56 /* AddressManager.swift */; };
 		3A70256F29D4293E00225F56 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70256E29D4293E00225F56 /* Address.swift */; };
-		3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A70258429D4C12100225F56 /* CPR_Posture_Sound.mp3 */; };
 		3A70258929D5BD9A00225F56 /* DispatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258829D5BD9A00225F56 /* DispatchViewController.swift */; };
 		3A70258B29D5BFA300225F56 /* DispatchDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */; };
 		3A70259029D5CAF300225F56 /* DispatchEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */; };
@@ -115,6 +114,7 @@
 		3AF695272A1DD567001CA915 /* PosePracticeCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF695262A1DD567001CA915 /* PosePracticeCountDownView.swift */; };
 		3AF695292A1DFE03001CA915 /* AddressVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF695282A1DFE03001CA915 /* AddressVerificationViewController.swift */; };
 		3AF6952B2A1E3C44001CA915 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6952A2A1E3C44001CA915 /* UITextField+.swift */; };
+		3AF6DEB42A293D7600FE5104 /* CPR_Posture_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3AF6DEB32A293D7600FE5104 /* CPR_Posture_Sound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -177,7 +177,6 @@
 		3A70256C29D4293800225F56 /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
 		3A70256E29D4293E00225F56 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3A70257929D4731B00225F56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3A70258429D4C12100225F56 /* CPR_Posture_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CPR_Posture_Sound.mp3; sourceTree = "<group>"; };
 		3A70258829D5BD9A00225F56 /* DispatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchViewController.swift; sourceTree = "<group>"; };
 		3A70258A29D5BFA300225F56 /* DispatchDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchDescriptionView.swift; sourceTree = "<group>"; };
 		3A70258F29D5CAF300225F56 /* DispatchEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchEndPoint.swift; sourceTree = "<group>"; };
@@ -550,7 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				3A8C31B729D6FAAB004A4B84 /* CPR_Sound.mp3 */,
-				3A70258429D4C12100225F56 /* CPR_Posture_Sound.mp3 */,
+				3AF6DEB32A293D7600FE5104 /* CPR_Posture_Sound.mp3 */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -785,7 +784,7 @@
 				3A2FF4C12A0CC9D8001F6132 /* GoogleService-Info.plist in Resources */,
 				3A2FF4C02A0CC9D2001F6132 /* Private.plist in Resources */,
 				3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */,
-				3A70258529D4C12100225F56 /* CPR_Posture_Sound.mp3 in Resources */,
+				3AF6DEB42A293D7600FE5104 /* CPR_Posture_Sound.mp3 in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3A2FF4C62A0D0EDF001F6132 /* Localizable.strings in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
