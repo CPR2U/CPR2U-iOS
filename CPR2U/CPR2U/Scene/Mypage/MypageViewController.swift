@@ -19,7 +19,6 @@ final class MypageViewController: UIViewController {
         let view = UITableView(frame: CGRect.zero, style: .insetGrouped)
         view.backgroundColor = .white
         view.sectionHeaderTopPadding = 0
-        view.isScrollEnabled = false
         view.showsVerticalScrollIndicator = false
         return view
     }()

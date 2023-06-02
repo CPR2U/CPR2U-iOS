@@ -100,8 +100,7 @@ final class CertificateStatusView: UIView {
     func setUpStatus(as status: AngelStatus, leftDay: Int?) {
         
         let imgName = status.certificationImageName()
-        certificateImage.image = UIImage(named: imgName)?.withRenderingMode(.alwaysTemplate)
-        certificateImage.tintColor = .mainRed
+        certificateImage.image = UIImage(named: imgName)
         
         var statusString: String
         if let leftDayString = leftDay {

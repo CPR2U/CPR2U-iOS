@@ -153,7 +153,7 @@ final class MypageStatusView: UIView {
         
         [periodLabel, progressView, expirationLabel].forEach({$0.isHidden = (certificate.status != .acquired) })
         
-        progressView.progress = Float(leftDay)/90
+        progressView.progress = 1 - Float(leftDay)/90
         expirationLabel.text = leftDay.numberAsExpirationDate()
     }
     

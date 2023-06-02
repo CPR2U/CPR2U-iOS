@@ -81,6 +81,7 @@
 		3A91C2CF29D0396500028003 /* CallEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2CE29D0396500028003 /* CallEndPoint.swift */; };
 		3A91C2D129D0396E00028003 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D029D0396E00028003 /* CallManager.swift */; };
 		3A91C2D329D03FCC00028003 /* CallerLocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */; };
+		3AA3CD832A29B96B006AC4D1 /* CPR_Posture_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3AA3CD822A29B96B006AC4D1 /* CPR_Posture_Sound.mp3 */; };
 		3AA636AE29AE5055006BB5EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AD29AE5055006BB5EF /* AppDelegate.swift */; };
 		3AA636B029AE5055006BB5EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */; };
 		3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA636B629AE5057006BB5EF /* Assets.xcassets */; };
@@ -114,7 +115,7 @@
 		3AF695272A1DD567001CA915 /* PosePracticeCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF695262A1DD567001CA915 /* PosePracticeCountDownView.swift */; };
 		3AF695292A1DFE03001CA915 /* AddressVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF695282A1DFE03001CA915 /* AddressVerificationViewController.swift */; };
 		3AF6952B2A1E3C44001CA915 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6952A2A1E3C44001CA915 /* UITextField+.swift */; };
-		3AF6DEB42A293D7600FE5104 /* CPR_Posture_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3AF6DEB32A293D7600FE5104 /* CPR_Posture_Sound.mp3 */; };
+		3AF6DEB42A293D7600FE5104 /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -191,6 +192,7 @@
 		3A91C2CE29D0396500028003 /* CallEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEndPoint.swift; sourceTree = "<group>"; };
 		3A91C2D029D0396E00028003 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
 		3A91C2D229D03FCC00028003 /* CallerLocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallerLocationInfo.swift; sourceTree = "<group>"; };
+		3AA3CD822A29B96B006AC4D1 /* CPR_Posture_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = CPR_Posture_Sound.mp3; path = ../../../../../../2023_GDSC_Solution_Challenge/Midi/CPR_Posture_Sound.mp3; sourceTree = "<group>"; };
 		3AA636AA29AE5055006BB5EF /* CPR2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPR2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA636AD29AE5055006BB5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA636AF29AE5055006BB5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -549,7 +551,7 @@
 			isa = PBXGroup;
 			children = (
 				3A8C31B729D6FAAB004A4B84 /* CPR_Sound.mp3 */,
-				3AF6DEB32A293D7600FE5104 /* CPR_Posture_Sound.mp3 */,
+				3AA3CD822A29B96B006AC4D1 /* CPR_Posture_Sound.mp3 */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -784,12 +786,13 @@
 				3A2FF4C12A0CC9D8001F6132 /* GoogleService-Info.plist in Resources */,
 				3A2FF4C02A0CC9D2001F6132 /* Private.plist in Resources */,
 				3A8C31B829D6FAAB004A4B84 /* CPR_Sound.mp3 in Resources */,
-				3AF6DEB42A293D7600FE5104 /* CPR_Posture_Sound.mp3 in Resources */,
+				3AF6DEB42A293D7600FE5104 /* (null) in Resources */,
 				3AA636C929B08402006BB5EF /* NotoSans-Regular.ttf in Resources */,
 				3A2FF4C62A0D0EDF001F6132 /* Localizable.strings in Resources */,
 				3AA636C829B08402006BB5EF /* NotoSans-Bold.ttf in Resources */,
 				3A324CD829C60E6400165E2E /* movenet_thunder.tflite in Resources */,
 				3AA636BA29AE5057006BB5EF /* LaunchScreen.storyboard in Resources */,
+				3AA3CD832A29B96B006AC4D1 /* CPR_Posture_Sound.mp3 in Resources */,
 				3AA636B729AE5057006BB5EF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
