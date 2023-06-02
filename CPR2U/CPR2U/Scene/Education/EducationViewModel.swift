@@ -8,48 +8,9 @@
 import Combine
 import UIKit
 
-// Tensorflow 관련 수치 Notation은  추후 Refactoring 시 재검토 예정
-enum CompressionRateStatus: String {
-    case tooSlow = "Too Slow"
-    case slow = "Slow"
-    case adequate = "Adequate"
-    case fast = "Fast"
-    case tooFast = "Too Fast"
-    case wrong = "Wrong"
-    
-    // 압박 속도
-    // 190-250 : 33점
-    // 170-270 : 22점
-    // 150-290 : 11점
-    var score: Int {
-        switch self {
-        case .adequate:
-            return 33
-        case .slow, .fast:
-            return 22
-        case .tooSlow, .tooFast:
-            return 11
-        case .wrong:
-            return 0
-        }
-    }
-    
-    var description: String {
-        switch self {
-        case .tooSlow:
-            return "It's too slow. Press faster"
-        case .slow:
-            return "It's slow. Press more faster"
-        case .adequate:
-            return "Good job! Very Adequate"
-        case .fast:
-            return "It's fast. Press more slower"
-        case .tooFast:
-            return "It's too fast. Press slower"
-        case .wrong:
-            return "Something went wrong. Try Again"
-        }
-    }
+struct CertificateStatus {
+    let status: AngelStatus
+    let leftDay: Int?
 }
 
 enum AngleStatus: String {
@@ -89,16 +50,78 @@ enum AngleStatus: String {
             return "You need some more practice"
         }
     }
+    
+    var isSucceed: Bool {
+        switch self {
+        case .adequate:
+            return true
+        case .almost, .notGood, .bad:
+            return false
+        }
+    }
+}
+
+// Tensorflow 관련 수치 Notation은  추후 Refactoring 시 재검토 예정
+enum CompressionRateStatus: String {
+    case tooSlow = "Too Slow"
+    case slow = "Slow"
+    case adequate = "Adequate"
+    case fast = "Fast"
+    case tooFast = "Too Fast"
+    case wrong = "Wrong"
+    
+    // 압박 속도: 40%
+    // 100 - 130 : 40점
+    // 80 - 150 : 25점
+    // 80 아래 | 150 위 : 10점
+    var score: Int {
+        switch self {
+        case .adequate:
+            return 40
+        case .slow, .fast:
+            return 25
+        case .tooSlow, .tooFast:
+            return 10
+        case .wrong:
+            return 0
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .tooSlow:
+            return "It's too slow. Press faster"
+        case .slow:
+            return "It's slow. Press more faster"
+        case .adequate:
+            return "Good job! Very Adequate"
+        case .fast:
+            return "It's fast. Press more slower"
+        case .tooFast:
+            return "It's too fast. Press slower"
+        case .wrong:
+            return "Something went wrong. Try Again"
+        }
+    }
+    
+    var isSucceed: Bool {
+        switch self {
+        case .adequate:
+            return true
+        case .tooSlow, .slow, .fast, .tooFast, .wrong:
+            return false
+        }
+    }
+    
 }
 
 enum PressDepthStatus: String {
     case deep = "Deep"
     case adequate = "Adequate"
     case shallow = "Slightly Shallow"
-    case tooShallow = "Too Shallow"
     case wrong = "Wrong"
     
-    // 압박 깊이
+    // 압박 깊이 : 20%
     // 30 이상    : 15
     // 18 - 30   : 33
     // 5 - 18   : 15
@@ -106,13 +129,11 @@ enum PressDepthStatus: String {
     var score: Int {
         switch self {
         case .deep:
-            return 15
+            return 10
         case .adequate:
-            return 33
+            return 20
         case .shallow:
-            return 15
-        case .tooShallow:
-            return 5
+            return 10
         case .wrong:
             return 0
         }
@@ -126,20 +147,25 @@ enum PressDepthStatus: String {
             return "Good job! Very adequate!"
         case .shallow:
             return "Press little deeper"
-        case .tooShallow:
-            return "It's too shallow. Press deeply"
         case .wrong:
             return "Something went wrong. Try Again"
             
         }
     }
+    
+    var isSucceed: Bool {
+        switch self {
+        case .adequate:
+            return true
+        case .deep, .shallow, .wrong:
+            return false
+        }
+    }
 }
 
-struct CertificateStatus {
-    let status: AngelStatus
-    let leftDay: Int?
-}
-
+//func getArmAngleResult() -> (correct: Int, nonCorrect: Int) {
+//    return (correctAngle, incorrectAngle)
+//}
 enum AngelStatus: Int {
     case acquired
     case expired
@@ -226,7 +252,7 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
     private var currentTimerType = TimerType.other
     var timer = Timer.publish(every: 1, on: .current, in: .common)
     
-    private var compressionRate: Int?
+    private var compressionRate: Double?
     private var angleRate: (correct: Int?, nonCorrect: Int?)
     private var pressDepthRate: CGFloat?
     
@@ -417,15 +443,15 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         
         var compResult: CompressionRateStatus = .adequate
         switch compRate {
-        case ...170:
+        case ...80:
             compResult = .tooSlow
-        case 170...190:
+        case 80...100:
             compResult = .slow
-        case 190...250:
+        case 100...130:
             compResult = .adequate
-        case 250...270:
+        case 130...150:
             compResult = .fast
-        case 270...:
+        case 150...:
             compResult = .tooFast
         default:
             compResult = .wrong
@@ -451,23 +477,21 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         
         var pressDepthResult: PressDepthStatus = .wrong
         
-        switch pressRate {
-        case 30.0... :
-            pressDepthResult = .deep
-        case 18.0..<30.0:
-            pressDepthResult = .adequate
-        case 5.0..<18.0:
-            pressDepthResult = .shallow
-        case 0.0..<5.0:
-            pressDepthResult = .tooShallow
-        default:
+        let defaultValue = UIScreen.main.bounds.height
+        if defaultValue / 20 < pressRate {
             pressDepthResult = .wrong
+        } else if defaultValue / 30 < pressRate {
+            pressDepthResult = .deep
+        } else if defaultValue / 50 < pressRate {
+            pressDepthResult = .adequate
+        } else {
+            pressDepthResult = .shallow
         }
         
         return (compResult, angleResult, pressDepthResult)
     }
     
-    func setPostureResult(compCount: Int, armAngleCount: (correct: Int, nonCorrect: Int), pressDepth: CGFloat) {
+    func setPostureResult(compCount: Double, armAngleCount: (correct: Int, nonCorrect: Int), pressDepth: CGFloat) {
         compressionRate = compCount
         angleRate.correct = armAngleCount.correct
         angleRate.nonCorrect = armAngleCount.nonCorrect

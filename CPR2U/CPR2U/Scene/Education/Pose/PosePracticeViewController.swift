@@ -255,7 +255,7 @@ final class PosePracticeViewController: UIViewController {
                     timeLabel.text = (count - counter - assumePostureCountSec).numberAsTime()
                     if counter == count - assumePostureCountSec {
                         cameraFeedManager.stopRunning()
-                        viewModel.setPostureResult(compCount: overlayView.getCompressionTotalCount(), armAngleCount: overlayView.getArmAngleRate(), pressDepth: overlayView.getAveragePressDepth())
+                        viewModel.setPostureResult(compCount: overlayView.getCprRateResult(), armAngleCount: overlayView.getArmAngleResult(), pressDepth: overlayView.getCprDepthResult())
                         Task {
                             usleep(1000000)
                             audioPlayer.stop()

@@ -52,9 +52,6 @@ final class PosePracticeResultViewController: UIViewController {
         label.font = UIFont(weight: .bold, size: 72)
         label.textAlignment = .center
         label.textColor = .mainWhite
-        label.text = "96/100" // TEST
-        label.attributedText = arrangeScoreText(text: label.text ?? "")
-        
         return label
     }()
     
@@ -64,7 +61,8 @@ final class PosePracticeResultViewController: UIViewController {
         label.textAlignment = .left
         label.numberOfLines = 2
         label.textColor = .mainWhite
-        label.text = "Congratulations!\nYou passed the CPR posture test." // TEST
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.7
         return label
     }()
     
@@ -81,8 +79,6 @@ final class PosePracticeResultViewController: UIViewController {
         view.setImage(imgName: "ruler")
         view.setResultImageView(isSuccess: false)
         view.setTitle(title: "Compression Rate")
-        view.setResultLabelText(as: "0.5 per 1 time")
-        view.setDescriptionLabelText(as: "It’s too fast. Little bit Slower")
         return view
     }()
     
@@ -91,8 +87,6 @@ final class PosePracticeResultViewController: UIViewController {
         view.setImage(imgName: "ruler")
         view.setResultImageView(isSuccess: true)
         view.setTitle(title: "Press Depth")
-        view.setResultLabelText(as: "Slightly shallow")
-        view.setDescriptionLabelText(as: "Press little deeper")
         return view
     }()
     
@@ -101,8 +95,6 @@ final class PosePracticeResultViewController: UIViewController {
         view.setImage(imgName: "ruler")
         view.setResultImageView(isSuccess: true)
         view.setTitle(title: "Arm Angle")
-        view.setResultLabelText(as: "Adequate")
-        view.setDescriptionLabelText(as: "Nice Angle!")
         return view
     }()
     
@@ -283,12 +275,31 @@ final class PosePracticeResultViewController: UIViewController {
         let result = viewModel.judgePostureResult()
         compressRateResultView.setResultLabelText(as: result.compResult.rawValue)
         compressRateResultView.setDescriptionLabelText(as: result.compResult.description)
+        armAngleResultView.setResultImageView(isSuccess: result.compResult.isSucceed)
+        
         armAngleResultView.setResultLabelText(as: result.angleResult.rawValue)
         armAngleResultView.setDescriptionLabelText(as: result.angleResult.description)
+        armAngleResultView.setResultImageView(isSuccess: result.angleResult.isSucceed)
+        
         pressDepthResultView.setResultLabelText(as: result.pressDepth.rawValue)
         pressDepthResultView.setDescriptionLabelText(as: result.pressDepth.description)
+        pressDepthResultView.setResultImageView(isSuccess: result.pressDepth.isSucceed)
+        
         score = result.compResult.score + result.angleResult.score + result.pressDepth.score + 1
-        finalResultView.setUpScore(score: score)
+        setUpScore(score: score)
+        view.layoutIfNeeded()
+    }
+    
+    func setUpScore(score: Int) {
+        let scoreStr = "\(score)/100"
+        scoreLabel.text = scoreStr
+        scoreLabel.attributedText = arrangeScoreText(text: scoreLabel.text ?? "")
+        
+        if score >= 80 {
+            scoreDescriptionLabel.text = "pe_pass_txt".localized()
+        } else {
+            scoreDescriptionLabel.text = "pe_fail_txt".localized()
+        }
     }
     
     private func arrangeScoreText(text: String) -> NSAttributedString {
@@ -317,6 +328,7 @@ final class PosePracticeResultViewController: UIViewController {
     private func setPageControlSelectedPage(currentPage:Int) {
         pageControl.currentPage = currentPage
     }
+    
 }
 
 extension PosePracticeResultViewController: UIScrollViewDelegate {
