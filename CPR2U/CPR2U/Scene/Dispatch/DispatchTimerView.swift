@@ -139,6 +139,14 @@ class DispatchTimerView: UIView {
                     let distance = calculateDistanceFromCurrentLocation(callerInfo: callerInfo, userLocation: userLocation)
                     if distance < 70 { // ORIGIN
                         guard let dispatchId = dispatchId else { return }
+                        Task {
+                            guard let viewModel = viewModel else { return }
+                            let isSucceed = try await viewModel.dispatchEnd(dispatchId: dispatchId)
+                            if isSucceed  {
+                            } else {
+                                print("CAN'T DISMISS")
+                            }
+                        }
                         delegate?.noticeAppear(dispatchId: dispatchId)
                         cancelTimer()
                         parentViewController().dismiss(animated: true)
