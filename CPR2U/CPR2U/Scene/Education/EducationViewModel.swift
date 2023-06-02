@@ -477,7 +477,8 @@ final class EducationViewModel: AsyncOutputOnlyViewModelType {
         
         var pressDepthResult: PressDepthStatus = .wrong
         
-        let defaultValue = UIScreen.main.bounds.height
+        let defaultValue = UIScreen.main.bounds.width * 3
+        
         if defaultValue / 20 < pressRate {
             pressDepthResult = .wrong
         } else if defaultValue / 30 < pressRate {

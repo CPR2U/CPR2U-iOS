@@ -252,7 +252,7 @@ final class PosePracticeViewController: UIViewController {
                         viewModel.setPostureResult(compCount: overlayView.getCprRateResult(), armAngleCount: overlayView.getArmAngleResult(), pressDepth: overlayView.getCprDepthResult())
                         Task {
                             usleep(1000000)
-                            audioPlayer.stop()
+                            audioPlayer?.stop()
                             let vc = PosePracticeResultViewController(viewModel: viewModel)
                             vc.modalPresentationStyle = .overFullScreen
                             self.present(vc, animated: true)
@@ -262,6 +262,7 @@ final class PosePracticeViewController: UIViewController {
                 } else if counter == assumePostureCountSec + 1 {
                     timeLabel.text = (count - counter - assumePostureCountSec).numberAsTime()
                     posePracticeCountDownView.fadeOut()
+                    overlayView.flag = true
                 } else {
                     posePracticeCountDownView.changeTimerValue(to: counter - 1)
                 }
@@ -274,7 +275,7 @@ final class PosePracticeViewController: UIViewController {
         }.store(in: &cancellables)
         
         quitButton.tapPublisher.sink { [weak self] in
-            self?.audioPlayer.stop()
+            self?.audioPlayer?.stop()
             self?.setUpOrientation(as: .portrait)
             self?.dismiss(animated: true)
         }.store(in: &cancellables)

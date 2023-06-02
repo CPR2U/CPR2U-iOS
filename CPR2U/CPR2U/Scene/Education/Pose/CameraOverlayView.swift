@@ -39,6 +39,7 @@ class CameraOverlayView: UIImageView {
     private var increased: Bool = true
     private var wristList: [CGFloat] = []
     
+    var flag: Bool = false
     required init() {
         super.init(frame: CGRect.zero)
         
@@ -88,8 +89,11 @@ class CameraOverlayView: UIImageView {
         }
         guard let strokes = strokes(from: person) else { return }
         
-        measureCprRate(person: person)
-        measureElbowDegree(person: person)
+        if flag == true {
+            measureCprRate(person: person)
+            measureElbowDegree(person: person)
+        }   
+        
         image.draw(at: .zero)
         context.setLineWidth(Config.dot.radius)
         context.setStrokeColor(UIColor.blue.cgColor)

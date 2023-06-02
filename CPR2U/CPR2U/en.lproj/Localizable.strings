@@ -128,7 +128,7 @@ phdr: placeholder
 "call_ins_txt" = "Call 911";
 "call_des_txt" = "Calling 911 is the first priority. Ask the people around you to report or perform CPR after reporting. If the report is false, you will be restricted from using the app.";
 "pe_pass_txt" = "Congratulations!\nYou passed the CPR posture test.";
-"pe_fail_txt" = "Failed...\nYou need to practice CPR posture more";
+"pe_fail_txt" = "Failed.\nYou need to practice CPR posture more.";
 
 
 // Dispatch
