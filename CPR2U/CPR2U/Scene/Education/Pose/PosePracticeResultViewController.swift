@@ -22,7 +22,9 @@ final class PosePracticeResultViewController: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.frame = CGRect(x: 0, y: 0, width: 844, height: 390)
+        let landscapeWidth = UIScreen.main.bounds.height
+        let landscapeHeight = UIScreen.main.bounds.width
+        scrollView.frame = CGRect(x: 0, y: 0, width: landscapeWidth, height: landscapeHeight)
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentInsetAdjustmentBehavior = .never
@@ -171,6 +173,7 @@ final class PosePracticeResultViewController: UIViewController {
         ])
         
         scrollView.contentSize.height = scrollView.frame.height
+
         
         NSLayoutConstraint.activate([
             scoreStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 95),

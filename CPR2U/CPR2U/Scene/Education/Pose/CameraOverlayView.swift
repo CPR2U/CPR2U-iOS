@@ -239,12 +239,8 @@ class CameraOverlayView: UIImageView {
         
         let isCorrect = shoulder.x - elbow.x < 20 && elbow.x - wrist.x < 20
         if isCorrect {
-            print("올바른 자세에요!")
-            // TODO: Count correct angles
             correctAngle += 1
         } else {
-            print("팔을 90도로 유지하세요!")
-            // TODO: Count incorrect angles
             incorrectAngle += 1
         }
     }

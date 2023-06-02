@@ -130,15 +130,14 @@ class DispatchTimerView: UIView {
             .autoconnect()
             .scan(startTime) { counter, _ in counter + 1 }
             .sink { [self] counter in
-//                if counter > 1501 {
-                if counter > 50000 {
+                if counter > 900 {
                     timer?.connect().cancel()
+                    parentViewController().dismiss(animated: true)
                 } else {
                     let userLocation = manager.setLocation()
                     guard let callerInfo = callerInfo else { return }
                     let distance = calculateDistanceFromCurrentLocation(callerInfo: callerInfo, userLocation: userLocation)
-//                    if distance < 70 { // ORIGIN
-                    if distance < 200 {
+                    if distance < 70 { // ORIGIN
                         guard let dispatchId = dispatchId else { return }
                         delegate?.noticeAppear(dispatchId: dispatchId)
                         cancelTimer()
