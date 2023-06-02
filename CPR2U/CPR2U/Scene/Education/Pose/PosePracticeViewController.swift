@@ -23,6 +23,7 @@ enum Constants {
 
 final class PosePracticeViewController: UIViewController {
 
+    var person: Person?
     private let timeImageView: UIImageView = {
         let view = UIImageView()
         let config = UIImage.SymbolConfiguration(pointSize: 26, weight: .regular, scale: .medium)
@@ -224,20 +225,13 @@ final class PosePracticeViewController: UIViewController {
         viewModel.timer = Timer.publish(every: 0.1, on: .current, in: .common)
         viewModel.timer
             .autoconnect()
-            .scan(0) { counter, _ in counter + 1 } // TEST CODE
-            .sink { [self] counter in
-                // MARK: Tensorflow 로직 작성 후 아래의 코드로 적용 예정
-//                if (viewModel.isTrue()) {
-//                poseAvailabilityCheckView.fadeOut()
-//                posePracticeCountDownView.fadeIn()
-//                viewModel.timer.connect().cancel()
-//                setTimer()
-//                playSound()
-//                }
-                if (counter == 60) { // TEST CODE
-                    poseAvailabilityCheckView.fadeOut()
-                    posePracticeCountDownView.fadeIn()
-                    viewModel.timer.connect().cancel()
+            .scan(0) { counter, _ in counter + 1 }
+            .sink { [weak self] counter in
+                guard let self = self, let person = person else { return }
+                if (self.overlayView.measureIsPreparing(person: person)) {
+                    self.poseAvailabilityCheckView.fadeOut()
+                    self.posePracticeCountDownView.fadeIn()
+                    self.viewModel.timer.connect().cancel()
                     setTimer()
                     playSound()
                 }
@@ -249,9 +243,9 @@ final class PosePracticeViewController: UIViewController {
         viewModel.timer = Timer.publish(every: 1, on: .current, in: .common)
         viewModel.timer
             .autoconnect()
-            .scan(0) { counter, _ in counter + 1 }
+            .scan(1) { counter, _ in counter + 1 }
             .sink { [self] counter in
-                if counter > assumePostureCountSec {
+                if counter > assumePostureCountSec + 1 {
                     timeLabel.text = (count - counter - assumePostureCountSec).numberAsTime()
                     if counter == count - assumePostureCountSec {
                         cameraFeedManager.stopRunning()
@@ -265,17 +259,18 @@ final class PosePracticeViewController: UIViewController {
                         }
                     viewModel.timer.connect().cancel()
                     }
-                } else if counter == assumePostureCountSec {
+                } else if counter == assumePostureCountSec + 1 {
+                    timeLabel.text = (count - counter - assumePostureCountSec).numberAsTime()
                     posePracticeCountDownView.fadeOut()
                 } else {
-                    posePracticeCountDownView.changeTimerValue(to: counter)
+                    posePracticeCountDownView.changeTimerValue(to: counter - 1)
                 }
         }.store(in: &cancellables)
     }
     
     private func setUpAction() {
         soundSwitch.isOnPublisher.sink { isOn in
-            self.audioPlayer.volume = isOn ? 1 : 0
+            self.audioPlayer?.volume = isOn ? 1 : 0
         }.store(in: &cancellables)
         
         quitButton.tapPublisher.sink { [weak self] in
@@ -328,8 +323,8 @@ extension PosePracticeViewController: CameraFeedManagerDelegate {
                         self.overlayView.image = image
                         return
                     }
-                    
                     self.overlayView.draw(at: image, person: result)
+                    self.person = result
                 }
             } catch {
                 os_log("Error running pose estimation.", type: .error)
