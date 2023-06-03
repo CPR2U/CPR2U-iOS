@@ -137,7 +137,7 @@ class DispatchTimerView: UIView {
                     let userLocation = manager.setLocation()
                     guard let callerInfo = callerInfo else { return }
                     let distance = calculateDistanceFromCurrentLocation(callerInfo: callerInfo, userLocation: userLocation)
-                    if distance < 70 { // ORIGIN
+                    if distance < 20 {
                         guard let dispatchId = dispatchId else { return }
                         Task {
                             guard let viewModel = viewModel else { return }
