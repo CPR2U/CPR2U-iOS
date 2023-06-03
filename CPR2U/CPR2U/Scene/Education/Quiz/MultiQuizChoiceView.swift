@@ -39,29 +39,19 @@ final class MultiQuizChoiceView: QuizChoiceView {
         self.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        choices.forEach({
-            stackView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            
-            $0.widthAnchor.constraint(equalToConstant: 334).isActive = true
-            $0.heightAnchor.constraint(equalToConstant: 52).isActive = true
-            $0.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        })
-        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            stackView.widthAnchor.constraint(equalToConstant: 260)
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12)
         ])
         
-        NSLayoutConstraint.activate([
-            choices[0].topAnchor.constraint(equalTo: stackView.topAnchor),
-            choices[1].topAnchor.constraint(equalTo: choices[0].bottomAnchor, constant: 26),
-            choices[2].topAnchor.constraint(equalTo: choices[1].bottomAnchor, constant: 26),
-            choices[3].topAnchor.constraint(equalTo: choices[2].bottomAnchor, constant: 26)
-        ])
+        choices.forEach({
+            stackView.addArrangedSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.heightAnchor.constraint(equalToConstant: 52).isActive = true
+            $0.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
+        })
         
         answerCenterPosition = choices[1].center
     }

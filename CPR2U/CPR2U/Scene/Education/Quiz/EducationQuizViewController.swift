@@ -116,7 +116,7 @@ final class EducationQuizViewController: UIViewController {
             oxChoiceView.topAnchor.constraint(equalTo: questionView.bottomAnchor, constant: 78),
             oxChoiceView.heightAnchor.constraint(equalToConstant: 80),
             multiChoiceView.topAnchor.constraint(equalTo: questionView.bottomAnchor, constant: 36),
-            multiChoiceView.heightAnchor.constraint(equalToConstant: 280)
+            multiChoiceView.heightAnchor.constraint(equalToConstant: 286)
         ])
         
         NSLayoutConstraint.activate([
