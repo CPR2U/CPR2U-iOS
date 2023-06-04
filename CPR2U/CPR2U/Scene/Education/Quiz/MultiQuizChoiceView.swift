@@ -46,13 +46,15 @@ final class MultiQuizChoiceView: QuizChoiceView {
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12)
         ])
         
+        var configuration = UIButton.Configuration.plain()
+        configuration.titlePadding = 8
         choices.forEach({
             stackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.heightAnchor.constraint(equalToConstant: 52).isActive = true
             $0.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
+            $0.configuration = configuration
         })
-        
         answerCenterPosition = choices[1].center
     }
     
