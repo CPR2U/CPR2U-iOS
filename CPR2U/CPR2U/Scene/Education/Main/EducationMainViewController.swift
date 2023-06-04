@@ -123,7 +123,7 @@ final class EducationMainViewController: UIViewController {
             
             output.certificateStatus?.sink { status in
                 self.certificateStatusView.setUpStatus(as: status.status, leftDay: status.leftDay)
-                if status.status == .acquired{
+                if status.status == .acquired {
                     if UserDefaultsManager.isCertificateNotice == false {
                         self.noticeView.noticeAppear()
                         UserDefaultsManager.isCertificateNotice = true

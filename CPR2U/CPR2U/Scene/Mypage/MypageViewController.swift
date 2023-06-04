@@ -163,6 +163,7 @@ extension MypageViewController: UITableViewDelegate, UITableViewDataSource {
                         await window.setRootViewController(AutoLoginViewController(), animated: true)
                         UserDefaultsManager.accessToken = ""
                         UserDefaultsManager.refreshToken = ""
+                        UserDefaultsManager.isCertificateNotice = false
                         self?.dismiss(animated: true)
                     }
                 }

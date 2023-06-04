@@ -70,7 +70,14 @@ public class QuizChoiceView: UIView {
             choices[1].setTitle("X", for: .normal)
         } else {
             for (index, choice) in choices.enumerated() {
-                choice.setTitle(answers?[index], for: .normal)
+                guard let answer = answers?[index] else { return }
+                choice.setTitle(answer, for: .normal)
+                
+                if answer.count > 24 {
+                    choice.titleLabel?.font = UIFont(weight: .regular, size: 20)
+                } else {
+                    choice.titleLabel?.font = UIFont(weight: .regular, size: 26)
+                }
             }
         }
     }
